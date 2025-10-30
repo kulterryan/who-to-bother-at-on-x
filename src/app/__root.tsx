@@ -1,5 +1,6 @@
 import { Outlet, createRootRoute, HeadContent, Scripts } from '@tanstack/react-router';
 import appCss from "./globals.css?url"
+import { ReactNode } from 'react';
 
 export const Route = createRootRoute({
   head: () => ({
@@ -18,22 +19,31 @@ export const Route = createRootRoute({
       },
     ],
   }),
-  component: RootLayout,
+  component: RootComponent,
   notFoundComponent: NotFound,
+  ssr: false,
 });
 
-function RootLayout() {
+function RootComponent() {
   return (
-    <html lang="en">
+    <RootLayout>
+      <Outlet />
+    </RootLayout>
+  )
+}
+
+function RootLayout({ children }: Readonly<{ children: ReactNode }>) {
+  return (
+    <html>
       <head>
-        <HeadContent />
+        {/* <HeadContent /> */}
       </head>
       <body>
-        <Outlet />
+        {children}
         <Scripts />
       </body>
     </html>
-  );
+  )
 }
 
 function NotFound() {
