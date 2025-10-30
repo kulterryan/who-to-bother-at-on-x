@@ -19,27 +19,22 @@ export const Route = createRootRoute({
       },
     ],
   }),
-  component: RootComponent,
+  component: RootLayout,
   notFoundComponent: NotFound,
   ssr: true,
 });
 
-function RootComponent() {
+function RootLayout() {
   return (
-    <RootLayout>
-      <Outlet />
-    </RootLayout>
-  )
-}
-
-function RootLayout({ children }: Readonly<{ children: ReactNode }>) {
-  return (
-    <html>
+    <html lang="en">
       <head>
-        {/* <HeadContent /> */}
+        <title>who to bother at Cloudflare on X</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta charSet="utf-8" />
+        <link rel="stylesheet" href={appCss} />
       </head>
       <body>
-        {children}
+        <Outlet />
         <Scripts />
       </body>
     </html>
