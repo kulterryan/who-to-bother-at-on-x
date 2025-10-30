@@ -19,7 +19,11 @@ function Page() {
     {
       name: "Cloudflare everything",
       contacts: [
-        { product: "CTO", handles: ["@dok2001"] },
+        { product: "Cloudflare CTO", handles: ["@dok2001"] },
+        { product: "Cloudflare Developers & AI", handles: ["@ritakozlov_", "@KankaniAbhishek"] },
+        { product: "AI Agents", handles: ["@threepointone"] },
+        { product: "storage & databases", handles: ["@elithrar"] },
+        { product: "workers", handles: ["@KentonVarda"]}
       ],
     },
   ]
