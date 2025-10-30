@@ -27,13 +27,23 @@ function Page() {
 
   const categories: Category[] = [
     {
-      name: "Cloudflare everything",
+      name: "Leadership",
       contacts: [
-        { product: "Cloudflare CTO", handles: ["@dok2001"] },
-        { product: "Cloudflare Developers & AI", handles: ["@ritakozlov_"] },
+        { product: "CTO", handles: ["@dok2001"] },
+      ],
+    },
+    {
+      name: "Developers & AI",
+      contacts: [
+        { product: "VP Developers & AI", handles: ["@ritakozlov_"] },
         { product: "AI Agents", handles: ["@threepointone"] },
-        { product: "storage & databases", handles: ["@elithrar"] },
-        { product: "workers", handles: ["@KentonVarda"]}
+      ],
+    },
+    {
+      name: "Infrastructure",
+      contacts: [
+        { product: "Storage & Databases", handles: ["@elithrar"] },
+        { product: "Workers", handles: ["@KentonVarda"] },
       ],
     },
   ]
