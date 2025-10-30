@@ -21,7 +21,7 @@ export const Route = createRootRoute({
   }),
   component: RootComponent,
   notFoundComponent: NotFound,
-  ssr: false,
+  ssr: true,
 });
 
 function RootComponent() {
@@ -36,7 +36,7 @@ function RootLayout({ children }: Readonly<{ children: ReactNode }>) {
   return (
     <html>
       <head>
-        {/* <HeadContent /> */}
+        <HeadContent />
       </head>
       <body>
         {children}
