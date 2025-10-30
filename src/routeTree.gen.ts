@@ -9,8 +9,20 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './app/__root'
+import { Route as VercelRouteImport } from './app/vercel'
+import { Route as CloudflareRouteImport } from './app/cloudflare'
 import { Route as IndexRouteImport } from './app/index'
 
+const VercelRoute = VercelRouteImport.update({
+  id: '/vercel',
+  path: '/vercel',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CloudflareRoute = CloudflareRouteImport.update({
+  id: '/cloudflare',
+  path: '/cloudflare',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -19,28 +31,50 @@ const IndexRoute = IndexRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/cloudflare': typeof CloudflareRoute
+  '/vercel': typeof VercelRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/cloudflare': typeof CloudflareRoute
+  '/vercel': typeof VercelRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/cloudflare': typeof CloudflareRoute
+  '/vercel': typeof VercelRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths: '/' | '/cloudflare' | '/vercel'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to: '/' | '/cloudflare' | '/vercel'
+  id: '__root__' | '/' | '/cloudflare' | '/vercel'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  CloudflareRoute: typeof CloudflareRoute
+  VercelRoute: typeof VercelRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/vercel': {
+      id: '/vercel'
+      path: '/vercel'
+      fullPath: '/vercel'
+      preLoaderRoute: typeof VercelRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/cloudflare': {
+      id: '/cloudflare'
+      path: '/cloudflare'
+      fullPath: '/cloudflare'
+      preLoaderRoute: typeof CloudflareRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -53,6 +87,8 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  CloudflareRoute: CloudflareRoute,
+  VercelRoute: VercelRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
