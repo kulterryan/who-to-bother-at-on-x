@@ -3,5 +3,8 @@
   "name": "who-to-bother-at-cf",
   "compatibility_date": "2025-09-02",
   "compatibility_flags": ["nodejs_compat"],
-  "main": "@tanstack/react-start/server-entry"
+  "main": "@tanstack/react-start/server-entry",
+  "placement": {
+    "mode": "smart"
+  }
 }
