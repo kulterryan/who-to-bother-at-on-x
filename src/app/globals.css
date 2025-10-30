@@ -3,8 +3,11 @@
 
 @custom-variant dark (&:is(.dark *));
 
+@import '@fontsource-variable/dm-sans';
+@import '@fontsource-variable/jetbrains-mono';
+
 :root {
-  --background: oklch(1 0 0);
+  --background: oklch(0.8858 0.0364 64.63);
   --foreground: oklch(0.145 0 0);
   --card: oklch(1 0 0);
   --card-foreground: oklch(0.145 0 0);
@@ -75,8 +78,8 @@
 }
 
 @theme inline {
-  --font-sans: 'Geist', 'Geist Fallback';
-  --font-mono: 'Geist Mono', 'Geist Mono Fallback';
+  --font-sans: 'DM Sans Variable', sans-serif; 
+  --font-mono: 'JetBrains Mono Variable', monospace; 
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
@@ -121,5 +124,11 @@
   }
   body {
     @apply bg-background text-foreground;
+  }
+  h1 {
+    @apply mb-12 flex items-center gap-2 text-2xl font-medium text-balance md:text-3xl;
+  }
+  p {
+    @apply mb-8 text-sm text-black;
   }
 }

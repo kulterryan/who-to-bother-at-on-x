@@ -1,30 +1,34 @@
-# who to bother at ▲ on X
+# who to bother at ☁️ on X
 
-*Automatically synced with your [v0.app](https://v0.app) deployments*
+A community-maintained directory of contacts for Cloudflare products and services on X (formerly Twitter).
 
-[![Deployed on Vercel](https://img.shields.io/badge/Deployed%20on-Vercel-black?style=for-the-badge&logo=vercel)](https://vercel.com/thehungrybird/v0-who-to-bother-at-on-x)
-[![Built with v0](https://img.shields.io/badge/Built%20with-v0.app-black?style=for-the-badge)](https://v0.app/chat/7R1BecHLyL8)
+[![Deployed on Cloudflare](https://img.shields.io/badge/Deployed%20on-Cloudflare-orange?style=for-the-badge&logo=cloudflare)](https://pages.cloudflare.com)
+[![Built with TanStack](https://img.shields.io/badge/Built%20with-TanStack-black?style=for-the-badge)](https://tanstack.com)
 
 ## Overview
 
-This repository will stay in sync with your deployed chats on [v0.app](https://v0.app).
-Any changes you make to your deployed app will be automatically pushed to this repository from [v0.app](https://v0.app).
+This is a community-maintained resource to help you find the right people to reach out to for various Cloudflare products and services on X. It is not officially affiliated with Cloudflare.
 
 ## Deployment
 
-Your project is live at:
+This project is deployed on Cloudflare Pages for optimal performance and global reach.
 
-**[https://vercel.com/thehungrybird/v0-who-to-bother-at-on-x](https://vercel.com/thehungrybird/v0-who-to-bother-at-on-x)**
+## Local Development
 
-## Build your app
+```bash
+# Install dependencies
+pnpm install
 
-Continue building your app on:
+# Start development server
+pnpm dev
 
-**[https://v0.app/chat/7R1BecHLyL8](https://v0.app/chat/7R1BecHLyL8)**
+# Build for production
+pnpm build
+```
 
 ## How It Works
 
-1. Create and modify your project using [v0.app](https://v0.app)
-2. Deploy your chats from the v0 interface
-3. Changes are automatically pushed to this repository
-4. Vercel deploys the latest version from this repository
+1. Browse products and topics
+2. Search for specific areas of interest
+3. Click any topic to copy all contact handles
+4. Reach out on X for community support
