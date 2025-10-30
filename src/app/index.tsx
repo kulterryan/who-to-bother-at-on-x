@@ -2,6 +2,7 @@
 
 import { createFileRoute, Link } from '@tanstack/react-router';
 import companiesRegistry from '@/data/companies.json';
+import { companyLogos } from '@/components/company-logos';
 import type { CompanyListItem } from '@/types/company';
 
 export const Route = createFileRoute('/')({
@@ -23,26 +24,34 @@ function HomePage() {
         <p className="mb-12 text-lg text-zinc-600">Find the right people to reach out to at your favorite tech companies</p>
 
         <div className="grid gap-6 md:grid-cols-2">
-          {companies.map((company) => (
-            <Link 
-              key={company.id}
-              to="/$company"
-              params={{ company: company.id }} 
-              className="group block rounded-xl border-2 border-zinc-200 bg-white p-6 transition-all hover:border-zinc-900 hover:shadow-lg"
-            >
-              <h2 className="mb-2 text-2xl font-semibold text-zinc-900 transition-colors group-hover:text-orange-600">
-                {company.name}
-              </h2>
-              <p className="text-sm text-zinc-600">{company.description}</p>
-              <div className="mt-4 inline-flex items-center gap-2 text-sm font-medium text-orange-600">
-                View contacts
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M5 12h14" />
-                  <path d="m12 5 7 7-7 7" />
-                </svg>
-              </div>
-            </Link>
-          ))}
+          {companies.map((company) => {
+            const logo = companyLogos[company.id];
+            return (
+              <Link 
+                key={company.id}
+                to="/$company"
+                params={{ company: company.id }} 
+                className="group block rounded-xl border-2 border-zinc-200 bg-white p-6 transition-all hover:border-zinc-900 hover:shadow-lg"
+              >
+                {logo && (
+                  <div className="mb-4">
+                    {logo}
+                  </div>
+                )}
+                <h2 className="mb-2 text-2xl font-semibold text-zinc-900 transition-colors group-hover:text-orange-600">
+                  {company.name}
+                </h2>
+                <p className="text-sm text-zinc-600">{company.description}</p>
+                <div className="mt-4 inline-flex items-center gap-2 text-sm font-medium text-orange-600">
+                  View contacts
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M5 12h14" />
+                    <path d="m12 5 7 7-7 7" />
+                  </svg>
+                </div>
+              </Link>
+            );
+          })}
         </div>
 
         <div className="mt-16 rounded-lg bg-zinc-50 p-6">

@@ -55,6 +55,18 @@ Thank you for your interest in contributing! This directory helps developers fin
 6. **Add your company logo** to `src/components/company-logos.tsx`:
    - Add your SVG logo to the `companyLogos` object
    - Use the same key as your `logoType` in the JSON file
+   - Include a `<title>` element for accessibility (e.g., `<title id="yourcompany-logo-title">YourCompany logo</title>`)
+   - Add `aria-labelledby="yourcompany-logo-title"` to the SVG element
+   
+   Example:
+   ```typescript
+   yourcompany: (
+     <svg viewBox="0 0 100 100" width="30" height="30" aria-labelledby="yourcompany-logo-title">
+       <title id="yourcompany-logo-title">YourCompany logo</title>
+       <path fill="currentColor" d="..." />
+     </svg>
+   ),
+   ```
 
 7. **Test locally**:
    ```bash
