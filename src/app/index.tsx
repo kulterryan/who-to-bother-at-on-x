@@ -6,6 +6,16 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Copy } from "lucide-react"
 import { createFileRoute } from "@tanstack/react-router"
 
+interface Contact {
+  product: string
+  handles: string[]
+}
+
+interface Category {
+  name: string
+  contacts: Contact[]
+}
+
 export const Route = createFileRoute('/')({ 
      component: Page,
  }) 
@@ -15,12 +25,12 @@ function Page() {
   const [searchQuery, setSearchQuery] = useState("")
   const [copiedProduct, setCopiedProduct] = useState<string | null>(null)
 
-  const categories = [
+  const categories: Category[] = [
     {
       name: "Cloudflare everything",
       contacts: [
         { product: "Cloudflare CTO", handles: ["@dok2001"] },
-        { product: "Cloudflare Developers & AI", handles: ["@ritakozlov_", "@KankaniAbhishek"] },
+        { product: "Cloudflare Developers & AI", handles: ["@ritakozlov_"] },
         { product: "AI Agents", handles: ["@threepointone"] },
         { product: "storage & databases", handles: ["@elithrar"] },
         { product: "workers", handles: ["@KentonVarda"]}
@@ -28,7 +38,7 @@ function Page() {
     },
   ]
 
-  const filteredCategories = categories
+  const filteredCategories: Category[] = categories
     .map((category) => ({
       ...category,
       contacts: category.contacts.filter((contact) => {
@@ -40,7 +50,7 @@ function Page() {
     }))
     .filter((category) => category.contacts.length > 0)
 
-  const copyHandlesToClipboard = async (product: string, handles: string[]) => {
+  const copyHandlesToClipboard = async (product: string, handles: string[]): Promise<void> => {
     const handlesString = handles.join(" ")
     try {
       await navigator.clipboard.writeText(handlesString)
