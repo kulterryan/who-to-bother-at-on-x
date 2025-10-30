@@ -1,0 +1,12 @@
+[
+  {
+    "id": "cloudflare",
+    "name": "Cloudflare",
+    "description": "Global cloud platform for security and performance"
+  },
+  {
+    "id": "vercel",
+    "name": "Vercel",
+    "description": "Frontend cloud platform for deploying web applications"
+  }
+]

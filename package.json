@@ -1,7 +1,7 @@
 {
-  "name": "who-to-bother-at-cf",
+  "name": "who-to-bother-on-x",
   "version": "0.1.0",
-  "private": true,
+  "license": "MIT",
   "scripts": {
     "dev": "vite dev",
     "build": "vite build && tsc --noEmit",

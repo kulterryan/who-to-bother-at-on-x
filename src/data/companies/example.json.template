@@ -1,0 +1,34 @@
+{
+  "id": "yourcompany",
+  "name": "Your Company Name",
+  "description": "Brief description of what your company does",
+  "logoType": "yourcompany",
+  "categories": [
+    {
+      "name": "Engineering",
+      "contacts": [
+        {
+          "product": "Frontend Developer",
+          "handles": ["@frontend_dev"]
+        },
+        {
+          "product": "Backend Developer",
+          "handles": ["@backend_dev"]
+        }
+      ]
+    },
+    {
+      "name": "Product & Design",
+      "contacts": [
+        {
+          "product": "Product Manager",
+          "handles": ["@product_lead"]
+        },
+        {
+          "product": "Designer",
+          "handles": ["@designer"]
+        }
+      ]
+    }
+  ]
+}

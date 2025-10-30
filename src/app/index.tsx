@@ -1,12 +1,15 @@
 'use client';
 
 import { createFileRoute, Link } from '@tanstack/react-router';
+import companiesRegistry from '@/data/companies.json';
+import type { CompanyListItem } from '@/types/company';
 
 export const Route = createFileRoute('/')({
   component: HomePage,
 });
 
 function HomePage() {
+  const companies = companiesRegistry as CompanyListItem[];
   return (
     <div className="min-h-screen bg-white text-zinc-900">
       <main className="mx-auto max-w-3xl px-6 py-16 md:py-24">
@@ -20,29 +23,26 @@ function HomePage() {
         <p className="mb-12 text-lg text-zinc-600">Find the right people to reach out to at your favorite tech companies</p>
 
         <div className="grid gap-6 md:grid-cols-2">
-          <Link to="/cloudflare" className="group block rounded-xl border-2 border-zinc-200 bg-white p-6 transition-all hover:border-zinc-900 hover:shadow-lg">
-            <h2 className="mb-2 text-2xl font-semibold text-zinc-900 transition-colors group-hover:text-orange-600">Cloudflare</h2>
-            <p className="text-sm text-zinc-600">Global cloud platform for security and performance</p>
-            <div className="mt-4 inline-flex items-center gap-2 text-sm font-medium text-orange-600">
-              View contacts
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M5 12h14" />
-                <path d="m12 5 7 7-7 7" />
-              </svg>
-            </div>
-          </Link>
-
-          <Link to="/vercel" className="group block rounded-xl border-2 border-zinc-200 bg-white p-6 transition-all hover:border-zinc-900 hover:shadow-lg">
-            <h2 className="mb-2 text-2xl font-semibold text-zinc-900 transition-colors group-hover:text-orange-600">Vercel</h2>
-            <p className="text-sm text-zinc-600">Frontend cloud platform for deploying web applications</p>
-            <div className="mt-4 inline-flex items-center gap-2 text-sm font-medium text-orange-600">
-              View contacts
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M5 12h14" />
-                <path d="m12 5 7 7-7 7" />
-              </svg>
-            </div>
-          </Link>
+          {companies.map((company) => (
+            <Link 
+              key={company.id}
+              to="/$company"
+              params={{ company: company.id }} 
+              className="group block rounded-xl border-2 border-zinc-200 bg-white p-6 transition-all hover:border-zinc-900 hover:shadow-lg"
+            >
+              <h2 className="mb-2 text-2xl font-semibold text-zinc-900 transition-colors group-hover:text-orange-600">
+                {company.name}
+              </h2>
+              <p className="text-sm text-zinc-600">{company.description}</p>
+              <div className="mt-4 inline-flex items-center gap-2 text-sm font-medium text-orange-600">
+                View contacts
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M5 12h14" />
+                  <path d="m12 5 7 7-7 7" />
+                </svg>
+              </div>
+            </Link>
+          ))}
         </div>
 
         <div className="mt-16 rounded-lg bg-zinc-50 p-6">
