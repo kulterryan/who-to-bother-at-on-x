@@ -17,7 +17,7 @@
     {
       "name": "General Support",
       "contacts": [
-        { "product": "Official Account", "handles": ["@planetscale"]},
+        { "product": "Official Account", "handles": ["@PlanetScale"]},
         { "product": "Official Support Account", "handles": ["@planetscalehelp"] , "email": "support@planetscale.com"}
       ]
     }

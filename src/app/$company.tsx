@@ -13,8 +13,8 @@ import planetscaleData from '@/data/companies/planetscale.json';
 // Create a map of company data
 const companyDataMap: Record<string, Company> = {
   cloudflare: cloudflareData as Company,
-  vercel: vercelData as Company,
   planetscale: planetscaleData as Company,
+  vercel: vercelData as Company,
 };
 
 export const Route = createFileRoute('/$company')({
