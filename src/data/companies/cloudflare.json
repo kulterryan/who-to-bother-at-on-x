@@ -48,6 +48,12 @@
       "contacts": [
         { "product": "Official Cloudflare Developers Account", "handles": ["@CloudflareDev"] }
       ]
+    },
+    {
+      "name": "Community: Reply Guys",
+      "contacts": [
+        { "product": "Unofficial Durable Man", "handles": ["@cmdhaus"] }
+      ]
     }
   ]
 }
