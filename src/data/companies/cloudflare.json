@@ -8,45 +8,25 @@
     {
       "name": "Official Accounts",
       "contacts": [
-        { "product" : "Official Cloudflare Account", "handles": ["@Cloudflare"] },
+        { "product": "Official Cloudflare Account", "handles": ["@Cloudflare"] },
+        { "product": "Official Cloudflare Developers Account", "handles": ["@CloudflareDev"] },
         { "product": "CTO", "handles": ["@dok2001"] }
       ]
     },
     {
-      "name": "Developer Advocacy & Community",
+      "name": "Developer Platform",
       "contacts": [
-        { "product": "Developer Advocate", "handles": ["@lauragift_"] },
-        { "product": "Manager of Developer Advocacy", "handles": ["@kristianf_"] }
+        { "product": "Cloudflare Workers", "handles": ["@KentonVarda", "@yagiznizipli"] },
+        { "product": "Cloudflare AI", "handles": ["@threepointone"] },
+        { "product": "D1 (Serverless SQL)", "handles": ["@ritakozlov_"] }
       ]
     },
     {
-      "name": "Developer Platform Leadership",
+      "name": "Developer Advocacy",
       "contacts": [
-        { "product": "VP of Developers & AI", "handles": ["@ritakozlov_"] }
-      ]
-    },
-    {
-      "name": "Cloudflare Workers",
-      "contacts": [
-        { "product": "Tech Lead / Architect", "handles": ["@KentonVarda"] },
-        { "product": "Engineering Manager", "handles": ["@yagiznizipli"] },
-        { "product": "Principal Systems Engineer", "handles": ["@threepointone"] }
-      ]
-    },
-    {
-      "name": "D1 (Serverless SQL)",
-      "contacts": [
-        { "product": "VP of Developers & AI", "handles": ["@ritakozlov_"] }
-      ]
-    },
-    {
-      "name": "R2 (Object Storage)",
-      "contacts": []
-    },
-    {
-      "name": "General Support",
-      "contacts": [
-        { "product": "Official Cloudflare Developers Account", "handles": ["@CloudflareDev"] }
+        { "product": "VP of Developers & AI", "handles": ["@ritakozlov_"] },
+        { "product": "Manager of Developer Advocacy", "handles": ["@kristianf_"] },
+        { "product": "Developer Advocate", "handles": ["@lauragift_"] }
       ]
     },
     {
