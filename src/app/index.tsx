@@ -4,6 +4,7 @@ import { createFileRoute, Link } from '@tanstack/react-router';
 import { companyLogos } from '@/components/company-logos';
 import type { CompanyListItem } from '@/types/company';
 import type { Company } from '@/types/company';
+import { GithubIcon } from 'lucide-react';
 
 // Auto-discover all company JSON files (excluding templates)
 const companyModules = import.meta.glob<{ default: Company }>('../data/companies/*.json', {
@@ -74,11 +75,11 @@ function HomePage() {
         <div className="mt-16 rounded-lg bg-zinc-50 p-6">
           <h3 className="mb-2 text-lg font-medium text-zinc-900">Want to add your company?</h3>
           <p className="text-sm text-zinc-600">
-            This is a community-maintained directory. Have more contacts or companies to add? Mention{' '}
-            <a href="https://x.com/thehungrybird_" target="_blank" rel="noopener noreferrer" className="text-orange-600 underline decoration-orange-300 underline-offset-4 transition-colors hover:text-orange-700 hover:decoration-orange-400">
-              @thehungrybird_
+            This is a community-maintained directory. Have more contacts or companies to add?{' '}
+            <a href="https://github.com/kulterryan/who-to-bother-at-on-x" target="_blank" rel="noopener noreferrer" className="text-orange-600 underline decoration-orange-300 underline-offset-4 transition-colors hover:text-orange-700 hover:decoration-orange-400">
+              Submit a pull request
             </a>{' '}
-            on X.
+            on GitHub and contribute to the community!
           </p>
         </div>
 
@@ -88,6 +89,18 @@ function HomePage() {
             @strehldev
           </a>
         </p>
+
+        <div className="mt-6 flex justify-center">
+          <a 
+            href="https://github.com/kulterryan/who-to-bother-at-on-x" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 text-zinc-600 transition-colors hover:text-zinc-900"
+            aria-label="View on GitHub"
+          >
+            <GithubIcon className="h-4 w-4" />
+          </a>
+        </div>
       </main>
     </div>
   );
