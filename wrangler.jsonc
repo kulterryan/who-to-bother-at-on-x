@@ -6,5 +6,15 @@
   "main": "@tanstack/react-start/server-entry",
   "placement": {
     "mode": "smart"
-  }
+  },
+  "routes": [
+    {
+      "pattern": "who-to-bother-at.com",
+      "custom_domain": true
+    },
+    {
+      "pattern": "www.who-to-bother-at.com",
+      "custom_domain": true
+    }
+  ]
 }
