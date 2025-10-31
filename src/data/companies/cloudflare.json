@@ -5,6 +5,19 @@
   "logoType": "cloudflare",
   "categories": [
     {
+      "name": "Leadership",
+      "contacts": [
+        {
+          "product": "Founder & CEO",
+          "handles": ["@eastdakota"]
+        },
+        {
+          "product": "CTO",
+          "handles": ["@dok2001"]
+        }
+      ]
+    },
+    {
       "name": "Developer Advocacy & Community",
       "contacts": [
         { "product": "Developer Advocate", "handles": ["@lauragift_"] },
