@@ -6,6 +6,13 @@
   "logoType": "cloudflare",
   "categories": [
     {
+      "name": "Official Accounts",
+      "contacts": [
+        { "product" : "Official Cloudflare Account", "handles": ["@Cloudflare"] },
+        { "product": "CTO", "handles": ["@dok2001"] }
+      ]
+    },
+    {
       "name": "Developer Advocacy & Community",
       "contacts": [
         { "product": "Developer Advocate", "handles": ["@lauragift_"] },
