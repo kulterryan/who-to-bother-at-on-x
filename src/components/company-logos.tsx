@@ -11,8 +11,13 @@ export const companyLogos: Record<string, React.ReactNode> = {
     </svg>
   ),
   vercel: (
-    <svg viewBox="0 0 256 222" width="30" height="30" preserveAspectRatio="xMidYMid"><path d="m128 0 128 221.705H0z"/></svg>
+    <svg viewBox="0 0 256 222" width="30" height="30" preserveAspectRatio="xMidYMid">
+      <path d="m128 0 128 221.705H0z" />
+    </svg>
   ),
   planetscale: (
-<svg preserveAspectRatio="xMidYMid" width="30" height="30" viewBox="0 0 256 256"><path d="M256 128a128 128 0 01-128 128zM128 0c52 0 96.7 31 116.8 75.5L75.5 244.8c-7.3-3.3-14.2-7.2-20.7-11.7L160 128h-32l-90.5 90.5A128 128 0 01128 0z"/></svg>  ),
+    <svg preserveAspectRatio="xMidYMid" width="30" height="30" viewBox="0 0 256 256">
+      <path d="M256 128a128 128 0 01-128 128zM128 0c52 0 96.7 31 116.8 75.5L75.5 244.8c-7.3-3.3-14.2-7.2-20.7-11.7L160 128h-32l-90.5 90.5A128 128 0 01128 0z" />
+    </svg>
+  ),
 };

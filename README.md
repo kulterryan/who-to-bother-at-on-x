@@ -22,9 +22,8 @@ We welcome contributions! See our [Contributing Guide](CONTRIBUTING.md) for deta
 
 1. Fork and clone the repository
 2. Add your company data to `src/data/companies/`
-3. Update the registry in `src/data/companies.json`
-4. Add your logo to `src/components/company-logos.tsx`
-5. Submit a PR!
+3. Add your logo to `src/components/company-logos.tsx`
+4. Submit a PR!
 
 ## Local Development
 

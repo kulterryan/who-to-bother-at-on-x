@@ -35,16 +35,7 @@ Thank you for your interest in contributing! This directory helps developers fin
    
    **Note**: The `email` field is optional. Only include it if the contact has publicly shared their email for professional inquiries.
 
-4. **Add your company to the registry** in `src/data/companies.json`:
-   ```json
-   {
-     "id": "yourcompany",
-     "name": "Your Company",
-     "description": "Brief description of what your company does"
-   }
-   ```
-
-5. **Import your company data** in `src/app/$company.tsx`:
+4. **Import your company data** in `src/app/$company.tsx`:
    ```typescript
    import yourcompanyData from '@/data/companies/yourcompany.json';
    
@@ -55,7 +46,7 @@ Thank you for your interest in contributing! This directory helps developers fin
    };
    ```
 
-6. **Add your company logo** to `src/components/company-logos.tsx`:
+5. **Add your company logo** to `src/components/company-logos.tsx`:
    - Add your SVG logo to the `companyLogos` object
    - Use the same key as your `logoType` in the JSON file
    - Include a `<title>` element for accessibility (e.g., `<title id="yourcompany-logo-title">YourCompany logo</title>`)
@@ -71,13 +62,13 @@ Thank you for your interest in contributing! This directory helps developers fin
    ),
    ```
 
-7. **Test locally**:
+6. **Test locally**:
    ```bash
    pnpm install
    pnpm dev
    ```
 
-8. **Submit a Pull Request** with your changes
+7. **Submit a Pull Request** with your changes
 
 ## Guidelines
 

@@ -1,16 +1,33 @@
 'use client';
 
 import { createFileRoute, Link } from '@tanstack/react-router';
-import companiesRegistry from '@/data/companies.json';
 import { companyLogos } from '@/components/company-logos';
 import type { CompanyListItem } from '@/types/company';
+import type { Company } from '@/types/company';
+
+// Auto-discover all company JSON files (excluding templates)
+const companyModules = import.meta.glob<{ default: Company }>('../data/companies/*.json', {
+  eager: true,
+});
+
+// Extract company list items from the loaded modules
+const companies: CompanyListItem[] = Object.entries(companyModules)
+  .filter(([path]) => !path.includes('template'))
+  .map(([_, module]) => {
+    const company = module.default;
+    return {
+      id: company.id,
+      name: company.name,
+      description: company.description,
+    };
+  })
+  .sort((a, b) => a.name.localeCompare(b.name));
 
 export const Route = createFileRoute('/')({
   component: HomePage,
 });
 
 function HomePage() {
-  const companies = companiesRegistry as CompanyListItem[];
   return (
     <div className="min-h-screen bg-white text-zinc-900">
       <main className="mx-auto max-w-3xl px-6 py-16 md:py-24">
