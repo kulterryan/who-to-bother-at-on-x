@@ -24,13 +24,16 @@ Thank you for your interest in contributing! This directory helps developers fin
          "contacts": [
            {
              "product": "Product or Role",
-             "handles": ["@twitter_handle"]
+             "handles": ["@twitter_handle"],
+             "email": "contact@example.com"
            }
          ]
        }
      ]
    }
    ```
+   
+   **Note**: The `email` field is optional. Only include it if the contact has publicly shared their email for professional inquiries.
 
 4. **Add your company to the registry** in `src/data/companies.json`:
    ```json
@@ -79,6 +82,7 @@ Thank you for your interest in contributing! This directory helps developers fin
 ## Guidelines
 
 - **Handles**: Only include public Twitter/X handles of people who are comfortable being contacted
+- **Email addresses**: Only include publicly available email addresses (e.g., from company websites, public profiles, or with explicit permission)
 - **Categories**: Group contacts logically (e.g., by product, team, or area)
 - **Descriptions**: Keep them concise and informative
 - **Logos**: Use SVG format when possible, keep them reasonably sized

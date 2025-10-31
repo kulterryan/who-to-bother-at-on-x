@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { Link } from '@tanstack/react-router';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { Copy, ArrowLeft } from 'lucide-react';
+import { Copy, ArrowLeft, Mail } from 'lucide-react';
 import type { Category } from '@/types/contacts';
 
 interface ContactsListProps {
@@ -24,7 +24,8 @@ export function ContactsList({ categories, companyName, logo }: ContactsListProp
         const query = searchQuery.toLowerCase();
         const productMatch = contact.product.toLowerCase().includes(query);
         const handleMatch = contact.handles.some((handle) => handle.toLowerCase().includes(query));
-        return productMatch || handleMatch;
+        const emailMatch = contact.email?.toLowerCase().includes(query);
+        return productMatch || handleMatch || emailMatch;
       }),
     }))
     .filter((category) => category.contacts.length > 0);
@@ -77,10 +78,21 @@ export function ContactsList({ categories, companyName, logo }: ContactsListProp
               <h2 className="mb-4 text-xs font-medium uppercase tracking-wider text-zinc-500">{category.name}</h2>
               <div className="space-y-px">
                 {category.contacts.map((contact) => (
-                  <div key={contact.product} className="flex items-center justify-between border-t border-zinc-200 py-4 first:border-t-0">
-                    <button onClick={() => copyHandlesToClipboard(contact.product, contact.handles)} className="cursor-pointer text-left text-sm font-medium text-zinc-900 transition-colors hover:text-orange-600 md:text-base" title="Click to copy all handles">
-                      {copiedProduct === contact.product ? <span className="text-green-600">Copied!</span> : contact.product}
-                    </button>
+                  <div key={contact.product} className="flex items-start justify-between border-t border-zinc-200 py-4 first:border-t-0">
+                    <div className="flex-1">
+                      <button onClick={() => copyHandlesToClipboard(contact.product, contact.handles)} className="cursor-pointer text-left text-sm font-medium text-zinc-900 transition-colors hover:text-orange-600 md:text-base" title="Click to copy all handles">
+                        {copiedProduct === contact.product ? <span className="text-green-600">Copied!</span> : contact.product}
+                      </button>
+                      {contact.email && (
+                        <a 
+                          href={`mailto:${contact.email}`}
+                          className="mt-1 flex items-center gap-1.5 text-xs text-zinc-500 transition-colors hover:text-orange-600 md:text-sm"
+                        >
+                          <Mail className="h-3 w-3" />
+                          <span>{contact.email}</span>
+                        </a>
+                      )}
+                    </div>
                     <div className="inline-flex flex-wrap items-center justify-end gap-x-3 gap-y-1">
                       {contact.handles.length <= 2 ? (
                         contact.handles.map((handle) => (

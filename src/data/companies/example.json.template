@@ -9,7 +9,8 @@
       "contacts": [
         {
           "product": "Frontend Developer",
-          "handles": ["@frontend_dev"]
+          "handles": ["@frontend_dev"],
+          "email": "frontend@example.com"
         },
         {
           "product": "Backend Developer",
@@ -26,7 +27,8 @@
         },
         {
           "product": "Designer",
-          "handles": ["@designer"]
+          "handles": ["@designer"],
+          "email": "design@example.com"
         }
       ]
     }

@@ -8,11 +8,13 @@ import type { Company } from '@/types/company';
 // Import all company data
 import cloudflareData from '@/data/companies/cloudflare.json';
 import vercelData from '@/data/companies/vercel.json';
+import planetscaleData from '@/data/companies/planetscale.json';
 
 // Create a map of company data
 const companyDataMap: Record<string, Company> = {
   cloudflare: cloudflareData as Company,
   vercel: vercelData as Company,
+  planetscale: planetscaleData as Company,
 };
 
 export const Route = createFileRoute('/$company')({

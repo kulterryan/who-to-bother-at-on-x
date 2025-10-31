@@ -8,5 +8,10 @@
     "id": "vercel",
     "name": "Vercel",
     "description": "Frontend cloud platform for deploying web applications"
+  },
+  {
+    "id": "planetscale",
+    "name": "PlanetScale",
+    "description": "Database platform for building scalable applications"
   }
 ]

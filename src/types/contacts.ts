@@ -1,6 +1,7 @@
 export interface Contact {
   product: string;
   handles: string[];
+  email?: string;
 }
 
 export interface Category {
