@@ -116,7 +116,7 @@ export function ContactsList({ categories, companyName, logo }: ContactsListProp
                             </a>
                           ))}
                           <Popover>
-                            <PopoverTrigger className="text-sm text-zinc-600 transition-colors hover:text-orange-600 md:text-base">more ▲</PopoverTrigger>
+                            <PopoverTrigger className="text-sm text-zinc-600 transition-colors hover:text-orange-600 md:text-base">more</PopoverTrigger>
                             <PopoverContent className="w-auto border-zinc-200 bg-white p-3 shadow-lg">
                               <div className="flex flex-col gap-2">
                                 {contact.handles.slice(2).map((handle) => (

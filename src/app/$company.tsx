@@ -9,11 +9,13 @@ import type { Company } from '@/types/company';
 import cloudflareData from '@/data/companies/cloudflare.json';
 import vercelData from '@/data/companies/vercel.json';
 import planetscaleData from '@/data/companies/planetscale.json';
+import tanstackData from '@/data/companies/tanstack.json';
 
 // Create a map of company data
 const companyDataMap: Record<string, Company> = {
   cloudflare: cloudflareData as Company,
   planetscale: planetscaleData as Company,
+  tanstack: tanstackData as Company,
   vercel: vercelData as Company,
 };
 
