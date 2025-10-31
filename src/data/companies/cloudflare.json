@@ -29,6 +29,7 @@
       "name": "Cloudflare Workers",
       "contacts": [
         { "product": "Tech Lead / Architect", "handles": ["@KentonVarda"] },
+        { "product": "Engineering Manager", "handles": ["@yagiznizipli"] },
         { "product": "Principal Systems Engineer", "handles": ["@threepointone"] }
       ]
     },
