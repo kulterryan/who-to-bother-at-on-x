@@ -1,0 +1,24 @@
+{
+  "$schema": "@/data/companies/schema.json",
+  "id": "mintlify",
+  "name": "Mintlify",
+  "description": "Mintlify is a platform for building and deploying documentation sites",
+  "logoType": "mintlify",
+  "categories": [
+    {
+      "name": "Official Accounts",
+      "contacts": [
+        { "product": "Official Mintlify Account", "handles": ["@mintlify"] }
+      ]
+    },
+    {
+      "name": "Platform Engineering",
+      "contacts": [
+        {
+          "product": "Engineering Manager",
+          "handles": ["@skeptrune"]
+        }
+      ]
+    }
+  ]
+}

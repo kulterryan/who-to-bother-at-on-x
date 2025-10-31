@@ -10,6 +10,7 @@ import cloudflareData from '@/data/companies/cloudflare.json';
 import vercelData from '@/data/companies/vercel.json';
 import planetscaleData from '@/data/companies/planetscale.json';
 import tanstackData from '@/data/companies/tanstack.json';
+import mintlifyData from '@/data/companies/mintlify.json';
 
 // Create a map of company data
 const companyDataMap: Record<string, Company> = {
@@ -17,6 +18,7 @@ const companyDataMap: Record<string, Company> = {
   planetscale: planetscaleData as Company,
   tanstack: tanstackData as Company,
   vercel: vercelData as Company,
+  mintlify: mintlifyData as Company,
 };
 
 export const Route = createFileRoute('/$company')({

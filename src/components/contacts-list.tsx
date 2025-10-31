@@ -142,7 +142,11 @@ export function ContactsList({ categories, companyName, logo }: ContactsListProp
         </div>
 
         <p className="mt-12 text-sm text-zinc-500">
-          Have more contacts to add? Mention{' '}
+          Have more contacts to add?{' '}
+          <a href="https://github.com/kulterryan/who-to-bother-at-on-x" target="_blank" rel="noopener noreferrer" className="text-orange-600 underline decoration-orange-300 underline-offset-4 transition-colors hover:text-orange-700 hover:decoration-orange-400">
+            Submit a pull request
+          </a>{' '}
+          on GitHub or mention{' '}
           <a href="https://x.com/thehungrybird_" target="_blank" rel="noopener noreferrer" className="text-orange-600 underline decoration-orange-300 underline-offset-4 transition-colors hover:text-orange-700 hover:decoration-orange-400">
             @thehungrybird_
           </a>{' '}
