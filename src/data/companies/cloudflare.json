@@ -18,7 +18,8 @@
       "contacts": [
         { "product": "Cloudflare Workers", "handles": ["@KentonVarda", "@yagiznizipli"] },
         { "product": "Cloudflare AI", "handles": ["@threepointone"] },
-        { "product": "D1 (Serverless SQL)", "handles": ["@ritakozlov_"] }
+        { "product": "D1 (Serverless SQL)", "handles": ["@ritakozlov_"] },
+        { "product": "Workers AI", "handles": ["@_mchenco"] },
       ]
     },
     {
@@ -27,6 +28,12 @@
         { "product": "VP of Developers & AI", "handles": ["@ritakozlov_"] },
         { "product": "Manager of Developer Advocacy", "handles": ["@kristianf_"] },
         { "product": "Developer Advocate", "handles": ["@lauragift_"] }
+      ]
+    },
+    {
+      "name": "Community",
+      "contacts": [
+        { "product": "Durable Objects", "handles": ["@cmdhaus"] }
       ]
     }
   ]
