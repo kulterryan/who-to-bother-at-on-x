@@ -15,6 +15,10 @@
     {
       "pattern": "www.who-to-bother-at.com",
       "custom_domain": true
+    }, 
+    {
+      "pattern": "who-to-bother-at-cf.aryan-chaurasia.workers.dev",
+      "custom_domain": false,
     }
   ]
 }
