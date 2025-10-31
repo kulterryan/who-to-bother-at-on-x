@@ -12,7 +12,7 @@ const companyModules = import.meta.glob<{ default: Company }>('../data/companies
 
 // Extract company list items from the loaded modules
 const companies: CompanyListItem[] = Object.entries(companyModules)
-  .filter(([path]) => !path.includes('template'))
+  .filter(([path]) => !path.includes('template') && !path.includes('schema'))
   .map(([_, module]) => {
     const company = module.default;
     return {

@@ -11,9 +11,10 @@ Thank you for your interest in contributing! This directory helps developers fin
    touch src/data/companies/yourcompany.json
    ```
 
-3. **Add company data** following this structure:
+3. **Add company data** following this structure (the `$schema` property enables IDE autocomplete and validation):
    ```json
    {
+     "$schema": "./schema.json",
      "id": "yourcompany",
      "name": "Your Company",
      "description": "Brief description of what your company does",

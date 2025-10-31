@@ -1,0 +1,72 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Company",
+  "description": "Schema for company contact information",
+  "type": "object",
+  "required": ["id", "name", "description", "logoType", "categories"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique identifier for the company (lowercase, no spaces)"
+    },
+    "name": {
+      "type": "string",
+      "description": "Display name of the company"
+    },
+    "description": {
+      "type": "string",
+      "description": "Brief description of what the company does"
+    },
+    "logoType": {
+      "type": "string",
+      "description": "Logo identifier matching the key in company-logos.tsx"
+    },
+    "categories": {
+      "type": "array",
+      "description": "Categories of contacts (e.g., by product, team, or area)",
+      "items": {
+        "type": "object",
+        "required": ["name", "contacts"],
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Category name (e.g., 'Engineering', 'Product & Design')"
+          },
+          "contacts": {
+            "type": "array",
+            "description": "List of contacts in this category",
+            "items": {
+              "type": "object",
+              "required": ["product", "handles"],
+              "properties": {
+                "product": {
+                  "type": "string",
+                  "description": "Product, role, or area of responsibility"
+                },
+                "handles": {
+                  "type": "array",
+                  "description": "Twitter/X handles (include @ symbol)",
+                  "items": {
+                    "type": "string",
+                    "pattern": "^@[a-zA-Z0-9_]+$"
+                  },
+                  "minItems": 1
+                },
+                "email": {
+                  "type": "string",
+                  "description": "Optional email address (only include if publicly available)",
+                  "format": "email"
+                }
+              },
+              "additionalProperties": false
+            }
+          }
+        },
+        "additionalProperties": false
+      },
+      "minItems": 1
+    }
+  },
+  "additionalProperties": false
+}
+

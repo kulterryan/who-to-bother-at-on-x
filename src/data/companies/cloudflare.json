@@ -1,4 +1,5 @@
 {
+  "$schema": "@/data/companies/schema.json",
   "id": "cloudflare",
   "name": "Cloudflare",
   "description": "Global cloud platform for security and performance",
