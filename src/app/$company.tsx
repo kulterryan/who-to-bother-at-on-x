@@ -12,7 +12,7 @@ import planetscaleData from '@/data/companies/planetscale.json';
 import tanstackData from '@/data/companies/tanstack.json';
 import mintlifyData from '@/data/companies/mintlify.json';
 import webflowData from '@/data/companies/webflow.json';
-
+import upstashData from '@/data/companies/upstash.json';
 
 // Create a map of company data
 const companyDataMap: Record<string, Company> = {
@@ -22,6 +22,7 @@ const companyDataMap: Record<string, Company> = {
   vercel: vercelData as Company,
   mintlify: mintlifyData as Company,
   webflow: webflowData as Company,
+  upstash: upstashData as Company,
 };
 
 export const Route = createFileRoute('/$company')({
