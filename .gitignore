@@ -28,3 +28,5 @@ next-env.d.ts
 
 .wrangler
 /dist/
+
+.DS_Store

@@ -6,6 +6,13 @@
   "logoType": "planetscale",
   "categories": [
     {
+      "name": "Official Accounts",
+      "contacts": [
+        { "product": "Official Account", "handles": ["@PlanetScale"]},
+        { "product": "Official Support Account", "handles": ["@planetscalehelp"] , "email": "support@planetscale.com"}
+      ]
+    },
+    {
       "name": "Leadership",
       "contacts": [
         {
@@ -13,13 +20,6 @@
           "handles": ["@samlambert"],
           "email": "sam@planetscale.com"
         }
-      ]
-    },
-    {
-      "name": "General Support",
-      "contacts": [
-        { "product": "Official Account", "handles": ["@PlanetScale"]},
-        { "product": "Official Support Account", "handles": ["@planetscalehelp"] , "email": "support@planetscale.com"}
       ]
     }
   ]

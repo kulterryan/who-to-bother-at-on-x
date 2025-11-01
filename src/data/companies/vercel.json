@@ -34,7 +34,7 @@
       "contacts": [
         { "product": "Domains", "handles": ["@RhysSullivan", "@ethanniser"] },
         { "product": "Functions / Runtime / Compute", "handles": ["@tomlienard", "@dglsparsons", "@gudmundur"] },
-        { "product": "Builds", "handles": ["@SheardLuke", "@gudmundur"] },
+        { "product": "Builds", "handles": ["@SheardLuke", "@gudmundur", "@mehulkar"] },
         { "product": "Observability / Speed Insights / Web Analytics", "handles": ["@linstobias", "@malavikabala"] },
         { "product": "Auth", "handles": ["@okbel"] },
         { "product": "Toolbar", "handles": ["@gkaragkiaouris"] },

@@ -16,9 +16,11 @@
     {
       "name": "Developer Platform",
       "contacts": [
-        { "product": "Cloudflare Workers", "handles": ["@KentonVarda", "@yagiznizipli"] },
-        { "product": "Cloudflare AI", "handles": ["@threepointone"] },
-        { "product": "D1 (Serverless SQL)", "handles": ["@ritakozlov_"] },
+        { "product": "Workers Platform", "handles": ["@KentonVarda", "@yagiznizipli"] },
+        { "product": "AI Agents", "handles": ["@threepointone", "@whoiskatrin"] },
+        { "product": "Dashboard", "handles": ["@BraydenWilmoth"] },
+        { "product": "Sandboxes", "handles": ["@whoiskatrin"]},
+        { "product": "Workers AI", "handles": ["@_mchenco"]},
         { "product": "Wrangler CLI", "handles": ["@MattieTK"] }
       ]
     },
