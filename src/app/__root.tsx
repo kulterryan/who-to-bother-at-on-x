@@ -1,6 +1,8 @@
 import { Outlet, createRootRoute, HeadContent, Scripts } from '@tanstack/react-router';
 import appCss from "./globals.css?url"
-import { ReactNode } from 'react';
+import { getThemeServerFn } from '@/lib/theme';
+import { ThemeProvider } from '@/components/theme-provider';
+import { ModeToggle } from '@/components/theme-toggle';
 
 export const Route = createRootRoute({
   head: () => ({
@@ -21,20 +23,25 @@ export const Route = createRootRoute({
   }),
   component: RootLayout,
   notFoundComponent: NotFound,
+  loader: () => getThemeServerFn(),
   ssr: true,
 });
 
 function RootLayout() {
+  const theme = Route.useLoaderData();
   return (
-    <html lang="en">
+    <html lang="en" className={theme} suppressHydrationWarning>
       <head>
-        <title>who to bother on X</title>
+        <title>who to bother at</title>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta charSet="utf-8" />
         <link rel="stylesheet" href={appCss} />
       </head>
       <body>
-        <Outlet />
+        <ThemeProvider theme={theme}>
+          <Outlet />
+          <ModeToggle />
+        </ThemeProvider>
         <Scripts />
       </body>
     </html>

@@ -39,10 +39,10 @@ export const Route = createFileRoute('/$company')({
   component: CompanyPage,
   errorComponent: ({ error }) => {
     return (
-      <div className="min-h-screen bg-white text-zinc-900 flex items-center justify-center">
+      <div className="min-h-screen bg-white text-zinc-900 dark:bg-zinc-950 dark:text-zinc-100 flex items-center justify-center">
         <div className="text-center">
           <h1 className="text-2xl font-medium mb-4">Company Not Found</h1>
-          <p className="text-zinc-600 mb-6">{error.message}</p>
+          <p className="text-zinc-600 dark:text-zinc-400 mb-6">{error.message}</p>
           <Link to="/" className="text-orange-600 underline">Back to home</Link>
         </div>
       </div>
