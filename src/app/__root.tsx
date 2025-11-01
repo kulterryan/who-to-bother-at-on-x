@@ -31,7 +31,7 @@ function RootLayout() {
       <head>
         <script
           dangerouslySetInnerHTML={{
-            __html: `!function(){try{var e=localStorage.getItem('${THEME_STORAGE_KEY}')||'system';document.documentElement.className='system'===e?matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light':e}catch{document.documentElement.className='light'}}()`,
+            __html: `!function(){try{var e=localStorage.getItem('${THEME_STORAGE_KEY}')||'light';document.documentElement.className='system'===e?matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light':e}catch{document.documentElement.className='light'}}()`,
           }}
         />
         <title>who to bother at</title>
