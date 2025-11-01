@@ -21,7 +21,9 @@
         { "product": "Dashboard", "handles": ["@BraydenWilmoth"] },
         { "product": "Sandboxes", "handles": ["@whoiskatrin"]},
         { "product": "Workers AI", "handles": ["@_mchenco"]},
-        { "product": "Wrangler CLI", "handles": ["@MattieTK"] }
+        { "product": "Wrangler CLI", "handles": ["@MattieTK"] },
+        { "product": "AI Search (fka. AutoRAG)", "handles": ["@aninibread, @G4brym"] },
+        { "product": "R2", "handles": ["@aninibread, @fireblaze_15"] }
       ]
     },
     {
