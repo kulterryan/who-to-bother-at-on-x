@@ -14,6 +14,7 @@ import mintlifyData from '@/data/companies/mintlify.json';
 import webflowData from '@/data/companies/webflow.json';
 import upstashData from '@/data/companies/upstash.json';
 import githubData from '@/data/companies/github.json';
+import betterauthData from '@/data/companies/betterauth.json';
 
 // Create a map of company data
 const companyDataMap: Record<string, Company> = {
@@ -25,6 +26,7 @@ const companyDataMap: Record<string, Company> = {
   webflow: webflowData as Company,
   upstash: upstashData as Company,
   github: githubData as Company,
+  betterauth: betterauthData as Company,
 };
 
 export const Route = createFileRoute('/$company')({
