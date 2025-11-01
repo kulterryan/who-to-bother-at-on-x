@@ -13,6 +13,8 @@ import tanstackData from '@/data/companies/tanstack.json';
 import mintlifyData from '@/data/companies/mintlify.json';
 import webflowData from '@/data/companies/webflow.json';
 import upstashData from '@/data/companies/upstash.json';
+import nuasiteData from '@/data/companies/nuasite.json';
+
 
 // Create a map of company data
 const companyDataMap: Record<string, Company> = {
@@ -23,17 +25,18 @@ const companyDataMap: Record<string, Company> = {
   mintlify: mintlifyData as Company,
   webflow: webflowData as Company,
   upstash: upstashData as Company,
+  nuasite: nuasiteData as Company,
 };
 
 export const Route = createFileRoute('/$company')({
   loader: async ({ params }) => {
     const { company } = params;
-    
+
     const companyData = companyDataMap[company];
     if (!companyData) {
       throw new Error(`Company "${company}" not found`);
     }
-    
+
     return companyData;
   },
   component: CompanyPage,

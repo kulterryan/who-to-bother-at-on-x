@@ -1,0 +1,18 @@
+{
+  "$schema": "@/data/companies/schema.json",
+  "id": "nuasite",
+  "name": "Nua Site",
+  "description": "AI-powered platform for editing and managing websites through chat",
+  "logoType": "nuasite",
+  "categories": [
+    {
+      "name": "Official Accounts",
+      "contacts": [
+        { "product": "Official Nua Site Account", "handles": ["@nua_site"] },
+        { "product": "CEO", "handles": ["@honzasladek"] },
+        { "product": "developer", "handles": ["@jonas_nobile"] },
+        { "product": "developer", "handles": ["@matej_21"] }
+      ]
+    }
+  ]
+}
