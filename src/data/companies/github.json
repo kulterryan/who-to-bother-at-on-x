@@ -12,9 +12,9 @@
       ]
     },
     {
-      "name" : "GitHub Team",
+      "name" : "Developer Platform",
       "contacts" : [
-        { "product" : "Platform", "handles": ["@jaredpalmer"]}
+        { "product" : "SVP", "handles": ["@jaredpalmer"]}
       ]
     }
   ]
