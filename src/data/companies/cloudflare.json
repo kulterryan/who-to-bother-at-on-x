@@ -25,6 +25,14 @@
       ]
     },
     {
+      "name": "Data Platform",
+      "contacts": [
+        { "product": "Pipelines", "handles": ["@MarcSelwan", "@mwylde"] },
+        { "product": "R2 Data Catalog", "handles": ["@MarcSelwan", "@Cole_MacKenzie"] },
+        { "product": "R2 SQL", "handles": ["@MarcSelwan", "@jeromeschneider", "@sejoker"] }
+      ]
+    },    
+    {
       "name": "Developer Advocacy",
       "contacts": [
         { "product": "VP of Developers & AI", "handles": ["@ritakozlov_"] },
