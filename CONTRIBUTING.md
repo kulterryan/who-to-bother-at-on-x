@@ -36,18 +36,7 @@ Thank you for your interest in contributing! This directory helps developers fin
    
    **Note**: The `email` field is optional. Only include it if the contact has publicly shared their email for professional inquiries.
 
-4. **Import your company data** in `src/app/$company.tsx`:
-   ```typescript
-   import yourcompanyData from '@/data/companies/yourcompany.json';
-   
-   // Add to the companyDataMap object:
-   const companyDataMap: Record<string, Company> = {
-     // ... existing companies
-     yourcompany: yourcompanyData as Company,
-   };
-   ```
-
-5. **Add your company logo** to `src/components/company-logos.tsx`:
+4. **Add your company logo** to `src/components/company-logos.tsx`:
    - Add your SVG logo to the `companyLogos` object
    - Use the same key as your `logoType` in the JSON file
    - Include a `<title>` element for accessibility (e.g., `<title id="yourcompany-logo-title">YourCompany logo</title>`)
@@ -63,13 +52,19 @@ Thank you for your interest in contributing! This directory helps developers fin
    ),
    ```
 
-6. **Test locally**:
+5. **Test locally**:
    ```bash
    pnpm install
    pnpm dev
    ```
+   
+   Navigate to `http://localhost:3000/yourcompany` to see your company page.
 
-7. **Submit a Pull Request** with your changes
+6. **Submit a Pull Request** with your changes
+
+## How It Works
+
+The application automatically discovers all company JSON files in `src/data/companies/` at build time. When you add a new company JSON file, it will automatically be available as a route without needing to manually import it in the code. The company ID (filename without `.json`) becomes the route path.
 
 ## Guidelines
 
