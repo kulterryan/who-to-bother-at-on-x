@@ -12,11 +12,11 @@ const companyModules = import.meta.glob<{ default: Company }>(
 // Generate company data map from discovered files
 const companyDataMap: Record<string, Company> = Object.entries(companyModules).reduce(
   (acc, [path, module]) => {
-    // Extract company ID from path: '../data/companies/cloudflare.json' -> 'cloudflare'
-    const companyId = path.split('/').pop()?.replace('.json', '') || '';
+    const filename = path.split('/').pop()?.replace('.json', '') || '';
     // Filter out schema and template files
-    if (companyId && !companyId.includes('schema') && !companyId.includes('template')) {
-      acc[companyId] = module.default;
+    if (filename && !filename.includes('schema') && !filename.includes('template')) {
+      // Key by the id field from the JSON to match how links are generated in index.tsx
+      acc[module.default.id] = module.default;
     }
     return acc;
   },
