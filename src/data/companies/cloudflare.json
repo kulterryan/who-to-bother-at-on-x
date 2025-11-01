@@ -18,7 +18,8 @@
       "contacts": [
         { "product": "Cloudflare Workers", "handles": ["@KentonVarda", "@yagiznizipli"] },
         { "product": "Cloudflare AI", "handles": ["@threepointone"] },
-        { "product": "D1 (Serverless SQL)", "handles": ["@ritakozlov_"] }
+        { "product": "D1 (Serverless SQL)", "handles": ["@ritakozlov_"] },
+        { "product": "Wrangler CLI", "handles": ["@MattieTK"] }
       ]
     },
     {
