@@ -16,10 +16,11 @@
     {
       "name": "Developer Platform",
       "contacts": [
-        { "product": "Workers", "handles": ["@KentonVarda", "@yagiznizipli"] },
+        { "product": "Workers Platform", "handles": ["@KentonVarda", "@yagiznizipli"] },
         { "product": "AI Agents", "handles": ["@threepointone", "@whoiskatrin"] },
         { "product": "Dashboard", "handles": ["@BraydenWilmoth"] },
-        { "product": "Sandboxes", "handles": ["@whoiskatrin"]}
+        { "product": "Sandboxes", "handles": ["@whoiskatrin"]},
+        { "product": "Workers AI", "handles": ["@_mchenco"]}
       ]
     },
     {
