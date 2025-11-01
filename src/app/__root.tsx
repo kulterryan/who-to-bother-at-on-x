@@ -2,7 +2,6 @@ import { Outlet, createRootRoute, HeadContent, Scripts } from '@tanstack/react-r
 import appCss from "./globals.css?url"
 import { getThemeServerFn } from '@/lib/theme';
 import { ThemeProvider } from '@/components/theme-provider';
-import { ModeToggle } from '@/components/theme-toggle';
 
 export const Route = createRootRoute({
   head: () => ({
@@ -30,8 +29,13 @@ export const Route = createRootRoute({
 function RootLayout() {
   const theme = Route.useLoaderData();
   return (
-    <html lang="en" className={theme} suppressHydrationWarning>
+    <html lang="en" suppressHydrationWarning>
       <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(){var t=${JSON.stringify(theme)};document.documentElement.className=t==='system'?(window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'):t})()`,
+          }}
+        />
         <title>who to bother at</title>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta charSet="utf-8" />
@@ -40,7 +44,6 @@ function RootLayout() {
       <body>
         <ThemeProvider theme={theme}>
           <Outlet />
-          <ModeToggle />
         </ThemeProvider>
         <Scripts />
       </body>

@@ -1,20 +1,29 @@
-import { Moon, Sun } from "lucide-react";
-import { useTheme } from "@/components/theme-provider";
+import { Moon, Sun, Monitor } from "lucide-react";
+import { useTheme } from "@/lib/use-theme";
+import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
+import type { T as Theme } from "@/lib/theme";
 
 export function ModeToggle() {
   const { theme, setTheme } = useTheme();
 
-  function toggleTheme() {
-    setTheme(theme === "light" ? "dark" : "light");
-  }
-
   return (
-    <button 
-      onClick={toggleTheme} 
-      aria-label="Toggle theme"
-      className="fixed bottom-8 right-8 rounded-full border-2 border-zinc-200 bg-white p-3 text-zinc-900 shadow-lg transition-all hover:border-zinc-900 hover:shadow-xl dark:border-zinc-700 dark:bg-zinc-800 dark:text-zinc-100 dark:hover:border-zinc-500"
+    <ToggleGroup 
+      type="single" 
+      value={theme} 
+      onValueChange={(value) => {
+        if (value) setTheme(value as Theme);
+      }}
+      className="inline-flex"
     >
-      {theme === "dark" ? <Moon className="h-5 w-5" /> : <Sun className="h-5 w-5" />}
-    </button>
+      <ToggleGroupItem value="light" aria-label="Light mode">
+        <Sun className="h-4 w-4" />
+      </ToggleGroupItem>
+      <ToggleGroupItem value="dark" aria-label="Dark mode">
+        <Moon className="h-4 w-4" />
+      </ToggleGroupItem>
+      <ToggleGroupItem value="system" aria-label="System theme">
+        <Monitor className="h-4 w-4" />
+      </ToggleGroupItem>
+    </ToggleGroup>
   );
 }

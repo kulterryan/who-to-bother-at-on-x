@@ -5,6 +5,7 @@ import { companyLogos } from '@/components/company-logos';
 import type { CompanyListItem } from '@/types/company';
 import type { Company } from '@/types/company';
 import { GithubIcon } from 'lucide-react';
+import { ModeToggle } from '@/components/theme-toggle';
 
 // Auto-discover all company JSON files (excluding templates)
 const companyModules = import.meta.glob<{ default: Company }>('../data/companies/*.json', {
@@ -90,7 +91,7 @@ function HomePage() {
           </a>
         </p>
 
-        <div className="mt-6 flex justify-center">
+        <div className="mt-6 flex flex-col items-center gap-4">
           <a 
             href="https://github.com/kulterryan/who-to-bother-at-on-x" 
             target="_blank" 
@@ -100,6 +101,7 @@ function HomePage() {
           >
             <GithubIcon className="h-4 w-4" />
           </a>
+          <ModeToggle />
         </div>
       </main>
     </div>

@@ -6,6 +6,7 @@ import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Copy, ArrowLeft, Mail } from 'lucide-react';
 import type { Category } from '@/types/contacts';
+import { ModeToggle } from '@/components/theme-toggle';
 
 interface ContactsListProps {
   categories: Category[];
@@ -158,6 +159,9 @@ export function ContactsList({ categories, companyName, logo }: ContactsListProp
             @strehldev
           </a>
         </p>
+        <div className="mt-6 flex justify-center">
+          <ModeToggle />
+        </div>
       </main>
     </div>
   );
