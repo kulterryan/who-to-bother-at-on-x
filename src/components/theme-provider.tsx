@@ -16,7 +16,10 @@ function getSystemTheme(): "light" | "dark" {
 }
 
 export function ThemeProvider({ children }: Omit<Props, 'theme'>) {
-  const [theme, setThemeState] = useState<Theme>(getStoredTheme);
+  // Always initialize with "system" to avoid hydration mismatch
+  // The stored theme will be loaded after hydration in useEffect
+  const [theme, setThemeState] = useState<Theme>("system");
+  
   const [systemTheme, setSystemTheme] = useState<"light" | "dark">(() => {
     // Initialize system theme based on current system preference
     return getSystemTheme();
@@ -29,15 +32,16 @@ export function ThemeProvider({ children }: Omit<Props, 'theme'>) {
     setStoredTheme(val);
   }
 
+  // Load stored theme after hydration to avoid mismatch
+  useEffect(() => {
+    const storedTheme = getStoredTheme();
+    setThemeState(storedTheme);
+  }, []);
+
   // Sync theme to HTML element when resolved theme changes
   useEffect(() => {
     document.documentElement.className = resolvedTheme;
   }, [resolvedTheme]);
-
-  // Update system theme on mount to ensure it's current
-  useEffect(() => {
-    setSystemTheme(getSystemTheme());
-  }, []);
 
   // Listen for system theme changes
   useEffect(() => {
