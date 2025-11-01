@@ -1,6 +1,5 @@
-import { useRouter } from "@tanstack/react-router";
 import { createContext, type PropsWithChildren, useEffect, useState } from "react";
-import { setThemeServerFn, type T as Theme } from "@/lib/theme";
+import { getStoredTheme, setStoredTheme, type T as Theme } from "@/lib/theme";
 
 export type ThemeContextVal = { 
   theme: Theme; 
@@ -16,25 +15,18 @@ function getSystemTheme(): "light" | "dark" {
   return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
 }
 
-function getInitialSystemTheme(): "light" | "dark" {
-  // On initial mount, read from the already-set className to avoid flash
-  if (typeof window === "undefined") return "light";
-  const currentClass = document.documentElement.className;
-  if (currentClass === "dark" || currentClass === "light") {
-    return currentClass;
-  }
-  return getSystemTheme();
-}
-
-export function ThemeProvider({ children, theme }: Props) {
-  const router = useRouter();
-  const [systemTheme, setSystemTheme] = useState<"light" | "dark">(getInitialSystemTheme);
+export function ThemeProvider({ children }: Omit<Props, 'theme'>) {
+  const [theme, setThemeState] = useState<Theme>(getStoredTheme);
+  const [systemTheme, setSystemTheme] = useState<"light" | "dark">(() => {
+    // Initialize system theme based on current system preference
+    return getSystemTheme();
+  });
   
   const resolvedTheme = theme === "system" ? systemTheme : theme;
 
   function setTheme(val: Theme) {
-    // Save to server and invalidate router
-    setThemeServerFn({ data: val }).then(() => router.invalidate());
+    setThemeState(val);
+    setStoredTheme(val);
   }
 
   // Sync theme to HTML element when resolved theme changes
@@ -42,22 +34,24 @@ export function ThemeProvider({ children, theme }: Props) {
     document.documentElement.className = resolvedTheme;
   }, [resolvedTheme]);
 
+  // Update system theme on mount to ensure it's current
+  useEffect(() => {
+    setSystemTheme(getSystemTheme());
+  }, []);
+
   // Listen for system theme changes
   useEffect(() => {
-    if (theme !== "system") return;
-
-    // Re-check system theme when switching to system mode
-    setSystemTheme(getSystemTheme());
-
     const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
     
     const handleChange = (e: MediaQueryListEvent) => {
       setSystemTheme(e.matches ? "dark" : "light");
     };
 
+    // Always listen for system theme changes, even when not in system mode
+    // This ensures we have the correct value when switching to system mode
     mediaQuery.addEventListener("change", handleChange);
     return () => mediaQuery.removeEventListener("change", handleChange);
-  }, [theme]);
+  }, []);
 
   return (
     <ThemeContext.Provider value={{ theme, setTheme, resolvedTheme }}>

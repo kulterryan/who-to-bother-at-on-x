@@ -1,7 +1,7 @@
-import { Outlet, createRootRoute, HeadContent, Scripts } from '@tanstack/react-router';
+import { Outlet, createRootRoute, Scripts } from '@tanstack/react-router';
 import appCss from "./globals.css?url"
-import { getThemeServerFn } from '@/lib/theme';
 import { ThemeProvider } from '@/components/theme-provider';
+import { THEME_STORAGE_KEY } from '@/lib/theme';
 
 export const Route = createRootRoute({
   head: () => ({
@@ -22,18 +22,16 @@ export const Route = createRootRoute({
   }),
   component: RootLayout,
   notFoundComponent: NotFound,
-  loader: () => getThemeServerFn(),
   ssr: true,
 });
 
 function RootLayout() {
-  const theme = Route.useLoaderData();
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
         <script
           dangerouslySetInnerHTML={{
-            __html: `(function(){var t=${JSON.stringify(theme)};document.documentElement.className=t==='system'?(window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'):t})()`,
+            __html: `!function(){try{var e=localStorage.getItem('${THEME_STORAGE_KEY}')||'system';document.documentElement.className='system'===e?matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light':e}catch{document.documentElement.className='light'}}()`,
           }}
         />
         <title>who to bother at</title>
@@ -42,7 +40,7 @@ function RootLayout() {
         <link rel="stylesheet" href={appCss} />
       </head>
       <body>
-        <ThemeProvider theme={theme}>
+        <ThemeProvider>
           <Outlet />
         </ThemeProvider>
         <Scripts />
