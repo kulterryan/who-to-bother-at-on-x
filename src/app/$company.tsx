@@ -15,6 +15,7 @@ import webflowData from '@/data/companies/webflow.json';
 import upstashData from '@/data/companies/upstash.json';
 import githubData from '@/data/companies/github.json';
 import betterauthData from '@/data/companies/betterauth.json';
+import computesdkData from '@/data/companies/computesdk.json';
 
 // Create a map of company data
 const companyDataMap: Record<string, Company> = {
@@ -27,6 +28,7 @@ const companyDataMap: Record<string, Company> = {
   upstash: upstashData as Company,
   github: githubData as Company,
   betterauth: betterauthData as Company,
+  computesdk: computesdkData as Company,
 };
 
 export const Route = createFileRoute('/$company')({
