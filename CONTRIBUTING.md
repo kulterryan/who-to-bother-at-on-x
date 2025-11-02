@@ -60,11 +60,35 @@ Thank you for your interest in contributing! This directory helps developers fin
    
    Navigate to `http://localhost:3000/yourcompany` to see your company page.
 
-6. **Submit a Pull Request** with your changes
+6. **Validate your changes**:
+   Before submitting your PR, validate that your JSON file conforms to the schema:
+   ```bash
+   pnpm validate
+   ```
+   
+   This will check all company JSON files against the Valibot schema and report any errors with details on what needs to be fixed. Common validation errors:
+   - Missing required fields (`id`, `name`, `description`, `logoType`, `categories`)
+   - Invalid handle format (must start with `@` and contain only letters, numbers, and underscores)
+   - Invalid email format (if provided)
+   - Empty contacts or categories arrays
+   
+   Fix any validation errors before proceeding.
+
+7. **Submit a Pull Request** with your changes
 
 ## How It Works
 
 The application automatically discovers all company JSON files in `src/data/companies/` at build time. When you add a new company JSON file, it will automatically be available as a route without needing to manually import it in the code. The company ID (filename without `.json`) becomes the route path.
+
+### Schema Validation
+
+This project uses [Valibot](https://valibot.dev) to validate all company JSON files:
+
+- The Valibot schema (`src/data/companies/schema.ts`) defines all validation rules
+- A JSON Schema (`src/data/companies/schema.json`) is auto-generated from the Valibot schema for IDE autocomplete and validation hints
+- All JSON files are validated at build time to ensure data integrity
+- Run `pnpm validate` locally to check your files before submitting a PR
+- The build will fail if any JSON file fails validation, preventing deployment of invalid data
 
 ## Guidelines
 
