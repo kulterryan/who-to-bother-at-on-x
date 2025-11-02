@@ -63,7 +63,7 @@ async function validateCompanies(): Promise<void> {
         // Format valibot validation errors
         result.errors = error.issues.map(issue => {
           const pathStr = issue.path 
-            ? issue.path.map(p => p.key).join('.') 
+            ? issue.path.map((p: { key: string; }) => p.key).join('.') 
             : 'root';
           return `  - ${pathStr}: ${issue.message}`;
         });
