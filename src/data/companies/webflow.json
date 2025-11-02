@@ -2,7 +2,7 @@
   "$schema": "./schema.json",
   "id": "webflow",
   "name": "Webflow",
-  "description": "The world's most powerful AI-native website experience platform combining visual design, code components, cloud hosting, and the popular GSAP animation library.",
+  "description": "AI-native website experience platform",
   "logoType": "webflow",
   "categories": [
     {
