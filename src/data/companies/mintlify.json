@@ -23,8 +23,7 @@
     {
       "name": "Design Engineering",
       "contacts": [
-        { "product": "Design Engineer", "handles": ["@kaishan_ding"] },
-        { "product": "Design Engineer", "handles": ["@pqoqubbw"] },
+        { "product": "Design Engineer", "handles": ["@kaishan_ding", "@pqoqubbw"] },
         { "product": "Product Design", "handles": ["@jmsbaduor"] }
       ]
     }

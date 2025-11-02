@@ -45,14 +45,11 @@ export function ContactsList({ categories, companyName, logo }: ContactsListProp
   return (
     <div className="min-h-screen bg-white text-zinc-900 dark:bg-zinc-950 dark:text-zinc-100">
       <main className="mx-auto max-w-3xl px-6 py-16 md:py-24">
-        <Link 
-          to="/" 
-          className="mb-8 inline-flex items-center gap-2 text-sm font-medium text-zinc-600 transition-colors hover:text-orange-600 dark:text-zinc-400 dark:hover:text-orange-600"
-        >
+        <Link to="/" className="mb-8 inline-flex items-center gap-2 text-sm font-medium text-zinc-600 transition-colors hover:text-orange-600 dark:text-zinc-400 dark:hover:text-orange-600">
           <ArrowLeft className="h-4 w-4" />
           Back to home
         </Link>
-        
+
         <h1 className="mb-12 flex items-center gap-2 text-2xl font-medium text-balance text-zinc-900 dark:text-zinc-100 md:text-3xl">
           who to bother at {logo} on{' '}
           <svg fill="none" viewBox="0 0 1200 1227" width="33" height="30">
@@ -79,16 +76,13 @@ export function ContactsList({ categories, companyName, logo }: ContactsListProp
               <h2 className="mb-4 text-xs font-medium uppercase tracking-wider text-zinc-500 dark:text-zinc-400">{category.name}</h2>
               <div className="space-y-px">
                 {category.contacts.map((contact) => (
-                  <div key={`${contact.product}-${contact.handles.join('-')}`} className="flex items-start justify-between border-t border-zinc-200 py-4 first:border-t-0 dark:border-zinc-800">
+                  <div key={contact.product} className="flex items-start justify-between border-t border-zinc-200 py-4 first:border-t-0 dark:border-zinc-800">
                     <div className="flex-1">
                       <button onClick={() => copyHandlesToClipboard(contact.product, contact.handles)} className="cursor-pointer text-left text-sm font-medium text-zinc-900 transition-colors hover:text-orange-600 md:text-base dark:text-zinc-100" title="Click to copy all handles">
                         {copiedProduct === contact.product ? <span className="text-green-600">Copied!</span> : contact.product}
                       </button>
                       {contact.email && (
-                        <a 
-                          href={`mailto:${contact.email}`}
-                          className="mt-1 flex items-center gap-1.5 text-xs text-zinc-500 transition-colors hover:text-orange-600 md:text-sm dark:text-zinc-400"
-                        >
+                        <a href={`mailto:${contact.email}`} className="mt-1 flex items-center gap-1.5 text-xs text-zinc-500 transition-colors hover:text-orange-600 md:text-sm dark:text-zinc-400">
                           <Mail className="h-3 w-3" />
                           <span>{contact.email}</span>
                         </a>
@@ -166,4 +160,3 @@ export function ContactsList({ categories, companyName, logo }: ContactsListProp
     </div>
   );
 }
-
