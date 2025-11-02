@@ -78,11 +78,11 @@ export function ContactsList({ categories, companyName, logo }: ContactsListProp
                 {category.contacts.map((contact) => (
                   <div key={contact.product} className="flex items-start justify-between border-t border-zinc-200 py-4 first:border-t-0 dark:border-zinc-800">
                     <div className="flex-1">
-                      <button onClick={() => copyHandlesToClipboard(contact.product, contact.handles)} className="cursor-pointer text-left text-sm font-medium text-zinc-900 transition-colors hover:text-orange-600 md:text-base dark:text-zinc-100" title="Click to copy all handles">
+                      <button onClick={() => copyHandlesToClipboard(contact.product, contact.handles)} className="cursor-pointer text-left text-sm font-medium text-zinc-900 transition-colors hover:text-orange-600 md:text-base dark:text-zinc-100 dark:hover:text-orange-600" title="Click to copy all handles">
                         {copiedProduct === contact.product ? <span className="text-green-600">Copied!</span> : contact.product}
                       </button>
                       {contact.email && (
-                        <a href={`mailto:${contact.email}`} className="mt-1 flex items-center gap-1.5 text-xs text-zinc-500 transition-colors hover:text-orange-600 md:text-sm dark:text-zinc-400">
+                        <a href={`mailto:${contact.email}`} className="mt-1 flex items-center gap-1.5 text-xs text-zinc-500 transition-colors hover:text-orange-600 md:text-sm dark:text-zinc-400 dark:hover:text-orange-600">
                           <Mail className="h-3 w-3" />
                           <span>{contact.email}</span>
                         </a>
@@ -91,7 +91,7 @@ export function ContactsList({ categories, companyName, logo }: ContactsListProp
                     <div className="inline-flex flex-wrap items-center justify-end gap-x-3 gap-y-1">
                       {contact.handles.length <= 2 ? (
                         contact.handles.map((handle) => (
-                          <a key={handle} href={`https://x.com/${handle.replace('@', '')}`} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 text-sm text-zinc-600 transition-colors hover:text-orange-600 md:text-base dark:text-zinc-400">
+                          <a key={handle} href={`https://x.com/${handle.replace('@', '')}`} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 text-sm text-zinc-600 transition-colors hover:text-orange-600 md:text-base dark:text-zinc-400 dark:hover:text-orange-600">
                             <Avatar className="h-5 w-5 flex-shrink-0">
                               <AvatarImage src={`https://unavatar.io/x/${handle.replace('@', '')}`} alt={handle} />
                               <AvatarFallback className="bg-zinc-100 text-[10px] text-zinc-600 dark:bg-zinc-800 dark:text-zinc-400">{handle.slice(1, 3).toUpperCase()}</AvatarFallback>
@@ -102,7 +102,7 @@ export function ContactsList({ categories, companyName, logo }: ContactsListProp
                       ) : (
                         <>
                           {contact.handles.slice(0, 2).map((handle) => (
-                            <a key={handle} href={`https://x.com/${handle.replace('@', '')}`} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 text-sm text-zinc-600 transition-colors hover:text-orange-600 md:text-base dark:text-zinc-400">
+                            <a key={handle} href={`https://x.com/${handle.replace('@', '')}`} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 text-sm text-zinc-600 transition-colors hover:text-orange-600 md:text-base dark:text-zinc-400 dark:hover:text-orange-600">
                               <Avatar className="h-5 w-5 flex-shrink-0">
                                 <AvatarImage src={`https://unavatar.io/x/${handle.replace('@', '')}`} alt={handle} />
                                 <AvatarFallback className="bg-zinc-100 text-[10px] text-zinc-600 dark:bg-zinc-800 dark:text-zinc-400">{handle.slice(1, 3).toUpperCase()}</AvatarFallback>
@@ -111,11 +111,11 @@ export function ContactsList({ categories, companyName, logo }: ContactsListProp
                             </a>
                           ))}
                           <Popover>
-                            <PopoverTrigger className="text-sm text-zinc-600 transition-colors hover:text-orange-600 md:text-base dark:text-zinc-400">more</PopoverTrigger>
+                            <PopoverTrigger className="text-sm text-zinc-600 transition-colors hover:text-orange-600 md:text-base dark:text-zinc-400 dark:hover:text-orange-600">more</PopoverTrigger>
                             <PopoverContent className="w-auto border-zinc-200 bg-white p-3 shadow-lg dark:border-zinc-700 dark:bg-zinc-900">
                               <div className="flex flex-col gap-2">
                                 {contact.handles.slice(2).map((handle) => (
-                                  <a key={handle} href={`https://x.com/${handle.replace('@', '')}`} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 text-sm text-zinc-600 transition-colors hover:text-orange-600 dark:text-zinc-400">
+                                  <a key={handle} href={`https://x.com/${handle.replace('@', '')}`} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 text-sm text-zinc-600 transition-colors hover:text-orange-600 dark:text-zinc-400 dark:hover:text-orange-600">
                                     <Avatar className="h-5 w-5 flex-shrink-0">
                                       <AvatarImage src={`https://unavatar.io/twitter/${handle.replace('@', '')}`} alt={handle} />
                                       <AvatarFallback className="bg-zinc-100 text-[10px] text-zinc-600 dark:bg-zinc-800 dark:text-zinc-400">{handle.slice(1, 3).toUpperCase()}</AvatarFallback>
