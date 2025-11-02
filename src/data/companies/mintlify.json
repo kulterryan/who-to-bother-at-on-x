@@ -19,6 +19,13 @@
           "handles": ["@skeptrune"]
         }
       ]
+    },
+    {
+      "name": "Design Engineering",
+      "contacts": [
+        { "product": "Design Engineer", "handles": ["@kaishan_ding", "@pqoqubbw"] },
+        { "product": "Product Design", "handles": ["@jmsbaduor"] }
+      ]
     }
   ]
 }
