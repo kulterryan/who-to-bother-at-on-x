@@ -1,5 +1,5 @@
 {
-  "$schema": "@/data/companies/schema.json",
+  "$schema": "./schema.json",
   "id": "github",
   "name": "GitHub",
   "description": "Platform for version control and collaboration",

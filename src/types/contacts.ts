@@ -1,13 +1,5 @@
-export interface Contact {
-  product: string;
-  handles: string[];
-  email?: string;
-}
-
-export interface Category {
-  name: string;
-  contacts: Contact[];
-}
+// Re-export valibot-inferred types from schema
+export type { Contact, Category } from '../data/companies/schema';
 
 export interface Company {
   name: string;

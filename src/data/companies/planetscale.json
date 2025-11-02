@@ -1,5 +1,5 @@
 {
-  "$schema": "@/data/companies/schema.json",
+  "$schema": "./schema.json",
   "id": "planetscale",
   "name": "PlanetScale",
   "description": "Database platform for building scalable applications",

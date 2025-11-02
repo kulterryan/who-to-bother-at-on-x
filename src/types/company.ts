@@ -1,13 +1,8 @@
-import type { Category } from './contacts';
+// Re-export valibot-inferred Company type from schema
+export type { Company } from '../data/companies/schema';
 
-export interface Company {
-  $schema?: string;
-  id: string;
-  name: string;
-  description: string;
-  logoType: string;
-  categories: Category[];
-}
+// Keep Category export for backwards compatibility
+export type { Category } from './contacts';
 
 export interface CompanyListItem {
   id: string;

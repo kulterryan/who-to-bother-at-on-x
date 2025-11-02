@@ -3,49 +3,47 @@
   "title": "Company",
   "description": "Schema for company contact information",
   "type": "object",
-  "required": ["id", "name", "description", "logoType", "categories"],
   "properties": {
+    "$schema": {
+      "type": "string"
+    },
     "id": {
       "type": "string",
-      "description": "Unique identifier for the company (lowercase, no spaces)"
+      "minLength": 1,
+      "pattern": "^[a-z0-9-]+$"
     },
     "name": {
       "type": "string",
-      "description": "Display name of the company"
+      "minLength": 1
     },
     "description": {
       "type": "string",
-      "description": "Brief description of what the company does"
+      "minLength": 1
     },
     "logoType": {
       "type": "string",
-      "description": "Logo identifier matching the key in company-logos.tsx"
+      "minLength": 1
     },
     "categories": {
       "type": "array",
-      "description": "Categories of contacts (e.g., by product, team, or area)",
       "items": {
         "type": "object",
-        "required": ["name", "contacts"],
         "properties": {
           "name": {
             "type": "string",
-            "description": "Category name (e.g., 'Engineering', 'Product & Design')"
+            "minLength": 1
           },
           "contacts": {
             "type": "array",
-            "description": "List of contacts in this category",
             "items": {
               "type": "object",
-              "required": ["product", "handles"],
               "properties": {
                 "product": {
                   "type": "string",
-                  "description": "Product, role, or area of responsibility"
+                  "minLength": 1
                 },
                 "handles": {
                   "type": "array",
-                  "description": "Twitter/X handles (include @ symbol)",
                   "items": {
                     "type": "string",
                     "pattern": "^@[a-zA-Z0-9_]+$"
@@ -54,19 +52,30 @@
                 },
                 "email": {
                   "type": "string",
-                  "description": "Optional email address (only include if publicly available)",
                   "format": "email"
                 }
               },
-              "additionalProperties": false
-            }
+              "required": [
+                "product",
+                "handles"
+              ]
+            },
+            "minItems": 1
           }
         },
-        "additionalProperties": false
+        "required": [
+          "name",
+          "contacts"
+        ]
       },
       "minItems": 1
     }
   },
-  "additionalProperties": false
+  "required": [
+    "id",
+    "name",
+    "description",
+    "logoType",
+    "categories"
+  ]
 }
-

@@ -1,5 +1,5 @@
 {
-  "$schema": "@/data/companies/schema.json",
+  "$schema": "./schema.json",
   "id": "betterauth",
   "name": "Better Auth",
   "description": "Open-source authentication and authorization for modern web applications",

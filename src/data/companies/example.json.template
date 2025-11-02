@@ -1,5 +1,5 @@
 {
-  "$schema": "@/data/companies/schema.json",
+  "$schema": "./schema.json",
   "id": "yourcompany",
   "name": "Your Company Name",
   "description": "Brief description of what your company does",

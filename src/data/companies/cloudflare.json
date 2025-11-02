@@ -1,5 +1,5 @@
 {
-  "$schema": "@/data/companies/schema.json",
+  "$schema": "./schema.json",
   "id": "cloudflare",
   "name": "Cloudflare",
   "description": "Global cloud platform for security and performance",
@@ -14,24 +14,32 @@
       ]
     },
     {
-      "name": "Developer Platform",
+      "name" : "Developer Platform",
       "contacts": [
-        { "product": "Workers Platform", "handles": ["@KentonVarda", "@yagiznizipli"] },
-        { "product": "AI Agents", "handles": ["@threepointone", "@whoiskatrin"] },
-        { "product": "Dashboard", "handles": ["@BraydenWilmoth"] },
-        { "product": "Sandboxes", "handles": ["@whoiskatrin"]},
-        { "product": "Workers AI", "handles": ["@_mchenco"]},
-        { "product": "Wrangler CLI", "handles": ["@MattieTK"] }
+        { "product": "Dashboard", "handles": ["@BraydenWilmoth"] }
       ]
     },
     {
-      "name": "Data Platform",
+      "name": "Compute & AI",
       "contacts": [
+        { "product": "Workers Platform", "handles": ["@KentonVarda", "@yagiznizipli"] },
+        { "product": "AI Search (fka. AutoRAG)", "handles": ["@aninibread", "@G4brym"] },
+        { "product": "AI Agents", "handles": ["@threepointone", "@whoiskatrin"] },
+        { "product": "Sandboxes", "handles": ["@whoiskatrin"]},
+        { "product": "Workers AI", "handles": ["@_mchenco"]},
+        { "product": "Wrangler CLI", "handles": ["@MattieTK"] },
+        { "product": "Workers Builds", "handles": ["@yomnashousha"] }
+      ]
+    },
+    {
+      "name": "Storage & Database",
+      "contacts": [
+        { "product": "R2", "handles": ["@aninibread", "@fireblaze_15"] },
         { "product": "Pipelines", "handles": ["@MarcSelwan", "@mwylde"] },
         { "product": "R2 Data Catalog", "handles": ["@MarcSelwan", "@Cole_MacKenzie"] },
         { "product": "R2 SQL", "handles": ["@MarcSelwan", "@jeromeschneider", "@sejoker"] }
       ]
-    },    
+    },
     {
       "name": "Developer Advocacy",
       "contacts": [

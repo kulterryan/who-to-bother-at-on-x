@@ -1,35 +1,28 @@
-'use client';
-
 import { createFileRoute, Link } from '@tanstack/react-router';
 import { ContactsList } from '@/components/contacts-list';
 import { companyLogos } from '@/components/company-logos';
 import type { Company } from '@/types/company';
 
-// Import all company data
-import cloudflareData from '@/data/companies/cloudflare.json';
-import vercelData from '@/data/companies/vercel.json';
-import planetscaleData from '@/data/companies/planetscale.json';
-import tanstackData from '@/data/companies/tanstack.json';
-import mintlifyData from '@/data/companies/mintlify.json';
-import webflowData from '@/data/companies/webflow.json';
-import upstashData from '@/data/companies/upstash.json';
-import githubData from '@/data/companies/github.json';
-import betterauthData from '@/data/companies/betterauth.json';
-import computesdkData from '@/data/companies/computesdk.json';
+// Auto-discover all company JSON files using Vite's import.meta.glob
+const companyModules = import.meta.glob<{ default: Company }>(
+  '../data/companies/*.json',
+  { eager: true }
+);
 
-// Create a map of company data
-const companyDataMap: Record<string, Company> = {
-  cloudflare: cloudflareData as Company,
-  planetscale: planetscaleData as Company,
-  tanstack: tanstackData as Company,
-  vercel: vercelData as Company,
-  mintlify: mintlifyData as Company,
-  webflow: webflowData as Company,
-  upstash: upstashData as Company,
-  github: githubData as Company,
-  betterauth: betterauthData as Company,
-  computesdk: computesdkData as Company,
-};
+// Generate company data map from discovered files
+const companyDataMap: Record<string, Company> = Object.entries(companyModules).reduce(
+  (acc, [path, module]) => {
+    const filename = path.split('/').pop()?.replace('.json', '') || '';
+    // Filter out schema and template files
+    if (filename && !filename.includes('schema') && !filename.includes('template')) {
+      // Key by the id field from the JSON to match how links are generated in index.tsx
+      acc[module.default.id] = module.default;
+    }
+    return acc;
+  },
+  {} as Record<string, Company>
+);
+
 
 export const Route = createFileRoute('/$company')({
   loader: async ({ params }) => {
