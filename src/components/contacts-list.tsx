@@ -79,7 +79,7 @@ export function ContactsList({ categories, companyName, logo }: ContactsListProp
               <h2 className="mb-4 text-xs font-medium uppercase tracking-wider text-zinc-500 dark:text-zinc-400">{category.name}</h2>
               <div className="space-y-px">
                 {category.contacts.map((contact) => (
-                  <div key={contact.product} className="flex items-start justify-between border-t border-zinc-200 py-4 first:border-t-0 dark:border-zinc-800">
+                  <div key={`${contact.product}-${contact.handles.join('-')}`} className="flex items-start justify-between border-t border-zinc-200 py-4 first:border-t-0 dark:border-zinc-800">
                     <div className="flex-1">
                       <button onClick={() => copyHandlesToClipboard(contact.product, contact.handles)} className="cursor-pointer text-left text-sm font-medium text-zinc-900 transition-colors hover:text-orange-600 md:text-base dark:text-zinc-100" title="Click to copy all handles">
                         {copiedProduct === contact.product ? <span className="text-green-600">Copied!</span> : contact.product}
