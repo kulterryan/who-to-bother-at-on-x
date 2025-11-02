@@ -8,7 +8,8 @@
     "preview": "vite preview",
     "deploy": "npm run build && wrangler deploy",
     "cf-typegen": "wrangler types",
-    "validate": "tsx src/scripts/validate-companies.ts"
+    "validate": "tsx src/scripts/validate-companies.ts",
+    "generate-schema": "tsx src/scripts/generate-json-schema.ts"
   },
   "type": "module",
   "dependencies": {
@@ -73,6 +74,7 @@
     "@types/node": "^22",
     "@types/react": "^19.1.0",
     "@types/react-dom": "^19.1.0",
+    "@valibot/to-json-schema": "^1.0.0",
     "@vitejs/plugin-react": "^5.1.0",
     "tailwindcss": "^4.1.9",
     "tsx": "^4.19.2",

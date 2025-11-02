@@ -1,5 +1,5 @@
 {
-  "$schema": "@/data/companies/schema.json",
+  "$schema": "./schema.json",
   "id": "vercel",
   "name": "Vercel",
   "description": "Frontend cloud platform for deploying web applications",

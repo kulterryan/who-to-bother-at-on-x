@@ -1,5 +1,5 @@
 {
-  "$schema": "@/data/companies/schema.json",
+  "$schema": "./schema.json",
   "id": "mintlify",
   "name": "Mintlify",
   "description": "Mintlify is a platform for building and deploying documentation sites",

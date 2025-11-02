@@ -1,5 +1,5 @@
 {
-  "$schema": "@/data/companies/schema.json",
+  "$schema": "./schema.json",
   "id": "cloudflare",
   "name": "Cloudflare",
   "description": "Global cloud platform for security and performance",
@@ -39,7 +39,7 @@
         { "product": "R2 Data Catalog", "handles": ["@MarcSelwan", "@Cole_MacKenzie"] },
         { "product": "R2 SQL", "handles": ["@MarcSelwan", "@jeromeschneider", "@sejoker"] }
       ]
-    },    
+    },
     {
       "name": "Developer Advocacy",
       "contacts": [

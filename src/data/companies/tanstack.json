@@ -1,5 +1,5 @@
 {
-  "$schema": "@/data/companies/schema.json",
+  "$schema": "./schema.json",
   "id": "tanstack",
   "name": "TanStack",
   "description": "High-quality open-source software for web developers",
