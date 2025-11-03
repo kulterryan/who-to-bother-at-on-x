@@ -107,5 +107,10 @@ export const companyLogos: Record<string, React.ReactNode> = {
 				fill="currentColor"
 			/>
 		</svg>
-	)
+	),
+    groq: (
+        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 370 563" fill="none" className="text-zinc-900 dark:text-zinc-100">
+            <polygon fill="currentColor" points="165.98 342.21 0 342.21 272.4 1.5 203.65 221.61 369.6 221.61 97.23 562.32 165.98 342.21"/>
+        </svg>
+    )
 };
