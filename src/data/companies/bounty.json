@@ -1,0 +1,26 @@
+{
+  "$schema": "./schema.json",
+  "id": "bounty",
+  "name": "Bounty",
+  "description": "Bounty is a platform where creators post challenges and developers deliver solutions. Instant payouts, integration, zero friction.",
+  "logoType": "bounty",
+  "categories": [
+    {
+      "name": "Official Accounts",
+      "contacts": [
+        { "product": "Official Bounty Account", "handles": ["@bountydotnew"] }
+      ]
+    },
+    {
+      "name" : "Product",
+      "contacts" : [
+        { "product" : "Web", "handles": ["@grimcodes"]},
+        { "product" : "IDE", "handles": ["@grimcodes"]},
+        { "product" : "API", "handles": ["@grimcodes"]},
+        { "product" : "Integrations", "handles": ["@grimcodes"]},
+        { "product" : "Community", "handles": ["@grimcodes"]}
+      ]
+    }
+  ]
+}
+
