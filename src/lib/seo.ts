@@ -1,3 +1,8 @@
+type MetaTag = 
+  | { title: string }
+  | { name: string; content: string }
+  | { property: string; content: string };
+
 export function seo({
   title,
   description,
@@ -10,8 +15,8 @@ export function seo({
   keywords?: string;
   image?: string;
   url?: string;
-}) {
-  const tags = [
+}): MetaTag[] {
+  const tags: MetaTag[] = [
     { title },
   ];
 

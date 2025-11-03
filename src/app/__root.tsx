@@ -43,7 +43,7 @@ function RootLayout() {
             __html: `!function(){try{var e=localStorage.getItem('${THEME_STORAGE_KEY}')||'light';document.documentElement.className='system'===e?matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light':e}catch{document.documentElement.className='light'}}()`,
           }}
         />
-        <HeadContent />
+        {HeadContent()}
       </head>
       <body>
         <ThemeProvider>
