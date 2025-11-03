@@ -6,6 +6,7 @@ import type { CompanyListItem } from '@/types/company';
 import type { Company } from '@/types/company';
 import { GithubIcon } from 'lucide-react';
 import { ModeToggle } from '@/components/theme-toggle';
+import { seo } from '@/lib/seo';
 
 // Auto-discover all company JSON files (excluding templates)
 const companyModules = import.meta.glob<{ default: Company }>('../data/companies/*.json', {
@@ -26,6 +27,15 @@ const companies: CompanyListItem[] = Object.entries(companyModules)
   .sort((a, b) => a.name.localeCompare(b.name));
 
 export const Route = createFileRoute('/')({
+  head: () => ({
+    meta: [
+      ...seo({
+        title: 'who to bother on X | find help in your favorite tech companies',
+        description: 'Find the right people to reach out to at your favorite tech companies on X (Twitter).',
+        keywords: 'tech companies, contacts, X, Twitter, developers, developer relations, devrel, support',
+      }),
+    ],
+  }),
   component: HomePage,
 });
 

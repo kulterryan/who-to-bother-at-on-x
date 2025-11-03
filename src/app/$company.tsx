@@ -2,6 +2,7 @@ import { createFileRoute, Link } from '@tanstack/react-router';
 import { ContactsList } from '@/components/contacts-list';
 import { companyLogos } from '@/components/company-logos';
 import type { Company } from '@/types/company';
+import { seo } from '@/lib/seo';
 
 // Auto-discover all company JSON files using Vite's import.meta.glob
 const companyModules = import.meta.glob<{ default: Company }>(
@@ -34,6 +35,22 @@ export const Route = createFileRoute('/$company')({
     }
     
     return companyData;
+  },
+  head: ({ loaderData }) => {
+    if (!loaderData) return { meta: [] };
+    
+    const title = `who to bother at ${loaderData.name} on X`;
+    const description = `Find the right people to reach out to at ${loaderData.name} on X (Twitter). ${loaderData.description}`;
+    
+    return {
+      meta: [
+        ...seo({
+          title,
+          description,
+          keywords: `${loaderData.name}, contacts, X, Twitter, developer relations, support`,
+        }),
+      ],
+    };
   },
   component: CompanyPage,
   errorComponent: ({ error }) => {

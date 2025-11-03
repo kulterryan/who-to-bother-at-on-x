@@ -1,7 +1,8 @@
-import { Outlet, createRootRoute, Scripts } from '@tanstack/react-router';
+import { Outlet, createRootRoute, Scripts, HeadContent } from '@tanstack/react-router';
 import appCss from "./globals.css?url"
 import { ThemeProvider } from '@/components/theme-provider';
 import { THEME_STORAGE_KEY } from '@/lib/theme';
+import { seo } from '@/lib/seo';
 
 export const Route = createRootRoute({
   head: () => ({
@@ -11,7 +12,15 @@ export const Route = createRootRoute({
         name: 'viewport',
         content: 'width=device-width, initial-scale=1',
       },
-      { title: 'who to bother on X' },
+      {
+        name: 'theme-color',
+        content: '#ea580c',
+      },
+      ...seo({
+        title: 'who to bother on X',
+        description: 'Find the right people to reach out to at your favorite tech companies on X (Twitter)',
+        keywords: 'tech companies, contacts, X, Twitter, developers, developer relations, devrel, support',
+      }),
     ],
     links: [
       {
@@ -34,10 +43,7 @@ function RootLayout() {
             __html: `!function(){try{var e=localStorage.getItem('${THEME_STORAGE_KEY}')||'light';document.documentElement.className='system'===e?matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light':e}catch{document.documentElement.className='light'}}()`,
           }}
         />
-        <title>who to bother at</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <meta charSet="utf-8" />
-        <link rel="stylesheet" href={appCss} />
+        <HeadContent />
       </head>
       <body>
         <ThemeProvider>
