@@ -12,20 +12,62 @@
       ]
     },
     {
+      "name": "Founders",
+      "contacts": [
+        {
+          "product": "CEO",
+          "handles": ["@handotdev"]
+        },
+        {
+          "product": "CTO",
+          "handles": ["@hahnbeeiee"]
+        }
+      ]
+    },
+    {
       "name": "Platform Engineering",
       "contacts": [
         {
           "product": "Engineering Manager",
           "handles": ["@skeptrune"]
+        },
+        {
+          "product": "Platform Engineer",
+          "handles": ["@ricardonunez_io", "@leylndd"]
+        },
+        {
+          "product": "Infrastructure Engineer",
+          "handles": ["@cdxker"]
+        },
+        {
+          "product": "Backend Engineer",
+          "handles": ["@densumesh"]
         }
       ]
     },
     {
-      "name": "Design Engineering",
+      "name": "Design",
       "contacts": [
-        { "product": "Design Engineer", "handles": ["@kaishan_ding", "@pqoqubbw"] },
-        { "product": "Product Design", "handles": ["@jmsbaduor"] }
+        {
+          "product": "Design Engineer",
+          "handles": ["@kaishan_ding", "@pqoqubbw"]
+        },
+        { "product": "Product Design", "handles": ["@jmsbaduor"] },
+        { "product": "Brand Design", "handles": ["@jnrkay_x"] }
       ]
+    },
+    {
+      "name": "Solutions Engineering",
+      "contacts": [
+        {
+          "product": "Solutions Engineer",
+          "handles": ["@RuhanPonnada"]
+        }
+      ]
+    },
+    {
+      "name": "Talent & Ops",
+      "contacts": [{ "product": "Recruiter", "handles": ["@laurenfrailey1"] }]
     }
   ]
 }
