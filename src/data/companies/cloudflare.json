@@ -18,6 +18,7 @@
       "contacts": [
         { "product": "VP of Developers & AI", "handles": ["@ritakozlov_"] },
         { "product": "VP of Storage & Databases", "handles": ["@elithrar"] },
+        { "product": "API & Terraform", "handles": ["@korinne_dev"] },
         { "product": "Dashboard", "handles": ["@BraydenWilmoth", "@burcs", "@nandafyi", "@kyliestew"] }
       ]
     },
