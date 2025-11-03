@@ -29,6 +29,7 @@
         { "product": "AI Search (fka. AutoRAG)", "handles": ["@aninibread", "@G4brym"] },
         { "product": "AI Agents & MCP", "handles": ["@threepointone", "@whoiskatrin", "@mattzcarey"] },
         { "product": "AI Gateway", "handles": ["@KankaniAbhishek","@_mchenco"]},
+        { "product": "Browser Rendering", "handles": ["@kathyyliao"]},
         { "product": "Sandboxes", "handles": ["@whoiskatrin"]},
         { "product": "Workers AI", "handles": ["@_mchenco"]},
         { "product": "Workers Builds", "handles": ["@yomnashousha"] },
