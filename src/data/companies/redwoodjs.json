@@ -1,0 +1,28 @@
+{
+  "$schema": "./schema.json",
+  "id": "redwoodjs",
+  "name": "RedwoodJS",
+  "description": "Full-stack JavaScript application framework built on React, GraphQL, and Prisma",
+  "logoType": "redwoodjs",
+  "categories": [
+    {
+      "name": "Official Accounts",
+      "contacts": [
+        {
+          "product": "Official RedwoodJS Account",
+          "handles": ["@RedwoodJS"]
+        }
+      ]
+    },
+    {
+      "name": "Core Contributors",
+      "contacts": [
+        {
+          "product": "Core Contributor",
+          "handles": ["@appfactory"]
+        }
+      ]
+    }
+  ]
+}
+
