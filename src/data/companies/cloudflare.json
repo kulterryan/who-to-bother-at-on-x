@@ -27,7 +27,6 @@
         { "product": "AI Agents", "handles": ["@threepointone", "@whoiskatrin"] },
         { "product": "AI Agents & MCP", "handles": ["@mattzcarey"]},
         { "product": "Sandboxes", "handles": ["@whoiskatrin"]},
-        { "product": "Workers AI SDK", "handles": ["@dok2001"]},
         { "product": "Workers AI", "handles": ["@_mchenco"]},
         { "product": "Wrangler CLI", "handles": ["@MattieTK"] },
         { "product": "Workers Builds", "handles": ["@yomnashousha"] }
