@@ -16,7 +16,9 @@
     {
       "name" : "Developer Platform",
       "contacts": [
-        { "product": "Dashboard", "handles": ["@BraydenWilmoth"] }
+        { "product": "VP of Developers & AI", "handles": ["@ritakozlov_"] },
+        { "product": "VP of Storage & Databases", "handles": ["@elithrar"] },
+        { "product": "Dashboard", "handles": ["@BraydenWilmoth", "@burcs", "@nandafyi", "@kyliestew"] }
       ]
     },
     {
@@ -24,19 +26,21 @@
       "contacts": [
         { "product": "Workers Platform", "handles": ["@KentonVarda", "@yagiznizipli"] },
         { "product": "AI Search (fka. AutoRAG)", "handles": ["@aninibread", "@G4brym"] },
-        { "product": "AI Agents", "handles": ["@threepointone", "@whoiskatrin"] },
-        { "product": "AI Agents & MCP", "handles": ["@mattzcarey"]},
+        { "product": "AI Agents & MCP", "handles": ["@threepointone", "@whoiskatrin", "@mattzcarey"] },
+        { "product": "AI Gateway", "handles": ["@KankaniAbhishek","@_mchenco"]},
         { "product": "Sandboxes", "handles": ["@whoiskatrin"]},
         { "product": "Workers AI", "handles": ["@_mchenco"]},
-        { "product": "Wrangler CLI", "handles": ["@MattieTK"] },
-        { "product": "Workers Builds", "handles": ["@yomnashousha"] }
+        { "product": "Workers Builds", "handles": ["@yomnashousha"] },
+        { "product": "Workers for Platforms", "handles": ["@dinasaur_404"] },
+        { "product": "Wrangler CLI", "handles": ["@MattieTK"] }
       ]
     },
     {
-      "name": "Storage & Database",
+      "name": "Storage & Databases",
       "contacts": [
-        { "product": "R2", "handles": ["@aninibread", "@fireblaze_15"] },
+        { "product": "Storage & Data Platform", "handles": ["@akaphill"] },
         { "product": "Pipelines", "handles": ["@MarcSelwan", "@mwylde"] },
+        { "product": "R2", "handles": ["@aninibread", "@fireblaze_15"] },
         { "product": "R2 Data Catalog", "handles": ["@MarcSelwan", "@Cole_MacKenzie"] },
         { "product": "R2 SQL", "handles": ["@MarcSelwan", "@jeromeschneider", "@sejoker"] }
       ]
@@ -44,7 +48,6 @@
     {
       "name": "Developer Advocacy",
       "contacts": [
-        { "product": "VP of Developers & AI", "handles": ["@ritakozlov_"] },
         { "product": "Manager of Developer Advocacy", "handles": ["@kristianf_"] },
         { "product": "Developer Advocate", "handles": ["@lauragift_"] }
       ]
