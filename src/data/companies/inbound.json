@@ -1,0 +1,28 @@
+{
+  "$schema": "./schema.json",
+  "id": "inbound",
+  "name": "Inbound",
+  "description": "The complete email platform for you and your agents, allowing you to send, receive and reply with ease",
+  "logoType": "inbound",
+  "categories": [
+    {
+      "name": "Product & Support",
+      "contacts": [
+        {
+          "product": "Core Product",
+          "handles": ["@inboundemail"]
+        }
+      ]
+    },
+    {
+      "name": "Maintainers",
+      "contacts": [
+        {
+          "product": "Maintainer",
+          "handles": ["@ryandavogel"],
+          "email": "ryan@inbound.new"
+        }
+      ]
+    }
+  ]
+}

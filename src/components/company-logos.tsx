@@ -66,6 +66,11 @@ export const companyLogos: Record<string, React.ReactNode> = {
       />
     </svg>
   ),
+  inbound: (
+    <span className="inline-flex h-10 w-10 items-center justify-center rounded-lg bg-orange-500/10 text-sm font-semibold uppercase text-orange-600 dark:bg-orange-500/20 dark:text-orange-300">
+      IN
+    </span>
+  ),
   betterauth: (
     <svg width="40" height="40" fill="none" viewBox="0 0 500 500">
       <path fill="black" className="dark:fill-white" d="M0 0h500v500H0z" />
