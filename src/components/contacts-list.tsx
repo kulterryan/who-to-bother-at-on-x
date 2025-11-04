@@ -6,7 +6,7 @@ import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Copy, ArrowLeft, Mail } from 'lucide-react';
 import type { Category } from '@/types/contacts';
-import { ModeToggle } from '@/components/theme-toggle';
+import { Footer } from '@/components/footer';
 
 interface ContactsListProps {
   categories: Category[];
@@ -136,26 +136,10 @@ export function ContactsList({ categories, companyName, logo }: ContactsListProp
           ))}
         </div>
 
-        <p className="mt-12 text-sm text-zinc-500 dark:text-zinc-400">
-          Have more contacts to add?{' '}
-          <a href="https://github.com/kulterryan/who-to-bother-at-on-x" target="_blank" rel="noopener noreferrer" className="text-orange-600 underline decoration-orange-300 underline-offset-4 transition-colors hover:text-orange-700 hover:decoration-orange-400">
-            Submit a pull request
-          </a>{' '}
-          on GitHub or mention{' '}
-          <a href="https://x.com/thehungrybird_" target="_blank" rel="noopener noreferrer" className="text-orange-600 underline decoration-orange-300 underline-offset-4 transition-colors hover:text-orange-700 hover:decoration-orange-400">
-            @thehungrybird_
-          </a>{' '}
-          on X.
-        </p>
-        <p className="mt-6 text-sm text-zinc-500 dark:text-zinc-400">
-          Concept by:{' '}
-          <a href="https://x.com/strehldev" target="_blank" rel="noopener noreferrer" className="text-orange-600 underline decoration-orange-300 underline-offset-4 transition-colors hover:text-orange-700 hover:decoration-orange-400">
-            @strehldev
-          </a>
-        </p>
-        <div className="mt-6 flex justify-center">
-          <ModeToggle />
-        </div>
+        <Footer 
+          contributionTitle="Want to add more contacts?"
+          contributionMessage="This is a community-maintained directory. Have more contacts to add?"
+        />
       </main>
     </div>
   );

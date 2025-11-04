@@ -99,7 +99,7 @@ Fix any validation errors before proceeding.
 
 ### Step 6: Submit Your Pull Request
 
-Create a PR with your changes. We'll review and merge it!
+Create a PR with your changes. If you have any questions or need help, feel free to reach out to [@thehungrybird_](https://x.com/thehungrybird_) on X. We'll review and merge it!
 
 ## How It Works
 

@@ -18,6 +18,8 @@ This open-source project helps developers quickly find the right contacts at var
 
 We welcome contributions! See our [Contributing Guide](CONTRIBUTING.md) for complete details on how to add your company, validate your data, and submit a pull request.
 
+Have questions? Reach out to [@thehungrybird_](https://x.com/thehungrybird_) on X.
+
 ## Local Development
 
 ```bash
@@ -87,7 +89,8 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ## Credits
 
 - Concept by [@strehldev](https://x.com/strehldev)
-- Maintained by [@thehungrybird_](https://x.com/thehungrybird_) and contributors
+- Created by [@thehungrybird_](https://x.com/thehungrybird_)
+- Maintained by the community
 
 ## Disclaimer
 
