@@ -1,0 +1,31 @@
+{
+  "$schema": "./schema.json",
+  "id": "ora",
+  "name": "Ora",
+  "description": "Open source Arc alternative for macOS, built with Swift and WebKit to provide a seamless and secure browsing experience.",
+  "logoType": "ora",
+  "categories": [
+    {
+      "name": "Official Accounts",
+      "contacts": [
+        {
+          "product": "Official Ora Browser Account",
+          "handles": ["@orabrowser"]
+        }
+      ]
+    },
+    {
+      "name": "Core Team",
+      "contacts": [
+        {
+          "product": "Co-Creator and Maintainer",
+          "handles": ["@YonathanDejene"]
+        },
+        {
+          "product": "Co-Creator and Maintainer",
+          "handles": ["@keni_ax"]
+        }
+      ]
+    }
+  ]
+}
