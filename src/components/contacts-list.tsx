@@ -1,3 +1,5 @@
+'use client';
+
 import { useState } from 'react';
 import { Link } from '@tanstack/react-router';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
