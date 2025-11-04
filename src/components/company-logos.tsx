@@ -206,7 +206,7 @@ export const companyLogos: Record<string, React.ReactNode> = {
     </svg>
   ),
   coolify: (
-    <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 352 352"  className="text-zinc-900 dark:text-zinc-100">
+    <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 352 352" aria-labelledby="coolify" className="text-zinc-900 dark:text-zinc-100">
       <title id="coolify">Coolify</title>
       <path
         d="M64 256v32H32v-32zm0 0V96h32v160ZM96 96V64h224V32h32v64Zm224 192h32v64H96v-32h224z"
