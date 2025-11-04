@@ -16,14 +16,25 @@
     },
     {
       "name": "GSAP Animation Library",
-      "contacts": [
-        { "product": "GSAP Community", "handles": ["@GreenSock"] }
-      ]
+      "contacts": [{ "product": "GSAP Community", "handles": ["@GreenSock"] }]
     },
     {
       "name": "Community",
       "contacts": [
-        { "product": "Director, Customer Marketing & Community", "handles": ["@verofashoo"] }
+        {
+          "product": "Director, Customer Marketing & Community",
+          "handles": ["@verofashoo"]
+        }
+      ]
+    },
+    {
+      "name": "Developer Relations",
+      "contacts": [
+        {
+          "product": "Developer Evangelist",
+          "handles": ["@jeenyusjane"],
+          "email": "developers@webflow.com"
+        }
       ]
     }
   ]
