@@ -54,6 +54,35 @@ function HomePage() {
         <div className="grid gap-6 md:grid-cols-2">
           {companies.map((company) => {
             const logo = companyLogos[company.id];
+            
+            // Use regular anchor tag for Vercel to trigger server redirect
+            if (company.id === 'vercel') {
+              return (
+                <a
+                  key={company.id}
+                  href="/vercel"
+                  className="group block rounded-xl border-2 border-zinc-200 bg-white p-6 transition-all hover:border-zinc-900 hover:shadow-lg dark:border-zinc-700 dark:bg-zinc-900 dark:hover:border-orange-600"
+                >
+                  {logo && (
+                    <div className="mb-4">
+                      {logo}
+                    </div>
+                  )}
+                  <h2 className="mb-2 text-2xl font-semibold text-zinc-900 transition-colors group-hover:text-orange-600 dark:text-zinc-100">
+                    {company.name}
+                  </h2>
+                  <p className="text-sm text-zinc-600 dark:text-zinc-400">{company.description}</p>
+                  <div className="mt-4 inline-flex items-center gap-2 text-sm font-medium text-orange-600">
+                    View contacts
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M5 12h14" />
+                      <path d="m12 5 7 7-7 7" />
+                    </svg>
+                  </div>
+                </a>
+              );
+            }
+            
             return (
               <Link 
                 key={company.id}
