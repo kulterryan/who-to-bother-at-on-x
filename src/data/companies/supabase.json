@@ -6,9 +6,14 @@
   "logoType": "supabase",
   "categories": [
     {
+      "name": "Official Accounts",
+      "contacts": [
+        { "product": "Official Supabase Account", "handles": ["@supabase"] }
+      ]
+    },
+    {
       "name": "General",
       "contacts": [
-        { "product": "Official Supabase Account", "handles": ["@supabase"] },
         { "product": "CEO", "handles": ["@kiwicopple"] },
         { "product": "CTO/Memes", "handles": ["@AntWilson"] },
         { "product": "Design", "handles": ["@JSummersMuir"] },

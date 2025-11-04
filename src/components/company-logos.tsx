@@ -188,25 +188,17 @@ export const companyLogos: Record<string, React.ReactNode> = {
     </svg>
   ),
   supabase: (
-    <svg xmlns="http://www.w3.org/2000/svg" width="31" height="32" fill="none" viewBox="0 0 31 32">
-      <g clip-path="url(#a)">
-        <path fill="url(#b)" d="M18.118 31.23c-.813 1.02-2.462.46-2.482-.842l-.286-19.044h12.86c2.33 0 3.629 2.679 2.18 4.495z" />
+    <svg xmlns="http://www.w3.org/2000/svg" width="31" height="32" fill="none" viewBox="0 0 31 32" className="text-zinc-900 dark:text-zinc-100">
+      <g clipPath="url(#a)">
+        <path fill="currentColor" d="M18.118 31.23c-.813 1.02-2.462.46-2.482-.842l-.286-19.044h12.86c2.33 0 3.629 2.679 2.18 4.495z" />
         <path
-          fill="url(#c)"
-          fill-opacity=".2"
+          fill="currentColor"
+          fillOpacity=".2"
           d="M18.118 31.23c-.813 1.02-2.462.46-2.482-.842l-.286-19.044h12.86c2.33 0 3.629 2.679 2.18 4.495z"
         />
-        <path fill="#3ecf8e" d="M12.89.585c.812-1.02 2.461-.46 2.48.841l.127 19.045h-12.7c-2.33 0-3.629-2.679-2.18-4.496z" />
+        <path fill="currentColor" d="M12.89.585c.812-1.02 2.461-.46 2.48.841l.127 19.045h-12.7c-2.33 0-3.629-2.679-2.18-4.496z" />
       </g>
       <defs>
-        <linearGradient id="b" x1="15.35" x2="26.765" y1="15.566" y2="20.375" gradientUnits="userSpaceOnUse">
-          <stop stop-color="#249361" />
-          <stop offset="1" stop-color="#3ecf8e" />
-        </linearGradient>
-        <linearGradient id="c" x1="10.282" x2="15.46" y1="8.658" y2="18.447" gradientUnits="userSpaceOnUse">
-          <stop />
-          <stop offset="1" stop-opacity="0" />
-        </linearGradient>
         <clipPath id="a">
           <path fill="#fff" d="M0 0h31v32H0z" />
         </clipPath>
