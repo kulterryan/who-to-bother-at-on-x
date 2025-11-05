@@ -90,7 +90,7 @@ async function validateCompanies(): Promise<void> {
   const successCount = results.filter(r => r.success).length;
   const failCount = results.filter(r => !r.success).length;
   
-  console.log(`\n📊 Validation Summary:`);
+  console.log("\n📊 Validation Summary:");
   console.log(`   Total files: ${results.length}`);
   console.log(`   ✅ Passed: ${successCount}`);
   console.log(`   ❌ Failed: ${failCount}`);

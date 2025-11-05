@@ -18,9 +18,7 @@ const vercelRedirectMiddleware = createMiddleware().server(async ({ next, reques
   return next()
 })
 
-export const startInstance = createStart(() => {
-  return {
+export const startInstance = createStart(() => ({
     requestMiddleware: [vercelRedirectMiddleware],
-  }
-})
+  }))
 
