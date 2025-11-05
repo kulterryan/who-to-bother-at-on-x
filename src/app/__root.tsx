@@ -1,30 +1,37 @@
-import { Outlet, createRootRoute, Scripts, HeadContent } from '@tanstack/react-router';
-import appCss from "./globals.css?url"
-import { ThemeProvider } from '@/components/theme-provider';
-import { THEME_STORAGE_KEY } from '@/lib/theme';
-import { seo } from '@/lib/seo';
+import {
+  createRootRoute,
+  HeadContent,
+  Outlet,
+  Scripts,
+} from "@tanstack/react-router";
+import { ThemeProvider } from "@/components/theme-provider";
+import { seo } from "@/lib/seo";
+import { THEME_STORAGE_KEY } from "@/lib/theme";
+import appCss from "./globals.css?url";
 
 export const Route = createRootRoute({
   head: () => ({
     meta: [
-      { charSet: 'utf-8' },
+      { charSet: "utf-8" },
       {
-        name: 'viewport',
-        content: 'width=device-width, initial-scale=1',
+        name: "viewport",
+        content: "width=device-width, initial-scale=1",
       },
       {
-        name: 'theme-color',
-        content: '#ea580c',
+        name: "theme-color",
+        content: "#ea580c",
       },
       ...seo({
-        title: 'who to bother on X',
-        description: 'Find the right people to reach out to at your favorite tech companies on X (Twitter)',
-        keywords: 'tech companies, contacts, X, Twitter, developers, developer relations, devrel, support',
+        title: "who to bother on X",
+        description:
+          "Find the right people to reach out to at your favorite tech companies on X (Twitter)",
+        keywords:
+          "tech companies, contacts, X, Twitter, developers, developer relations, devrel, support",
       }),
     ],
     links: [
       {
-        rel: 'stylesheet',
+        rel: "stylesheet",
         href: appCss,
       },
     ],
@@ -39,6 +46,7 @@ function RootLayout() {
     <html lang="en" suppressHydrationWarning>
       <head>
         <script
+          // biome-ignore lint/security/noDangerouslySetInnerHtml: suppress for theme setting for now
           dangerouslySetInnerHTML={{
             __html: `!function(){try{var e=localStorage.getItem('${THEME_STORAGE_KEY}')||'light';document.documentElement.className='system'===e?matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light':e}catch{document.documentElement.className='light'}}()`,
           }}
@@ -52,33 +60,35 @@ function RootLayout() {
         <Scripts />
       </body>
     </html>
-  )
+  );
 }
 
 function NotFound() {
   return (
-    <div style={{ 
-      display: 'flex', 
-      flexDirection: 'column', 
-      alignItems: 'center', 
-      justifyContent: 'center', 
-      minHeight: '100vh',
-      padding: '2rem',
-      textAlign: 'center'
-    }}>
-      <h1 style={{ fontSize: '4rem', margin: 0 }}>404</h1>
-      <h2 style={{ fontSize: '1.5rem', margin: '1rem 0' }}>Page Not Found</h2>
-      <p style={{ color: '#666', marginBottom: '2rem' }}>
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center",
+        minHeight: "100vh",
+        padding: "2rem",
+        textAlign: "center",
+      }}
+    >
+      <h1 style={{ fontSize: "4rem", margin: 0 }}>404</h1>
+      <h2 style={{ fontSize: "1.5rem", margin: "1rem 0" }}>Page Not Found</h2>
+      <p style={{ color: "#666", marginBottom: "2rem" }}>
         The page you're looking for doesn't exist.
       </p>
-      <a 
-        href="/" 
-        style={{ 
-          padding: '0.75rem 1.5rem', 
-          backgroundColor: '#000', 
-          color: '#fff', 
-          textDecoration: 'none', 
-          borderRadius: '0.5rem' 
+      <a
+        href="/"
+        style={{
+          padding: "0.75rem 1.5rem",
+          backgroundColor: "#000",
+          color: "#fff",
+          textDecoration: "none",
+          borderRadius: "0.5rem",
         }}
       >
         Go Home
