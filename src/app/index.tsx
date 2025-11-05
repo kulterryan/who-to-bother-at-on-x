@@ -1,20 +1,22 @@
-'use client';
+"use client";
 
-import { createFileRoute, Link } from '@tanstack/react-router';
-import { companyLogos } from '@/components/company-logos';
-import type { CompanyListItem } from '@/types/company';
-import type { Company } from '@/types/company';
-import { seo } from '@/lib/seo';
-import { Footer } from '@/components/footer';
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { companyLogos } from "@/components/company-logos";
+import { Footer } from "@/components/footer";
+import { seo } from "@/lib/seo";
+import type { Company, CompanyListItem } from "@/types/company";
 
 // Auto-discover all company JSON files (excluding templates)
-const companyModules = import.meta.glob<{ default: Company }>('../data/companies/*.json', {
-  eager: true,
-});
+const companyModules = import.meta.glob<{ default: Company }>(
+  "../data/companies/*.json",
+  {
+    eager: true,
+  }
+);
 
 // Extract company list items from the loaded modules
 const companies: CompanyListItem[] = Object.entries(companyModules)
-  .filter(([path]) => !(path.includes('template') || path.includes('schema')))
+  .filter(([path]) => !(path.includes("template") || path.includes("schema")))
   .map(([_, module]) => {
     const company = module.default;
     return {
@@ -25,13 +27,15 @@ const companies: CompanyListItem[] = Object.entries(companyModules)
   })
   .sort((a, b) => a.name.localeCompare(b.name));
 
-export const Route = createFileRoute('/')({
+export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
       ...seo({
-        title: 'who to bother on X | find help in your favorite tech companies',
-        description: 'Find the right people to reach out to at your favorite tech companies on X (Twitter).',
-        keywords: 'tech companies, contacts, X, Twitter, developers, developer relations, devrel, support',
+        title: "who to bother on X | find help in your favorite tech companies",
+        description:
+          "Find the right people to reach out to at your favorite tech companies on X (Twitter).",
+        keywords:
+          "tech companies, contacts, X, Twitter, developers, developer relations, devrel, support",
       }),
     ],
   }),
@@ -43,39 +47,61 @@ function HomePage() {
     <div className="min-h-screen bg-white text-zinc-900 dark:bg-zinc-950 dark:text-zinc-100">
       <main className="mx-auto max-w-3xl px-6 py-16 md:py-24">
         <h1 className="mb-4 font-medium text-4xl text-zinc-900 md:text-5xl dark:text-zinc-100">
-          who to bother on{' '}
-          <svg fill="none" viewBox="0 0 1200 1227" width="40" height="36" className="inline-block">
-            <path fill="currentColor" d="M714.163 519.284 1160.89 0h-105.86L667.137 450.887 357.328 0H0l468.492 681.821L0 1226.37h105.866l409.625-476.152 327.181 476.152H1200L714.137 519.284h.026ZM569.165 687.828l-47.468-67.894-377.686-540.24h162.604l304.797 435.991 47.468 67.894 396.2 566.721H892.476L569.165 687.854v-.026Z" />
+          who to bother on{" "}
+          <svg
+            className="inline-block"
+            fill="none"
+            height="36"
+            viewBox="0 0 1200 1227"
+            width="40"
+          >
+            <title>X</title>
+            <path
+              d="M714.163 519.284 1160.89 0h-105.86L667.137 450.887 357.328 0H0l468.492 681.821L0 1226.37h105.866l409.625-476.152 327.181 476.152H1200L714.137 519.284h.026ZM569.165 687.828l-47.468-67.894-377.686-540.24h162.604l304.797 435.991 47.468 67.894 396.2 566.721H892.476L569.165 687.854v-.026Z"
+              fill="currentColor"
+            />
           </svg>
         </h1>
 
-        <p className="mb-12 text-lg text-zinc-600 dark:text-zinc-400">Find the right people to reach out to at your favorite tech companies</p>
+        <p className="mb-12 text-lg text-zinc-600 dark:text-zinc-400">
+          Find the right people to reach out to at your favorite tech companies
+        </p>
 
         <div className="grid gap-6 md:grid-cols-2">
           {companies.map((company) => {
             const logo = companyLogos[company.id];
-            
+
             // Use regular anchor tag for Vercel to trigger server redirect
-            if (company.id === 'vercel') {
+            if (company.id === "vercel") {
               return (
                 <a
-                  key={company.id}
+                  className="group block rounded-xl border-2 border-zinc-200 bg-white p-6 transition-all hover:border-zinc-900 hover:shadow-lg dark:border-zinc-700 dark:bg-zinc-900 dark:hover:border-orange-600"
                   href="/vercel"
-                  target='_blank'
-                  className="group block rounded-xl border-2 border-zinc-200 bg-white p-6 transition-all hover:border-zinc-900 hover:shadow-lg dark:border-zinc-700 dark:bg-zinc-900 dark:hover:border-orange-600" rel="noopener"
+                  key={company.id}
+                  rel="noopener"
+                  target="_blank"
                 >
-                  {logo && (
-                    <div className="mb-4">
-                      {logo}
-                    </div>
-                  )}
+                  {logo && <div className="mb-4">{logo}</div>}
                   <h2 className="mb-2 font-semibold text-2xl text-zinc-900 transition-colors group-hover:text-orange-600 dark:text-zinc-100">
                     {company.name}
                   </h2>
-                  <p className="text-sm text-zinc-600 dark:text-zinc-400">{company.description}</p>
+                  <p className="text-sm text-zinc-600 dark:text-zinc-400">
+                    {company.description}
+                  </p>
                   <div className="mt-4 inline-flex items-center gap-2 font-medium text-orange-600 text-sm">
                     View contacts
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <svg
+                      fill="none"
+                      height="16"
+                      stroke="currentColor"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      viewBox="0 0 24 24"
+                      width="16"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <title>View contacts</title>
                       <path d="M5 12h14" />
                       <path d="m12 5 7 7-7 7" />
                     </svg>
@@ -83,26 +109,35 @@ function HomePage() {
                 </a>
               );
             }
-            
+
             return (
-              <Link 
-                key={company.id}
-                to="/$company"
-                params={{ company: company.id }} 
+              <Link
                 className="group block rounded-xl border-2 border-zinc-200 bg-white p-6 transition-all hover:border-zinc-900 hover:shadow-lg dark:border-zinc-700 dark:bg-zinc-900 dark:hover:border-orange-600"
+                key={company.id}
+                params={{ company: company.id }}
+                to="/$company"
               >
-                {logo && (
-                  <div className="mb-4">
-                    {logo}
-                  </div>
-                )}
+                {logo && <div className="mb-4">{logo}</div>}
                 <h2 className="mb-2 font-semibold text-2xl text-zinc-900 transition-colors group-hover:text-orange-600 dark:text-zinc-100">
                   {company.name}
                 </h2>
-                <p className="text-sm text-zinc-600 dark:text-zinc-400">{company.description}</p>
+                <p className="text-sm text-zinc-600 dark:text-zinc-400">
+                  {company.description}
+                </p>
                 <div className="mt-4 inline-flex items-center gap-2 font-medium text-orange-600 text-sm">
                   View contacts
-                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <svg
+                    fill="none"
+                    height="16"
+                    stroke="currentColor"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    viewBox="0 0 24 24"
+                    width="16"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <title>View contacts</title>
                     <path d="M5 12h14" />
                     <path d="m12 5 7 7-7 7" />
                   </svg>
