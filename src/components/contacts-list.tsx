@@ -6,11 +6,11 @@ import { Copy, ArrowLeft, Mail } from 'lucide-react';
 import type { Category } from '@/types/contacts';
 import { Footer } from '@/components/footer';
 
-interface ContactsListProps {
+type ContactsListProps = {
   categories: Category[];
   companyName: string;
   logo: React.ReactNode;
-}
+};
 
 export function ContactsList({ categories, companyName, logo }: ContactsListProps) {
   const [searchQuery, setSearchQuery] = useState('');

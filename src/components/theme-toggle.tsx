@@ -11,7 +11,7 @@ export function ModeToggle() {
       type="single" 
       value={theme} 
       onValueChange={(value) => {
-        if (value) setTheme(value as Theme);
+        if (value) { setTheme(value as Theme); }
       }}
       className="inline-flex"
     >

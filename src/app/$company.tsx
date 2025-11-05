@@ -37,7 +37,7 @@ export const Route = createFileRoute('/$company')({
     return companyData;
   },
   head: ({ loaderData }) => {
-    if (!loaderData) return { meta: [] };
+    if (!loaderData) { return { meta: [] }; }
     
     const title = `who to bother at ${loaderData.name} on X`;
     const description = `Find the right people to reach out to at ${loaderData.name} on X (Twitter). ${loaderData.description}`;

@@ -1,10 +1,10 @@
 import { GithubIcon } from 'lucide-react';
 import { ModeToggle } from '@/components/theme-toggle';
 
-interface FooterProps {
+type FooterProps = {
   contributionTitle?: string;
   contributionMessage?: string;
-}
+};
 
 export function Footer({
   contributionTitle = 'Want to add your company?',
