@@ -15,19 +15,66 @@
     {
       "name": "Core Products",
       "contacts": [
-        { "product": "TanStack Start", "handles": ["@schanuelmiller", "@seancassiere", "@c_horobin", "@birkskyum", "@brooke_lune"] },
-        { "product": "TanStack Router", "handles": ["@TkDodo", "@schanuelmiller", "@seancassiere", "@c_horobin", "@brooke_lune", "@beaussan"] },
-        { "product": "TanStack Query", "handles": ["@TkDodo", "@kevinvancott", "@ephemjs", "@manudeli_", "@Arnoud_dv", "@aryan__deora"] },
-        { "product": "TanStack Table", "handles": ["@kevinvancott", "@riccardoperra0"] },
-        { "product": "TanStack Form", "handles": ["@crutchcorn", "@AlemTuzlak", "@Balastrong", "@swagdoctor19", "@notacheetah"] }
+        {
+          "product": "TanStack Start",
+          "handles": [
+            "@schanuelmiller",
+            "@seancassiere",
+            "@c_horobin",
+            "@birkskyum",
+            "@brooke_lune"
+          ]
+        },
+        {
+          "product": "TanStack Router",
+          "handles": [
+            "@TkDodo",
+            "@schanuelmiller",
+            "@seancassiere",
+            "@c_horobin",
+            "@brooke_lune",
+            "@beaussan"
+          ]
+        },
+        {
+          "product": "TanStack Query",
+          "handles": [
+            "@TkDodo",
+            "@kevinvancott",
+            "@ephemjs",
+            "@manudeli_",
+            "@Arnoud_dv",
+            "@aryan__deora"
+          ]
+        },
+        {
+          "product": "TanStack Table",
+          "handles": ["@kevinvancott", "@riccardoperra0"]
+        },
+        {
+          "product": "TanStack Form",
+          "handles": [
+            "@crutchcorn",
+            "@AlemTuzlak",
+            "@Balastrong",
+            "@swagdoctor19",
+            "@notacheetah"
+          ]
+        }
       ]
     },
     {
       "name": "Libraries & Tools",
       "contacts": [
         { "product": "TanStack DB", "handles": ["@kylemathews", "@samwillis"] },
-        { "product": "TanStack Virtual", "handles": ["@kevinvancott", "@piecu"] },
-        { "product": "TanStack Pacer", "handles": ["@kevinvancott", "@AlemTuzlak", "@birkskyum"] },
+        {
+          "product": "TanStack Virtual",
+          "handles": ["@kevinvancott", "@piecu"]
+        },
+        {
+          "product": "TanStack Pacer",
+          "handles": ["@kevinvancott", "@AlemTuzlak", "@birkskyum"]
+        },
         { "product": "TanStack Store", "handles": ["@crutchcorn"] },
         { "product": "TanStack Config", "handles": ["@crutchcorn"] }
       ]

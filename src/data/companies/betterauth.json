@@ -8,15 +8,15 @@
     {
       "name": "Official Accounts",
       "contacts": [
-        { "product": "Official Better Auth Account", "handles": ["@better_auth"] }
+        {
+          "product": "Official Better Auth Account",
+          "handles": ["@better_auth"]
+        }
       ]
     },
     {
-      "name" : "Core Products",
-      "contacts" : [
-        { "product" : "Core Maintainer", "handles": ["@imbereket"]}
-      ]
+      "name": "Core Products",
+      "contacts": [{ "product": "Core Maintainer", "handles": ["@imbereket"] }]
     }
   ]
 }
-

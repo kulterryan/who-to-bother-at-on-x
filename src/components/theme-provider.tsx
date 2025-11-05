@@ -1,8 +1,13 @@
-import { createContext, type PropsWithChildren, useEffect, useState } from "react";
+import {
+  createContext,
+  type PropsWithChildren,
+  useEffect,
+  useState,
+} from "react";
 import { getStoredTheme, setStoredTheme, type T as Theme } from "@/lib/theme";
 
-export type ThemeContextVal = { 
-  theme: Theme; 
+export type ThemeContextVal = {
+  theme: Theme;
   setTheme: (val: Theme) => void;
   resolvedTheme: "light" | "dark";
 };
@@ -11,20 +16,24 @@ type Props = PropsWithChildren<{ theme: Theme }>;
 export const ThemeContext = createContext<ThemeContextVal | null>(null);
 
 function getSystemTheme(): "light" | "dark" {
-  if (typeof window === "undefined") { return "light"; }
-  return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+  if (typeof window === "undefined") {
+    return "light";
+  }
+  return window.matchMedia("(prefers-color-scheme: dark)").matches
+    ? "dark"
+    : "light";
 }
 
-export function ThemeProvider({ children }: Omit<Props, 'theme'>) {
+export function ThemeProvider({ children }: Omit<Props, "theme">) {
   // Always initialize with "light" to avoid hydration mismatch
   // The stored theme will be loaded after hydration in useEffect
   const [theme, setThemeState] = useState<Theme>("light");
-  
+
   const [systemTheme, setSystemTheme] = useState<"light" | "dark">(() => {
     // Initialize system theme based on current system preference
     return getSystemTheme();
   });
-  
+
   const resolvedTheme = theme === "system" ? systemTheme : theme;
 
   function setTheme(val: Theme) {
@@ -46,7 +55,7 @@ export function ThemeProvider({ children }: Omit<Props, 'theme'>) {
   // Listen for system theme changes
   useEffect(() => {
     const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
-    
+
     const handleChange = (e: MediaQueryListEvent) => {
       setSystemTheme(e.matches ? "dark" : "light");
     };
@@ -63,4 +72,3 @@ export function ThemeProvider({ children }: Omit<Props, 'theme'>) {
     </ThemeContext.Provider>
   );
 }
-

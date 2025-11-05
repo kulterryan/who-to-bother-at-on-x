@@ -1,5 +1,5 @@
 // Re-export valibot-inferred types from schema
-export type { Contact, Category } from '../data/companies/schema';
+export type { Category, Contact } from "../data/companies/schema";
 
 export type Company = {
   name: string;
@@ -8,4 +8,3 @@ export type Company = {
   primaryColor: string;
   logo: React.ReactNode;
 };
-
