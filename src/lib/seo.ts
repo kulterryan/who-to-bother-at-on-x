@@ -1,4 +1,4 @@
-type MetaTag = 
+type MetaTag =
   | { title: string }
   | { name: string; content: string }
   | { property: string; content: string };
@@ -16,40 +16,37 @@ export function seo({
   image?: string;
   url?: string;
 }): MetaTag[] {
-  const tags: MetaTag[] = [
-    { title },
-  ];
+  const tags: MetaTag[] = [{ title }];
 
   if (description) {
     tags.push(
-      { name: 'description', content: description },
-      { property: 'og:description', content: description },
-      { name: 'twitter:description', content: description }
+      { name: "description", content: description },
+      { property: "og:description", content: description },
+      { name: "twitter:description", content: description }
     );
   }
 
   if (keywords) {
-    tags.push({ name: 'keywords', content: keywords });
+    tags.push({ name: "keywords", content: keywords });
   }
 
   if (image) {
     tags.push(
-      { property: 'og:image', content: image },
-      { name: 'twitter:image', content: image }
+      { property: "og:image", content: image },
+      { name: "twitter:image", content: image }
     );
   }
 
   if (url) {
-    tags.push({ property: 'og:url', content: url });
+    tags.push({ property: "og:url", content: url });
   }
 
   tags.push(
-    { property: 'og:title', content: title },
-    { property: 'og:type', content: 'website' },
-    { name: 'twitter:card', content: 'summary_large_image' },
-    { name: 'twitter:title', content: title }
+    { property: "og:title", content: title },
+    { property: "og:type", content: "website" },
+    { name: "twitter:card", content: "summary_large_image" },
+    { name: "twitter:title", content: title }
   );
 
   return tags;
 }
-

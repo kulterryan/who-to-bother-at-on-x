@@ -55,27 +55,15 @@
                   "format": "email"
                 }
               },
-              "required": [
-                "product",
-                "handles"
-              ]
+              "required": ["product", "handles"]
             },
             "minItems": 1
           }
         },
-        "required": [
-          "name",
-          "contacts"
-        ]
+        "required": ["name", "contacts"]
       },
       "minItems": 1
     }
   },
-  "required": [
-    "id",
-    "name",
-    "description",
-    "logoType",
-    "categories"
-  ]
+  "required": ["id", "name", "description", "logoType", "categories"]
 }

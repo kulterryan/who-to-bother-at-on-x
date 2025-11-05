@@ -1,10 +1,10 @@
-@import 'tailwindcss';
-@import 'tw-animate-css';
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@import "@fontsource-variable/dm-sans";
+@import "@fontsource-variable/jetbrains-mono";
 
 @custom-variant dark (&:is(.dark *));
-
-@import '@fontsource-variable/dm-sans';
-@import '@fontsource-variable/jetbrains-mono';
 
 :root {
   --background: oklch(0.8858 0.0364 64.63);
@@ -78,8 +78,8 @@
 }
 
 @theme inline {
-  --font-sans: 'DM Sans Variable', sans-serif; 
-  --font-mono: 'JetBrains Mono Variable', monospace; 
+  --font-sans: "DM Sans Variable", sans-serif;
+  --font-mono: "JetBrains Mono Variable", monospace;
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);

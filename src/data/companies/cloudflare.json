@@ -8,31 +8,55 @@
     {
       "name": "Official Accounts",
       "contacts": [
-        { "product": "Official Cloudflare Account", "handles": ["@Cloudflare"] },
-        { "product": "Official Cloudflare Developers Account", "handles": ["@CloudflareDev"] },
+        {
+          "product": "Official Cloudflare Account",
+          "handles": ["@Cloudflare"]
+        },
+        {
+          "product": "Official Cloudflare Developers Account",
+          "handles": ["@CloudflareDev"]
+        },
         { "product": "CTO", "handles": ["@dok2001"] }
       ]
     },
     {
-      "name" : "Developer Platform",
+      "name": "Developer Platform",
       "contacts": [
         { "product": "VP of Developers & AI", "handles": ["@ritakozlov_"] },
         { "product": "VP of Storage & Databases", "handles": ["@elithrar"] },
-        { "product": "Dashboard", "handles": ["@BraydenWilmoth", "@burcs", "@nandafyi", "@kyliestew"] }
+        {
+          "product": "Dashboard",
+          "handles": ["@BraydenWilmoth", "@burcs", "@nandafyi", "@kyliestew"]
+        }
       ]
     },
     {
       "name": "Compute & AI",
       "contacts": [
-        { "product": "Workers Platform", "handles": ["@KentonVarda", "@yagiznizipli"] },
-        { "product": "Durable Objects", "handles": ["@KentonVarda", "@ajoshhoward"] },
-        { "product": "AI Search (fka. AutoRAG)", "handles": ["@aninibread", "@G4brym"] },
-        { "product": "AI Agents & MCP", "handles": ["@threepointone", "@whoiskatrin", "@mattzcarey"] },
-        { "product": "AI Gateway", "handles": ["@KankaniAbhishek","@_mchenco"]},
+        {
+          "product": "Workers Platform",
+          "handles": ["@KentonVarda", "@yagiznizipli"]
+        },
+        {
+          "product": "Durable Objects",
+          "handles": ["@KentonVarda", "@ajoshhoward"]
+        },
+        {
+          "product": "AI Search (fka. AutoRAG)",
+          "handles": ["@aninibread", "@G4brym"]
+        },
+        {
+          "product": "AI Agents & MCP",
+          "handles": ["@threepointone", "@whoiskatrin", "@mattzcarey"]
+        },
+        {
+          "product": "AI Gateway",
+          "handles": ["@KankaniAbhishek", "@_mchenco"]
+        },
         { "product": "API & Terraform", "handles": ["@korinne_dev"] },
-        { "product": "Browser Rendering", "handles": ["@kathyyliao"]},
-        { "product": "Sandboxes", "handles": ["@whoiskatrin"]},
-        { "product": "Workers AI", "handles": ["@_mchenco"]},
+        { "product": "Browser Rendering", "handles": ["@kathyyliao"] },
+        { "product": "Sandboxes", "handles": ["@whoiskatrin"] },
+        { "product": "Workers AI", "handles": ["@_mchenco"] },
         { "product": "Workers Builds", "handles": ["@yomnashousha"] },
         { "product": "Workers for Platforms", "handles": ["@dinasaur_404"] },
         { "product": "Wrangler CLI", "handles": ["@MattieTK"] }
@@ -44,14 +68,23 @@
         { "product": "Storage & Data Platform", "handles": ["@akaphill"] },
         { "product": "Pipelines", "handles": ["@MarcSelwan", "@mwylde"] },
         { "product": "R2", "handles": ["@aninibread", "@fireblaze_15"] },
-        { "product": "R2 Data Catalog", "handles": ["@MarcSelwan", "@Cole_MacKenzie"] },
-        { "product": "R2 SQL", "handles": ["@MarcSelwan", "@jeromeschneider", "@sejoker"] }
+        {
+          "product": "R2 Data Catalog",
+          "handles": ["@MarcSelwan", "@Cole_MacKenzie"]
+        },
+        {
+          "product": "R2 SQL",
+          "handles": ["@MarcSelwan", "@jeromeschneider", "@sejoker"]
+        }
       ]
     },
     {
       "name": "Developer Advocacy",
       "contacts": [
-        { "product": "Manager of Developer Advocacy", "handles": ["@kristianf_"] },
+        {
+          "product": "Manager of Developer Advocacy",
+          "handles": ["@kristianf_"]
+        },
         { "product": "Developer Advocate", "handles": ["@lauragift_"] }
       ]
     }

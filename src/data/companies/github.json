@@ -12,11 +12,8 @@
       ]
     },
     {
-      "name" : "Developer Platform",
-      "contacts" : [
-        { "product" : "SVP", "handles": ["@jaredpalmer"]}
-      ]
+      "name": "Developer Platform",
+      "contacts": [{ "product": "SVP", "handles": ["@jaredpalmer"] }]
     }
   ]
 }
-

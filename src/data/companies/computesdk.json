@@ -8,8 +8,15 @@
     {
       "name": "Official Accounts",
       "contacts": [
-        { "product": "Official ComputeSDK Account", "handles": ["@computesdk"] },
-        { "product": "CEO", "handles": ["@heygarrison"], "email": "garrison@computesdk.com" }
+        {
+          "product": "Official ComputeSDK Account",
+          "handles": ["@computesdk"]
+        },
+        {
+          "product": "CEO",
+          "handles": ["@heygarrison"],
+          "email": "garrison@computesdk.com"
+        }
       ]
     }
   ]
