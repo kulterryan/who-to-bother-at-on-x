@@ -6,6 +6,8 @@ import type { CompanyListItem } from '@/types/company';
 import type { Company } from '@/types/company';
 import { seo } from '@/lib/seo';
 import { Footer } from '@/components/footer';
+import { useState, useMemo } from 'react';
+import Fuse from 'fuse.js';
 
 // Auto-discover all company JSON files (excluding templates)
 const companyModules = import.meta.glob<{ default: Company }>('../data/companies/*.json', {
@@ -39,20 +41,71 @@ export const Route = createFileRoute('/')({
 });
 
 function HomePage() {
+  const [searchTerm, setSearchTerm] = useState('');
+
+  const fuse = useMemo(() => {
+    return new Fuse(companies, {
+      keys: ['name', 'description'],
+      threshold: 0.4,
+      ignoreLocation: true,
+    });
+  }, []);
+
+  const filteredCompanies = useMemo(() => {
+    if (!searchTerm.trim()) {
+      return companies;
+    }
+    return fuse.search(searchTerm).map(result => result.item);
+  }, [searchTerm, fuse]);
+
   return (
     <div className="min-h-screen bg-white text-zinc-900 dark:bg-zinc-950 dark:text-zinc-100">
-      <main className="mx-auto max-w-3xl px-6 py-16 md:py-24">
-        <h1 className="mb-4 text-4xl font-medium text-zinc-900 dark:text-zinc-100 md:text-5xl">
+      <main className="mx-auto max-w-3xl flex flex-col gap-4 px-6 py-16 md:py-24">
+        <h1 className="m-0 text-4xl font-medium text-zinc-900 dark:text-zinc-100 md:text-5xl">
           who to bother on{' '}
           <svg fill="none" viewBox="0 0 1200 1227" width="40" height="36" className="inline-block">
             <path fill="currentColor" d="M714.163 519.284 1160.89 0h-105.86L667.137 450.887 357.328 0H0l468.492 681.821L0 1226.37h105.866l409.625-476.152 327.181 476.152H1200L714.137 519.284h.026ZM569.165 687.828l-47.468-67.894-377.686-540.24h162.604l304.797 435.991 47.468 67.894 396.2 566.721H892.476L569.165 687.854v-.026Z" />
           </svg>
         </h1>
 
-        <p className="mb-12 text-lg text-zinc-600 dark:text-zinc-400">Find the right people to reach out to at your favorite tech companies</p>
+        <p className="m-0 text-lg text-zinc-600 dark:text-zinc-400">Find the right people to reach out to at your favorite tech companies</p>
 
-        <div className="grid gap-6 md:grid-cols-2">
-          {companies.map((company) => {
+        {/* Search Input */}
+        <div className="relative">
+          <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-4">
+            <svg className="h-5 w-5 text-zinc-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+            </svg>
+          </div>
+          <input
+            type="text"
+            placeholder="Search companies..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            className="w-full rounded-lg border-2 border-zinc-200 bg-white py-3 pl-11 pr-4 text-zinc-900 placeholder-zinc-400 transition-colors focus:border-orange-600 focus:outline-none dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-100 dark:placeholder-zinc-500 dark:focus:border-orange-600"
+          />
+          {searchTerm && (
+            <button
+              onClick={() => setSearchTerm('')}
+              className="absolute inset-y-0 right-0 flex items-center pr-4 text-zinc-400 hover:text-zinc-600 dark:hover:text-zinc-300"
+              aria-label="Clear search"
+            >
+              <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+          )}
+        </div>
+
+        {filteredCompanies.length === 0 ? (
+          <div className="py-12 text-center">
+            <p className="text-lg text-zinc-600 dark:text-zinc-400">
+              No companies found matching "{searchTerm}"
+            </p>
+          </div>
+        ) : (
+          <div className="grid gap-6 md:grid-cols-2">
+          {filteredCompanies.map((company) => {
             const logo = companyLogos[company.id];
             
             // Use regular anchor tag for Vercel to trigger server redirect
@@ -111,6 +164,7 @@ function HomePage() {
             );
           })}
         </div>
+        )}
 
         <Footer />
       </main>
