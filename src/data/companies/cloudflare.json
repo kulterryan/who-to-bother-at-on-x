@@ -25,6 +25,7 @@
       "name": "Compute & AI",
       "contacts": [
         { "product": "Workers Platform", "handles": ["@KentonVarda", "@yagiznizipli"] },
+        { "product": "Durable Objects", "handles": ["@KentonVarda", "@ajoshhoward"] },
         { "product": "AI Search (fka. AutoRAG)", "handles": ["@aninibread", "@G4brym"] },
         { "product": "AI Agents & MCP", "handles": ["@threepointone", "@whoiskatrin", "@mattzcarey"] },
         { "product": "AI Gateway", "handles": ["@KankaniAbhishek","@_mchenco"]},
@@ -52,12 +53,6 @@
       "contacts": [
         { "product": "Manager of Developer Advocacy", "handles": ["@kristianf_"] },
         { "product": "Developer Advocate", "handles": ["@lauragift_"] }
-      ]
-    },
-    {
-      "name": "Developer Community",
-      "contacts": [
-        { "product": "Durable Objects", "handles": ["@cmdhaus"] }
       ]
     }
   ]
