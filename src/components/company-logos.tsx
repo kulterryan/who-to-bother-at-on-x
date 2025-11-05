@@ -205,4 +205,31 @@ export const companyLogos: Record<string, React.ReactNode> = {
       </defs>
     </svg>
   ),
+  depot: (
+    <svg viewBox="0 0 64 64" width="30" height="30" fill="none" xmlns="http://www.w3.org/2000/svg" aria-labelledby="depot-logo-title" className="text-zinc-900 dark:text-zinc-100">
+      <title id="depot-logo-title">Depot logo</title>
+      <path
+        d="M0 10C0 4.47715 4.47715 0 10 0H16C17.1046 0 18 0.895431 18 2V10C18 11.1046 17.1046 12 16 12H2C0.89543 12 0 11.1046 0 10V10Z"
+        fill="currentColor"
+      />
+      <rect y="32" width="18" height="12" rx="2" fill="currentColor" />
+      <path
+        d="M0 50C0 48.8954 0.895431 48 2 48H16C17.1046 48 18 48.8954 18 50V58C18 59.1046 17.1046 60 16 60H10C4.47715 60 0 55.5228 0 50V50Z"
+        fill="currentColor"
+      />
+      <rect x="22" y="48" width="20" height="12" rx="2" fill="currentColor" />
+      <path
+        d="M46 50C46 48.8954 46.8954 48 48 48H62C63.1046 48 64 48.8954 64 50V50C64 55.5228 59.5228 60 54 60H48C46.8954 60 46 59.1046 46 58V50Z"
+        fill="currentColor"
+      />
+      <rect x="46" y="32" width="18" height="12" rx="2" fill="currentColor" />
+      <rect x="46" y="16" width="18" height="12" rx="2" fill="currentColor" />
+      <path
+        d="M22 2C22 0.895431 22.8954 0 24 0H54C59.5228 0 64 4.47715 64 10V10C64 11.1046 63.1046 12 62 12H24C22.8954 12 22 11.1046 22 10V2Z"
+        fill="currentColor"
+      />
+      <rect y="16" width="42" height="12" rx="2" fill="currentColor" />
+      <rect x="22" y="32" width="20" height="12" rx="2" fill="currentColor" />
+    </svg>
+  ),
 }
