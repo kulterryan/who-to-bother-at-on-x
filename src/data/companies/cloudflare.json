@@ -59,6 +59,12 @@
       "contacts": [
         { "product": "Durable Objects", "handles": ["@cmdhaus"] }
       ]
+    },
+    {
+      "name": "Billing & Payments",
+      "contacts": [
+        { "product": "Billing, Payments, Subscriptions, Invoices", "handles": ["@dalexeenko"] }
+      ]
     }
   ]
 }
