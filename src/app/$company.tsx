@@ -1,40 +1,46 @@
 import { createFileRoute, Link } from '@tanstack/react-router';
+import { createServerFn } from '@tanstack/react-start';
 import { ContactsList } from '@/components/contacts-list';
 import { companyLogos } from '@/components/company-logos';
 import type { Company } from '@/types/company';
 import { seo } from '@/lib/seo';
 
-// Auto-discover all company JSON files using Vite's import.meta.glob
-const companyModules = import.meta.glob<{ default: Company }>(
-  '../data/companies/*.json',
-  { eager: true }
-);
+// Server function to fetch company data by ID
+const getCompanyData = createServerFn({ method: 'GET' })
+  .inputValidator((companyId: string) => companyId)
+  .handler(async ({ data: companyId }: { data: string }) => {
+    // Auto-discover all company JSON files using Vite's import.meta.glob
+    const companyModules = import.meta.glob<{ default: Company }>(
+      '../data/companies/*.json',
+      { eager: true }
+    );
 
-// Generate company data map from discovered files
-const companyDataMap: Record<string, Company> = Object.entries(companyModules).reduce(
-  (acc, [path, module]) => {
-    const filename = path.split('/').pop()?.replace('.json', '') || '';
-    // Filter out schema and template files
-    if (filename && !filename.includes('schema') && !filename.includes('template')) {
-      // Key by the id field from the JSON to match how links are generated in index.tsx
-      acc[module.default.id] = module.default;
+    // Build company data map from discovered files
+    const companyDataMap: Record<string, Company> = Object.entries(companyModules).reduce(
+      (acc, [path, module]) => {
+        const filename = path.split('/').pop()?.replace('.json', '') || '';
+        // Filter out schema and template files
+        if (filename && !filename.includes('schema') && !filename.includes('template')) {
+          // Key by the id field from the JSON to match how links are generated in index.tsx
+          acc[module.default.id] = module.default;
+        }
+        return acc;
+      },
+      {} as Record<string, Company>
+    );
+
+    const companyData = companyDataMap[companyId];
+    if (!companyData) {
+      throw new Error(`Company "${companyId}" not found`);
     }
-    return acc;
-  },
-  {} as Record<string, Company>
-);
 
+    return companyData;
+  });
 
 export const Route = createFileRoute('/$company')({
   loader: async ({ params }) => {
     const { company } = params;
-    
-    const companyData = companyDataMap[company];
-    if (!companyData) {
-      throw new Error(`Company "${company}" not found`);
-    }
-    
-    return companyData;
+    return await getCompanyData({ data: company });
   },
   head: ({ loaderData }) => {
     if (!loaderData) return { meta: [] };
