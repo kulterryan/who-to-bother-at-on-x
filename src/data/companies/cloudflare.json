@@ -54,6 +54,12 @@
         { "product": "Manager of Developer Advocacy", "handles": ["@kristianf_"] },
         { "product": "Developer Advocate", "handles": ["@lauragift_"] }
       ]
+    },
+    {
+      "name": "Billing & Payments",
+      "contacts": [
+        { "product": "Billing, Payments, Subscriptions, Invoices", "handles": ["@dalexeenko"] }
+      ]
     }
   ]
 }
