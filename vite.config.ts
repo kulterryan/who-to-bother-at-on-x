@@ -10,11 +10,6 @@ export default defineConfig({
   server: {
     port: 3000,
   },
-  define: {
-    "globalThis.Cloudflare.compatibilityFlags"  : {
-      enable_nodejs_process_v2: true,
-    }
-  },
   plugins: [
     cloudflare({ viteEnvironment: { name: 'ssr' } }),
     tailwindcss(),
