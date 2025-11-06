@@ -21,6 +21,15 @@ export default defineConfig({
         // Specifies the directory TanStack Router uses for your routes.
         routesDirectory: 'app', // Defaults to "routes", relative to srcDirectory
       },
+      prerender: {
+        enabled: true,
+        crawlLinks: true, // Auto-discover company pages from home page links
+        concurrency: 10,
+        failOnError: true,
+        onSuccess: ({ page }) => {
+          console.log(`Prerendered: ${page.path}`)
+        },
+      },
     }),
     viteReact(),
   ],
