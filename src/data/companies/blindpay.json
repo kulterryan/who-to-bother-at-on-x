@@ -1,0 +1,37 @@
+{
+  "$schema": "./schema.json",
+  "id": "blindpay",
+  "name": "BlindPay",
+  "description": "BlindPay is a stablecoin API that enables companies to send and receive money worldwide using fiat money, stablecoins and multiple blockchains. We handle all the complex compliance and regulatory requirements, so companies can focus on their core business.",
+  "logoType": "blindpay",
+  "categories": [
+    {
+      "name": "Official Accounts",
+      "contacts": [
+        { "product": "Official Blindpay Account", "handles": ["@blindpaylabs"] }
+      ]
+    },
+    {
+      "name": "General",
+      "contacts": [
+        { "product": "Co-Founder & CEO", "handles": ["@bebedaselva"] },
+        { "product": "Co-Founder", "handles": ["@joaocsb"] },
+        { "product": "Co-Founder & CTO", "handles": ["@gmlyra"] },
+        { "product": "Co-Founder & CPO", "handles": ["@0xGusta"] }
+      ]
+    },
+    {
+      "name": "Engineering",
+      "contacts": [
+        {
+          "product": "Software Engineer",
+          "handles": ["@typescripting"]
+        },
+        {
+          "product": "Design Engineer",
+          "handles": ["@ericvna"]
+        }
+      ]
+    }
+  ]
+}
