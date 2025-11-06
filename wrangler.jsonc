@@ -15,6 +15,30 @@
     {
       "pattern": "www.who-to-bother-at.com",
       "custom_domain": true
+    },
+    {
+      "pattern": "bother.at",
+      "custom_domain": true
+    },
+    {
+      "pattern": "www.bother.at",
+      "custom_domain": true
+    },
+    {
+      "pattern": "whotobotherat.com",
+      "custom_domain": true
+    },
+    {
+      "pattern": "www.whotobotherat.com",
+      "custom_domain": true
+    },
+    {
+      "pattern": "whotobother.at",
+      "custom_domain": true
+    },
+    {
+      "pattern": "www.whotobother.at",
+      "custom_domain": true
     }
   ]
 }

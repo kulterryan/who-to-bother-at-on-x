@@ -121,9 +121,30 @@ export const companyLogos: Record<string, React.ReactNode> = {
     </svg>
   ),
   inbound: (
-    <span className="inline-flex h-10 w-10 items-center justify-center rounded-lg bg-orange-500/10 text-sm font-semibold uppercase text-orange-600 dark:bg-orange-500/20 dark:text-orange-300">
-      IN
-    </span>
+    <svg width="32" height="32" viewBox="0 0 134 134" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path
+        opacity="0.5"
+        d="M-0.00012207 90.9294L43.0708 134L55.4166 68.1611C55.7301 66.489 55.1983 64.7698 53.9953 63.5669L19.7547 29.3272C16.8241 26.3967 11.8086 27.9483 11.0449 32.0218L-0.00012207 90.9294Z"
+        fill="black"
+        className="dark:fill-white"
+      ></path>
+      <path
+        d="M43.0719 134L0.00101471 90.9288L65.8392 78.5842C67.5113 78.2706 69.2303 78.8025 70.4333 80.0054L104.674 114.245C107.604 117.175 106.053 122.191 101.979 122.955L43.0719 134Z"
+        fill="black"
+        className="dark:fill-white"
+      ></path>
+      <path
+        opacity="0.5"
+        d="M90.9289 0L134.001 43.0721L68.1617 55.4168C66.4896 55.7303 64.7705 55.1984 63.5676 53.9955L29.328 19.7559C26.3974 16.8253 27.9489 11.8098 32.0224 11.046L90.9289 0Z"
+        fill="black"
+        className="dark:fill-white"
+      ></path>
+      <path
+        d="M78.5863 65.8407C78.2728 67.5128 78.8046 69.2319 80.0076 70.4348L114.247 104.674C117.178 107.605 122.193 106.053 122.957 101.98L134.002 43.0723L90.931 0.00140381L78.5863 65.8407Z"
+        fill="black"
+        className="dark:fill-white"
+      ></path>
+    </svg>
   ),
   betterauth: (
     <svg width="40" height="40" fill="none" viewBox="0 0 500 500">
@@ -203,6 +224,67 @@ export const companyLogos: Record<string, React.ReactNode> = {
           <path fill="#fff" d="M0 0h31v32H0z" />
         </clipPath>
       </defs>
+    </svg>
+  ),
+  coolify: (
+    <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 352 352" aria-labelledby="coolify" className="text-zinc-900 dark:text-zinc-100">
+      <title id="coolify">Coolify</title>
+      <path
+        d="M64 256v32H32v-32zm0 0V96h32v160ZM96 96V64h224V32h32v64Zm224 192h32v64H96v-32h224z"
+        fill="currentColor"
+      />
+      <path
+        d="M64 256H0V64h64Zm0-192V0h256v64Zm0 192h256v64H64Z"
+        fill="currentColor"
+      />
+    </svg>
+  ),
+  depot: (
+    <svg viewBox="0 0 64 64" width="30" height="30" fill="none" xmlns="http://www.w3.org/2000/svg" aria-labelledby="depot-logo-title" className="text-zinc-900 dark:text-zinc-100">
+      <title id="depot-logo-title">Depot logo</title>
+      <path
+        d="M0 10C0 4.47715 4.47715 0 10 0H16C17.1046 0 18 0.895431 18 2V10C18 11.1046 17.1046 12 16 12H2C0.89543 12 0 11.1046 0 10V10Z"
+        fill="currentColor"
+      />
+      <rect y="32" width="18" height="12" rx="2" fill="currentColor" />
+      <path
+        d="M0 50C0 48.8954 0.895431 48 2 48H16C17.1046 48 18 48.8954 18 50V58C18 59.1046 17.1046 60 16 60H10C4.47715 60 0 55.5228 0 50V50Z"
+        fill="currentColor"
+      />
+      <rect x="22" y="48" width="20" height="12" rx="2" fill="currentColor" />
+      <path
+        d="M46 50C46 48.8954 46.8954 48 48 48H62C63.1046 48 64 48.8954 64 50V50C64 55.5228 59.5228 60 54 60H48C46.8954 60 46 59.1046 46 58V50Z"
+        fill="currentColor"
+      />
+      <rect x="46" y="32" width="18" height="12" rx="2" fill="currentColor" />
+      <rect x="46" y="16" width="18" height="12" rx="2" fill="currentColor" />
+      <path
+        d="M22 2C22 0.895431 22.8954 0 24 0H54C59.5228 0 64 4.47715 64 10V10C64 11.1046 63.1046 12 62 12H24C22.8954 12 22 11.1046 22 10V2Z"
+        fill="currentColor"
+      />
+      <rect y="16" width="42" height="12" rx="2" fill="currentColor" />
+      <rect x="22" y="32" width="20" height="12" rx="2" fill="currentColor" />
+    </svg>
+  ),
+  appwrite: (
+    <svg
+      width="30"
+      height="30"
+      viewBox="0 0 112 98"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      aria-labelledby="appwrite-logo-title"
+      className="text-zinc-900 dark:text-zinc-100"
+    >
+      <title id="appwrite-logo-title">Appwrite logo</title>
+      <path
+        d="M111.1 73.4729V97.9638H48.8706C30.7406 97.9638 14.9105 88.114 6.44112 73.4729C5.2099 71.3444 4.13229 69.1113 3.22835 66.7935C1.45387 62.2516 0.338421 57.3779 0 52.2926V45.6712C0.0734729 44.5379 0.189248 43.4135 0.340647 42.3025C0.650124 40.0227 1.11768 37.7918 1.73218 35.6232C7.54544 15.0641 26.448 0 48.8706 0C71.2932 0 90.1935 15.0641 96.0068 35.6232H69.3985C65.0302 28.9216 57.4692 24.491 48.8706 24.491C40.272 24.491 32.711 28.9216 28.3427 35.6232C27.0113 37.6604 25.9782 39.9069 25.3014 42.3025C24.7002 44.4266 24.3796 46.6664 24.3796 48.9819C24.3796 56.0019 27.3319 62.3295 32.0653 66.7935C36.4515 70.9369 42.3649 73.4729 48.8706 73.4729H111.1Z"
+        fill="currentColor"
+      />
+      <path
+        d="M111.1 42.3027V66.7937H65.6759C70.4094 62.3297 73.3616 56.0021 73.3616 48.9821C73.3616 46.6666 73.041 44.4268 72.4399 42.3027H111.1Z"
+        fill="currentColor"
+      />
     </svg>
   ),
   ora: (
