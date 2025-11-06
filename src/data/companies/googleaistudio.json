@@ -1,0 +1,27 @@
+{
+  "$schema": "./schema.json",
+  "id": "googleaistudio",
+  "name": "Google AI Studio",
+  "description": "Google AI Studio is a platform for building and deploying AI models",
+  "logoType": "googleaistudio",
+  "categories": [
+    {
+      "name": "Official Accounts",
+      "contacts": [
+        {
+          "product": "Official Google AI Studio Account",
+          "handles": ["@GoogleAIStudio"]
+        }
+      ]
+    },
+    {
+      "name": "Product",
+      "contacts": [
+        {
+          "product": "AI Studio & Gemini API",
+          "handles": ["@OfficialLoganK"]
+        }
+      ]
+    }
+  ]
+}
