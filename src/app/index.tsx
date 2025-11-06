@@ -1,5 +1,3 @@
-'use client';
-
 import { createFileRoute, Link } from '@tanstack/react-router';
 import { companyLogos } from '@/components/company-logos';
 import type { CompanyListItem } from '@/types/company';
