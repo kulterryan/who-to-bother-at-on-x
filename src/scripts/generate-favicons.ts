@@ -34,31 +34,37 @@ async function generateFavicons(): Promise<void> {
       // Remove className attributes as they are not needed for favicons
       svgString = svgString.replace(/ class="[^"]*"/g, '');
 
+      // Remove background rectangles/paths that fill the entire viewBox
+      // These typically start at origin (0,0) or (-x,-y) and cover the full dimensions
+      svgString = svgString.replace(/<path[^>]*d="M0 0h\d+v\d+H0z?"[^>]*><\/path>/g, '');
+      svgString = svgString.replace(/<path[^>]*d="M-?\d+ -?\d+h\d+v\d+H-?\d+z?"[^>]*><\/path>/g, '');
+      svgString = svgString.replace(/<rect[^>]*x="-?\d+"[^>]*y="-?\d+"[^>]*width="\d+"[^>]*height="\d+"[^>]*><\/rect>/g, '');
+
       // Replace currentColor with a CSS variable that will be styled with media queries
       svgString = svgString.replace(/fill="currentColor"/g, 'fill="var(--favicon-color)"');
       svgString = svgString.replace(/stroke="currentColor"/g, 'stroke="var(--favicon-color)"');
       
-      // Also replace common hardcoded colors with theme-aware colors
-      // Black/dark colors -> use dark color (shows in light mode, inverts in dark mode)
+      // Replace all color fills with theme-aware color (just use one color for simplicity)
       svgString = svgString.replace(/fill="black"/g, 'fill="var(--favicon-color)"');
       svgString = svgString.replace(/fill="#000"/g, 'fill="var(--favicon-color)"');
       svgString = svgString.replace(/fill="#000000"/g, 'fill="var(--favicon-color)"');
       svgString = svgString.replace(/fill="#32302C"/g, 'fill="var(--favicon-color)"');
-      
-      // White/light colors -> use light color (shows in dark mode, inverts in light mode)
-      svgString = svgString.replace(/fill="white"/g, 'fill="var(--favicon-color-inverse)"');
-      svgString = svgString.replace(/fill="#fff"/g, 'fill="var(--favicon-color-inverse)"');
-      svgString = svgString.replace(/fill="#ffffff"/g, 'fill="var(--favicon-color-inverse)"');
+      svgString = svgString.replace(/fill="white"/g, 'fill="var(--favicon-color)"');
+      svgString = svgString.replace(/fill="#fff"/g, 'fill="var(--favicon-color)"');
+      svgString = svgString.replace(/fill="#ffffff"/g, 'fill="var(--favicon-color)"');
 
       // Clean up extra attributes from react-dom/server
       svgString = svgString.replace(/ data-reactroot=""/g, '');
 
       // Add CSS with media query for theme-based colors
       // Dark mode = light favicon, Light mode = dark favicon
-      const styleTag = `<style>:root{--favicon-color:#000;--favicon-color-inverse:#fff}@media(prefers-color-scheme:dark){:root{--favicon-color:#fff;--favicon-color-inverse:#000}}</style>`;
+      const styleTag = `<style>:root{--favicon-color:#000}@media(prefers-color-scheme:dark){:root{--favicon-color:#fff}}</style>`;
       
       // Insert style tag after the opening SVG tag
       svgString = svgString.replace(/(<svg[^>]*>)/, `$1${styleTag}`);
+
+      // Add XML declaration for valid standalone SVG
+      svgString = `<?xml version="1.0" encoding="UTF-8"?>\n${svgString}`;
 
       // Write to file
       const filePath = path.join(outputDir, `${name}.svg`);
