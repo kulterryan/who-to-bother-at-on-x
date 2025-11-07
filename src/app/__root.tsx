@@ -1,5 +1,6 @@
 import { Outlet, createRootRoute, Scripts, HeadContent } from '@tanstack/react-router';
 import appCss from "./globals.css?url"
+import faviconUrl from "./favicon.svg?url"
 import { ThemeProvider } from '@/components/theme-provider';
 import { THEME_STORAGE_KEY } from '@/lib/theme';
 import { seo } from '@/lib/seo';
@@ -26,6 +27,11 @@ export const Route = createRootRoute({
       {
         rel: 'stylesheet',
         href: appCss,
+      },
+      {
+        rel: 'icon',
+        type: 'image/svg+xml',
+        href: faviconUrl,
       },
     ],
   }),
