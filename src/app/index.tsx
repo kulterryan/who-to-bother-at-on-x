@@ -32,6 +32,13 @@ export const Route = createFileRoute('/')({
         keywords: 'tech companies, contacts, X, Twitter, developers, developer relations, devrel, support',
       }),
     ],
+    links: [
+      {
+        rel: 'icon',
+        type: 'image/svg+xml',
+        href: '/favicon.svg',
+      },
+    ],
   }),
   component: HomePage,
 });
