@@ -66,6 +66,7 @@ export const CompanySchema = v.object({
     v.string(),
     v.minLength(1, 'Logo type is required')
   ),
+  logo: v.optional(v.string()),
   categories: v.pipe(
     v.array(CategorySchema),
     v.minLength(1, 'At least one category is required')

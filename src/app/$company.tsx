@@ -55,6 +55,13 @@ export const Route = createFileRoute('/$company')({
           keywords: `${loaderData.name}, contacts, X, Twitter, developer relations, support`,
         }),
       ],
+      links: [
+        {
+          rel: 'icon',
+          href: `/company-logos/${loaderData.logoType}.svg`,
+          type: 'image/svg+xml',
+        },
+      ],
     };
   },
   component: CompanyPage,
