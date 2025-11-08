@@ -9,7 +9,6 @@ import { cloudflare } from '@cloudflare/vite-plugin'
 export default defineConfig({
   server: {
     port: 3000,
-    allowedHosts: ['b29b2858b90d.ngrok-free.app']
   },
   plugins: [
     cloudflare({ viteEnvironment: { name: 'ssr' } }),

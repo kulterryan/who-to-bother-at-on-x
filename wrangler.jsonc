@@ -7,13 +7,6 @@
   "placement": {
     "mode": "smart"
   },
-  "rules": [
-    {
-      "type": "Data",
-      "globs": ["**/*.ttf", "**/*.woff", "**/*.woff2"],
-      "fallthrough": true
-    }
-  ],
   "routes": [
     {
       "pattern": "who-to-bother-at.com",
