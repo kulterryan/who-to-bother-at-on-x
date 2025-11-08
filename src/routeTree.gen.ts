@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './app/__root'
 import { Route as CompanyRouteImport } from './app/$company'
 import { Route as IndexRouteImport } from './app/index'
+import { Route as OgCompanyRouteImport } from './app/og.$company'
 
 const CompanyRoute = CompanyRouteImport.update({
   id: '/$company',
@@ -22,31 +23,40 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const OgCompanyRoute = OgCompanyRouteImport.update({
+  id: '/og/$company',
+  path: '/og/$company',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/$company': typeof CompanyRoute
+  '/og/$company': typeof OgCompanyRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/$company': typeof CompanyRoute
+  '/og/$company': typeof OgCompanyRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/$company': typeof CompanyRoute
+  '/og/$company': typeof OgCompanyRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/$company'
+  fullPaths: '/' | '/$company' | '/og/$company'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/$company'
-  id: '__root__' | '/' | '/$company'
+  to: '/' | '/$company' | '/og/$company'
+  id: '__root__' | '/' | '/$company' | '/og/$company'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   CompanyRoute: typeof CompanyRoute
+  OgCompanyRoute: typeof OgCompanyRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -65,12 +75,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/og/$company': {
+      id: '/og/$company'
+      path: '/og/$company'
+      fullPath: '/og/$company'
+      preLoaderRoute: typeof OgCompanyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   CompanyRoute: CompanyRoute,
+  OgCompanyRoute: OgCompanyRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

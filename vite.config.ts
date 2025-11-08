@@ -18,7 +18,6 @@ export default defineConfig({
     tanstackStart({
       srcDirectory: 'src', // This is the default
       router: {
-        // Specifies the directory TanStack Router uses for your routes.
         routesDirectory: 'app', // Defaults to "routes", relative to srcDirectory
       }
     }),

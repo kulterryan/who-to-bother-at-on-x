@@ -46,6 +46,7 @@ export const Route = createFileRoute('/$company')({
     
     const title = `who to bother at ${loaderData.name} on X`;
     const description = `Find the right people to reach out to at ${loaderData.name} on X (Twitter). ${loaderData.description}`;
+    const ogImage = `/og/${loaderData.id}`;
     
     return {
       meta: [
@@ -53,6 +54,7 @@ export const Route = createFileRoute('/$company')({
           title,
           description,
           keywords: `${loaderData.name}, contacts, X, Twitter, developer relations, support`,
+          image: ogImage,
         }),
       ],
       links: [
