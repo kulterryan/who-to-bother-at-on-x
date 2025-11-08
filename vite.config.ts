@@ -8,7 +8,7 @@ import { cloudflare } from '@cloudflare/vite-plugin'
 
 export default defineConfig({
   server: {
-    port: 3000,
+    port: 3311,
   },
   plugins: [
     cloudflare({ viteEnvironment: { name: 'ssr' } }),
