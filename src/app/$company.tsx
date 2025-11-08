@@ -2,7 +2,7 @@ import { createFileRoute, Link } from '@tanstack/react-router';
 import { ContactsList } from '@/components/contacts-list';
 import { companyLogos } from '@/components/company-logos';
 import type { Company } from '@/types/company';
-import { seo, getAbsoluteUrl } from '@/lib/seo';
+import { seo } from '@/lib/seo';
 
 // Helper function to build company data map
 function getCompanyDataMap(): Record<string, Company> {
@@ -41,16 +41,14 @@ export const Route = createFileRoute('/$company')({
     
     return companyData;
   },
-  head: ({ loaderData, context }) => {
+  head: ({ loaderData }) => {
     if (!loaderData) return { meta: [] };
     
     const title = `who to bother at ${loaderData.name} on X`;
     const description = `Find the right people to reach out to at ${loaderData.name} on X (Twitter). ${loaderData.description}`;
     
-    // Get request from context if available (for Cloudflare Workers)
-    // @ts-expect-error - context may have request in Cloudflare Workers
-    const request = context?.request as Request | undefined;
-    const ogImage = getAbsoluteUrl(`/og/${loaderData.id}`, request);
+    // TODO: Change after testing deployment
+    const ogImage = `https://who-to-bother-at.com/og/${loaderData.id}`;
     
     return {
       meta: [
