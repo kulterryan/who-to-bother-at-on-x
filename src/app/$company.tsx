@@ -46,7 +46,19 @@ export const Route = createFileRoute('/$company')({
     
     const title = `who to bother at ${loaderData.name} on X`;
     const description = `Find the right people to reach out to at ${loaderData.name} on X (Twitter). ${loaderData.description}`;
-    const ogImage = `/og/${loaderData.id}`;
+    
+    // Generate absolute URL for OG image (required for social media platforms)
+    // Use environment variable or construct from window if available
+    const ogImagePath = `/og/${loaderData.id}`;
+    let ogImageUrl = ogImagePath;
+    
+    // Try to get origin from environment variable or window
+    if (typeof process !== 'undefined' && process.env?.PUBLIC_SITE_URL) {
+      ogImageUrl = `${process.env.PUBLIC_SITE_URL}${ogImagePath}`;
+    } else if (typeof window !== 'undefined') {
+      ogImageUrl = `${window.location.origin}${ogImagePath}`;
+    }
+    // Otherwise use relative URL (will be resolved by the browser/social media crawler)
     
     return {
       meta: [
@@ -54,7 +66,7 @@ export const Route = createFileRoute('/$company')({
           title,
           description,
           keywords: `${loaderData.name}, contacts, X, Twitter, developer relations, support`,
-          image: ogImage,
+          image: ogImageUrl,
         }),
       ],
       links: [
