@@ -3,13 +3,16 @@
   "version": "0.1.0",
   "license": "MIT",
   "scripts": {
+    "predev": "tsx src/scripts/generate-favicons.ts",
     "dev": "vite dev",
+    "prebuild": "tsx src/scripts/generate-favicons.ts",
     "build": "pnpm validate && vite build && tsc --noEmit",
     "preview": "vite preview",
     "deploy": "npm run build && wrangler deploy",
     "cf-typegen": "wrangler types",
     "validate": "tsx src/scripts/validate-companies.ts",
-    "generate-schema": "tsx src/scripts/generate-json-schema.ts"
+    "generate-schema": "tsx src/scripts/generate-json-schema.ts",
+    "generate-favicons": "tsx src/scripts/generate-favicons.ts"
   },
   "type": "module",
   "dependencies": {
