@@ -27,9 +27,8 @@ function getCompanyDataMap(): Record<string, Company> {
 export const Route = createFileRoute('/og/$company')({
   server: {
     handlers: {
-      GET: async ({ params, request }) => {
+      GET: async ({ params }) => {
         const { company } = params;
-        const url = new URL(request.url);
         
         // Get company data
         const companyDataMap = getCompanyDataMap();
@@ -43,39 +42,83 @@ export const Route = createFileRoute('/og/$company')({
           // Dynamically import Takumi modules only on the server
           const { initSync, Renderer } = await import('@takumi-rs/wasm');
           const wasmModule = await import('@takumi-rs/wasm/takumi_wasm_bg.wasm');
-          const fontRegularUrl = await import('@fontsource-variable/dm-sans/files/dm-sans-latin-wght-normal.woff2?url');
-          const fontBoldUrl = await import('@fontsource-variable/dm-sans/files/dm-sans-latin-ext-wght-normal.woff2?url');
           
-          // Fetch font files as ArrayBuffer
-          const [fontRegularRes, fontBoldRes] = await Promise.all([
-            fetch(new URL(fontRegularUrl.default, url.origin)),
-            fetch(new URL(fontBoldUrl.default, url.origin)),
-          ]);
+          // Load DM Sans variable font from Google Fonts CDN
+          // Fetch CSS and extract font URL, with improved parsing
+          let fontBuffer: ArrayBuffer;
           
-          if (!fontRegularRes.ok || !fontBoldRes.ok) {
-            throw new Error(`Failed to fetch fonts: ${fontRegularRes.status} ${fontBoldRes.status}`);
+          const cssUrl = 'https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap';
+          const cssRes = await fetch(cssUrl, {
+            headers: {
+              'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
+            },
+          });
+          
+          if (!cssRes.ok) {
+            throw new Error(`Failed to fetch CSS: ${cssRes.status}`);
           }
           
-          const fontRegularBuffer = await fontRegularRes.arrayBuffer();
-          const fontBoldBuffer = await fontBoldRes.arrayBuffer();
+          const cssText = await cssRes.text();
+          
+          // Extract WOFF2 URL - Google Fonts CSS has @font-face blocks
+          // Look for the first woff2 URL in the CSS
+          let fontUrl: string | null = null;
+          
+          // Split by @font-face to find font declarations
+          const fontFaces = cssText.split('@font-face');
+          for (const face of fontFaces) {
+            // Look for url() with .woff2
+            const urlMatch = face.match(/url\(([^)]+\.woff2[^)]*)\)/);
+            if (urlMatch && urlMatch[1]) {
+              fontUrl = urlMatch[1].trim().replace(/^['"]|['"]$/g, '');
+              break;
+            }
+          }
+          
+          // If still not found, try simpler pattern
+          if (!fontUrl) {
+            const simpleMatch = cssText.match(/(https:\/\/fonts\.gstatic\.com\/[^\s'")]+\.woff2)/);
+            if (simpleMatch && simpleMatch[1]) {
+              fontUrl = simpleMatch[1];
+            }
+          }
+          
+          if (!fontUrl) {
+            // Log CSS for debugging
+            console.error('CSS content (first 1000 chars):', cssText.substring(0, 1000));
+            // Try alternative: use jsDelivr CDN for DM Sans
+            console.warn('Falling back to jsDelivr CDN for DM Sans font');
+            fontUrl = 'https://cdn.jsdelivr.net/npm/@fontsource/dm-sans@5/files/dm-sans-latin-400-normal.woff2';
+          }
+          
+          // Fetch the font file
+          const fontRes = await fetch(fontUrl);
+          if (!fontRes.ok) {
+            // Last resort: try a different CDN
+            if (fontUrl.includes('fonts.gstatic.com')) {
+              console.warn('Google Fonts failed, trying jsDelivr CDN');
+              const jsdelivrUrl = 'https://cdn.jsdelivr.net/npm/@fontsource/dm-sans@5/files/dm-sans-latin-400-normal.woff2';
+              const jsdelivrRes = await fetch(jsdelivrUrl);
+              if (jsdelivrRes.ok) {
+                fontBuffer = await jsdelivrRes.arrayBuffer();
+              } else {
+                throw new Error(`Failed to fetch font from ${fontUrl} (${fontRes.status}) and fallback (${jsdelivrRes.status})`);
+              }
+            } else {
+              throw new Error(`Failed to fetch font file from ${fontUrl}: ${fontRes.status}`);
+            }
+          } else {
+            fontBuffer = await fontRes.arrayBuffer();
+          }
           
           // Initialize WASM
           initSync({ module: wasmModule.default });
           const renderer = new Renderer();
           
-          // Load fonts
+          // Load variable font (supports multiple weights including 400 and 700)
           renderer.loadFont({
-            data: fontRegularBuffer,
+            data: fontBuffer,
             name: 'DM Sans',
-            weight: 400,
-            style: 'normal',
-          });
-          
-          renderer.loadFont({
-            data: fontBoldBuffer,
-            name: 'DM Sans',
-            weight: 700,
-            style: 'normal',
           });
           
           // Create the OG image layout using Takumi helpers
@@ -133,8 +176,21 @@ export const Route = createFileRoute('/og/$company')({
             },
           });
         } catch (error) {
-          console.error('Failed to generate OG image:', error);
-          return new Response('Failed to generate OG image', { status: 500 });
+          // Log detailed error information for debugging
+          const errorMessage = error instanceof Error ? error.message : String(error);
+          const errorStack = error instanceof Error ? error.stack : undefined;
+          console.error('Failed to generate OG image:', {
+            message: errorMessage,
+            stack: errorStack,
+            company,
+            error,
+          });
+          return new Response(`Failed to generate OG image: ${errorMessage}`, { 
+            status: 500,
+            headers: {
+              'Content-Type': 'text/plain',
+            },
+          });
         }
       },
     },
