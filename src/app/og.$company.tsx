@@ -1,5 +1,6 @@
 import { createFileRoute } from '@tanstack/react-router';
 import type { Company } from '@/types/company';
+import { container, text } from '@takumi-rs/helpers';
 
 // Helper function to build company data map
 function getCompanyDataMap(): Record<string, Company> {
@@ -24,140 +25,119 @@ function getCompanyDataMap(): Record<string, Company> {
 }
 
 export const Route = createFileRoute('/og/$company')({
-  loader: async ({ params, request }) => {
-    const { company } = params;
-    const url = new URL(request.url);
-    
-    // Get company data
-    const companyDataMap = getCompanyDataMap();
-    const companyData = companyDataMap[company];
-    
-    if (!companyData) {
-      throw new Response('Company not found', { status: 404 });
-    }
-    
-    try {
-      // Dynamically import Takumi modules only on the server
-      const { initSync, Renderer } = await import('@takumi-rs/wasm');
-      const wasmModule = await import('@takumi-rs/wasm/takumi_wasm_bg.wasm');
-      const fontRegularUrl = await import('@fontsource-variable/dm-sans/files/dm-sans-latin-wght-normal.woff2?url');
-      const fontBoldUrl = await import('@fontsource-variable/dm-sans/files/dm-sans-latin-ext-wght-normal.woff2?url');
-      
-      // Fetch font files as ArrayBuffer
-      const [fontRegularRes, fontBoldRes] = await Promise.all([
-        fetch(new URL(fontRegularUrl.default, url.origin)),
-        fetch(new URL(fontBoldUrl.default, url.origin)),
-      ]);
-      
-      if (!fontRegularRes.ok || !fontBoldRes.ok) {
-        throw new Error(`Failed to fetch fonts: ${fontRegularRes.status} ${fontBoldRes.status}`);
-      }
-      
-      const fontRegularBuffer = await fontRegularRes.arrayBuffer();
-      const fontBoldBuffer = await fontBoldRes.arrayBuffer();
-      
-      // Initialize WASM
-      initSync({ module: wasmModule.default });
-      const renderer = new Renderer();
-      
-      // Load fonts
-      renderer.loadFont({
-        data: fontRegularBuffer,
-        name: 'DM Sans',
-        weight: 400,
-        style: 'normal',
-      });
-      
-      renderer.loadFont({
-        data: fontBoldBuffer,
-        name: 'DM Sans',
-        weight: 700,
-        style: 'normal',
-      });
-      
-      // Create the OG image layout using Takumi's object notation
-      const layout = {
-        type: 'div',
-        props: {
-          style: {
-            width: '1200px',
-            height: '630px',
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'center',
-            alignItems: 'center',
-            background: 'linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%)',
-            padding: '80px',
-            fontFamily: 'DM Sans',
-          },
-          children: [
-            {
-              type: 'div',
-              props: {
-                style: {
-                  fontSize: '72px',
-                  fontWeight: '700',
-                  color: '#ffffff',
-                  marginBottom: '24px',
-                  textAlign: 'center',
-                },
-                children: companyData.name,
-              },
+  server: {
+    handlers: {
+      GET: async ({ params, request }) => {
+        const { company } = params;
+        const url = new URL(request.url);
+        
+        // Get company data
+        const companyDataMap = getCompanyDataMap();
+        const companyData = companyDataMap[company];
+        
+        if (!companyData) {
+          return new Response('Company not found', { status: 404 });
+        }
+        
+        try {
+          // Dynamically import Takumi modules only on the server
+          const { initSync, Renderer } = await import('@takumi-rs/wasm');
+          const wasmModule = await import('@takumi-rs/wasm/takumi_wasm_bg.wasm');
+          const fontRegularUrl = await import('@fontsource-variable/dm-sans/files/dm-sans-latin-wght-normal.woff2?url');
+          const fontBoldUrl = await import('@fontsource-variable/dm-sans/files/dm-sans-latin-ext-wght-normal.woff2?url');
+          
+          // Fetch font files as ArrayBuffer
+          const [fontRegularRes, fontBoldRes] = await Promise.all([
+            fetch(new URL(fontRegularUrl.default, url.origin)),
+            fetch(new URL(fontBoldUrl.default, url.origin)),
+          ]);
+          
+          if (!fontRegularRes.ok || !fontBoldRes.ok) {
+            throw new Error(`Failed to fetch fonts: ${fontRegularRes.status} ${fontBoldRes.status}`);
+          }
+          
+          const fontRegularBuffer = await fontRegularRes.arrayBuffer();
+          const fontBoldBuffer = await fontBoldRes.arrayBuffer();
+          
+          // Initialize WASM
+          initSync({ module: wasmModule.default });
+          const renderer = new Renderer();
+          
+          // Load fonts
+          renderer.loadFont({
+            data: fontRegularBuffer,
+            name: 'DM Sans',
+            weight: 400,
+            style: 'normal',
+          });
+          
+          renderer.loadFont({
+            data: fontBoldBuffer,
+            name: 'DM Sans',
+            weight: 700,
+            style: 'normal',
+          });
+          
+          // Create the OG image layout using Takumi helpers
+          const layout = container({
+            style: {
+              width: 1200,
+              height: 630,
+              backgroundColor: '#1a1a1a',
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'center',
+              alignItems: 'center',
+              padding: 80,
             },
-            {
-              type: 'div',
-              props: {
-                style: {
-                  fontSize: '36px',
-                  fontWeight: '400',
-                  color: '#f97316',
-                  marginBottom: '32px',
-                  textAlign: 'center',
-                },
-                children: `who to bother at ${companyData.name} on X`,
-              },
+            children: [
+              text(companyData.name, {
+                fontSize: 72,
+                fontWeight: 700,
+                color: '#ffffff',
+                marginBottom: 24,
+                textAlign: 'center',
+              }),
+              text(`who to bother at ${companyData.name} on X`, {
+                fontSize: 36,
+                fontWeight: 400,
+                color: '#f97316',
+                marginBottom: 32,
+                textAlign: 'center',
+              }),
+              text(companyData.description, {
+                fontSize: 28,
+                fontWeight: 400,
+                color: '#a1a1aa',
+                textAlign: 'center',
+                maxWidth: 900,
+                lineHeight: 1.4,
+              }),
+            ],
+          });
+          
+          // Render to PNG
+          const pngBuffer = renderer.render(layout, {
+            width: 1200,
+            height: 630,
+            format: 'png',
+          });
+          
+          // Return PNG response with appropriate headers
+          // Response accepts Uint8Array/ArrayBufferView, but TypeScript needs help with the type
+          return new Response(pngBuffer as unknown as BodyInit, {
+            status: 200,
+            headers: {
+              'Content-Type': 'image/png',
+              'Cache-Control': 'public, max-age=31536000, immutable',
             },
-            {
-              type: 'div',
-              props: {
-                style: {
-                  fontSize: '28px',
-                  fontWeight: '400',
-                  color: '#a1a1aa',
-                  textAlign: 'center',
-                  maxWidth: '900px',
-                  lineHeight: '1.4',
-                },
-                children: companyData.description,
-              },
-            },
-          ],
-        },
-      };
-      
-      // Render to PNG
-      const pngBuffer = renderer.render(layout, {
-        width: 1200,
-        height: 630,
-        format: 'png',
-      });
-      
-      // Return PNG response with appropriate headers
-      return new Response(pngBuffer, {
-        status: 200,
-        headers: {
-          'Content-Type': 'image/png',
-          'Cache-Control': 'public, max-age=31536000, immutable',
-        },
-      });
-    } catch (error) {
-      // If it's already a Response, re-throw it
-      if (error instanceof Response) {
-        throw error;
-      }
-      console.error('Failed to generate OG image:', error);
-      throw new Response('Failed to generate OG image', { status: 500 });
-    }
+          });
+        } catch (error) {
+          console.error('Failed to generate OG image:', error);
+          return new Response('Failed to generate OG image', { status: 500 });
+        }
+      },
+    },
   },
 });
 
