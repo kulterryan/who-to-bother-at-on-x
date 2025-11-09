@@ -1,11 +1,10 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { Link } from '@tanstack/react-router';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Copy, ArrowLeft, Mail } from 'lucide-react';
 import type { Category } from '@/types/contacts';
 import { Footer } from '@/components/footer';
-import { generateAnchorId } from '@/lib/utils';
 
 interface ContactsListProps {
   categories: Category[];
@@ -17,20 +16,7 @@ interface ContactsListProps {
 
 export function ContactsList({ categories, companyName, logo, searchQuery = '', onSearchQueryChange }: ContactsListProps) {
   const [copiedProduct, setCopiedProduct] = useState<string | null>(null);
-
-  // Handle scroll to anchor on mount if hash is present
-  useEffect(() => {
-    if (typeof window !== 'undefined' && window.location.hash) {
-      const hash = window.location.hash.slice(1);
-      const element = document.getElementById(hash);
-      if (element) {
-        // Small delay to ensure DOM is ready
-        setTimeout(() => {
-          element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }, 100);
-      }
-    }
-  }, []);
+  const firstMatchRef = useRef<HTMLDivElement | null>(null);
 
   const filteredCategories: Category[] = categories
     .map((category) => ({
@@ -44,6 +30,21 @@ export function ContactsList({ categories, companyName, logo, searchQuery = '', 
       }),
     }))
     .filter((category) => category.contacts.length > 0);
+
+  // Find the first matching product for scrolling
+  const firstMatchingProduct = filteredCategories.length > 0 && filteredCategories[0].contacts.length > 0
+    ? filteredCategories[0].contacts[0].product
+    : null;
+
+  // Scroll to first matching product when search query changes
+  useEffect(() => {
+    if (searchQuery && firstMatchRef.current) {
+      // Small delay to ensure DOM is ready
+      setTimeout(() => {
+        firstMatchRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 100);
+    }
+  }, [searchQuery]);
 
   const copyHandlesToClipboard = async (product: string, handles: string[]): Promise<void> => {
     const handlesString = handles.join(' ');
@@ -107,12 +108,26 @@ export function ContactsList({ categories, companyName, logo, searchQuery = '', 
             <div key={category.name}>
               <h2 className="mb-4 text-xs font-medium uppercase tracking-wider text-zinc-500 dark:text-zinc-400">{category.name}</h2>
               <div className="space-y-px">
-                {category.contacts.map((contact) => {
-                  const productAnchorId = generateAnchorId(contact.product);
+                {category.contacts.map((contact, contactIndex) => {
+                  const isFirstMatch = contactIndex === 0 && category === filteredCategories[0] && contact.product === firstMatchingProduct;
+                  const isHighlighted = searchQuery && (
+                    contact.product.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                    contact.handles.some((handle) => handle.toLowerCase().includes(searchQuery.toLowerCase())) ||
+                    contact.email?.toLowerCase().includes(searchQuery.toLowerCase())
+                  );
+                  
                   return (
-                    <div key={contact.product} id={productAnchorId} className="scroll-mt-24 flex items-start justify-between border-t border-zinc-200 py-4 first:border-t-0 dark:border-zinc-800">
+                    <div 
+                      key={contact.product} 
+                      ref={isFirstMatch ? firstMatchRef : null}
+                      className="scroll-mt-24 flex items-start justify-between border-t border-zinc-200 py-4 first:border-t-0 dark:border-zinc-800 transition-colors"
+                    >
                       <div className="flex-1">
-                        <button onClick={() => copyHandlesToClipboard(contact.product, contact.handles)} className="cursor-pointer text-left text-sm font-medium text-zinc-900 transition-colors hover:text-orange-600 md:text-base dark:text-zinc-100 dark:hover:text-orange-600" title="Click to copy all handles">
+                        <button onClick={() => copyHandlesToClipboard(contact.product, contact.handles)} className={`cursor-pointer text-left text-sm font-medium transition-colors hover:text-orange-600 md:text-base dark:hover:text-orange-600 ${
+                          isHighlighted 
+                            ? 'text-orange-700 dark:text-orange-300 font-semibold' 
+                            : 'text-zinc-900 dark:text-zinc-100'
+                        }`} title="Click to copy all handles">
                           {copiedProduct === contact.product ? <span className="text-green-600">Copied!</span> : contact.product}
                         </button>
                       {contact.email && (
