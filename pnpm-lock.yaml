@@ -98,6 +98,12 @@ importers:
       '@radix-ui/react-tooltip':
         specifier: 1.1.6
         version: 1.1.6(@types/react-dom@19.2.2(@types/react@19.2.2))(@types/react@19.2.2)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      '@takumi-rs/helpers':
+        specifier: ^0.45.3
+        version: 0.45.3
+      '@takumi-rs/wasm':
+        specifier: ^0.45.3
+        version: 0.45.3
       '@tanstack/react-router':
         specifier: ^v1.134.9
         version: 1.134.9(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
@@ -1965,6 +1971,12 @@ packages:
     resolution: {integrity: sha512-bbguNBcDxsRmi9nnlWJxhfDWamY3lmcyACHcdO1crxfzuLpOhHLLtEIN/nCbbAtj5rchUgQD17QVAKi1f7IsKg==}
     peerDependencies:
       vite: ^5.2.0 || ^6 || ^7
+
+  '@takumi-rs/helpers@0.45.3':
+    resolution: {integrity: sha512-ziimJu6e0x1k9bFNqW2CyADo1LnlvUnjEl766+1hh1NXlUgak0MCEyACwgRjrAmjA8WyMlOvKp9+EmtsxXoWbA==}
+
+  '@takumi-rs/wasm@0.45.3':
+    resolution: {integrity: sha512-NA3IRIRX0H4Mz9cNYiXCRN9n2BkxkS+CN4BqX8+y4L+4sX5qNSkF/0+sVq057A9u/kde6XTtShvy7D6uRL2rPQ==}
 
   '@tanstack/directive-functions-plugin@1.134.5':
     resolution: {integrity: sha512-J3oawV8uBRBbPoLgMdyHt+LxzTNuWRKNJJuCLWsm/yq6v0IQSvIVCgfD2+liIiSnDPxGZ8ExduPXy8IzS70eXw==}
@@ -4708,6 +4720,10 @@ snapshots:
       '@tailwindcss/oxide': 4.1.16
       tailwindcss: 4.1.16
       vite: 7.1.12(@types/node@22.0.0)(jiti@2.6.1)(lightningcss@1.30.2)(tsx@4.20.6)
+
+  '@takumi-rs/helpers@0.45.3': {}
+
+  '@takumi-rs/wasm@0.45.3': {}
 
   '@tanstack/directive-functions-plugin@1.134.5(vite@7.1.12(@types/node@22.0.0)(jiti@2.6.1)(lightningcss@1.30.2)(tsx@4.20.6))':
     dependencies:

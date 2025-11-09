@@ -91,7 +91,7 @@ export function ContactsList({ categories, companyName, logo }: ContactsListProp
                         contact.handles.map((handle) => (
                           <a key={handle} href={`https://x.com/${handle.replace('@', '')}`} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 text-sm text-zinc-600 transition-colors hover:text-orange-600 md:text-base dark:text-zinc-400 dark:hover:text-orange-600">
                             <Avatar className="h-5 w-5 flex-shrink-0">
-                              <AvatarImage src={`https://unavatar.io/x/${handle.replace('@', '')}`} alt={handle} />
+                              <AvatarImage src={`https://unavatar.io/x/${handle.replace('@', '')}?fallback=https://avatar.vercel.sh/${handle.replace('@', '')}?size=400`} alt={handle} />
                               <AvatarFallback className="bg-zinc-100 text-[10px] text-zinc-600 dark:bg-zinc-800 dark:text-zinc-400">{handle.slice(1, 3).toUpperCase()}</AvatarFallback>
                             </Avatar>
                             <span className="leading-none">{handle}</span>
@@ -102,7 +102,7 @@ export function ContactsList({ categories, companyName, logo }: ContactsListProp
                           {contact.handles.slice(0, 2).map((handle) => (
                             <a key={handle} href={`https://x.com/${handle.replace('@', '')}`} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 text-sm text-zinc-600 transition-colors hover:text-orange-600 md:text-base dark:text-zinc-400 dark:hover:text-orange-600">
                               <Avatar className="h-5 w-5 flex-shrink-0">
-                                <AvatarImage src={`https://unavatar.io/x/${handle.replace('@', '')}`} alt={handle} />
+                                <AvatarImage src={`https://unavatar.io/x/${handle.replace('@', '')}?fallback=https://avatar.vercel.sh/${handle.replace('@', '')}?size=400`} alt={handle} />
                                 <AvatarFallback className="bg-zinc-100 text-[10px] text-zinc-600 dark:bg-zinc-800 dark:text-zinc-400">{handle.slice(1, 3).toUpperCase()}</AvatarFallback>
                               </Avatar>
                               <span className="leading-none">{handle}</span>

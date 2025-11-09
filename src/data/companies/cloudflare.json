@@ -18,13 +18,14 @@
       "contacts": [
         { "product": "VP of Developers & AI", "handles": ["@ritakozlov_"] },
         { "product": "VP of Storage & Databases", "handles": ["@elithrar"] },
-        { "product": "Dashboard", "handles": ["@BraydenWilmoth", "@burcs", "@nandafyi", "@kyliestew"] }
+        { "product": "Dashboard", "handles": ["@bradgarropy", "@BraydenWilmoth", "@dillon_mulroy", "@burcs", "@nandafyi", "@kyliestew"] }
       ]
     },
     {
       "name": "Compute & AI",
       "contacts": [
         { "product": "Workers Platform", "handles": ["@KentonVarda", "@yagiznizipli"] },
+        { "product": "Durable Objects", "handles": ["@KentonVarda", "@ajoshhoward"] },
         { "product": "AI Search (fka. AutoRAG)", "handles": ["@aninibread", "@G4brym"] },
         { "product": "AI Agents & MCP", "handles": ["@threepointone", "@whoiskatrin", "@mattzcarey"] },
         { "product": "AI Gateway", "handles": ["@KankaniAbhishek","@_mchenco"]},
@@ -42,9 +43,11 @@
       "contacts": [
         { "product": "Storage & Data Platform", "handles": ["@akaphill"] },
         { "product": "Pipelines", "handles": ["@MarcSelwan", "@mwylde"] },
+        { "product": "Queues", "handles": ["@miacmal"] },
         { "product": "R2", "handles": ["@aninibread", "@fireblaze_15"] },
         { "product": "R2 Data Catalog", "handles": ["@MarcSelwan", "@Cole_MacKenzie"] },
-        { "product": "R2 SQL", "handles": ["@MarcSelwan", "@jeromeschneider", "@sejoker"] }
+        { "product": "R2 SQL", "handles": ["@MarcSelwan", "@jeromeschneider", "@sejoker"] },
+        { "product": "Workflows", "handles": ["@miacmal"] }
       ]
     },
     {
@@ -55,9 +58,9 @@
       ]
     },
     {
-      "name": "Developer Community",
+      "name": "Billing & Payments",
       "contacts": [
-        { "product": "Durable Objects", "handles": ["@cmdhaus"] }
+        { "product": "Billing, Payments, Subscriptions, Invoices", "handles": ["@dalexeenko"] }
       ]
     }
   ]

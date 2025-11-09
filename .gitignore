@@ -30,3 +30,8 @@ next-env.d.ts
 /dist/
 
 .DS_Store
+
+# Generated favicons
+/public/company-logos/
+
+.dev.vars
