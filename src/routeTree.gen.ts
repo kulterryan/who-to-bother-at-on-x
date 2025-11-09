@@ -9,10 +9,16 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './app/__root'
+import { Route as OpengraphRouteImport } from './app/opengraph'
 import { Route as CompanyRouteImport } from './app/$company'
 import { Route as IndexRouteImport } from './app/index'
 import { Route as OgCompanyRouteImport } from './app/og.$company'
 
+const OpengraphRoute = OpengraphRouteImport.update({
+  id: '/opengraph',
+  path: '/opengraph',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const CompanyRoute = CompanyRouteImport.update({
   id: '/$company',
   path: '/$company',
@@ -32,35 +38,46 @@ const OgCompanyRoute = OgCompanyRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/$company': typeof CompanyRoute
+  '/opengraph': typeof OpengraphRoute
   '/og/$company': typeof OgCompanyRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/$company': typeof CompanyRoute
+  '/opengraph': typeof OpengraphRoute
   '/og/$company': typeof OgCompanyRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/$company': typeof CompanyRoute
+  '/opengraph': typeof OpengraphRoute
   '/og/$company': typeof OgCompanyRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/$company' | '/og/$company'
+  fullPaths: '/' | '/$company' | '/opengraph' | '/og/$company'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/$company' | '/og/$company'
-  id: '__root__' | '/' | '/$company' | '/og/$company'
+  to: '/' | '/$company' | '/opengraph' | '/og/$company'
+  id: '__root__' | '/' | '/$company' | '/opengraph' | '/og/$company'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   CompanyRoute: typeof CompanyRoute
+  OpengraphRoute: typeof OpengraphRoute
   OgCompanyRoute: typeof OgCompanyRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/opengraph': {
+      id: '/opengraph'
+      path: '/opengraph'
+      fullPath: '/opengraph'
+      preLoaderRoute: typeof OpengraphRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/$company': {
       id: '/$company'
       path: '/$company'
@@ -88,6 +105,7 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   CompanyRoute: CompanyRoute,
+  OpengraphRoute: OpengraphRoute,
   OgCompanyRoute: OgCompanyRoute,
 }
 export const routeTree = rootRouteImport

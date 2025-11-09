@@ -31,6 +31,7 @@ export const Route = createFileRoute('/')({
         description: 'Find the right people to reach out to at your favorite tech companies on X (Twitter).',
         keywords: 'tech companies, contacts, X, Twitter, developers, developer relations, devrel, support',
         url: 'https://who-to-bother-at.com/',
+        image: 'https://who-to-bother-at.com/opengraph',
       }),
     ],
     links: [
