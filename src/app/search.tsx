@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from '@tanstack/react-router';
-import { useMemo, useCallback, memo } from 'react';
+import { useMemo, memo } from 'react';
 import { createStandardSchemaV1, parseAsString, useQueryState } from 'nuqs';
 import { search, type SearchResult } from '@/lib/search';
 import { companyLogos } from '@/components/company-logos';
@@ -53,18 +53,6 @@ function SearchPage() {
     return search(query);
   }, [query]);
 
-  const handleInputChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-    setQuery(e.target.value || null);
-  }, [setQuery]);
-
-  const handleSubmit = useCallback((e: React.FormEvent) => {
-    e.preventDefault();
-  }, []);
-
-  const handleClear = useCallback(() => {
-    setQuery(null);
-  }, [setQuery]);
-
   return (
     <div className="min-h-screen bg-white text-zinc-900 dark:bg-zinc-950 dark:text-zinc-100">
       <main className="mx-auto max-w-3xl flex flex-col gap-6 px-6 py-16 md:py-24">
@@ -84,7 +72,7 @@ function SearchPage() {
         </div>
 
         {/* Search Input */}
-        <form onSubmit={handleSubmit} className="relative">
+        <form onSubmit={(e) => e.preventDefault()} className="relative">
           <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-4">
             <svg className="h-5 w-5 text-zinc-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
@@ -94,7 +82,7 @@ function SearchPage() {
             type="text"
             placeholder="Search for companies or products..."
             value={query}
-            onChange={handleInputChange}
+            onChange={(e) => setQuery(e.target.value || null)}
             className="w-full rounded-lg border-2 border-zinc-200 bg-white py-3 pl-11 pr-4 text-zinc-900 placeholder-zinc-400 transition-colors focus:border-orange-600 focus:outline-none dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-100 dark:placeholder-zinc-500 dark:focus:border-orange-600"
             aria-label="Search for companies or products"
             autoFocus
@@ -102,7 +90,7 @@ function SearchPage() {
           {query && (
             <button
               type="button"
-              onClick={handleClear}
+              onClick={() => setQuery(null)}
               className="absolute inset-y-0 right-0 flex items-center pr-4 text-zinc-400 hover:text-zinc-600 dark:hover:text-zinc-300"
               aria-label="Clear search"
             >
