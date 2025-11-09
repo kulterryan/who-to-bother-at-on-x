@@ -1,10 +1,11 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from '@tanstack/react-router';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Copy, ArrowLeft, Mail } from 'lucide-react';
 import type { Category } from '@/types/contacts';
 import { Footer } from '@/components/footer';
+import { generateAnchorId } from '@/lib/utils';
 
 interface ContactsListProps {
   categories: Category[];
@@ -15,6 +16,20 @@ interface ContactsListProps {
 export function ContactsList({ categories, companyName, logo }: ContactsListProps) {
   const [searchQuery, setSearchQuery] = useState('');
   const [copiedProduct, setCopiedProduct] = useState<string | null>(null);
+
+  // Handle scroll to anchor on mount if hash is present
+  useEffect(() => {
+    if (typeof window !== 'undefined' && window.location.hash) {
+      const hash = window.location.hash.slice(1);
+      const element = document.getElementById(hash);
+      if (element) {
+        // Small delay to ensure DOM is ready
+        setTimeout(() => {
+          element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 100);
+      }
+    }
+  }, []);
 
   const filteredCategories: Category[] = categories
     .map((category) => ({
@@ -73,12 +88,14 @@ export function ContactsList({ categories, companyName, logo }: ContactsListProp
             <div key={category.name}>
               <h2 className="mb-4 text-xs font-medium uppercase tracking-wider text-zinc-500 dark:text-zinc-400">{category.name}</h2>
               <div className="space-y-px">
-                {category.contacts.map((contact) => (
-                  <div key={contact.product} className="flex items-start justify-between border-t border-zinc-200 py-4 first:border-t-0 dark:border-zinc-800">
-                    <div className="flex-1">
-                      <button onClick={() => copyHandlesToClipboard(contact.product, contact.handles)} className="cursor-pointer text-left text-sm font-medium text-zinc-900 transition-colors hover:text-orange-600 md:text-base dark:text-zinc-100 dark:hover:text-orange-600" title="Click to copy all handles">
-                        {copiedProduct === contact.product ? <span className="text-green-600">Copied!</span> : contact.product}
-                      </button>
+                {category.contacts.map((contact) => {
+                  const productAnchorId = generateAnchorId(contact.product);
+                  return (
+                    <div key={contact.product} id={productAnchorId} className="scroll-mt-24 flex items-start justify-between border-t border-zinc-200 py-4 first:border-t-0 dark:border-zinc-800">
+                      <div className="flex-1">
+                        <button onClick={() => copyHandlesToClipboard(contact.product, contact.handles)} className="cursor-pointer text-left text-sm font-medium text-zinc-900 transition-colors hover:text-orange-600 md:text-base dark:text-zinc-100 dark:hover:text-orange-600" title="Click to copy all handles">
+                          {copiedProduct === contact.product ? <span className="text-green-600">Copied!</span> : contact.product}
+                        </button>
                       {contact.email && (
                         <a href={`mailto:${contact.email}`} className="mt-1 flex items-center gap-1.5 text-xs text-zinc-500 transition-colors hover:text-orange-600 md:text-sm dark:text-zinc-400 dark:hover:text-orange-600">
                           <Mail className="h-3 w-3" />
@@ -128,7 +145,8 @@ export function ContactsList({ categories, companyName, logo }: ContactsListProp
                       )}
                     </div>
                   </div>
-                ))}
+                  );
+                })}
               </div>
             </div>
           ))}

@@ -1,10 +1,11 @@
-import { createFileRoute, Link } from '@tanstack/react-router';
-import { useMemo, useCallback } from 'react';
+import { createFileRoute, Link, useNavigate } from '@tanstack/react-router';
+import { useMemo, useCallback, useEffect } from 'react';
 import { createStandardSchemaV1, parseAsString, useQueryState, throttle } from 'nuqs';
 import { search, type SearchResult } from '@/lib/search';
 import { companyLogos } from '@/components/company-logos';
 import { seo } from '@/lib/seo';
 import { Footer } from '@/components/footer';
+import { generateAnchorId } from '@/lib/utils';
 
 // Define search params schema for nuqs
 const searchParams = {
@@ -54,6 +55,20 @@ function SearchPage() {
     }
     return search(query);
   }, [query]);
+
+  // Handle scroll to anchor on mount if hash is present
+  useEffect(() => {
+    if (typeof window !== 'undefined' && window.location.hash) {
+      const hash = window.location.hash.slice(1);
+      const element = document.getElementById(hash);
+      if (element) {
+        // Small delay to ensure DOM is ready
+        setTimeout(() => {
+          element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 100);
+      }
+    }
+  }, [results]);
 
   // Handle form submission
   const handleSubmit = useCallback((e: React.FormEvent) => {
@@ -142,9 +157,14 @@ function SearchPage() {
             </div>
             
             <div className="grid gap-4" role="list" aria-label="Search results">
-              {results.map((result) => (
-                <SearchResultCard key={result.id} result={result} />
-              ))}
+              {results.map((result) => {
+                const anchorId = generateAnchorId(result.id);
+                return (
+                  <div key={result.id} id={anchorId} className="scroll-mt-24">
+                    <SearchResultCard result={result} anchorId={anchorId} />
+                  </div>
+                );
+              })}
             </div>
           </>
         )}
@@ -155,14 +175,38 @@ function SearchPage() {
   );
 }
 
-function SearchResultCard({ result }: { result: SearchResult }) {
+function SearchResultCard({ result, anchorId }: { result: SearchResult; anchorId: string }) {
   const logo = companyLogos[result.companyId];
   const isCompany = result.type === 'company';
+  const navigate = useNavigate();
+
+  // Generate hash for products
+  const hash = isCompany ? undefined : generateAnchorId(result.name);
+
+  const handleClick = useCallback((e: React.MouseEvent) => {
+    if (!isCompany && hash) {
+      e.preventDefault();
+      // Navigate and then update hash
+      navigate({
+        to: '/$company',
+        params: { company: result.companyId },
+      });
+      // Update URL hash and scroll after a brief delay
+      setTimeout(() => {
+        window.history.replaceState(null, '', `/${result.companyId}#${hash}`);
+        const element = document.getElementById(hash);
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }, 50);
+    }
+  }, [isCompany, hash, navigate, result.companyId]);
 
   return (
     <Link
       to="/$company"
       params={{ company: result.companyId }}
+      onClick={handleClick}
       className="group flex items-start gap-4 rounded-xl border-2 border-zinc-200 bg-white p-4 transition-all hover:border-zinc-900 hover:shadow-lg dark:border-zinc-700 dark:bg-zinc-900 dark:hover:border-orange-600"
       role="listitem"
     >
