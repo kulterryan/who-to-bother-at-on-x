@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from '@tanstack/react-router';
-import { useMemo, useCallback } from 'react';
-import { createStandardSchemaV1, parseAsString, useQueryState, throttle } from 'nuqs';
+import { useMemo, useCallback, memo } from 'react';
+import { createStandardSchemaV1, parseAsString, useQueryState } from 'nuqs';
 import { search, type SearchResult } from '@/lib/search';
 import { companyLogos } from '@/components/company-logos';
 import { seo } from '@/lib/seo';
@@ -43,11 +43,9 @@ export const Route = createFileRoute('/search')({
 });
 
 function SearchPage() {
-  const [query, setQuery] = useQueryState('q', parseAsString.withDefault('').withOptions({
-    limitUrlUpdates: throttle(300),
-  }));
+  const [query, setQuery] = useQueryState('q', parseAsString.withDefault(''));
 
-  // Perform search
+  // Perform search - only reruns when query changes
   const results = useMemo(() => {
     if (!query.trim()) {
       return [];
@@ -55,12 +53,14 @@ function SearchPage() {
     return search(query);
   }, [query]);
 
-  // Handle form submission
+  const handleInputChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+    setQuery(e.target.value || null);
+  }, [setQuery]);
+
   const handleSubmit = useCallback((e: React.FormEvent) => {
     e.preventDefault();
   }, []);
 
-  // Handle clear
   const handleClear = useCallback(() => {
     setQuery(null);
   }, [setQuery]);
@@ -94,7 +94,7 @@ function SearchPage() {
             type="text"
             placeholder="Search for companies or products..."
             value={query}
-            onChange={(e) => setQuery(e.target.value || null)}
+            onChange={handleInputChange}
             className="w-full rounded-lg border-2 border-zinc-200 bg-white py-3 pl-11 pr-4 text-zinc-900 placeholder-zinc-400 transition-colors focus:border-orange-600 focus:outline-none dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-100 dark:placeholder-zinc-500 dark:focus:border-orange-600"
             aria-label="Search for companies or products"
             autoFocus
@@ -155,7 +155,8 @@ function SearchPage() {
   );
 }
 
-function SearchResultCard({ result }: { result: SearchResult }) {
+// Memoize SearchResultCard to prevent rerenders when props don't change
+const SearchResultCard = memo(function SearchResultCard({ result }: { result: SearchResult }) {
   const logo = companyLogos[result.companyId];
   const isCompany = result.type === 'company';
 
@@ -206,5 +207,5 @@ function SearchResultCard({ result }: { result: SearchResult }) {
       </div>
     </Link>
   );
-}
+});
 
