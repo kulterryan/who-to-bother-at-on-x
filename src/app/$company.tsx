@@ -49,6 +49,7 @@ export const Route = createFileRoute('/$company')({
     
     // TODO: Change after testing deployment
     const ogImage = `https://who-to-bother-at.com/og/${loaderData.id}`;
+    const pageUrl = `https://who-to-bother-at.com/${loaderData.id}`;
     
     return {
       meta: [
@@ -57,6 +58,7 @@ export const Route = createFileRoute('/$company')({
           description,
           keywords: `${loaderData.name}, contacts, X, Twitter, developer relations, support`,
           image: ogImage,
+          url: pageUrl,
         }),
       ],
       links: [
