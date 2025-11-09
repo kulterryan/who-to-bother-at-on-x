@@ -1,10 +1,11 @@
 import { createFileRoute, Link, useNavigate } from '@tanstack/react-router';
+import { parseAsString, useQueryState } from 'nuqs';
 import { companyLogos } from '@/components/company-logos';
 import type { CompanyListItem } from '@/types/company';
 import type { Company } from '@/types/company';
 import { seo } from '@/lib/seo';
 import { Footer } from '@/components/footer';
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 // Auto-discover all company JSON files (excluding templates)
 const companyModules = import.meta.glob<{ default: Company }>('../data/companies/*.json', {
@@ -48,8 +49,8 @@ export const Route = createFileRoute('/')({
 
 function HomePage() {
   const navigate = useNavigate();
-  const [searchTerm, setSearchTerm] = useState('');
-  const [debouncedSearchTerm, setDebouncedSearchTerm] = useState('');
+  const [searchTerm, setSearchTerm] = useQueryState('q', parseAsString.withDefault(''));
+  const [debouncedSearchTerm, setDebouncedSearchTerm] = useState(searchTerm);
 
   // Debounce the search term
   useEffect(() => {
@@ -60,9 +61,9 @@ function HomePage() {
     return () => clearTimeout(timer);
   }, [searchTerm]);
 
-  // Navigate to search page when user starts typing
+  // Navigate to search page when user starts typing (debounced)
   useEffect(() => {
-    if (debouncedSearchTerm.trim()) {
+    if (debouncedSearchTerm && debouncedSearchTerm.trim()) {
       navigate({
         to: '/search',
         search: { q: debouncedSearchTerm.trim() },
@@ -99,14 +100,14 @@ function HomePage() {
             type="text"
             placeholder="Search companies and products..."
             value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
+            onChange={(e) => setSearchTerm(e.target.value || null)}
             className="w-full rounded-lg border-2 border-zinc-200 bg-white py-3 pl-11 pr-4 text-zinc-900 placeholder-zinc-400 transition-colors focus:border-orange-600 focus:outline-none dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-100 dark:placeholder-zinc-500 dark:focus:border-orange-600"
             aria-label="Search companies and products"
           />
           {searchTerm && (
             <button
               type="button"
-              onClick={() => setSearchTerm('')}
+              onClick={() => setSearchTerm(null)}
               className="absolute inset-y-0 right-0 flex items-center pr-4 text-zinc-400 hover:text-zinc-600 dark:hover:text-zinc-300"
               aria-label="Clear search"
             >

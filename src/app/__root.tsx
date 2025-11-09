@@ -1,4 +1,5 @@
 import { Outlet, createRootRoute, Scripts, HeadContent } from '@tanstack/react-router';
+import { NuqsAdapter } from 'nuqs/adapters/tanstack-router';
 import appCss from "./globals.css?url"
 import faviconUrl from "./favicon.svg?url"
 import { ThemeProvider } from '@/components/theme-provider';
@@ -61,7 +62,9 @@ function RootLayout() {
       </head>
       <body>
         <ThemeProvider>
-          <Outlet />
+          <NuqsAdapter>
+            <Outlet />
+          </NuqsAdapter>
         </ThemeProvider>
         <Scripts />
       </body>
