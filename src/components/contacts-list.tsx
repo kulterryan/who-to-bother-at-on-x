@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Link } from '@tanstack/react-router';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
@@ -11,10 +11,11 @@ interface ContactsListProps {
   categories: Category[];
   companyName: string;
   logo: React.ReactNode;
+  searchQuery?: string;
+  onSearchQueryChange?: (query: string | null) => void;
 }
 
-export function ContactsList({ categories, companyName, logo }: ContactsListProps) {
-  const [searchQuery, setSearchQuery] = useState('');
+export function ContactsList({ categories, companyName, logo, searchQuery = '', onSearchQueryChange }: ContactsListProps) {
   const [copiedProduct, setCopiedProduct] = useState<string | null>(null);
 
   // Handle scroll to anchor on mount if hash is present
@@ -79,8 +80,26 @@ export function ContactsList({ categories, companyName, logo }: ContactsListProp
           <span>Click any topic to copy all contacts</span>
         </div>
 
-        <div className="mb-8">
-          <input type="text" placeholder="search products or topics" value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} className="w-full rounded-lg border border-zinc-200 bg-white px-4 py-3 text-sm text-zinc-900 placeholder-zinc-400 outline-none transition-colors focus:border-orange-400 focus:ring-1 focus:ring-orange-400 dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-100 dark:placeholder-zinc-500" />
+        <div className="mb-8 relative">
+          <input 
+            type="text" 
+            placeholder="search products or topics" 
+            value={searchQuery} 
+            onChange={(e) => onSearchQueryChange?.(e.target.value || null)} 
+            className={`w-full rounded-lg border border-zinc-200 bg-white px-4 py-3 text-sm text-zinc-900 placeholder-zinc-400 outline-none transition-colors focus:border-orange-400 focus:ring-1 focus:ring-orange-400 dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-100 dark:placeholder-zinc-500 ${searchQuery && onSearchQueryChange ? 'pr-11' : ''}`}
+          />
+          {searchQuery && onSearchQueryChange && (
+            <button
+              type="button"
+              onClick={() => onSearchQueryChange(null)}
+              className="absolute inset-y-0 right-0 flex items-center pr-4 text-zinc-400 hover:text-zinc-600 dark:hover:text-zinc-300"
+              aria-label="Clear search"
+            >
+              <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+          )}
         </div>
 
         <div className="space-y-12">
