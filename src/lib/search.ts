@@ -10,6 +10,7 @@ export interface SearchResult {
   description: string;
   companyId: string;
   companyName: string;
+  handles?: string[];
 }
 
 // Auto-discover all company JSON files (excluding templates)
@@ -49,6 +50,7 @@ function buildSearchIndex(): SearchResult[] {
             description: `${contact.product} at ${company.name}`,
             companyId: company.id,
             companyName: company.name,
+            handles: contact.handles,
           });
         });
       });

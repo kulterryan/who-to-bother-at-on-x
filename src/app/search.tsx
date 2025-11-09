@@ -17,25 +17,15 @@ export const Route = createFileRoute('/search')({
   validateSearch: (search): SearchParams => {
     return v.parse(searchSchema, search);
   },
-  head: ({ search }) => {
-    const query = search.q || '';
-    const title = query 
-      ? `Search results for "${query}" | who to bother on X`
-      : 'Search | who to bother on X';
-    const description = query
-      ? `Search results for "${query}" - Find the right people to reach out to at tech companies on X (Twitter).`
-      : 'Search for companies and products to find the right people to reach out to on X (Twitter).';
-
+  head: () => {
     return {
       meta: [
         ...seo({
-          title,
-          description,
+          title: 'Search | who to bother on X',
+          description: 'Search for companies and products to find the right people to reach out to on X (Twitter).',
           keywords: 'search, tech companies, contacts, X, Twitter, developers, developer relations, devrel, support',
-          url: `https://who-to-bother-at.com/search${query ? `?q=${encodeURIComponent(query)}` : ''}`,
-          image: query 
-            ? `https://who-to-bother-at.com/og/search?q=${encodeURIComponent(query)}`
-            : 'https://who-to-bother-at.com/opengraph',
+          url: 'https://who-to-bother-at.com/search',
+          image: 'https://who-to-bother-at.com/opengraph',
         }),
         {
           name: 'robots',
@@ -55,10 +45,11 @@ export const Route = createFileRoute('/search')({
 });
 
 function SearchPage() {
-  const { q } = Route.useSearch();
+  const searchParams = Route.useSearch();
+  const q = searchParams.q || '';
   const navigate = useNavigate();
-  const [inputValue, setInputValue] = useState(q || '');
-  const [debouncedQuery, setDebouncedQuery] = useState(q || '');
+  const [inputValue, setInputValue] = useState(q);
+  const [debouncedQuery, setDebouncedQuery] = useState(q);
 
   // Debounce the search query
   useEffect(() => {
@@ -69,11 +60,24 @@ function SearchPage() {
     return () => clearTimeout(timer);
   }, [inputValue]);
 
-  // Sync input with URL query on mount and when q changes
+  // Sync input with URL query on mount and when q changes from external source
   useEffect(() => {
-    setInputValue(q || '');
-    setDebouncedQuery(q || '');
+    if (q !== inputValue) {
+      setInputValue(q);
+      setDebouncedQuery(q);
+    }
   }, [q]);
+
+  // Update URL when debounced query changes (real-time URL sync)
+  useEffect(() => {
+    if (debouncedQuery !== q) {
+      navigate({
+        to: '/search',
+        search: { q: debouncedQuery },
+        replace: true, // Use replace to avoid cluttering browser history
+      });
+    }
+  }, [debouncedQuery, q, navigate]);
 
   // Perform search
   const results = useMemo(() => {
@@ -83,25 +87,15 @@ function SearchPage() {
     return search(debouncedQuery);
   }, [debouncedQuery]);
 
-  // Handle form submission
+  // Handle form submission (now just prevents default, URL is already updated)
   const handleSubmit = useCallback((e: React.FormEvent) => {
     e.preventDefault();
-    if (inputValue.trim() !== q) {
-      navigate({
-        to: '/search',
-        search: { q: inputValue.trim() },
-      });
-    }
-  }, [inputValue, q, navigate]);
+  }, []);
 
   // Handle clear
   const handleClear = useCallback(() => {
     setInputValue('');
-    navigate({
-      to: '/search',
-      search: { q: '' },
-    });
-  }, [navigate]);
+  }, []);
 
   const isLoading = inputValue !== debouncedQuery;
 
@@ -224,7 +218,7 @@ function SearchResultCard({ result }: { result: SearchResult }) {
       role="listitem"
     >
       {logo && (
-        <div className="flex-shrink-0 w-12 h-12 flex items-center justify-center">
+        <div className="flex-shrink-0 w-14 h-12 flex items-center justify-center">
           {logo}
         </div>
       )}
@@ -245,15 +239,10 @@ function SearchResultCard({ result }: { result: SearchResult }) {
           </span>
         </div>
         
-        <p className="text-sm text-zinc-600 dark:text-zinc-400 line-clamp-2">
+        <p className="text-sm text-zinc-600 dark:text-zinc-400 line-clamp-2 mb-0">
           {result.description}
         </p>
         
-        {!isCompany && (
-          <p className="mt-1 text-xs text-zinc-500 dark:text-zinc-500">
-            at {result.companyName}
-          </p>
-        )}
       </div>
 
       <div className="flex-shrink-0">

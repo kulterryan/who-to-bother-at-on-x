@@ -4,7 +4,7 @@ import type { CompanyListItem } from '@/types/company';
 import type { Company } from '@/types/company';
 import { seo } from '@/lib/seo';
 import { Footer } from '@/components/footer';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 // Auto-discover all company JSON files (excluding templates)
 const companyModules = import.meta.glob<{ default: Company }>('../data/companies/*.json', {
@@ -49,15 +49,31 @@ export const Route = createFileRoute('/')({
 function HomePage() {
   const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState('');
+  const [debouncedSearchTerm, setDebouncedSearchTerm] = useState('');
+
+  // Debounce the search term
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setDebouncedSearchTerm(searchTerm);
+    }, 300);
+
+    return () => clearTimeout(timer);
+  }, [searchTerm]);
+
+  // Navigate to search page when user starts typing
+  useEffect(() => {
+    if (debouncedSearchTerm.trim()) {
+      navigate({
+        to: '/search',
+        search: { q: debouncedSearchTerm.trim() },
+        replace: false, // Allow back button to work
+      });
+    }
+  }, [debouncedSearchTerm, navigate]);
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
-    if (searchTerm.trim()) {
-      navigate({
-        to: '/search',
-        search: { q: searchTerm.trim() },
-      });
-    }
+    // Navigation is handled by the useEffect above
   };
 
   return (
