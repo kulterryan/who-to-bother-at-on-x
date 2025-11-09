@@ -1,11 +1,11 @@
 import { createFileRoute, Link, useNavigate } from '@tanstack/react-router';
-import { parseAsString, useQueryState, throttle } from 'nuqs';
+import { parseAsString, useQueryState } from 'nuqs';
 import { companyLogos } from '@/components/company-logos';
 import type { CompanyListItem } from '@/types/company';
 import type { Company } from '@/types/company';
 import { seo } from '@/lib/seo';
 import { Footer } from '@/components/footer';
-import { useEffect, useRef } from 'react';
+import { useEffect } from 'react';
 
 // Auto-discover all company JSON files (excluding templates)
 const companyModules = import.meta.glob<{ default: Company }>('../data/companies/*.json', {
@@ -49,52 +49,20 @@ export const Route = createFileRoute('/')({
 
 function HomePage() {
   const navigate = useNavigate();
-  const [searchTerm, setSearchTerm] = useQueryState('q', parseAsString.withDefault('').withOptions({
-    limitUrlUpdates: throttle(150),
-  }));
-  const previousSearchTermRef = useRef<string>('');
-  const navigationTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const [searchTerm, setSearchTerm] = useQueryState('q', parseAsString.withDefault(''));
 
-  // Navigate to search page when query changes
   useEffect(() => {
-    const wasEmpty = !previousSearchTermRef.current.trim();
-    const isNotEmpty = searchTerm && searchTerm.trim();
-
-    // Clear any pending navigation
-    if (navigationTimeoutRef.current) {
-      clearTimeout(navigationTimeoutRef.current);
-    }
-
-    if (wasEmpty && isNotEmpty) {
-      // Navigate immediately on first keystroke (no delay)
+    if (searchTerm && searchTerm.trim()) {
       navigate({
         to: '/search',
         search: { q: searchTerm.trim() },
-        replace: false,
+        replace: true,
       });
-    } else if (isNotEmpty && previousSearchTermRef.current !== searchTerm) {
-      // For subsequent updates, use a small delay to batch rapid typing
-      navigationTimeoutRef.current = setTimeout(() => {
-        navigate({
-          to: '/search',
-          search: { q: searchTerm.trim() },
-          replace: true,
-        });
-      }, 100);
     }
-
-    previousSearchTermRef.current = searchTerm || '';
-
-    return () => {
-      if (navigationTimeoutRef.current) {
-        clearTimeout(navigationTimeoutRef.current);
-      }
-    };
   }, [searchTerm, navigate]);
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
-    // Navigation is handled by the useEffect above
   };
 
   return (
