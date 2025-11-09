@@ -1,11 +1,11 @@
 import { createFileRoute, Link, useNavigate } from '@tanstack/react-router';
-import { parseAsString, useQueryState } from 'nuqs';
+import { parseAsString, useQueryState, throttle } from 'nuqs';
 import { companyLogos } from '@/components/company-logos';
 import type { CompanyListItem } from '@/types/company';
 import type { Company } from '@/types/company';
 import { seo } from '@/lib/seo';
 import { Footer } from '@/components/footer';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef } from 'react';
 
 // Auto-discover all company JSON files (excluding templates)
 const companyModules = import.meta.glob<{ default: Company }>('../data/companies/*.json', {
@@ -49,28 +49,48 @@ export const Route = createFileRoute('/')({
 
 function HomePage() {
   const navigate = useNavigate();
-  const [searchTerm, setSearchTerm] = useQueryState('q', parseAsString.withDefault(''));
-  const [debouncedSearchTerm, setDebouncedSearchTerm] = useState(searchTerm);
+  const [searchTerm, setSearchTerm] = useQueryState('q', parseAsString.withDefault('').withOptions({
+    limitUrlUpdates: throttle(150),
+  }));
+  const previousSearchTermRef = useRef<string>('');
+  const navigationTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  // Debounce the search term
+  // Navigate to search page when query changes
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setDebouncedSearchTerm(searchTerm);
-    }, 300);
+    const wasEmpty = !previousSearchTermRef.current.trim();
+    const isNotEmpty = searchTerm && searchTerm.trim();
 
-    return () => clearTimeout(timer);
-  }, [searchTerm]);
+    // Clear any pending navigation
+    if (navigationTimeoutRef.current) {
+      clearTimeout(navigationTimeoutRef.current);
+    }
 
-  // Navigate to search page when user starts typing (debounced)
-  useEffect(() => {
-    if (debouncedSearchTerm && debouncedSearchTerm.trim()) {
+    if (wasEmpty && isNotEmpty) {
+      // Navigate immediately on first keystroke (no delay)
       navigate({
         to: '/search',
-        search: { q: debouncedSearchTerm.trim() },
-        replace: false, // Allow back button to work
+        search: { q: searchTerm.trim() },
+        replace: false,
       });
+    } else if (isNotEmpty && previousSearchTermRef.current !== searchTerm) {
+      // For subsequent updates, use a small delay to batch rapid typing
+      navigationTimeoutRef.current = setTimeout(() => {
+        navigate({
+          to: '/search',
+          search: { q: searchTerm.trim() },
+          replace: true,
+        });
+      }, 100);
     }
-  }, [debouncedSearchTerm, navigate]);
+
+    previousSearchTermRef.current = searchTerm || '';
+
+    return () => {
+      if (navigationTimeoutRef.current) {
+        clearTimeout(navigationTimeoutRef.current);
+      }
+    };
+  }, [searchTerm, navigate]);
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
