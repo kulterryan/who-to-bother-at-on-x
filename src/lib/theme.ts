@@ -3,8 +3,8 @@ export type T = "light" | "dark" | "system";
 export const THEME_STORAGE_KEY = "theme-preference";
 
 export function getStoredTheme(): T {
-  if (typeof window === "undefined") return "light";
-  
+  if (typeof window === "undefined") return "system";
+
   try {
     const stored = localStorage.getItem(THEME_STORAGE_KEY);
     if (stored === "light" || stored === "dark" || stored === "system") {
@@ -13,8 +13,8 @@ export function getStoredTheme(): T {
   } catch {
     // localStorage might be blocked
   }
-  
-  return "light";
+
+  return "system";
 }
 
 export function setStoredTheme(theme: T): void {
