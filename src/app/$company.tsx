@@ -47,12 +47,18 @@ export const Route = createFileRoute('/$company')({
     const title = `who to bother at ${loaderData.name} on X`;
     const description = `Find the right people to reach out to at ${loaderData.name} on X (Twitter). ${loaderData.description}`;
     
+    // TODO: Change after testing deployment
+    const ogImage = `https://who-to-bother-at.com/og/${loaderData.id}`;
+    const pageUrl = `https://who-to-bother-at.com/${loaderData.id}`;
+    
     return {
       meta: [
         ...seo({
           title,
           description,
           keywords: `${loaderData.name}, contacts, X, Twitter, developer relations, support`,
+          image: ogImage,
+          url: pageUrl,
         }),
       ],
       links: [

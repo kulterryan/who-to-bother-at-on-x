@@ -8,7 +8,7 @@ import { cloudflare } from '@cloudflare/vite-plugin'
 
 export default defineConfig({
   server: {
-    port: 3000,
+    port: 3311,
   },
   plugins: [
     cloudflare({ viteEnvironment: { name: 'ssr' } }),
@@ -18,7 +18,6 @@ export default defineConfig({
     tanstackStart({
       srcDirectory: 'src', // This is the default
       router: {
-        // Specifies the directory TanStack Router uses for your routes.
         routesDirectory: 'app', // Defaults to "routes", relative to srcDirectory
       }
     }),

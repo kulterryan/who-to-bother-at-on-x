@@ -17,6 +17,10 @@ export const Route = createRootRoute({
         name: 'theme-color',
         content: '#ea580c',
       },
+      {
+        name: 'msapplication-TileImage',
+        content: faviconUrl,
+      },
       ...seo({
         title: 'who to bother on X',
         description: 'Find the right people to reach out to at your favorite tech companies on X (Twitter)',
@@ -33,6 +37,10 @@ export const Route = createRootRoute({
         type: 'image/svg+xml',
         href: faviconUrl,
       },
+      {
+        rel: 'apple-touch-icon',
+        href: faviconUrl,
+      },
     ],
   }),
   component: RootLayout,
@@ -46,7 +54,7 @@ function RootLayout() {
       <head>
         <script
           dangerouslySetInnerHTML={{
-            __html: `!function(){try{var e=localStorage.getItem('${THEME_STORAGE_KEY}')||'light';document.documentElement.className='system'===e?matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light':e}catch{document.documentElement.className='light'}}()`,
+            __html: `!function(){try{var e=localStorage.getItem('${THEME_STORAGE_KEY}')||'system';document.documentElement.className='system'===e?matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light':e}catch{document.documentElement.className=matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light'}}()`,
           }}
         />
         {HeadContent()}

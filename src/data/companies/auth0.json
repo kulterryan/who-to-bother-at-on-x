@@ -1,0 +1,18 @@
+{
+  "$schema": "./schema.json",
+  "id": "auth0",
+  "name": "Auth0",
+  "description": "Secure AI agents, humans, and whatever comes next",
+  "logoType": "auth0",
+  "categories": [
+    {
+      "name": "Official Accounts",
+      "contacts": [
+        { "product": "Official Auth0 Account", "handles": ["@auth0"] },
+        { "product": "Auth0 Lab", "handles": ["@Auth0Lab"] },
+        { "product": "Auth0 Community", "handles": ["@Auth0Community"] },
+        { "product": "Auth0 Status Updates", "handles": ["@auth0status"] }
+      ]
+    }
+  ]
+}

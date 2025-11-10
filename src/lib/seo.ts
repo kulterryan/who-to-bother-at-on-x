@@ -18,6 +18,7 @@ export function seo({
 }): MetaTag[] {
   const tags: MetaTag[] = [
     { title },
+    { name: 'title', content: title },
   ];
 
   if (description) {
@@ -35,12 +36,18 @@ export function seo({
   if (image) {
     tags.push(
       { property: 'og:image', content: image },
-      { name: 'twitter:image', content: image }
+      { property: 'og:image:width', content: '1200' },
+      { property: 'og:image:height', content: '630' },
+      { name: 'twitter:image', content: image },
+      { name: 'twitter:image:alt', content: title }
     );
   }
 
   if (url) {
-    tags.push({ property: 'og:url', content: url });
+    tags.push(
+      { property: 'og:url', content: url },
+      { name: 'twitter:url', content: url }
+    );
   }
 
   tags.push(
