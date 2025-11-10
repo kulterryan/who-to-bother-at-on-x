@@ -3,6 +3,14 @@
 
 @custom-variant dark (&:is(.dark *));
 
+html {
+  color-scheme: light dark;
+}
+
+html.dark {
+  color-scheme: dark;
+}
+
 @import '@fontsource-variable/dm-sans';
 @import '@fontsource-variable/jetbrains-mono';
 
