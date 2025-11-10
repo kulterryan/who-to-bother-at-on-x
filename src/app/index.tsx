@@ -30,7 +30,16 @@ export const Route = createFileRoute('/')({
         title: 'who to bother on X | find help in your favorite tech companies',
         description: 'Find the right people to reach out to at your favorite tech companies on X (Twitter).',
         keywords: 'tech companies, contacts, X, Twitter, developers, developer relations, devrel, support',
+        url: 'https://who-to-bother-at.com/',
+        image: 'https://who-to-bother-at.com/opengraph',
       }),
+    ],
+    links: [
+      {
+        rel: 'icon',
+        type: 'image/svg+xml',
+        href: '/favicon.svg',
+      },
     ],
   }),
   component: HomePage,

@@ -17,6 +17,10 @@ export const Route = createRootRoute({
         name: 'theme-color',
         content: '#ea580c',
       },
+      {
+        name: 'msapplication-TileImage',
+        content: faviconUrl,
+      },
       ...seo({
         title: 'who to bother on X',
         description: 'Find the right people to reach out to at your favorite tech companies on X (Twitter)',
@@ -31,6 +35,10 @@ export const Route = createRootRoute({
       {
         rel: 'icon',
         type: 'image/svg+xml',
+        href: faviconUrl,
+      },
+      {
+        rel: 'apple-touch-icon',
         href: faviconUrl,
       },
     ],
