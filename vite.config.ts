@@ -10,11 +10,14 @@ export default defineConfig({
   server: {
     port: 3311,
     hmr: {
+      protocol: 'ws',
+      port: 3311,
       overlay: true,
+      timeout: 30000, // Increase timeout to 30 seconds
     },
     watch: {
+      // Disable polling for better performance
       usePolling: false,
-      interval: 100,
     },
   },
   plugins: [
@@ -30,4 +33,13 @@ export default defineConfig({
     }),
     viteReact(),
   ],
+  build: {
+    rollupOptions: {
+      output: {
+        advancedChunks: {
+          groups: [{ name: 'vendor', test: /\/react(?:-dom)?/ }]
+        }
+      }
+    }
+  }
 })
