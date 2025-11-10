@@ -4,32 +4,37 @@ import { companyLogos } from '@/components/company-logos';
 import type { Company } from '@/types/company';
 import { seo } from '@/lib/seo';
 
-// Auto-discover all company JSON files using Vite's import.meta.glob
-const companyModules = import.meta.glob<{ default: Company }>(
-  '../data/companies/*.json',
-  { eager: true }
-);
+// Helper function to build company data map
+function getCompanyDataMap(): Record<string, Company> {
+  // Auto-discover all company JSON files using Vite's import.meta.glob
+  const companyModules = import.meta.glob<{ default: Company }>(
+    '../data/companies/*.json',
+    { eager: true }
+  );
 
-// Generate company data map from discovered files
-const companyDataMap: Record<string, Company> = Object.entries(companyModules).reduce(
-  (acc, [path, module]) => {
-    const filename = path.split('/').pop()?.replace('.json', '') || '';
-    // Filter out schema and template files
-    if (filename && !filename.includes('schema') && !filename.includes('template')) {
-      // Key by the id field from the JSON to match how links are generated in index.tsx
-      acc[module.default.id] = module.default;
-    }
-    return acc;
-  },
-  {} as Record<string, Company>
-);
-
+  // Build company data map from discovered files
+  return Object.entries(companyModules).reduce(
+    (acc, [path, module]) => {
+      const filename = path.split('/').pop()?.replace('.json', '') || '';
+      // Filter out schema and template files
+      if (filename && !filename.includes('schema') && !filename.includes('template')) {
+        // Key by the id field from the JSON to match how links are generated in index.tsx
+        acc[module.default.id] = module.default;
+      }
+      return acc;
+    },
+    {} as Record<string, Company>
+  );
+}
 
 export const Route = createFileRoute('/$company')({
   loader: async ({ params }) => {
     const { company } = params;
     
+    // Get company data map
+    const companyDataMap = getCompanyDataMap();
     const companyData = companyDataMap[company];
+    
     if (!companyData) {
       throw new Error(`Company "${company}" not found`);
     }
@@ -42,13 +47,26 @@ export const Route = createFileRoute('/$company')({
     const title = `who to bother at ${loaderData.name} on X`;
     const description = `Find the right people to reach out to at ${loaderData.name} on X (Twitter). ${loaderData.description}`;
     
+    // TODO: Change after testing deployment
+    const ogImage = `https://who-to-bother-at.com/og/${loaderData.id}`;
+    const pageUrl = `https://who-to-bother-at.com/${loaderData.id}`;
+    
     return {
       meta: [
         ...seo({
           title,
           description,
           keywords: `${loaderData.name}, contacts, X, Twitter, developer relations, support`,
+          image: ogImage,
+          url: pageUrl,
         }),
+      ],
+      links: [
+        {
+          rel: 'icon',
+          href: `/company-logos/${loaderData.logoType}.svg`,
+          type: 'image/svg+xml',
+        },
       ],
     };
   },

@@ -1,0 +1,32 @@
+{
+  "$schema": "./schema.json",
+  "id": "axiom",
+  "name": "Axiom",
+  "description": "Observability and analytics platform",
+  "logoType": "axiom",
+  "categories": [
+    {
+      "name": "Leadership",
+      "contacts": [
+        {
+          "product": "CEO",
+          "handles": ["@njpatel"]
+        },
+        {
+          "product": "CTO",
+          "handles": ["@seiflotfy"]
+        }
+      ]
+    },
+    {
+      "name": "Community",
+      "contacts": [
+        {
+          "product": "Official Handle",
+          "handles": ["@AxiomFM"]
+        }
+      ]
+    }
+  ]
+}
+

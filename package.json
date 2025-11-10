@@ -3,19 +3,24 @@
   "version": "0.1.0",
   "license": "MIT",
   "scripts": {
+    "predev": "tsx src/scripts/generate-favicons.ts",
     "dev": "vite dev",
+    "prebuild": "tsx src/scripts/generate-favicons.ts",
     "build": "pnpm validate && vite build && tsc --noEmit",
     "preview": "vite preview",
     "deploy": "npm run build && wrangler deploy",
     "cf-typegen": "wrangler types",
     "validate": "tsx src/scripts/validate-companies.ts",
-    "generate-schema": "tsx src/scripts/generate-json-schema.ts"
+    "generate-schema": "tsx src/scripts/generate-json-schema.ts",
+    "generate-favicons": "tsx src/scripts/generate-favicons.ts"
   },
   "type": "module",
   "dependencies": {
     "@fontsource/geist-mono": "^5.2.7",
     "@fontsource/geist-sans": "^5.2.5",
     "@hookform/resolvers": "^3.10.0",
+    "@takumi-rs/helpers": "^0.45.3",
+    "@takumi-rs/wasm": "^0.45.3",
     "@radix-ui/react-accordion": "1.2.2",
     "@radix-ui/react-alert-dialog": "1.1.4",
     "@radix-ui/react-aspect-ratio": "1.1.1",
