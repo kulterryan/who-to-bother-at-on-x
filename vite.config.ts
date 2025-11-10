@@ -9,6 +9,13 @@ import { cloudflare } from '@cloudflare/vite-plugin'
 export default defineConfig({
   server: {
     port: 3311,
+    hmr: {
+      overlay: true,
+    },
+    watch: {
+      usePolling: false,
+      interval: 100,
+    },
   },
   plugins: [
     cloudflare({ viteEnvironment: { name: 'ssr' } }),
