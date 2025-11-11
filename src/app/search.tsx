@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from '@tanstack/react-router';
 import { useMemo, memo } from 'react';
-import { createStandardSchemaV1, parseAsString, useQueryState } from 'nuqs';
+import { createStandardSchemaV1, parseAsString, useQueryState, throttle } from 'nuqs';
 import { search, type SearchResult } from '@/lib/search';
 import { companyLogos } from '@/components/company-logos';
 import { seo } from '@/lib/seo';
@@ -43,8 +43,11 @@ export const Route = createFileRoute('/search')({
 });
 
 function SearchPage() {
-  const [query, setQuery] = useQueryState('q', parseAsString.withDefault(''));
-
+  const [query, setQuery] = useQueryState('q', parseAsString.withDefault('').withOptions({
+    limitUrlUpdates: throttle(300),
+    shallow: true,
+  }));
+  
   // Perform search - only reruns when query changes
   const results = useMemo(() => {
     if (!query.trim()) {
