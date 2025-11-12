@@ -1,4 +1,5 @@
 import { createFileRoute, Link } from '@tanstack/react-router';
+import { createStandardSchemaV1, parseAsString, useQueryState, throttle } from 'nuqs';
 import { ContactsList } from '@/components/contacts-list';
 import { companyLogos } from '@/components/company-logos';
 import type { Company } from '@/types/company';
@@ -27,7 +28,15 @@ function getCompanyDataMap(): Record<string, Company> {
   );
 }
 
+// Define search params schema for nuqs
+const searchParams = {
+  q: parseAsString.withDefault(''),
+};
+
 export const Route = createFileRoute('/$company')({
+  validateSearch: createStandardSchemaV1(searchParams, {
+    partialOutput: true,
+  }),
   loader: async ({ params }) => {
     const { company } = params;
     
@@ -87,12 +96,17 @@ export const Route = createFileRoute('/$company')({
 function CompanyPage() {
   const company = Route.useLoaderData();
   const logo = companyLogos[company.logoType];
+  const [searchQuery, setSearchQuery] = useQueryState('q', parseAsString.withDefault('').withOptions({
+    limitUrlUpdates: throttle(300),
+  }));
 
   return (
     <ContactsList
       categories={company.categories}
       companyName={company.name}
       logo={logo}
+      searchQuery={searchQuery}
+      onSearchQueryChange={setSearchQuery}
     />
   );
 }

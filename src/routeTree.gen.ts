@@ -9,11 +9,18 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './app/__root'
+import { Route as SearchRouteImport } from './app/search'
 import { Route as OpengraphRouteImport } from './app/opengraph'
 import { Route as CompanyRouteImport } from './app/$company'
 import { Route as IndexRouteImport } from './app/index'
+import { Route as OgSearchRouteImport } from './app/og.search'
 import { Route as OgCompanyRouteImport } from './app/og.$company'
 
+const SearchRoute = SearchRouteImport.update({
+  id: '/search',
+  path: '/search',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const OpengraphRoute = OpengraphRouteImport.update({
   id: '/opengraph',
   path: '/opengraph',
@@ -29,6 +36,11 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const OgSearchRoute = OgSearchRouteImport.update({
+  id: '/og/search',
+  path: '/og/search',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const OgCompanyRoute = OgCompanyRouteImport.update({
   id: '/og/$company',
   path: '/og/$company',
@@ -39,38 +51,72 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/$company': typeof CompanyRoute
   '/opengraph': typeof OpengraphRoute
+  '/search': typeof SearchRoute
   '/og/$company': typeof OgCompanyRoute
+  '/og/search': typeof OgSearchRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/$company': typeof CompanyRoute
   '/opengraph': typeof OpengraphRoute
+  '/search': typeof SearchRoute
   '/og/$company': typeof OgCompanyRoute
+  '/og/search': typeof OgSearchRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/$company': typeof CompanyRoute
   '/opengraph': typeof OpengraphRoute
+  '/search': typeof SearchRoute
   '/og/$company': typeof OgCompanyRoute
+  '/og/search': typeof OgSearchRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/$company' | '/opengraph' | '/og/$company'
+  fullPaths:
+    | '/'
+    | '/$company'
+    | '/opengraph'
+    | '/search'
+    | '/og/$company'
+    | '/og/search'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/$company' | '/opengraph' | '/og/$company'
-  id: '__root__' | '/' | '/$company' | '/opengraph' | '/og/$company'
+  to:
+    | '/'
+    | '/$company'
+    | '/opengraph'
+    | '/search'
+    | '/og/$company'
+    | '/og/search'
+  id:
+    | '__root__'
+    | '/'
+    | '/$company'
+    | '/opengraph'
+    | '/search'
+    | '/og/$company'
+    | '/og/search'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   CompanyRoute: typeof CompanyRoute
   OpengraphRoute: typeof OpengraphRoute
+  SearchRoute: typeof SearchRoute
   OgCompanyRoute: typeof OgCompanyRoute
+  OgSearchRoute: typeof OgSearchRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/search': {
+      id: '/search'
+      path: '/search'
+      fullPath: '/search'
+      preLoaderRoute: typeof SearchRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/opengraph': {
       id: '/opengraph'
       path: '/opengraph'
@@ -92,6 +138,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/og/search': {
+      id: '/og/search'
+      path: '/og/search'
+      fullPath: '/og/search'
+      preLoaderRoute: typeof OgSearchRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/og/$company': {
       id: '/og/$company'
       path: '/og/$company'
@@ -106,7 +159,9 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   CompanyRoute: CompanyRoute,
   OpengraphRoute: OpengraphRoute,
+  SearchRoute: SearchRoute,
   OgCompanyRoute: OgCompanyRoute,
+  OgSearchRoute: OgSearchRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
