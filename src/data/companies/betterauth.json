@@ -14,7 +14,7 @@
     {
       "name" : "Core Products",
       "contacts" : [
-        { "product" : "Core Maintainer", "handles": ["@imbereket"]}
+        { "product" : "Core Maintainer", "handles": ["@imbereket", "@PingStruggles"]}
       ]
     }
   ]
