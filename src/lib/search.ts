@@ -23,7 +23,7 @@ function buildSearchIndex(): SearchResult[] {
   const results: SearchResult[] = [];
 
   Object.entries(companyModules)
-    .filter(([path]) => !path.includes('template') && !path.includes('schema'))
+    .filter(([path]) => !path.includes('template') && !path.includes('schema') && !path.includes('vercel'))
     .forEach(([_, module]) => {
       const company = module.default;
 
