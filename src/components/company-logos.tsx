@@ -1,6 +1,15 @@
 import type React from 'react';
 
 export const companyLogos: Record<string, React.ReactNode> = {
+  blooio : (
+    <svg xmlns="http://www.w3.org/2000/svg" width="265" height="155" fill="none">
+      <path
+       fill="#fff" fill-rule="evenodd" d="M83 96.76v.28-.51z" clip-rule="evenodd"/>
+       <path
+        fill="#fff" d="M86.6 73.47q-.75 2.23-1.36 4.53S83 85 83 97.04v57.23h126.39q13.05-.02 23.16-4.23a49.7 49.7 0 0 0 28.13-30.25q3.8-10.57 3.8-23.26 0-12.47-3.8-23.06-3.6-10.57-10.79-18.18a47.5 47.5 0 0 0-17.34-11.85q-10.11-4.43-23.16-4.44H138.2q-13.12 0-23.47 4.44A50 50 0 0 0 97.38 55.3 53 53 0 0 0 86.6 73.47"/><path fill="#007aff" fill-rule="evenodd" d="M181.49 57.76v.28-.51z" clip-rule="evenodd"/><path fill="#007aff" d="M177.9 34.47q.75 2.23 1.34 4.53s2.25 7 2.25 19.04v57.23H55.1q-13.05-.02-23.16-4.23A49.7 49.7 0 0 1 3.8 80.79Q0 70.22 0 57.53q0-12.48 3.8-23.06Q7.4 23.9 14.6 16.3A47.5 47.5 0 0 1 31.93 4.44Q42.05.02 55.09 0h71.2q13.1 0 23.47 4.44A50 50 0 0 1 167.1 16.3a53 53 0 0 1 10.8 18.18"
+        />
+        </svg>
+  ),
   cloudflare: (
     <svg xmlns="http://www.w3.org/2000/svg" width="66" height="30" viewBox="0 0 66 30" fill="none" className="shrink-0 transition-colors duration-200 ease-out text-accent-100" id="nav-logo-icon">
       <path
