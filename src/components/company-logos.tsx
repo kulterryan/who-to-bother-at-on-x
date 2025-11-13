@@ -227,5 +227,19 @@ export const companyLogos: Record<string, React.ReactNode> = {
     <svg viewBox="0 0 466.73 532.09" width="30" height="30" xmlns="http://www.w3.org/2000/svg" className="text-zinc-900 dark:text-zinc-100">
       <path fill="currentColor" d="M457.43,125.94L244.42,2.96c-6.84-3.95-15.28-3.95-22.12,0L9.3,125.94c-5.75,3.32-9.3,9.46-9.3,16.11v247.99c0,6.65,3.55,12.79,9.3,16.11l213.01,122.98c6.84,3.95,15.28,3.95,22.12,0l213.01-122.98c5.75-3.32,9.3-9.46,9.3-16.11v-247.99c0-6.65-3.55-12.79-9.3-16.11h-.01ZM444.05,151.99l-205.63,356.16c-1.39,2.4-5.06,1.42-5.06-1.36v-233.21c0-4.66-2.49-8.97-6.53-11.31L24.87,145.67c-2.4-1.39-1.42-5.06,1.36-5.06h411.26c5.84,0,9.49,6.33,6.57,11.39h-.01Z"/>
     </svg>
-  )
+  ),
+  hackernoon: (
+    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 240 241" fill="none" aria-labelledby="hackernoon-logo-title" className="text-zinc-900 dark:text-zinc-100">
+      <title id="hackernoon-logo-title">HackerNoon</title>
+      <path fill="currentColor" d="M183.574 18.462V0H53.9282V18.462V36.9241V55.3861H72.4498H90.966V36.9241H109.488H146.531V55.3861H165.052H183.574V36.9241V18.462Z" />
+      <path fill="currentColor" d="M53.9285 73.8485V55.3864H35.4069V73.8485V92.3105H53.9285V73.8485Z" />
+      <path fill="currentColor" d="M35.4067 110.767V92.3103H16.8851V110.767V129.229V147.691H35.4067V129.229V110.767Z" />
+      <path fill="currentColor" d="M183.574 92.3105H202.096V73.8485V55.3864H183.574V73.8485V92.3105Z" />
+      <path fill="currentColor" d="M220.617 110.767V92.3103H202.096V110.767V129.229V147.691H220.617V129.229H239.139V110.767H220.617Z" />
+      <path fill="currentColor" d="M53.9283 147.691H35.4067V166.153V184.615H53.9283V166.153V147.691Z" />
+      <path fill="currentColor" d="M183.574 166.153V184.615H202.096V166.153V147.691H183.574V166.153Z" />
+      <path fill="currentColor" d="M53.9277 240V221.538V203.076V184.614H72.4493H90.9655V203.076H109.487H128.009H146.53V184.614H165.052H183.573V203.076V221.538V240H53.9277Z" />
+      <path fill="currentColor" d="M128.396 36.9807V55.4428V73.9048V92.3669V110.824V129.286H109.875V110.824V92.3669V73.9048V55.4428V36.9807H128.396Z" />
+    </svg>
+  ),
 };
