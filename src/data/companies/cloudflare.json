@@ -44,7 +44,7 @@
         { "product": "Storage & Data Platform", "handles": ["@akaphill"] },
         { "product": "Pipelines", "handles": ["@MarcSelwan", "@mwylde"] },
         { "product": "Queues", "handles": ["@miacmal"] },
-        { "product": "R2", "handles": ["@aninibread", "@fireblaze_15"] },
+        { "product": "R2", "handles": ["@aninibread", "@fireblaze_15", "@_developeter"] },
         { "product": "R2 Data Catalog", "handles": ["@MarcSelwan", "@Cole_MacKenzie"] },
         { "product": "R2 SQL", "handles": ["@MarcSelwan", "@jeromeschneider", "@sejoker"] },
         { "product": "Workflows", "handles": ["@miacmal"] }
