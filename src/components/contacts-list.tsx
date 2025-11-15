@@ -2,7 +2,7 @@ import { useEffect, useState, useRef } from 'react';
 import { Link } from '@tanstack/react-router';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { Copy, ArrowLeft, Mail } from 'lucide-react';
+import { Copy, ArrowLeft, Mail, Globe, BookOpen, Github, MessageCircle } from 'lucide-react';
 import type { Category } from '@/types/contacts';
 import { Footer } from '@/components/footer';
 
@@ -12,9 +12,13 @@ interface ContactsListProps {
   logo: React.ReactNode;
   searchQuery?: string;
   onSearchQueryChange?: (query: string | null) => void;
+  website?: string;
+  docs?: string;
+  github?: string;
+  discord?: string;
 }
 
-export function ContactsList({ categories, companyName, logo, searchQuery = '', onSearchQueryChange }: ContactsListProps) {
+export function ContactsList({ categories, companyName, logo, searchQuery = '', onSearchQueryChange, website, docs, github, discord }: ContactsListProps) {
   const [copiedProduct, setCopiedProduct] = useState<string | null>(null);
   const firstMatchRef = useRef<HTMLDivElement | null>(null);
 
@@ -65,14 +69,43 @@ export function ContactsList({ categories, companyName, logo, searchQuery = '', 
           Back to home
         </Link>
 
-        <h1 className="mb-12 flex items-center gap-2 text-2xl font-medium text-balance text-zinc-900 dark:text-zinc-100 md:text-3xl">
+        <h1 className="mb-6 flex items-center gap-2 text-2xl font-medium text-balance text-zinc-900 dark:text-zinc-100 md:text-3xl">
           who to bother at {logo} on{' '}
           <svg fill="none" viewBox="0 0 1200 1227" width="33" height="30">
             <path fill="currentColor" d="M714.163 519.284 1160.89 0h-105.86L667.137 450.887 357.328 0H0l468.492 681.821L0 1226.37h105.866l409.625-476.152 327.181 476.152H1200L714.137 519.284h.026ZM569.165 687.828l-47.468-67.894-377.686-540.24h162.604l304.797 435.991 47.468 67.894 396.2 566.721H892.476L569.165 687.854v-.026Z" />
           </svg>
         </h1>
 
-        <p className="mb-8 text-sm text-zinc-600">
+        {(website || docs || github || discord) && (
+          <div className="mb-8 flex flex-wrap items-center gap-4">
+            {website && (
+              <a href={website} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 text-sm text-zinc-600 transition-colors hover:text-orange-600 dark:text-zinc-400 dark:hover:text-orange-600">
+                <Globe className="h-4 w-4" />
+                <span>Website</span>
+              </a>
+            )}
+            {docs && (
+              <a href={docs} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 text-sm text-zinc-600 transition-colors hover:text-orange-600 dark:text-zinc-400 dark:hover:text-orange-600">
+                <BookOpen className="h-4 w-4" />
+                <span>Docs</span>
+              </a>
+            )}
+            {github && (
+              <a href={github} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 text-sm text-zinc-600 transition-colors hover:text-orange-600 dark:text-zinc-400 dark:hover:text-orange-600">
+                <Github className="h-4 w-4" />
+                <span>GitHub</span>
+              </a>
+            )}
+            {discord && (
+              <a href={discord} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 text-sm text-zinc-600 transition-colors hover:text-orange-600 dark:text-zinc-400 dark:hover:text-orange-600">
+                <MessageCircle className="h-4 w-4" />
+                <span>Discord</span>
+              </a>
+            )}
+          </div>
+        )}
+
+        <p className="mb-8 text-sm text-zinc-600 dark:text-zinc-500">
           This is a community-maintained list and not officially affiliated with {companyName}. For official support, visit the official {companyName} website.
         </p>
 

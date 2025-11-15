@@ -4,6 +4,10 @@
   "name": "RedwoodJS",
   "description": "Full-stack JavaScript application framework built on React, GraphQL, and Prisma",
   "logoType": "redwoodjs",
+  "website": "https://rwsdk.com/",
+  "docs": "https://docs.rwsdk.com/",
+  "github": "https://github.com/redwoodjs",
+  "discord": "https://discord.com/invite/redwoodjs",
   "categories": [
     {
       "name": "Official Accounts",
