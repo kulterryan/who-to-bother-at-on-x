@@ -1,4 +1,4 @@
-import { createFileRoute, Link, useNavigate } from '@tanstack/react-router';
+import { createFileRoute, Link, useNavigate, useRouter } from '@tanstack/react-router';
 import { parseAsString, useQueryState } from 'nuqs';
 import { companyLogos } from '@/components/company-logos';
 import type { CompanyListItem } from '@/types/company';
@@ -49,7 +49,15 @@ export const Route = createFileRoute('/')({
 
 function HomePage() {
   const navigate = useNavigate();
+  const router = useRouter();
   const [searchTerm, setSearchTerm] = useQueryState('q', parseAsString.withDefault(''));
+
+  // Preload search page once homepage is mounted
+  useEffect(() => {
+    router.preloadRoute({ to: '/search' }).catch(() => {
+      // Silently fail if preload doesn't work
+    });
+  }, [router]);
 
   useEffect(() => {
     if (searchTerm && searchTerm.trim()) {
