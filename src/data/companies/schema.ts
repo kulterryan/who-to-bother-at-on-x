@@ -29,6 +29,12 @@ export const ContactSchema = v.object({
       v.email('Must be a valid email address')
     )
   ),
+  discord: v.optional(
+    v.pipe(
+      v.string(),
+      v.url('Must be a valid URL')
+    )
+  ),
 });
 
 // Category schema - represents a category of contacts (e.g., by product, team, or area)
@@ -67,6 +73,30 @@ export const CompanySchema = v.object({
     v.minLength(1, 'Logo type is required')
   ),
   logo: v.optional(v.string()),
+  website: v.optional(
+    v.pipe(
+      v.string(),
+      v.url('Must be a valid URL')
+    )
+  ),
+  docs: v.optional(
+    v.pipe(
+      v.string(),
+      v.url('Must be a valid URL')
+    )
+  ),
+  github: v.optional(
+    v.pipe(
+      v.string(),
+      v.url('Must be a valid URL')
+    )
+  ),
+  discord: v.optional(
+    v.pipe(
+      v.string(),
+      v.url('Must be a valid URL')
+    )
+  ),
   categories: v.pipe(
     v.array(CategorySchema),
     v.minLength(1, 'At least one category is required')

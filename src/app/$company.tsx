@@ -107,6 +107,10 @@ function CompanyPage() {
       logo={logo}
       searchQuery={searchQuery}
       onSearchQueryChange={setSearchQuery}
+      website={company.website}
+      docs={company.docs}
+      github={company.github}
+      discord={company.discord}
     />
   );
 }
