@@ -1,0 +1,25 @@
+{
+  "$schema": "./schema.json",
+  "id": "blooio",
+  "name": "blooio",
+  "description": "The fastest way to get sending iMessages from anywhere on the internet",
+  "logoType": "blooio",
+  "categories": [
+    {
+      "name": "Official Accounts",
+      "contacts": [
+        { "product": "Official X Account", "handles": ["@blooio.messages"], "email": "support@blooio.com"}
+      ]
+    },
+    {
+      "name": "Leadership",
+      "contacts": [
+        {
+          "product": "Co-founder",
+          "handles": ["@dave_xt"],
+          "email": "david@blooio.com"
+        }
+      ]
+    }
+  ]
+}
