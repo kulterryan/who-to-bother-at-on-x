@@ -4,6 +4,7 @@
   "name": "Better Auth",
   "description": "Open-source authentication and authorization for modern web applications",
   "logoType": "betterauth",
+  "discord": "https://discord.gg/better-auth",
   "categories": [
     {
       "name": "Official Accounts",
