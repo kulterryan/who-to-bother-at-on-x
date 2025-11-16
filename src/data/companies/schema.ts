@@ -29,6 +29,12 @@ export const ContactSchema = v.object({
       v.email('Must be a valid email address')
     )
   ),
+  discord: v.optional(
+    v.pipe(
+      v.string(),
+      v.url('Must be a valid URL')
+    )
+  ),
 });
 
 // Category schema - represents a category of contacts (e.g., by product, team, or area)

@@ -72,6 +72,10 @@
                 "email": {
                   "type": "string",
                   "format": "email"
+                },
+                "discord": {
+                  "type": "string",
+                  "format": "uri"
                 }
               },
               "required": [

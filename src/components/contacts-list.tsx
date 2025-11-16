@@ -163,12 +163,20 @@ export function ContactsList({ categories, companyName, logo, searchQuery = '', 
                         }`} title="Click to copy all handles">
                           {copiedProduct === contact.product ? <span className="text-green-600">Copied!</span> : contact.product}
                         </button>
-                      {contact.email && (
-                        <a href={`mailto:${contact.email}`} className="mt-1 flex items-center gap-1.5 text-xs text-zinc-500 transition-colors hover:text-orange-600 md:text-sm dark:text-zinc-400 dark:hover:text-orange-600">
-                          <Mail className="h-3 w-3" />
-                          <span>{contact.email}</span>
-                        </a>
-                      )}
+                      <div className="mt-1 flex flex-wrap items-center gap-x-3 gap-y-1">
+                        {contact.email && (
+                          <a href={`mailto:${contact.email}`} className="flex items-center gap-1.5 text-xs text-zinc-500 transition-colors hover:text-orange-600 md:text-sm dark:text-zinc-400 dark:hover:text-orange-600">
+                            <Mail className="h-3 w-3" />
+                            <span>{contact.email}</span>
+                          </a>
+                        )}
+                        {contact.discord && (
+                          <a href={contact.discord} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 text-xs text-zinc-500 transition-colors hover:text-orange-600 md:text-sm dark:text-zinc-400 dark:hover:text-orange-600">
+                            <MessageCircle className="h-3 w-3" />
+                            <span>Discord</span>
+                          </a>
+                        )}
+                      </div>
                     </div>
                     <div className="inline-flex flex-wrap items-center justify-end gap-x-3 gap-y-1">
                       {contact.handles.length <= 2 ? (
