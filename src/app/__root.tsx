@@ -2,6 +2,8 @@ import { Outlet, createRootRoute, Scripts, HeadContent } from '@tanstack/react-r
 import { NuqsAdapter } from 'nuqs/adapters/tanstack-router';
 import appCss from "./globals.css?url"
 import faviconUrl from "./favicon.svg?url"
+import dmSansLatinUrl from '@fontsource-variable/dm-sans/files/dm-sans-latin-wght-normal.woff2?url'
+import jetbrainsMonoLatinUrl from '@fontsource-variable/jetbrains-mono/files/jetbrains-mono-latin-wght-normal.woff2?url'
 import { ThemeProvider } from '@/components/theme-provider';
 import { THEME_STORAGE_KEY } from '@/lib/theme';
 import { seo } from '@/lib/seo';
@@ -29,6 +31,21 @@ export const Route = createRootRoute({
       }),
     ],
     links: [
+      // Preload critical fonts to avoid FOIT
+      {
+        rel: 'preload',
+        href: dmSansLatinUrl,
+        as: 'font',
+        type: 'font/woff2',
+        crossOrigin: 'anonymous',
+      },
+      {
+        rel: 'preload',
+        href: jetbrainsMonoLatinUrl,
+        as: 'font',
+        type: 'font/woff2',
+        crossOrigin: 'anonymous',
+      },
       {
         rel: 'stylesheet',
         href: appCss,
