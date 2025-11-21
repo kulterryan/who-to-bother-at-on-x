@@ -76,6 +76,10 @@ export const Route = createFileRoute('/$company')({
           href: `/company-logos/${loaderData.logoType}.svg`,
           type: 'image/svg+xml',
         },
+        {
+          rel: 'apple-touch-icon',
+          href: `/company-logos/${loaderData.logoType}.svg`,
+        },
       ],
     };
   },
