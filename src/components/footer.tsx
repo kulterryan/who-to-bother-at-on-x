@@ -1,4 +1,4 @@
-import { GithubIcon } from 'lucide-react';
+import { ChartColumnIncreasing, GithubIcon } from 'lucide-react';
 import { Link } from '@tanstack/react-router';
 import { ModeToggle } from '@/components/theme-toggle';
 
@@ -46,7 +46,7 @@ export function Footer({
             to="/stats"
             className="text-sm text-zinc-600 transition-colors hover:text-orange-600 dark:text-zinc-400 dark:hover:text-orange-600"
           >
-            Stats
+            <ChartColumnIncreasing className="size-4" />
           </Link>
           <a 
             href="https://github.com/kulterryan/who-to-bother-at-on-x" 
@@ -55,7 +55,7 @@ export function Footer({
             className="inline-flex items-center gap-2 text-zinc-600 transition-colors hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100"
             aria-label="View on GitHub"
           >
-            <GithubIcon className="h-4 w-4" />
+            <GithubIcon className="size-4" />
           </a>
         </div>
         <ModeToggle />
