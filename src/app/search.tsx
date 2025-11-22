@@ -25,10 +25,6 @@ export const Route = createFileRoute('/search')({
           url: 'https://who-to-bother-at.com/search',
           image: 'https://who-to-bother-at.com/opengraph',
         }),
-        {
-          name: 'robots',
-          content: 'noindex',
-        },
       ],
       links: [
         {
@@ -46,6 +42,7 @@ function SearchPage() {
   const [query, setQuery] = useQueryState('q', parseAsString.withDefault('').withOptions({
     limitUrlUpdates: throttle(300),
     shallow: true,
+    history: 'replace',
   }));
   
   // Perform search - only reruns when query changes
