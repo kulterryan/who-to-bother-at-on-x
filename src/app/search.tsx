@@ -160,7 +160,7 @@ const SearchResultCard = memo(function SearchResultCard({ result }: { result: Se
       role="listitem"
     >
       {logo && (
-        <div className="flex-shrink-0 w-14 h-12 flex items-center justify-center">
+        <div className="shrink-0 w-14 h-12 flex items-center justify-center">
           {logo}
         </div>
       )}
@@ -187,7 +187,7 @@ const SearchResultCard = memo(function SearchResultCard({ result }: { result: Se
         
       </div>
 
-      <div className="flex-shrink-0">
+      <div className="shrink-0">
         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-zinc-400 group-hover:text-orange-600 transition-colors">
           <path d="M5 12h14" />
           <path d="m12 5 7 7-7 7" />
