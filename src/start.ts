@@ -18,9 +18,26 @@ const vercelRedirectMiddleware = createMiddleware().server(async ({ next, reques
   return next()
 })
 
+const laravelRedirectMiddleware = createMiddleware().server(async ({ next, request }) => {
+    const url = new URL(request.url);
+
+    // Check if the path is /laravel
+    if (url.pathname === "/laravel") {
+      // Perform a redirect to the official Laravel site
+      throw redirect({
+        href: "https://who-to-bother-at.laravel.cloud/",
+        statusCode: 302,
+      });
+    }
+
+    // Continue with the normal request flow
+    return next();
+  }
+);
+
 export const startInstance = createStart(() => {
   return {
-    requestMiddleware: [vercelRedirectMiddleware],
-  }
+    requestMiddleware: [vercelRedirectMiddleware, laravelRedirectMiddleware],
+  };
 })
 
