@@ -4,7 +4,7 @@ import { redirect } from '@tanstack/react-router'
 // Middleware to redirect to the official site
 const redirectMiddleware = createMiddleware().server(async ({ next, request }) => {
   const url = new URL(request.url);
-
+    
   // Check if the path is /vercel
   if (url.pathname === "/vercel") {
     // Perform a redirect to the official Vercel site
