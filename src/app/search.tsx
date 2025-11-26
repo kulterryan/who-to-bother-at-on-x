@@ -205,15 +205,13 @@ function SearchPage() {
                 for "{query}"
               </div>
 
-              <div
-                aria-label="Search results"
-                className="grid gap-4"
-                role="list"
-              >
+              <ul aria-label="Search results" className="grid gap-4">
                 {results.map((result) => (
-                  <SearchResultCard key={result.id} result={result} />
+                  <li key={result.id}>
+                    <SearchResultCard result={result} />
+                  </li>
                 ))}
-              </div>
+              </ul>
             </>
           );
         })()}
@@ -225,23 +223,22 @@ function SearchPage() {
 }
 
 // Memoize SearchResultCard to prevent rerenders when props don't change
-const SearchResultCard = memo(function SearchResultCard({
-  result,
+const SearchResultCard = memo(function SearchResultCardComponent({
+  result: searchResult,
 }: {
   result: SearchResult;
 }) {
-  const logo = companyLogos[result.companyId];
-  const isCompany = result.type === "company";
+  const logo = companyLogos[searchResult.companyId];
+  const isCompany = searchResult.type === "company";
 
   // For products, link with search query to filter and highlight the product
-  const searchParams = isCompany ? undefined : { q: result.name };
+  const linkSearchParams = isCompany ? undefined : { q: searchResult.name };
 
   return (
     <Link
       className="group flex items-start gap-4 rounded-xl border-2 border-zinc-200 bg-white p-4 transition-all hover:border-zinc-900 hover:shadow-lg dark:border-zinc-700 dark:bg-zinc-900 dark:hover:border-orange-600"
-      params={{ company: result.companyId }}
-      role="listitem"
-      search={searchParams}
+      params={{ company: searchResult.companyId }}
+      search={linkSearchParams}
       to="/$company"
     >
       {logo && (
@@ -253,7 +250,7 @@ const SearchResultCard = memo(function SearchResultCard({
       <div className="min-w-0 flex-1">
         <div className="mb-1 flex items-center gap-2">
           <h3 className="font-semibold text-lg text-zinc-900 transition-colors group-hover:text-orange-600 dark:text-zinc-100">
-            {result.name}
+            {searchResult.name}
           </h3>
           <span
             className={`inline-flex items-center rounded-full px-2 py-0.5 font-medium text-xs ${
@@ -268,7 +265,7 @@ const SearchResultCard = memo(function SearchResultCard({
         </div>
 
         <p className="mb-0 line-clamp-2 text-sm text-zinc-600 dark:text-zinc-400">
-          {result.description}
+          {searchResult.description}
         </p>
       </div>
 

@@ -3,7 +3,9 @@ export type T = "light" | "dark" | "system";
 export const THEME_STORAGE_KEY = "theme-preference";
 
 export function getStoredTheme(): T {
-  if (typeof window === "undefined") return "system";
+  if (typeof window === "undefined") {
+    return "system";
+  }
 
   try {
     const stored = localStorage.getItem(THEME_STORAGE_KEY);

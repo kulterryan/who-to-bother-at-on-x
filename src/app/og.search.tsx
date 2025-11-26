@@ -1,16 +1,17 @@
 import { container, text } from "@takumi-rs/helpers";
 import { createFileRoute } from "@tanstack/react-router";
-import * as v from "valibot";
+import { object, optional, parse, string } from "valibot";
 
 // Define search params schema
-const searchSchema = v.object({
-  q: v.optional(v.string(), ""),
+const searchSchema = object({
+  q: optional(string(), ""),
 });
 
 export const Route = createFileRoute("/og/search")({
-  validateSearch: (search) => v.parse(searchSchema, search),
+  validateSearch: (search) => parse(searchSchema, search),
   server: {
     handlers: {
+      // biome-ignore lint/complexity/noExcessiveCognitiveComplexity: This is a server route
       GET: async ({ request }) => {
         // Get query parameter from URL
         const url = new URL(request.url);
@@ -50,8 +51,9 @@ export const Route = createFileRoute("/og/search")({
 
           const fontFaces = cssText.split("@font-face");
           for (const face of fontFaces) {
+            // biome-ignore lint/performance/useTopLevelRegex: This regex is used only once
             const urlMatch = face.match(/url\(([^)]+\.woff2[^)]*)\)/);
-            if (urlMatch && urlMatch[1]) {
+            if (urlMatch?.[1]) {
               fontUrl = urlMatch[1].trim().replace(/^['"]|['"]$/g, "");
               break;
             }
@@ -59,9 +61,10 @@ export const Route = createFileRoute("/og/search")({
 
           if (!fontUrl) {
             const simpleMatch = cssText.match(
+              // biome-ignore lint/performance/useTopLevelRegex: This regex is used only once
               /(https:\/\/fonts\.gstatic\.com\/[^\s'")]+\.woff2)/
             );
-            if (simpleMatch && simpleMatch[1]) {
+            if (simpleMatch?.[1]) {
               fontUrl = simpleMatch[1];
             }
           }
