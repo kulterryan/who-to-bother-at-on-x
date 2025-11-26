@@ -31,6 +31,7 @@ function getCompanyDataMap(): Record<string, Company> {
 export const Route = createFileRoute("/og/$company")({
   server: {
     handlers: {
+      // biome-ignore lint/complexity/noExcessiveCognitiveComplexity: This is a server route
       GET: async ({ params }) => {
         const { company } = params;
 

@@ -1,9 +1,16 @@
 import { container, text } from "@takumi-rs/helpers";
 import { createFileRoute } from "@tanstack/react-router";
 
+// Regex patterns for font URL extraction (defined at top level for performance)
+const FONT_URL_PATTERN = /url\(([^)]+\.woff2[^)]*)\)/;
+const QUOTE_PATTERN = /^['"]|['"]$/g;
+const GSTATIC_FONT_PATTERN =
+  /(https:\/\/fonts\.gstatic\.com\/[^\s'")]+\.woff2)/;
+
 export const Route = createFileRoute("/opengraph")({
   server: {
     handlers: {
+      // biome-ignore lint/complexity/noExcessiveCognitiveComplexity: This is a server route
       GET: async () => {
         try {
           // Dynamically import Takumi modules only on the server
@@ -35,17 +42,15 @@ export const Route = createFileRoute("/opengraph")({
 
           const fontFaces = cssText.split("@font-face");
           for (const face of fontFaces) {
-            const urlMatch = face.match(/url\(([^)]+\.woff2[^)]*)\)/);
+            const urlMatch = face.match(FONT_URL_PATTERN);
             if (urlMatch?.[1]) {
-              fontUrl = urlMatch[1].trim().replace(/^['"]|['"]$/g, "");
+              fontUrl = urlMatch[1].trim().replace(QUOTE_PATTERN, "");
               break;
             }
           }
 
           if (!fontUrl) {
-            const simpleMatch = cssText.match(
-              /(https:\/\/fonts\.gstatic\.com\/[^\s'")]+\.woff2)/
-            );
+            const simpleMatch = cssText.match(GSTATIC_FONT_PATTERN);
             if (simpleMatch?.[1]) {
               fontUrl = simpleMatch[1];
             }
