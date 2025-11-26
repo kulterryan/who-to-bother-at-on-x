@@ -10,27 +10,19 @@
       "contacts": [
         {
           "product": "Official HackerNoon Account",
-          "handles": [
-            "@hackernoon"
-          ]
+          "handles": ["@hackernoon"]
         },
         {
           "product": "Support",
-          "handles": [
-            "@supportnoon"
-          ]
+          "handles": ["@supportnoon"]
         },
         {
           "product": "HQ",
-          "handles": [
-            "@hackernoonhq"
-          ]
+          "handles": ["@hackernoonhq"]
         },
         {
           "product": "Web3",
-          "handles": [
-            "@hackerhodl"
-          ]
+          "handles": ["@hackerhodl"]
         }
       ]
     },
@@ -39,15 +31,11 @@
       "contacts": [
         {
           "product": "Founder & CEO",
-          "handles": [
-            "@davidsmooke"
-          ]
+          "handles": ["@davidsmooke"]
         },
         {
           "product": "COO",
-          "handles": [
-            "@linhsmooke"
-          ]
+          "handles": ["@linhsmooke"]
         }
       ]
     },
@@ -56,22 +44,15 @@
       "contacts": [
         {
           "product": "Business Development",
-          "handles": [
-            "@SidraIjazHashmi"
-          ]
+          "handles": ["@SidraIjazHashmi"]
         },
         {
           "product": "Editorial",
-          "handles": [
-            "@asherfromHN"
-          ]
+          "handles": ["@asherfromHN"]
         },
         {
           "product": "Design",
-          "handles": [
-            "@kientdao",
-            "@rex12543"
-          ]
+          "handles": ["@kientdao", "@rex12543"]
         }
       ]
     }

@@ -22,9 +22,11 @@
     {
       "name": "Developer Relations",
       "contacts": [
-        { "product": "Education & Community", "handles": ["@thisiskp_", "@NahrinJalal", "@domitriusclark"] }
+        {
+          "product": "Education & Community",
+          "handles": ["@thisiskp_", "@NahrinJalal", "@domitriusclark"]
+        }
       ]
     }
   ]
 }
-

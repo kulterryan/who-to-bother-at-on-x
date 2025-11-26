@@ -1,79 +1,66 @@
 {
-    "$schema": "./schema.json",
-    "id": "coolify",
-    "name": "Coolify",
-    "description": "An open-source, self-hostable PaaS alternative to Vercel, Heroku and Netlify that lets you easily deploy static sites, databases, web applications and more than 280 one-click services on your own servers.",
-    "logoType": "coolify",
-    "categories": [
+  "$schema": "./schema.json",
+  "id": "coolify",
+  "name": "Coolify",
+  "description": "An open-source, self-hostable PaaS alternative to Vercel, Heroku and Netlify that lets you easily deploy static sites, databases, web applications and more than 280 one-click services on your own servers.",
+  "logoType": "coolify",
+  "categories": [
+    {
+      "name": "Official Accounts",
+      "contacts": [
         {
-            "name": "Official Accounts",
-            "contacts": [
-                {
-                    "product": "Coolify",
-                    "handles": [
-                        "@coolifyio"
-                    ]
-                },
-                {
-                    "product": "CoolLabs",
-                    "handles": [
-                        "@coollabsio"
-                    ]
-                }
-            ]
+          "product": "Coolify",
+          "handles": ["@coolifyio"]
         },
         {
-            "name": "Product",
-            "contacts": [
-                {
-                    "product": "Founder / CEO",
-                    "handles": [
-                        "@heyandras"
-                    ]
-                },
-                {
-                    "product": "Core Developers",
-                    "handles": [
-                        "@heyandras",
-                        "@peaklabs_dev"
-                    ]
-                },
-                {
-                    "product": "Product Management / Technical Decisions (v5.x)",
-                    "handles": [
-                        "@peaklabs_dev"
-                    ]
-                },
-                {
-                    "product": "Documentation",
-                    "handles": [
-                        "@shadowarcanist",
-                        "@AdityaTripathiD",
-                        "@peaklabs_dev",
-                        "@heyandras"
-                    ]
-                }
-            ]
-        },
-        {
-            "name": "Community",
-            "contacts": [
-                {
-                    "product": "Community Lead",
-                    "handles": [
-                        "@shadowarcanist"
-                    ]
-                },
-                {
-                    "product": "Support",
-                    "handles": [
-                        "@shadowarcanist",
-                        "@AdityaTripathiD",
-                        "@ladyofcode",
-                        "@iiAmLoz"
-                    ]
-                }
-            ]
+          "product": "CoolLabs",
+          "handles": ["@coollabsio"]
         }
-    ]
+      ]
+    },
+    {
+      "name": "Product",
+      "contacts": [
+        {
+          "product": "Founder / CEO",
+          "handles": ["@heyandras"]
+        },
+        {
+          "product": "Core Developers",
+          "handles": ["@heyandras", "@peaklabs_dev"]
+        },
+        {
+          "product": "Product Management / Technical Decisions (v5.x)",
+          "handles": ["@peaklabs_dev"]
+        },
+        {
+          "product": "Documentation",
+          "handles": [
+            "@shadowarcanist",
+            "@AdityaTripathiD",
+            "@peaklabs_dev",
+            "@heyandras"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Community",
+      "contacts": [
+        {
+          "product": "Community Lead",
+          "handles": ["@shadowarcanist"]
+        },
+        {
+          "product": "Support",
+          "handles": [
+            "@shadowarcanist",
+            "@AdityaTripathiD",
+            "@ladyofcode",
+            "@iiAmLoz"
+          ]
+        }
+      ]
+    }
+  ]
 }

@@ -1,9 +1,9 @@
-import type { Company } from '@/types/company';
-import Fuse from 'fuse.js';
+import Fuse from "fuse.js";
+import type { Company } from "@/types/company";
 
-export type SearchResultType = 'company' | 'product';
+export type SearchResultType = "company" | "product";
 
-export interface SearchResult {
+export type SearchResult = {
   type: SearchResultType;
   id: string;
   name: string;
@@ -11,50 +11,60 @@ export interface SearchResult {
   companyId: string;
   companyName: string;
   handles?: string[];
-}
+};
 
 // Auto-discover all company JSON files (excluding templates)
-const companyModules = import.meta.glob<{ default: Company }>('../data/companies/*.json', {
-  eager: true,
-});
+const companyModules = import.meta.glob<{ default: Company }>(
+  "../data/companies/*.json",
+  {
+    eager: true,
+  }
+);
 
 // Build the search index with both companies and products
 function buildSearchIndex(): SearchResult[] {
   const results: SearchResult[] = [];
 
-  Object.entries(companyModules)
-    .filter(([path]) => !path.includes('template') && !path.includes('schema') && !path.includes('vercel'))
-    .forEach(([_, module]) => {
-      const company = module.default;
+  const filteredCompanies = Object.entries(companyModules).filter(
+    ([path]) =>
+      !(
+        path.includes("template") ||
+        path.includes("schema") ||
+        path.includes("vercel")
+      )
+  );
 
-      // Add company as a search result
-      results.push({
-        type: 'company',
-        id: company.id,
-        name: company.name,
-        description: company.description,
-        companyId: company.id,
-        companyName: company.name,
-      });
+  for (const [_, module] of filteredCompanies) {
+    const company = module.default;
 
-      // Add each product from categories as a search result
-      company.categories.forEach((category) => {
-        category.contacts.forEach((contact) => {
-          // Create a unique ID for this product
-          const productId = `${company.id}-${contact.product.toLowerCase().replace(/\s+/g, '-')}`;
-          
-          results.push({
-            type: 'product',
-            id: productId,
-            name: contact.product,
-            description: `${contact.product} at ${company.name}`,
-            companyId: company.id,
-            companyName: company.name,
-            handles: contact.handles,
-          });
-        });
-      });
+    // Add company as a search result
+    results.push({
+      type: "company",
+      id: company.id,
+      name: company.name,
+      description: company.description,
+      companyId: company.id,
+      companyName: company.name,
     });
+
+    // Add each product from categories as a search result
+    for (const category of company.categories) {
+      for (const contact of category.contacts) {
+        // Create a unique ID for this product
+        const productId = `${company.id}-${contact.product.toLowerCase().replace(/\s+/g, "-")}`;
+
+        results.push({
+          type: "product",
+          id: productId,
+          name: contact.product,
+          description: `${contact.product} at ${company.name}`,
+          companyId: company.id,
+          companyName: company.name,
+          handles: contact.handles,
+        });
+      }
+    }
+  }
 
   return results;
 }
@@ -65,9 +75,9 @@ const searchIndex = buildSearchIndex();
 // Create Fuse instance for fuzzy searching
 const fuse = new Fuse(searchIndex, {
   keys: [
-    { name: 'name', weight: 2 },
-    { name: 'description', weight: 1 },
-    { name: 'companyName', weight: 1.5 },
+    { name: "name", weight: 2 },
+    { name: "description", weight: 1 },
+    { name: "companyName", weight: 1.5 },
   ],
   threshold: 0.4,
   ignoreLocation: true,
@@ -84,21 +94,21 @@ export function search(query: string): SearchResult[] {
   }
 
   const fuseResults = fuse.search(query);
-  
+
   // Remove duplicate products (same product name for same company)
   const seen = new Set<string>();
   const uniqueResults: SearchResult[] = [];
-  
+
   for (const result of fuseResults) {
     const item = result.item;
     const key = `${item.type}-${item.companyId}-${item.name}`;
-    
+
     if (!seen.has(key)) {
       seen.add(key);
       uniqueResults.push(item);
     }
   }
-  
+
   return uniqueResults;
 }
 
@@ -108,4 +118,3 @@ export function search(query: string): SearchResult[] {
 export function getAllResults(): SearchResult[] {
   return searchIndex;
 }
-

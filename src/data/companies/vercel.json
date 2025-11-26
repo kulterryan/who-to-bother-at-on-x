@@ -14,7 +14,10 @@
         { "product": "Turborepo", "handles": ["@anthonysheww"] },
         { "product": "shadcn/ui", "handles": ["@shadcn"] },
         { "product": "Workflows", "handles": ["@TooTallNate", "@pranaygp"] },
-        { "product": "AI Elements / Streamdown / next-forge", "handles": ["@haydenbleasel"] },
+        {
+          "product": "AI Elements / Streamdown / next-forge",
+          "handles": ["@haydenbleasel"]
+        },
         { "product": "tweakcn", "handles": ["@iamsahaj_xyz"] }
       ]
     },
@@ -23,9 +26,19 @@
       "contacts": [
         {
           "product": "Community",
-          "handles": ["@GabbyShires", "@paulienuh", "@AmyAEgan", "@jacobmparis", "@sun_anshuman", "@kapehe_ok"]
+          "handles": [
+            "@GabbyShires",
+            "@paulienuh",
+            "@AmyAEgan",
+            "@jacobmparis",
+            "@sun_anshuman",
+            "@kapehe_ok"
+          ]
         },
-        { "product": "Blog / Changelog / Marketing pages / Event pages", "handles": ["@ZeeJab"] },
+        {
+          "product": "Blog / Changelog / Marketing pages / Event pages",
+          "handles": ["@ZeeJab"]
+        },
         { "product": "Vercel Sites", "handles": ["@plmrry"] }
       ]
     },
@@ -33,12 +46,24 @@
       "name": "Vercel products",
       "contacts": [
         { "product": "Domains", "handles": ["@RhysSullivan", "@ethanniser"] },
-        { "product": "Functions / Runtime / Compute", "handles": ["@tomlienard", "@dglsparsons", "@gudmundur"] },
-        { "product": "Builds", "handles": ["@SheardLuke", "@gudmundur", "@mehulkar"] },
-        { "product": "Observability / Speed Insights / Web Analytics", "handles": ["@linstobias", "@malavikabala"] },
+        {
+          "product": "Functions / Runtime / Compute",
+          "handles": ["@tomlienard", "@dglsparsons", "@gudmundur"]
+        },
+        {
+          "product": "Builds",
+          "handles": ["@SheardLuke", "@gudmundur", "@mehulkar"]
+        },
+        {
+          "product": "Observability / Speed Insights / Web Analytics",
+          "handles": ["@linstobias", "@malavikabala"]
+        },
         { "product": "Auth", "handles": ["@okbel"] },
         { "product": "Toolbar", "handles": ["@gkaragkiaouris"] },
-        { "product": "Dashboard", "handles": ["@witsdev", "@z0oks", "@JohnPhamous"] },
+        {
+          "product": "Dashboard",
+          "handles": ["@witsdev", "@z0oks", "@JohnPhamous"]
+        },
         { "product": "Marketplace / Integrations", "handles": ["@th_mdo"] },
         { "product": "Enterprise", "handles": ["@sceiler"] },
         { "product": "Image Optimization", "handles": ["@styfle"] },
@@ -52,7 +77,14 @@
       "contacts": [
         {
           "product": "v0",
-          "handles": ["@max_leiter", "@EstebanSuarez", "@rickeyswuave", "@sonofalli", "@FernandoTheRojo", "@montonenico"]
+          "handles": [
+            "@max_leiter",
+            "@EstebanSuarez",
+            "@rickeyswuave",
+            "@sonofalli",
+            "@FernandoTheRojo",
+            "@montonenico"
+          ]
         },
         { "product": "v0 Enterprise", "handles": ["@TheWuster935"] },
         { "product": "v0 Design Systems", "handles": ["@TheWuster935"] },
@@ -66,8 +98,14 @@
       "name": "Other",
       "contacts": [
         { "product": "Mobile", "handles": ["@FernandoTheRojo"] },
-        { "product": "Architecture / Implementation questions", "handles": ["@philzona"] },
-        { "product": "Vercel Professional Services", "handles": ["@dom_sipowicz", "@goncy"] },
+        {
+          "product": "Architecture / Implementation questions",
+          "handles": ["@philzona"]
+        },
+        {
+          "product": "Vercel Professional Services",
+          "handles": ["@dom_sipowicz", "@goncy"]
+        },
         { "product": "Terraform Support", "handles": ["@dglsparsons"] }
       ]
     }

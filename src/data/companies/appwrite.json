@@ -27,11 +27,10 @@
           "handles": ["@g33kdev"]
         },
         {
-            "product": "Head of Developer Relations",
-            "handles": ["@tessamero"]
-          }
+          "product": "Head of Developer Relations",
+          "handles": ["@tessamero"]
+        }
       ]
     }
   ]
 }
-
