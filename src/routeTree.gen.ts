@@ -9,9 +9,29 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './app/__root'
+import { Route as StatsRouteImport } from './app/stats'
+import { Route as SearchRouteImport } from './app/search'
+import { Route as OpengraphRouteImport } from './app/opengraph'
 import { Route as CompanyRouteImport } from './app/$company'
 import { Route as IndexRouteImport } from './app/index'
+import { Route as OgSearchRouteImport } from './app/og.search'
+import { Route as OgCompanyRouteImport } from './app/og.$company'
 
+const StatsRoute = StatsRouteImport.update({
+  id: '/stats',
+  path: '/stats',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SearchRoute = SearchRouteImport.update({
+  id: '/search',
+  path: '/search',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const OpengraphRoute = OpengraphRouteImport.update({
+  id: '/opengraph',
+  path: '/opengraph',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const CompanyRoute = CompanyRouteImport.update({
   id: '/$company',
   path: '/$company',
@@ -22,35 +42,108 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const OgSearchRoute = OgSearchRouteImport.update({
+  id: '/og/search',
+  path: '/og/search',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const OgCompanyRoute = OgCompanyRouteImport.update({
+  id: '/og/$company',
+  path: '/og/$company',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/$company': typeof CompanyRoute
+  '/opengraph': typeof OpengraphRoute
+  '/search': typeof SearchRoute
+  '/stats': typeof StatsRoute
+  '/og/$company': typeof OgCompanyRoute
+  '/og/search': typeof OgSearchRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/$company': typeof CompanyRoute
+  '/opengraph': typeof OpengraphRoute
+  '/search': typeof SearchRoute
+  '/stats': typeof StatsRoute
+  '/og/$company': typeof OgCompanyRoute
+  '/og/search': typeof OgSearchRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/$company': typeof CompanyRoute
+  '/opengraph': typeof OpengraphRoute
+  '/search': typeof SearchRoute
+  '/stats': typeof StatsRoute
+  '/og/$company': typeof OgCompanyRoute
+  '/og/search': typeof OgSearchRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/$company'
+  fullPaths:
+    | '/'
+    | '/$company'
+    | '/opengraph'
+    | '/search'
+    | '/stats'
+    | '/og/$company'
+    | '/og/search'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/$company'
-  id: '__root__' | '/' | '/$company'
+  to:
+    | '/'
+    | '/$company'
+    | '/opengraph'
+    | '/search'
+    | '/stats'
+    | '/og/$company'
+    | '/og/search'
+  id:
+    | '__root__'
+    | '/'
+    | '/$company'
+    | '/opengraph'
+    | '/search'
+    | '/stats'
+    | '/og/$company'
+    | '/og/search'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   CompanyRoute: typeof CompanyRoute
+  OpengraphRoute: typeof OpengraphRoute
+  SearchRoute: typeof SearchRoute
+  StatsRoute: typeof StatsRoute
+  OgCompanyRoute: typeof OgCompanyRoute
+  OgSearchRoute: typeof OgSearchRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/stats': {
+      id: '/stats'
+      path: '/stats'
+      fullPath: '/stats'
+      preLoaderRoute: typeof StatsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/search': {
+      id: '/search'
+      path: '/search'
+      fullPath: '/search'
+      preLoaderRoute: typeof SearchRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/opengraph': {
+      id: '/opengraph'
+      path: '/opengraph'
+      fullPath: '/opengraph'
+      preLoaderRoute: typeof OpengraphRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/$company': {
       id: '/$company'
       path: '/$company'
@@ -65,12 +158,31 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/og/search': {
+      id: '/og/search'
+      path: '/og/search'
+      fullPath: '/og/search'
+      preLoaderRoute: typeof OgSearchRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/og/$company': {
+      id: '/og/$company'
+      path: '/og/$company'
+      fullPath: '/og/$company'
+      preLoaderRoute: typeof OgCompanyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   CompanyRoute: CompanyRoute,
+  OpengraphRoute: OpengraphRoute,
+  SearchRoute: SearchRoute,
+  StatsRoute: StatsRoute,
+  OgCompanyRoute: OgCompanyRoute,
+  OgSearchRoute: OgSearchRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

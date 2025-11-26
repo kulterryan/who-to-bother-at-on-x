@@ -1,0 +1,22 @@
+{
+  "$schema": "./schema.json",
+  "id": "cursor",
+  "name": "Cursor",
+  "description": "The AI-first code editor",
+  "logoType": "cursor",
+  "categories": [
+    {
+      "name": "Official Accounts",
+      "contacts": [
+        { "product": "Official Cursor Account", "handles": ["@cursor_ai"] }
+      ]
+    },
+    {
+      "name": "Product & Engineering",
+      "contacts": [
+        { "product": "Everything Product", "handles": ["@ericzakariasson"] }
+      ]
+    }
+  ]
+}
+

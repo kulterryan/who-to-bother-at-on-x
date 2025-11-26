@@ -1,0 +1,197 @@
+# Cursor Rules for Who to Bother on X
+
+## Project Overview
+This is a TanStack Start application deployed to Cloudflare Workers that helps users find contacts at tech companies on X (Twitter).
+
+## Tech Stack
+- **Framework**: TanStack Start (React) with TanStack Router
+- **Deployment**: Cloudflare Workers (using Wrangler)
+- **Styling**: Tailwind CSS v4 with shadcn/ui components
+- **Type System**: TypeScript (strict mode) with Valibot for schema validation
+- **Build Tool**: Vite
+- **Package Manager**: pnpm
+- **Search**: Fuse.js for fuzzy search
+- **Icons**: Lucide React
+
+## Project Structure
+
+### Directory Conventions
+- `src/app/` - TanStack Router file-based routes (routes directory)
+- `src/components/` - React components
+- `src/components/ui/` - shadcn/ui components
+- `src/data/companies/` - Company JSON data files and schema
+- `src/lib/` - Utility functions and helpers
+- `src/types/` - TypeScript type definitions
+- `src/scripts/` - Build-time scripts (validation, generation)
+- `public/company-logos/` - Company logo SVG files
+
+### Path Aliases
+- Use `@/*` for `src/*` imports (configured in tsconfig.json)
+- Examples:
+  - `@/components/contacts-list` → `src/components/contacts-list`
+  - `@/lib/search` → `src/lib/search`
+  - `@/types/company` → `src/types/company`
+
+## Code Style & Conventions
+
+### TypeScript
+- Use strict TypeScript mode
+- Prefer type inference where possible
+- Use Valibot schemas for runtime validation, infer types from schemas
+- Export types from `src/types/` directory
+- Use `import type` for type-only imports
+
+### React Components
+- Use functional components with hooks
+- Use TanStack Router's `createFileRoute` for route definitions
+- Components should be exported as named exports
+- Use React 19 features (latest version)
+
+### File-Based Routing (TanStack Router)
+- Routes are defined in `src/app/` directory
+- Use `createFileRoute` to define routes
+- Dynamic routes use `$` prefix (e.g., `$company.tsx`)
+- Route loaders should use `async` functions
+- Use `Route.useLoaderData()` to access loader data in components
+- Define `head` function for SEO metadata
+
+### Data Management
+
+#### Company Data
+- Company data is stored as JSON files in `src/data/companies/`
+- Each company file must match the schema defined in `src/data/companies/schema.ts`
+- Use `import.meta.glob` to auto-discover company files:
+  ```typescript
+  const companyModules = import.meta.glob<{ default: Company }>('../data/companies/*.json', {
+    eager: true,
+  });
+  ```
+- Filter out template and schema files: `!path.includes('template') && !path.includes('schema')`
+- Company IDs must be lowercase with only letters, numbers, and hyphens (`/^[a-z0-9-]+$/`)
+
+#### Schema Validation
+- Use Valibot schemas for validation
+- Schemas are defined in `src/data/companies/schema.ts`
+- Types are inferred from schemas using `v.InferOutput`
+- Run `pnpm validate` before committing to validate all company files
+
+### Styling
+
+#### Tailwind CSS
+- Use Tailwind CSS v4 utility classes
+- Follow the existing color scheme:
+  - Primary: `orange-600` for accents
+  - Background: `white` / `zinc-950` (dark mode)
+  - Text: `zinc-900` / `zinc-100` (dark mode)
+  - Borders: `zinc-200` / `zinc-700` (dark mode)
+- Use dark mode classes: `dark:bg-zinc-950`, `dark:text-zinc-100`, etc.
+- Prefer utility classes over custom CSS
+
+#### shadcn/ui Components
+- Components are in `src/components/ui/`
+- Use existing components from shadcn/ui registry
+- Follow shadcn/ui patterns and conventions
+- Components use Radix UI primitives
+
+### Search Functionality
+- Search is implemented in `src/lib/search.ts`
+- Uses Fuse.js for fuzzy search
+- Search index is built at module load time
+- Search results include both companies and products
+- Results are deduplicated by type, company ID, and name
+
+### SEO & Metadata
+- Use the `seo` helper from `@/lib/seo` for meta tags
+- Define `head` function in route definitions
+- Include title, description, keywords, image, and URL
+- Company pages use dynamic favicons from `/company-logos/${logoType}.svg`
+
+### Cloudflare Workers Considerations
+- Code runs in Cloudflare Workers environment
+- Use `@cloudflare/vite-plugin` for Cloudflare-specific features
+- Be mindful of Worker runtime limitations
+- Use `wrangler` for deployment: `pnpm deploy`
+
+## Best Practices
+
+### Component Organization
+- Keep components focused and single-purpose
+- Extract reusable logic into custom hooks (e.g., `use-theme.ts`)
+- Use composition over inheritance
+
+### Error Handling
+- Use TanStack Router's `errorComponent` for route-level errors
+- Provide user-friendly error messages
+- Include navigation back to home page in error states
+
+### Performance
+- Use `eager: true` for `import.meta.glob` when data is needed immediately
+- Build search index once at module load time
+- Lazy load components when appropriate
+
+### Accessibility
+- Use semantic HTML elements
+- Include `aria-label` attributes for icon-only buttons
+- Ensure keyboard navigation works
+- Test with screen readers
+
+### Code Quality
+- Run `pnpm validate` before committing (validates company data)
+- Run `pnpm build` to check for TypeScript errors
+- Follow existing code patterns and conventions
+- Keep functions small and focused
+
+## Scripts
+
+### Development
+- `pnpm dev` - Start development server (port 3311)
+- `pnpm build` - Build for production
+- `pnpm preview` - Preview production build
+
+### Data Management
+- `pnpm validate` - Validate all company JSON files against schema
+- `pnpm generate-schema` - Generate JSON schema from Valibot schema
+- `pnpm generate-favicons` - Generate favicon files (runs automatically before dev/build)
+
+### Deployment
+- `pnpm deploy` - Build and deploy to Cloudflare Workers
+
+## Common Patterns
+
+### Route Definition
+```typescript
+export const Route = createFileRoute('/$company')({
+  loader: async ({ params }) => {
+    // Load data
+  },
+  head: ({ loaderData }) => {
+    // Return SEO metadata
+  },
+  component: ComponentName,
+});
+```
+
+### Company Data Access
+```typescript
+const companyModules = import.meta.glob<{ default: Company }>('../data/companies/*.json', {
+  eager: true,
+});
+```
+
+### Type Imports
+```typescript
+import type { Company } from '@/types/company';
+```
+
+### Component Imports
+```typescript
+import { ContactsList } from '@/components/contacts-list';
+```
+
+## Notes
+- Company logos are stored in `public/company-logos/` as SVG files
+- Logo type is stored in company data as `logoType` field
+- Dynamic favicons are set per company page using the logo
+- Search supports both company names and product names
+- The project uses React 19 and latest TanStack Router features
+

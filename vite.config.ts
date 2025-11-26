@@ -9,7 +9,17 @@ import tsconfigPaths from "vite-tsconfig-paths";
 
 export default defineConfig({
   server: {
-    port: 3000,
+    port: 3311,
+    hmr: {
+      protocol: 'ws',
+      port: 3311,
+      overlay: true,
+      timeout: 30000, // Increase timeout to 30 seconds
+    },
+    watch: {
+      // Disable polling for better performance
+      usePolling: false,
+    },
   },
   plugins: [
     cloudflare({ viteEnvironment: { name: "ssr" } }),
@@ -19,10 +29,18 @@ export default defineConfig({
     tanstackStart({
       srcDirectory: "src", // This is the default
       router: {
-        // Specifies the directory TanStack Router uses for your routes.
-        routesDirectory: "app", // Defaults to "routes", relative to srcDirectory
-      },
+        routesDirectory: 'app', // Defaults to "routes", relative to srcDirectory
+      }
     }),
     viteReact(),
   ],
-});
+  build: {
+    rollupOptions: {
+      output: {
+        advancedChunks: {
+          groups: [{ name: 'vendor', test: /\/react(?:-dom)?/ }]
+        }
+      }
+    }
+  }
+})

@@ -6,6 +6,17 @@
 
 @custom-variant dark (&:is(.dark *));
 
+html {
+  color-scheme: light dark;
+}
+
+html.dark {
+  color-scheme: dark;
+}
+
+@import '@fontsource-variable/dm-sans';
+@import '@fontsource-variable/jetbrains-mono';
+
 :root {
   --background: oklch(0.8858 0.0364 64.63);
   --foreground: oklch(0.145 0 0);

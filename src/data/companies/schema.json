@@ -24,6 +24,25 @@
       "type": "string",
       "minLength": 1
     },
+    "logo": {
+      "type": "string"
+    },
+    "website": {
+      "type": "string",
+      "format": "uri"
+    },
+    "docs": {
+      "type": "string",
+      "format": "uri"
+    },
+    "github": {
+      "type": "string",
+      "format": "uri"
+    },
+    "discord": {
+      "type": "string",
+      "format": "uri"
+    },
     "categories": {
       "type": "array",
       "items": {
@@ -53,6 +72,10 @@
                 "email": {
                   "type": "string",
                   "format": "email"
+                },
+                "discord": {
+                  "type": "string",
+                  "format": "uri"
                 }
               },
               "required": ["product", "handles"]

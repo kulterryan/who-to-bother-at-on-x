@@ -24,10 +24,7 @@
       "contacts": [
         { "product": "VP of Developers & AI", "handles": ["@ritakozlov_"] },
         { "product": "VP of Storage & Databases", "handles": ["@elithrar"] },
-        {
-          "product": "Dashboard",
-          "handles": ["@BraydenWilmoth", "@burcs", "@nandafyi", "@kyliestew"]
-        }
+        { "product": "Dashboard", "handles": ["@bradgarropy", "@BraydenWilmoth", "@dillon_mulroy", "@burcs", "@nandafyi", "@kyliestew"] }
       ]
     },
     {
@@ -67,15 +64,11 @@
       "contacts": [
         { "product": "Storage & Data Platform", "handles": ["@akaphill"] },
         { "product": "Pipelines", "handles": ["@MarcSelwan", "@mwylde"] },
-        { "product": "R2", "handles": ["@aninibread", "@fireblaze_15"] },
-        {
-          "product": "R2 Data Catalog",
-          "handles": ["@MarcSelwan", "@Cole_MacKenzie"]
-        },
-        {
-          "product": "R2 SQL",
-          "handles": ["@MarcSelwan", "@jeromeschneider", "@sejoker"]
-        }
+        { "product": "Queues", "handles": ["@miacmal"] },
+        { "product": "R2", "handles": ["@aninibread", "@fireblaze_15", "@_developeter"] },
+        { "product": "R2 Data Catalog", "handles": ["@MarcSelwan", "@Cole_MacKenzie"] },
+        { "product": "R2 SQL", "handles": ["@MarcSelwan", "@jeromeschneider", "@sejoker"] },
+        { "product": "Workflows", "handles": ["@miacmal"] }
       ]
     },
     {
@@ -86,6 +79,12 @@
           "handles": ["@kristianf_"]
         },
         { "product": "Developer Advocate", "handles": ["@lauragift_"] }
+      ]
+    },
+    {
+      "name": "Billing & Payments",
+      "contacts": [
+        { "product": "Billing, Payments, Subscriptions, Invoices", "handles": ["@dalexeenko"] }
       ]
     }
   ]

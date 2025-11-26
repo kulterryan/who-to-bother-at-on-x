@@ -4,6 +4,7 @@
   "name": "Better Auth",
   "description": "Open-source authentication and authorization for modern web applications",
   "logoType": "betterauth",
+  "discord": "https://discord.gg/better-auth",
   "categories": [
     {
       "name": "Official Accounts",
@@ -15,8 +16,10 @@
       ]
     },
     {
-      "name": "Core Products",
-      "contacts": [{ "product": "Core Maintainer", "handles": ["@imbereket"] }]
+      "name" : "Core Products",
+      "contacts" : [
+        { "product" : "Core Maintainer", "handles": ["@imbereket", "@PingStruggles"]}
+      ]
     }
   ]
 }
