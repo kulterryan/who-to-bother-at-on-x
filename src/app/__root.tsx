@@ -1,13 +1,18 @@
-import { Outlet, createRootRoute, Scripts, HeadContent } from '@tanstack/react-router';
-import { NuqsAdapter } from 'nuqs/adapters/tanstack-router';
-import appCss from "./globals.css?url"
-import dmSansLatinUrl from '@fontsource-variable/dm-sans/files/dm-sans-latin-wght-normal.woff2?url'
-import jetbrainsMonoLatinUrl from '@fontsource-variable/jetbrains-mono/files/jetbrains-mono-latin-wght-normal.woff2?url'
-import { ThemeProvider } from '@/components/theme-provider';
-import { THEME_STORAGE_KEY } from '@/lib/theme';
-import { seo } from '@/lib/seo';
+import dmSansLatinUrl from "@fontsource-variable/dm-sans/files/dm-sans-latin-wght-normal.woff2?url";
+import jetbrainsMonoLatinUrl from "@fontsource-variable/jetbrains-mono/files/jetbrains-mono-latin-wght-normal.woff2?url";
+import {
+  createRootRoute,
+  HeadContent,
+  Outlet,
+  Scripts,
+} from "@tanstack/react-router";
+import { NuqsAdapter } from "nuqs/adapters/tanstack-router";
+import { ThemeProvider } from "@/components/theme-provider";
+import { seo } from "@/lib/seo";
+import { THEME_STORAGE_KEY } from "@/lib/theme";
+import appCss from "./globals.css?url";
 
-const faviconUrl = '/favicon.svg';
+const faviconUrl = "/favicon.svg";
 
 export const Route = createRootRoute({
   head: () => ({
@@ -18,11 +23,11 @@ export const Route = createRootRoute({
         content: "width=device-width, initial-scale=1",
       },
       {
-        name: 'theme-color',
-        content: '#ea580c',
+        name: "theme-color",
+        content: "#ea580c",
       },
       {
-        name: 'msapplication-TileImage',
+        name: "msapplication-TileImage",
         content: faviconUrl,
       },
       ...seo({
@@ -36,30 +41,30 @@ export const Route = createRootRoute({
     links: [
       // Preload critical fonts to avoid FOIT
       {
-        rel: 'preload',
+        rel: "preload",
         href: dmSansLatinUrl,
-        as: 'font',
-        type: 'font/woff2',
-        crossOrigin: 'anonymous',
+        as: "font",
+        type: "font/woff2",
+        crossOrigin: "anonymous",
       },
       {
-        rel: 'preload',
+        rel: "preload",
         href: jetbrainsMonoLatinUrl,
-        as: 'font',
-        type: 'font/woff2',
-        crossOrigin: 'anonymous',
+        as: "font",
+        type: "font/woff2",
+        crossOrigin: "anonymous",
       },
       {
-        rel: 'stylesheet',
+        rel: "stylesheet",
         href: appCss,
       },
       {
-        rel: 'icon',
-        type: 'image/svg+xml',
+        rel: "icon",
+        type: "image/svg+xml",
         href: faviconUrl,
       },
       {
-        rel: 'apple-touch-icon',
+        rel: "apple-touch-icon",
         href: faviconUrl,
       },
     ],

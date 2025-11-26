@@ -1,24 +1,33 @@
-import { createFileRoute, Link } from '@tanstack/react-router';
-import { createStandardSchemaV1, parseAsString, useQueryState, throttle } from 'nuqs';
-import { ContactsList } from '@/components/contacts-list';
-import { companyLogos } from '@/components/company-logos';
-import type { Company } from '@/types/company';
-import { seo } from '@/lib/seo';
+import { createFileRoute, Link } from "@tanstack/react-router";
+import {
+  createStandardSchemaV1,
+  parseAsString,
+  throttle,
+  useQueryState,
+} from "nuqs";
+import { companyLogos } from "@/components/company-logos";
+import { ContactsList } from "@/components/contacts-list";
+import { seo } from "@/lib/seo";
+import type { Company } from "@/types/company";
 
 // Helper function to build company data map
 function getCompanyDataMap(): Record<string, Company> {
   // Auto-discover all company JSON files using Vite's import.meta.glob
   const companyModules = import.meta.glob<{ default: Company }>(
-    '../data/companies/*.json',
+    "../data/companies/*.json",
     { eager: true }
   );
 
   // Build company data map from discovered files
   return Object.entries(companyModules).reduce(
     (acc, [path, module]) => {
-      const filename = path.split('/').pop()?.replace('.json', '') || '';
+      const filename = path.split("/").pop()?.replace(".json", "") || "";
       // Filter out schema and template files
-      if (filename && !filename.includes('schema') && !filename.includes('template')) {
+      if (
+        filename &&
+        !filename.includes("schema") &&
+        !filename.includes("template")
+      ) {
         // Key by the id field from the JSON to match how links are generated in index.tsx
         acc[module.default.id] = module.default;
       }
@@ -30,20 +39,20 @@ function getCompanyDataMap(): Record<string, Company> {
 
 // Define search params schema for nuqs
 const searchParams = {
-  q: parseAsString.withDefault(''),
+  q: parseAsString.withDefault(""),
 };
 
-export const Route = createFileRoute('/$company')({
+export const Route = createFileRoute("/$company")({
   validateSearch: createStandardSchemaV1(searchParams, {
     partialOutput: true,
   }),
-  loader: async ({ params }) => {
+  loader: ({ params }) => {
     const { company } = params;
-    
+
     // Get company data map
     const companyDataMap = getCompanyDataMap();
     const companyData = companyDataMap[company];
-    
+
     if (!companyData) {
       throw new Error(`Company "${company}" not found`);
     }
@@ -57,11 +66,11 @@ export const Route = createFileRoute('/$company')({
 
     const title = `who to bother at ${loaderData.name} on X`;
     const description = `Find the right people to reach out to at ${loaderData.name} on X (Twitter). ${loaderData.description}`;
-    
+
     // TODO: Change after testing deployment
     const ogImage = `https://who-to-bother-at.com/og/${loaderData.id}`;
     const pageUrl = `https://who-to-bother-at.com/${loaderData.id}`;
-    
+
     return {
       meta: [
         ...seo({
@@ -74,12 +83,12 @@ export const Route = createFileRoute('/$company')({
       ],
       links: [
         {
-          rel: 'icon',
+          rel: "icon",
           href: `/company-logos/${loaderData.logoType}.svg`,
-          type: 'image/svg+xml',
+          type: "image/svg+xml",
         },
         {
-          rel: 'apple-touch-icon',
+          rel: "apple-touch-icon",
           href: `/company-logos/${loaderData.logoType}.svg`,
         },
       ],
@@ -102,21 +111,24 @@ export const Route = createFileRoute('/$company')({
 function CompanyPage() {
   const company = Route.useLoaderData();
   const logo = companyLogos[company.logoType];
-  const [searchQuery, setSearchQuery] = useQueryState('q', parseAsString.withDefault('').withOptions({
-    limitUrlUpdates: throttle(300),
-  }));
+  const [searchQuery, setSearchQuery] = useQueryState(
+    "q",
+    parseAsString.withDefault("").withOptions({
+      limitUrlUpdates: throttle(300),
+    })
+  );
 
   return (
     <ContactsList
       categories={company.categories}
       companyName={company.name}
-      logo={logo}
-      searchQuery={searchQuery}
-      onSearchQueryChange={setSearchQuery}
-      website={company.website}
+      discord={company.discord}
       docs={company.docs}
       github={company.github}
-      discord={company.discord}
+      logo={logo}
+      onSearchQueryChange={setSearchQuery}
+      searchQuery={searchQuery}
+      website={company.website}
     />
   );
 }

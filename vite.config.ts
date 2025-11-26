@@ -11,10 +11,10 @@ export default defineConfig({
   server: {
     port: 3311,
     hmr: {
-      protocol: 'ws',
+      protocol: "ws",
       port: 3311,
       overlay: true,
-      timeout: 30000, // Increase timeout to 30 seconds
+      timeout: 30_000, // Increase timeout to 30 seconds
     },
     watch: {
       // Disable polling for better performance
@@ -29,8 +29,8 @@ export default defineConfig({
     tanstackStart({
       srcDirectory: "src", // This is the default
       router: {
-        routesDirectory: 'app', // Defaults to "routes", relative to srcDirectory
-      }
+        routesDirectory: "app", // Defaults to "routes", relative to srcDirectory
+      },
     }),
     viteReact(),
   ],
@@ -38,9 +38,9 @@ export default defineConfig({
     rollupOptions: {
       output: {
         advancedChunks: {
-          groups: [{ name: 'vendor', test: /\/react(?:-dom)?/ }]
-        }
-      }
-    }
-  }
-})
+          groups: [{ name: "vendor", test: /\/react(?:-dom)?/ }],
+        },
+      },
+    },
+  },
+});

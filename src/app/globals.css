@@ -14,8 +14,8 @@ html.dark {
   color-scheme: dark;
 }
 
-@import '@fontsource-variable/dm-sans';
-@import '@fontsource-variable/jetbrains-mono';
+@import "@fontsource-variable/dm-sans";
+@import "@fontsource-variable/jetbrains-mono";
 
 :root {
   --background: oklch(0.8858 0.0364 64.63);

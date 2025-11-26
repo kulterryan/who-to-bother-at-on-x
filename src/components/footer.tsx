@@ -1,6 +1,6 @@
-import { ChartColumnIncreasing, GithubIcon } from 'lucide-react';
-import { Link } from '@tanstack/react-router';
-import { ModeToggle } from '@/components/theme-toggle';
+import { Link } from "@tanstack/react-router";
+import { ChartColumnIncreasing, GithubIcon } from "lucide-react";
+import { ModeToggle } from "@/components/theme-toggle";
 
 type FooterProps = {
   contributionTitle?: string;
@@ -65,17 +65,17 @@ export function Footer({
       <div className="mt-6 flex flex-col items-center gap-4">
         <div className="flex items-center gap-4">
           <Link
-            to="/stats"
             className="text-sm text-zinc-600 transition-colors hover:text-orange-600 dark:text-zinc-400 dark:hover:text-orange-600"
+            to="/stats"
           >
             <ChartColumnIncreasing className="size-4" />
           </Link>
-          <a 
-            href="https://github.com/kulterryan/who-to-bother-at-on-x" 
-            target="_blank" 
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 text-zinc-600 transition-colors hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100"
+          <a
             aria-label="View on GitHub"
+            className="inline-flex items-center gap-2 text-zinc-600 transition-colors hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100"
+            href="https://github.com/kulterryan/who-to-bother-at-on-x"
+            rel="noopener noreferrer"
+            target="_blank"
           >
             <GithubIcon className="size-4" />
           </a>

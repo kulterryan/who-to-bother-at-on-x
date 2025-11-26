@@ -5,8 +5,8 @@ export function getRouter() {
   const router = createRouter({
     routeTree,
     scrollRestoration: true,
-    defaultPreload: 'viewport',
-  })
+    defaultPreload: "viewport",
+  });
 
   return router;
 }

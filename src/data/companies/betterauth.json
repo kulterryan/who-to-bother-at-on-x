@@ -16,9 +16,12 @@
       ]
     },
     {
-      "name" : "Core Products",
-      "contacts" : [
-        { "product" : "Core Maintainer", "handles": ["@imbereket", "@PingStruggles"]}
+      "name": "Core Products",
+      "contacts": [
+        {
+          "product": "Core Maintainer",
+          "handles": ["@imbereket", "@PingStruggles"]
+        }
       ]
     }
   ]

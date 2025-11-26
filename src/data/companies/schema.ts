@@ -22,17 +22,9 @@ export const ContactSchema = v.object({
     v.minLength(1, "At least one handle is required")
   ),
   email: v.optional(
-    v.pipe(
-      v.string(),
-      v.email('Must be a valid email address')
-    )
+    v.pipe(v.string(), v.email("Must be a valid email address"))
   ),
-  discord: v.optional(
-    v.pipe(
-      v.string(),
-      v.url('Must be a valid URL')
-    )
-  ),
+  discord: v.optional(v.pipe(v.string(), v.url("Must be a valid URL"))),
 });
 
 // Category schema - represents a category of contacts (e.g., by product, team, or area)
@@ -60,35 +52,12 @@ export const CompanySchema = v.object({
     v.string(),
     v.minLength(1, "Company description is required")
   ),
-  logoType: v.pipe(
-    v.string(),
-    v.minLength(1, 'Logo type is required')
-  ),
+  logoType: v.pipe(v.string(), v.minLength(1, "Logo type is required")),
   logo: v.optional(v.string()),
-  website: v.optional(
-    v.pipe(
-      v.string(),
-      v.url('Must be a valid URL')
-    )
-  ),
-  docs: v.optional(
-    v.pipe(
-      v.string(),
-      v.url('Must be a valid URL')
-    )
-  ),
-  github: v.optional(
-    v.pipe(
-      v.string(),
-      v.url('Must be a valid URL')
-    )
-  ),
-  discord: v.optional(
-    v.pipe(
-      v.string(),
-      v.url('Must be a valid URL')
-    )
-  ),
+  website: v.optional(v.pipe(v.string(), v.url("Must be a valid URL"))),
+  docs: v.optional(v.pipe(v.string(), v.url("Must be a valid URL"))),
+  github: v.optional(v.pipe(v.string(), v.url("Must be a valid URL"))),
+  discord: v.optional(v.pipe(v.string(), v.url("Must be a valid URL"))),
   categories: v.pipe(
     v.array(CategorySchema),
     v.minLength(1, "At least one category is required")
