@@ -76,8 +76,9 @@ export const Route = createFileRoute("/og/$company")({
           const fontFaces = cssText.split("@font-face");
           for (const face of fontFaces) {
             // Look for url() with .woff2
+            // biome-ignore lint/performance/useTopLevelRegex: This regex is used only once
             const urlMatch = face.match(/url\(([^)]+\.woff2[^)]*)\)/);
-            if (urlMatch && urlMatch[1]) {
+            if (urlMatch?.[1]) {
               fontUrl = urlMatch[1].trim().replace(/^['"]|['"]$/g, "");
               break;
             }
@@ -86,9 +87,10 @@ export const Route = createFileRoute("/og/$company")({
           // If still not found, try simpler pattern
           if (!fontUrl) {
             const simpleMatch = cssText.match(
+              // biome-ignore lint/performance/useTopLevelRegex: This regex is used only once
               /(https:\/\/fonts\.gstatic\.com\/[^\s'")]+\.woff2)/
             );
-            if (simpleMatch && simpleMatch[1]) {
+            if (simpleMatch?.[1]) {
               fontUrl = simpleMatch[1];
             }
           }
@@ -109,25 +111,23 @@ export const Route = createFileRoute("/og/$company")({
           const fontRes = await fetch(fontUrl);
           if (fontRes.ok) {
             fontBuffer = await fontRes.arrayBuffer();
-          } else {
+          } else if (fontUrl.includes("fonts.gstatic.com")) {
             // Last resort: try a different CDN
-            if (fontUrl.includes("fonts.gstatic.com")) {
-              console.warn("Google Fonts failed, trying jsDelivr CDN");
-              const jsdelivrUrl =
-                "https://cdn.jsdelivr.net/npm/@fontsource/dm-sans@5/files/dm-sans-latin-400-normal.woff2";
-              const jsdelivrRes = await fetch(jsdelivrUrl);
-              if (jsdelivrRes.ok) {
-                fontBuffer = await jsdelivrRes.arrayBuffer();
-              } else {
-                throw new Error(
-                  `Failed to fetch font from ${fontUrl} (${fontRes.status}) and fallback (${jsdelivrRes.status})`
-                );
-              }
+            console.warn("Google Fonts failed, trying jsDelivr CDN");
+            const jsdelivrUrl =
+              "https://cdn.jsdelivr.net/npm/@fontsource/dm-sans@5/files/dm-sans-latin-400-normal.woff2";
+            const jsdelivrRes = await fetch(jsdelivrUrl);
+            if (jsdelivrRes.ok) {
+              fontBuffer = await jsdelivrRes.arrayBuffer();
             } else {
               throw new Error(
-                `Failed to fetch font file from ${fontUrl}: ${fontRes.status}`
+                `Failed to fetch font from ${fontUrl} (${fontRes.status}) and fallback (${jsdelivrRes.status})`
               );
             }
+          } else {
+            throw new Error(
+              `Failed to fetch font file from ${fontUrl}: ${fontRes.status}`
+            );
           }
 
           // Initialize WASM

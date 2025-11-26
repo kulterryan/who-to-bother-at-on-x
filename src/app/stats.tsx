@@ -21,15 +21,15 @@ function calculateStats() {
 
   // Count unique people (by X handle)
   const uniqueHandles = new Set<string>();
-  companies.forEach((company) => {
-    company.categories.forEach((category) => {
-      category.contacts.forEach((contact) => {
-        contact.handles.forEach((handle) => {
+  for (const company of companies) {
+    for (const category of company.categories) {
+      for (const contact of category.contacts) {
+        for (const handle of contact.handles) {
           uniqueHandles.add(handle.toLowerCase());
-        });
-      });
-    });
-  });
+        }
+      }
+    }
+  }
 
   const peopleCount = uniqueHandles.size;
 
@@ -96,6 +96,7 @@ function StatsPage() {
               width="16"
               xmlns="http://www.w3.org/2000/svg"
             >
+              <title>Back to home icon</title>
               <path d="m12 19-7-7 7-7" />
               <path d="M19 12H5" />
             </svg>
