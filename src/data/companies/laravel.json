@@ -1,118 +1,118 @@
 {
-  "$schema": "./schema.json",
-  "id": "laravel",
-  "name": "Laravel",
-  "description": "Build and ship software with tools crafted for productivity",
-  "logoType": "laravel",
-  "categories": [
-    {
-      "name": "FRAMEWORK & OSS",
-      "contacts": [
-        {
-          "product": "Laravel",
-          "handles": ["@laravelphp", "@taylorotwell", "@crynobone"]
-        },
-        {
-          "product": "Open Source",
-          "handles": [
-            "@taylorotwell",
-            "@joetannenbaum",
-            "@crynobone",
-            "@ashleyhindle",
-            "@enunomaduro",
-            "@pascalbaljet",
-            "@pushpak1300"
-          ]
-        },
-        {
-          "product": "Inertia",
-          "handles": ["@inertiajs", "@pascalbaljet"]
-        },
-        {
-          "product": "Livewire",
-          "handles": ["@calebporzio", "@_joshhanley"]
-        },
-        {
-          "product": "Pest",
-          "handles": ["@pestphp", "@enunomaduro"]
-        }
-      ]
-    },
-    {
-      "name": "PUBLIC LARAVEL SITES & COMMUNITY",
-      "contacts": [
-        {
-          "product": "Laravel Websites",
-          "handles": ["@LeahTCodes"]
-        },
-        {
-          "product": "Events / Marketing",
-          "handles": ["@cynthiamcgillis", "@abbygilson28", "@samsappenfield1"]
-        },
-        {
-          "product": "DevRel / Educational Material",
-          "handles": ["@christophrumpel", "@joshcirre"]
-        }
-      ]
-    },
-    {
-      "name": "LARAVEL PRODUCTS",
-      "contacts": [
-        {
-          "product": "Cloud",
-          "handles": ["@azath0th", "@joedixon", "@abrudtkuhl", "@alexdebecker"]
-        },
-        {
-          "product": "Forge",
-          "handles": ["@jbrooksuk", "@ryangjchandler", "@themsaid"]
-        },
-        {
-          "product": "Nightwatch",
-          "handles": ["@jessarchercodes", "@philliphartin", "@timacdonald87"]
-        },
-        {
-          "product": "Other",
-          "handles": ["@matgrimm", "@PeteBishwhip", "@xavizera"]
-        },
-        {
-          "product": "Partners",
-          "handles": ["@dhicking"]
-        }
-      ]
-    },
-    {
-      "name": "AI",
-      "contacts": [
-        {
-          "product": "All Things AI",
-          "handles": ["@ashleyhindle", "@enunomaduro"]
-        },
-        {
-          "product": "Laravel Boost",
-          "handles": ["@ashleyhindle", "@pushpak1300"]
-        },
-        {
-          "product": "MCP",
-          "handles": ["@ashleyhindle", "@pushpak1300"]
-        }
-      ]
-    },
-    {
-      "name": "COMMUNITY",
-      "contacts": [
-        {
-          "product": "Spatie",
-          "handles": ["@freekmurze", "@spatie_be"]
-        },
-        {
-          "product": "Laracasts",
-          "handles": ["@laracasts", "@jeffrey_way"]
-        },
-        {
-          "product": "Filament",
-          "handles": ["@filamentphp", "@danjharrin"]
-        }
-      ]
-    }
-  ]
+	"$schema": "./schema.json",
+	"id": "laravel",
+	"name": "Laravel",
+	"description": "Build and ship software with tools crafted for productivity",
+	"logoType": "laravel",
+	"categories": [
+		{
+			"name": "FRAMEWORK & OSS",
+			"contacts": [
+				{
+					"product": "Laravel",
+					"handles": ["@laravelphp", "@taylorotwell", "@crynobone"]
+				},
+				{
+					"product": "Open Source",
+					"handles": [
+						"@taylorotwell",
+						"@joetannenbaum",
+						"@crynobone",
+						"@ashleyhindle",
+						"@enunomaduro",
+						"@pascalbaljet",
+						"@pushpak1300"
+					]
+				},
+				{
+					"product": "Inertia",
+					"handles": ["@inertiajs", "@pascalbaljet"]
+				},
+				{
+					"product": "Livewire",
+					"handles": ["@calebporzio", "@_joshhanley"]
+				},
+				{
+					"product": "Pest",
+					"handles": ["@pestphp", "@enunomaduro"]
+				}
+			]
+		},
+		{
+			"name": "PUBLIC LARAVEL SITES & COMMUNITY",
+			"contacts": [
+				{
+					"product": "Laravel Websites",
+					"handles": ["@LeahTCodes"]
+				},
+				{
+					"product": "Events / Marketing",
+					"handles": ["@cynthiamcgillis", "@abbygilson28", "@samsappenfield1"]
+				},
+				{
+					"product": "DevRel / Educational Material",
+					"handles": ["@christophrumpel", "@joshcirre"]
+				}
+			]
+		},
+		{
+			"name": "LARAVEL PRODUCTS",
+			"contacts": [
+				{
+					"product": "Cloud",
+					"handles": ["@azath0th", "@joedixon", "@abrudtkuhl", "@alexdebecker"]
+				},
+				{
+					"product": "Forge",
+					"handles": ["@jbrooksuk", "@ryangjchandler", "@themsaid"]
+				},
+				{
+					"product": "Nightwatch",
+					"handles": ["@jessarchercodes", "@philliphartin", "@timacdonald87"]
+				},
+				{
+					"product": "Other",
+					"handles": ["@matgrimm", "@PeteBishwhip", "@xavizera"]
+				},
+				{
+					"product": "Partners",
+					"handles": ["@dhicking"]
+				}
+			]
+		},
+		{
+			"name": "AI",
+			"contacts": [
+				{
+					"product": "All Things AI",
+					"handles": ["@ashleyhindle", "@enunomaduro"]
+				},
+				{
+					"product": "Laravel Boost",
+					"handles": ["@ashleyhindle", "@pushpak1300"]
+				},
+				{
+					"product": "MCP",
+					"handles": ["@ashleyhindle", "@pushpak1300"]
+				}
+			]
+		},
+		{
+			"name": "COMMUNITY",
+			"contacts": [
+				{
+					"product": "Spatie",
+					"handles": ["@freekmurze", "@spatie_be"]
+				},
+				{
+					"product": "Laracasts",
+					"handles": ["@laracasts", "@jeffrey_way"]
+				},
+				{
+					"product": "Filament",
+					"handles": ["@filamentphp", "@danjharrin"]
+				}
+			]
+		}
+	]
 }
