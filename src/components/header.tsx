@@ -1,7 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { ChartColumnIncreasing, GithubIcon, HeartIcon } from "lucide-react";
 import { useEffect, useState } from "react";
-import { ModeToggle } from "@/components/theme-toggle";
+import { MobileThemeToggle, ModeToggle } from "@/components/theme-toggle";
 
 export function Header() {
 	const [isScrolled, setIsScrolled] = useState(false);
@@ -37,7 +37,7 @@ export function Header() {
 						width="20"
 						height="18"
 						className="inline-block"
-						aria-label="X"
+						aria-hidden="true"
 					>
 						<path
 							fill="currentColor"
@@ -71,8 +71,13 @@ export function Header() {
 					>
 						<GithubIcon className="size-4" />
 					</a>
-					<div className="ml-1 border-l border-zinc-200 pl-2 dark:border-zinc-700">
+					{/* Desktop theme toggle */}
+					<div className="ml-1 hidden border-l border-zinc-200 pl-2 dark:border-zinc-700 sm:block">
 						<ModeToggle />
+					</div>
+					{/* Mobile theme toggle */}
+					<div className="sm:hidden">
+						<MobileThemeToggle />
 					</div>
 				</nav>
 			</div>
