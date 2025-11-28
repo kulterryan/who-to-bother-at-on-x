@@ -1,4 +1,4 @@
-import { Link } from "@tanstack/react-router";
+import { Link, useMatches } from "@tanstack/react-router";
 import {
 	ChartColumnIncreasing,
 	GithubIcon,
@@ -6,15 +6,22 @@ import {
 	MenuIcon,
 } from "lucide-react";
 import { useEffect, useState } from "react";
+import { companyLogos } from "@/components/company-logos";
 import { MobileThemeToggle, ModeToggle } from "@/components/theme-toggle";
 import {
 	Popover,
 	PopoverContent,
 	PopoverTrigger,
 } from "@/components/ui/popover";
+import type { Company } from "@/types/company";
 
 export function Header() {
 	const [isScrolled, setIsScrolled] = useState(false);
+
+	// Get company data if we're on a company page
+	const matches = useMatches();
+	const companyRoute = matches.find((match) => match.routeId === "/$company");
+	const company = companyRoute?.loaderData as Company | undefined;
 
 	useEffect(() => {
 		const handleScroll = () => {
@@ -40,20 +47,33 @@ export function Header() {
 							: "opacity-0 -translate-x-4 pointer-events-none"
 					}`}
 				>
-					<span className="text-lg font-medium">who to bother on</span>
-					<svg
-						fill="none"
-						viewBox="0 0 1200 1227"
-						width="20"
-						height="18"
-						className="inline-block"
-						aria-hidden="true"
-					>
-						<path
-							fill="currentColor"
-							d="M714.163 519.284 1160.89 0h-105.86L667.137 450.887 357.328 0H0l468.492 681.821L0 1226.37h105.866l409.625-476.152 327.181 476.152H1200L714.137 519.284h.026ZM569.165 687.828l-47.468-67.894-377.686-540.24h162.604l304.797 435.991 47.468 67.894 396.2 566.721H892.476L569.165 687.854v-.026Z"
-						/>
-					</svg>
+					{company ? (
+						// Show "bother at [logo]" for company pages
+						<>
+							<span className="text-lg font-medium">who to bother at</span>
+							<div className="flex items-center [&>svg]:h-[18px] [&>svg]:w-auto">
+								{companyLogos[company.logoType]}
+							</div>
+						</>
+					) : (
+						// Show default "who to bother on X" for other pages
+						<>
+							<span className="text-lg font-medium">who to bother on</span>
+							<svg
+								fill="none"
+								viewBox="0 0 1200 1227"
+								width="20"
+								height="18"
+								className="inline-block"
+								aria-hidden="true"
+							>
+								<path
+									fill="currentColor"
+									d="M714.163 519.284 1160.89 0h-105.86L667.137 450.887 357.328 0H0l468.492 681.821L0 1226.37h105.866l409.625-476.152 327.181 476.152H1200L714.137 519.284h.026ZM569.165 687.828l-47.468-67.894-377.686-540.24h162.604l304.797 435.991 47.468 67.894 396.2 566.721H892.476L569.165 687.854v-.026Z"
+								/>
+							</svg>
+						</>
+					)}
 				</Link>
 
 				{/* Navigation - Regular (>= 390px) */}
