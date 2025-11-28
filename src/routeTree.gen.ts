@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './app/__root'
 import { Route as StatsRouteImport } from './app/stats'
+import { Route as SponsorsRouteImport } from './app/sponsors'
 import { Route as SearchRouteImport } from './app/search'
 import { Route as OpengraphRouteImport } from './app/opengraph'
 import { Route as CompanyRouteImport } from './app/$company'
@@ -20,6 +21,11 @@ import { Route as OgCompanyRouteImport } from './app/og.$company'
 const StatsRoute = StatsRouteImport.update({
   id: '/stats',
   path: '/stats',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SponsorsRoute = SponsorsRouteImport.update({
+  id: '/sponsors',
+  path: '/sponsors',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SearchRoute = SearchRouteImport.update({
@@ -58,6 +64,7 @@ export interface FileRoutesByFullPath {
   '/$company': typeof CompanyRoute
   '/opengraph': typeof OpengraphRoute
   '/search': typeof SearchRoute
+  '/sponsors': typeof SponsorsRoute
   '/stats': typeof StatsRoute
   '/og/$company': typeof OgCompanyRoute
   '/og/search': typeof OgSearchRoute
@@ -67,6 +74,7 @@ export interface FileRoutesByTo {
   '/$company': typeof CompanyRoute
   '/opengraph': typeof OpengraphRoute
   '/search': typeof SearchRoute
+  '/sponsors': typeof SponsorsRoute
   '/stats': typeof StatsRoute
   '/og/$company': typeof OgCompanyRoute
   '/og/search': typeof OgSearchRoute
@@ -77,6 +85,7 @@ export interface FileRoutesById {
   '/$company': typeof CompanyRoute
   '/opengraph': typeof OpengraphRoute
   '/search': typeof SearchRoute
+  '/sponsors': typeof SponsorsRoute
   '/stats': typeof StatsRoute
   '/og/$company': typeof OgCompanyRoute
   '/og/search': typeof OgSearchRoute
@@ -88,6 +97,7 @@ export interface FileRouteTypes {
     | '/$company'
     | '/opengraph'
     | '/search'
+    | '/sponsors'
     | '/stats'
     | '/og/$company'
     | '/og/search'
@@ -97,6 +107,7 @@ export interface FileRouteTypes {
     | '/$company'
     | '/opengraph'
     | '/search'
+    | '/sponsors'
     | '/stats'
     | '/og/$company'
     | '/og/search'
@@ -106,6 +117,7 @@ export interface FileRouteTypes {
     | '/$company'
     | '/opengraph'
     | '/search'
+    | '/sponsors'
     | '/stats'
     | '/og/$company'
     | '/og/search'
@@ -116,6 +128,7 @@ export interface RootRouteChildren {
   CompanyRoute: typeof CompanyRoute
   OpengraphRoute: typeof OpengraphRoute
   SearchRoute: typeof SearchRoute
+  SponsorsRoute: typeof SponsorsRoute
   StatsRoute: typeof StatsRoute
   OgCompanyRoute: typeof OgCompanyRoute
   OgSearchRoute: typeof OgSearchRoute
@@ -128,6 +141,13 @@ declare module '@tanstack/react-router' {
       path: '/stats'
       fullPath: '/stats'
       preLoaderRoute: typeof StatsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sponsors': {
+      id: '/sponsors'
+      path: '/sponsors'
+      fullPath: '/sponsors'
+      preLoaderRoute: typeof SponsorsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/search': {
@@ -180,6 +200,7 @@ const rootRouteChildren: RootRouteChildren = {
   CompanyRoute: CompanyRoute,
   OpengraphRoute: OpengraphRoute,
   SearchRoute: SearchRoute,
+  SponsorsRoute: SponsorsRoute,
   StatsRoute: StatsRoute,
   OgCompanyRoute: OgCompanyRoute,
   OgSearchRoute: OgSearchRoute,

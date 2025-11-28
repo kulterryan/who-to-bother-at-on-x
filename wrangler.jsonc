@@ -1,53 +1,53 @@
 {
-  "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "who-to-bother-at-cf",
-  "compatibility_date": "2025-09-02",
-  "compatibility_flags": ["nodejs_compat"],
-  "main": "@tanstack/react-start/server-entry",
-  "placement": {
-    "mode": "smart"
-  },
-  "preview_urls": true,
-  "routes": [
-    {
-      "pattern": "who-to-bother-at.com",
-      "custom_domain": true
-    },
-    {
-      "pattern": "www.who-to-bother-at.com",
-      "custom_domain": true
-    },
-    {
-      "pattern": "bother.at",
-      "custom_domain": true
-    },
-    {
-      "pattern": "www.bother.at",
-      "custom_domain": true
-    },
-    {
-      "pattern": "whotobotherat.com",
-      "custom_domain": true
-    },
-    {
-      "pattern": "www.whotobotherat.com",
-      "custom_domain": true
-    },
-    {
-      "pattern": "whotobother.at",
-      "custom_domain": true
-    },
-    {
-      "pattern": "www.whotobother.at",
-      "custom_domain": true
-    }
-  ],
-  "observability": {
-    "logs": {
-      "enabled": true,
-      "head_sampling_rate": 1,
-      "invocation_logs": true,
-      "persist": true
-    }
-  }
+	"$schema": "node_modules/wrangler/config-schema.json",
+	"name": "who-to-bother-at-cf",
+	"compatibility_date": "2025-09-02",
+	"compatibility_flags": ["nodejs_compat"],
+	"main": "@tanstack/react-start/server-entry",
+	"placement": {
+		"mode": "smart"
+	},
+	"preview_urls": true,
+	"routes": [
+		{
+			"pattern": "who-to-bother-at.com",
+			"custom_domain": true
+		},
+		{
+			"pattern": "www.who-to-bother-at.com",
+			"custom_domain": true
+		},
+		{
+			"pattern": "bother.at",
+			"custom_domain": true
+		},
+		{
+			"pattern": "www.bother.at",
+			"custom_domain": true
+		},
+		{
+			"pattern": "whotobotherat.com",
+			"custom_domain": true
+		},
+		{
+			"pattern": "www.whotobotherat.com",
+			"custom_domain": true
+		},
+		{
+			"pattern": "whotobother.at",
+			"custom_domain": true
+		},
+		{
+			"pattern": "www.whotobother.at",
+			"custom_domain": true
+		}
+	],
+	"observability": {
+		"logs": {
+			"enabled": true,
+			"head_sampling_rate": 1,
+			"invocation_logs": true,
+			"persist": true
+		}
+	}
 }

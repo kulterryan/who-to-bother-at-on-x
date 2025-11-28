@@ -1,30 +1,32 @@
 {
-  "$schema": "./schema.json",
-  "id": "netlify",
-  "name": "Netlify",
-  "description": "The platform for modern web development",
-  "logoType": "netlify",
-  "categories": [
-    {
-      "name": "Official Accounts",
-      "contacts": [
-        { "product": "Official Netlify Account", "handles": ["@Netlify"] },
-        { "product": "CEO", "handles": ["@biilmann"] }
-      ]
-    },
-    {
-      "name": "Product & Engineering",
-      "contacts": [
-        { "product": "Applied AI", "handles": ["@JavaSquip"] },
-        { "product": "Engineering", "handles": ["@eduardoboucas"] }
-      ]
-    },
-    {
-      "name": "Developer Relations",
-      "contacts": [
-        { "product": "Education & Community", "handles": ["@thisiskp_", "@NahrinJalal", "@domitriusclark"] }
-      ]
-    }
-  ]
+	"$schema": "./schema.json",
+	"id": "netlify",
+	"name": "Netlify",
+	"description": "The platform for modern web development",
+	"logoType": "netlify",
+	"categories": [
+		{
+			"name": "Official Accounts",
+			"contacts": [
+				{ "product": "Official Netlify Account", "handles": ["@Netlify"] },
+				{ "product": "CEO", "handles": ["@biilmann"] }
+			]
+		},
+		{
+			"name": "Product & Engineering",
+			"contacts": [
+				{ "product": "Applied AI", "handles": ["@JavaSquip"] },
+				{ "product": "Engineering", "handles": ["@eduardoboucas"] }
+			]
+		},
+		{
+			"name": "Developer Relations",
+			"contacts": [
+				{
+					"product": "Education & Community",
+					"handles": ["@thisiskp_", "@NahrinJalal", "@domitriusclark"]
+				}
+			]
+		}
+	]
 }
-

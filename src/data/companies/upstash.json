@@ -1,22 +1,21 @@
 {
-  "$schema": "./schema.json",
-  "id": "upstash",
-  "name": "Upstash",
-  "description": "Serverless data platform for Redis and Kafka",
-  "logoType": "upstash",
-  "categories": [
-    {
-      "name": "Official Accounts",
-      "contacts": [
-        { "product": "Official Upstash Account", "handles": ["@upstash"] }
-      ]
-    },
-    {
-      "name": "Developer Relations & Community",
-      "contacts": [
-        { "product": "Lead DevRel", "handles": ["@joshtriedcoding"] }
-      ]
-    }
-  ]
+	"$schema": "./schema.json",
+	"id": "upstash",
+	"name": "Upstash",
+	"description": "Serverless data platform for Redis and Kafka",
+	"logoType": "upstash",
+	"categories": [
+		{
+			"name": "Official Accounts",
+			"contacts": [
+				{ "product": "Official Upstash Account", "handles": ["@upstash"] }
+			]
+		},
+		{
+			"name": "Developer Relations & Community",
+			"contacts": [
+				{ "product": "Lead DevRel", "handles": ["@joshtriedcoding"] }
+			]
+		}
+	]
 }
-

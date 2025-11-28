@@ -1,16 +1,23 @@
 {
-  "$schema": "@/data/companies/schema.json",
-  "id": "computesdk",
-  "name": "ComputeSDK",
-  "description": "A primitive to embed compute into your app, agent, or network",
-  "logoType": "computesdk",
-  "categories": [
-    {
-      "name": "Official Accounts",
-      "contacts": [
-        { "product": "Official ComputeSDK Account", "handles": ["@computesdk"] },
-        { "product": "CEO", "handles": ["@heygarrison"], "email": "garrison@computesdk.com" }
-      ]
-    }
-  ]
+	"$schema": "@/data/companies/schema.json",
+	"id": "computesdk",
+	"name": "ComputeSDK",
+	"description": "A primitive to embed compute into your app, agent, or network",
+	"logoType": "computesdk",
+	"categories": [
+		{
+			"name": "Official Accounts",
+			"contacts": [
+				{
+					"product": "Official ComputeSDK Account",
+					"handles": ["@computesdk"]
+				},
+				{
+					"product": "CEO",
+					"handles": ["@heygarrison"],
+					"email": "garrison@computesdk.com"
+				}
+			]
+		}
+	]
 }

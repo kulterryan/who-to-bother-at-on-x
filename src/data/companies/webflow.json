@@ -1,41 +1,41 @@
 {
-  "$schema": "./schema.json",
-  "id": "webflow",
-  "name": "Webflow",
-  "description": "AI-native website experience platform",
-  "logoType": "webflow",
-  "categories": [
-    {
-      "name": "Official Accounts",
-      "contacts": [
-        { "product": "Official Webflow Account", "handles": ["@webflow"] },
-        { "product": "CEO", "handles": ["@YayLT"] },
-        { "product": "CTO", "handles": ["@leinwand"] },
-        { "product": "VP of Engineering", "handles": ["@utsengar"] }
-      ]
-    },
-    {
-      "name": "GSAP Animation Library",
-      "contacts": [{ "product": "GSAP Community", "handles": ["@GreenSock"] }]
-    },
-    {
-      "name": "Community",
-      "contacts": [
-        {
-          "product": "Director, Customer Marketing & Community",
-          "handles": ["@verofashoo"]
-        }
-      ]
-    },
-    {
-      "name": "Developer Relations",
-      "contacts": [
-        {
-          "product": "Developer Evangelist",
-          "handles": ["@jeenyusjane"],
-          "email": "developers@webflow.com"
-        }
-      ]
-    }
-  ]
+	"$schema": "./schema.json",
+	"id": "webflow",
+	"name": "Webflow",
+	"description": "AI-native website experience platform",
+	"logoType": "webflow",
+	"categories": [
+		{
+			"name": "Official Accounts",
+			"contacts": [
+				{ "product": "Official Webflow Account", "handles": ["@webflow"] },
+				{ "product": "CEO", "handles": ["@YayLT"] },
+				{ "product": "CTO", "handles": ["@leinwand"] },
+				{ "product": "VP of Engineering", "handles": ["@utsengar"] }
+			]
+		},
+		{
+			"name": "GSAP Animation Library",
+			"contacts": [{ "product": "GSAP Community", "handles": ["@GreenSock"] }]
+		},
+		{
+			"name": "Community",
+			"contacts": [
+				{
+					"product": "Director, Customer Marketing & Community",
+					"handles": ["@verofashoo"]
+				}
+			]
+		},
+		{
+			"name": "Developer Relations",
+			"contacts": [
+				{
+					"product": "Developer Evangelist",
+					"handles": ["@jeenyusjane"],
+					"email": "developers@webflow.com"
+				}
+			]
+		}
+	]
 }

@@ -1,26 +1,30 @@
 {
-  "$schema": "./schema.json",
-  "id": "planetscale",
-  "name": "PlanetScale",
-  "description": "Database platform for building scalable applications",
-  "logoType": "planetscale",
-  "categories": [
-    {
-      "name": "Official Accounts",
-      "contacts": [
-        { "product": "Official Account", "handles": ["@PlanetScale"]},
-        { "product": "Official Support Account", "handles": ["@planetscalehelp"] , "email": "support@planetscale.com"}
-      ]
-    },
-    {
-      "name": "Leadership",
-      "contacts": [
-        {
-          "product": "CEO",
-          "handles": ["@samlambert"],
-          "email": "sam@planetscale.com"
-        }
-      ]
-    }
-  ]
+	"$schema": "./schema.json",
+	"id": "planetscale",
+	"name": "PlanetScale",
+	"description": "Database platform for building scalable applications",
+	"logoType": "planetscale",
+	"categories": [
+		{
+			"name": "Official Accounts",
+			"contacts": [
+				{ "product": "Official Account", "handles": ["@PlanetScale"] },
+				{
+					"product": "Official Support Account",
+					"handles": ["@planetscalehelp"],
+					"email": "support@planetscale.com"
+				}
+			]
+		},
+		{
+			"name": "Leadership",
+			"contacts": [
+				{
+					"product": "CEO",
+					"handles": ["@samlambert"],
+					"email": "sam@planetscale.com"
+				}
+			]
+		}
+	]
 }

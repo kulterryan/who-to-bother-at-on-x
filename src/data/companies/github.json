@@ -1,22 +1,19 @@
 {
-  "$schema": "./schema.json",
-  "id": "github",
-  "name": "GitHub",
-  "description": "Platform for version control and collaboration",
-  "logoType": "github",
-  "categories": [
-    {
-      "name": "Official Accounts",
-      "contacts": [
-        { "product": "Official GitHub Account", "handles": ["@github"] }
-      ]
-    },
-    {
-      "name" : "Developer Platform",
-      "contacts" : [
-        { "product" : "SVP", "handles": ["@jaredpalmer"]}
-      ]
-    }
-  ]
+	"$schema": "./schema.json",
+	"id": "github",
+	"name": "GitHub",
+	"description": "Platform for version control and collaboration",
+	"logoType": "github",
+	"categories": [
+		{
+			"name": "Official Accounts",
+			"contacts": [
+				{ "product": "Official GitHub Account", "handles": ["@github"] }
+			]
+		},
+		{
+			"name": "Developer Platform",
+			"contacts": [{ "product": "SVP", "handles": ["@jaredpalmer"] }]
+		}
+	]
 }
-
