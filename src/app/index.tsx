@@ -119,11 +119,11 @@ function HomePage() {
             const logo = companyLogos[company.id];
             
             // Use regular anchor tag for Vercel to trigger server redirect
-            if (company.id === 'vercel') {
+            if (company.id === 'vercel' || company.id === 'laravel') {
               return (
                 <a
                   key={company.id}
-                  href="/vercel"
+                  href={`/${company.id}`}
                   target='_blank'
                   className="group flex flex-col rounded-xl border-2 border-zinc-200 bg-white p-6 transition-all hover:border-zinc-900 hover:shadow-lg dark:border-zinc-700 dark:bg-zinc-900 dark:hover:border-orange-600"
                 >
