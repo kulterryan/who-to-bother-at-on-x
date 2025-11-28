@@ -64,8 +64,8 @@ function SearchPage() {
 	}, [query]);
 
 	return (
-		<div className="min-h-screen bg-white text-zinc-900 dark:bg-zinc-950 dark:text-zinc-100">
-			<main className="mx-auto max-w-3xl flex flex-col gap-6 px-6 py-16 md:py-24">
+		<div className="text-zinc-900 dark:text-zinc-100">
+			<main className="mx-auto max-w-3xl flex flex-col gap-6 px-6 pt-8 pb-16 md:pt-12 md:pb-24">
 				{/* Header */}
 				<div className="flex flex-col gap-4">
 					<Link

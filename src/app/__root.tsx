@@ -7,6 +7,7 @@ import {
 	Scripts,
 } from "@tanstack/react-router";
 import { NuqsAdapter } from "nuqs/adapters/tanstack-router";
+import { Header } from "@/components/header";
 import { ThemeProvider } from "@/components/theme-provider";
 import { seo } from "@/lib/seo";
 import { THEME_STORAGE_KEY } from "@/lib/theme";
@@ -85,9 +86,10 @@ function RootLayout() {
 				/>
 				{HeadContent()}
 			</head>
-			<body>
+			<body className="min-h-screen bg-white dark:bg-zinc-950">
 				<ThemeProvider>
 					<NuqsAdapter>
+						<Header />
 						<Outlet />
 					</NuqsAdapter>
 				</ThemeProvider>

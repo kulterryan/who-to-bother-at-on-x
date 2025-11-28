@@ -93,8 +93,8 @@ export function ContactsList({
 	};
 
 	return (
-		<div className="min-h-screen bg-white text-zinc-900 dark:bg-zinc-950 dark:text-zinc-100">
-			<main className="mx-auto max-w-3xl px-6 py-16 md:py-24">
+		<div className="text-zinc-900 dark:text-zinc-100">
+			<main className="mx-auto max-w-3xl px-6 pt-8 pb-16 md:pt-12 md:pb-24">
 				<Link
 					to="/"
 					className="mb-8 inline-flex items-center gap-2 text-sm font-medium text-zinc-600 transition-colors hover:text-orange-600 dark:text-zinc-400 dark:hover:text-orange-600"

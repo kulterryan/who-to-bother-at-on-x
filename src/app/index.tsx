@@ -86,8 +86,8 @@ function HomePage() {
 	};
 
 	return (
-		<div className="min-h-screen bg-white text-zinc-900 dark:bg-zinc-950 dark:text-zinc-100">
-			<main className="mx-auto max-w-3xl flex flex-col gap-4 px-6 py-16 md:py-24">
+		<div className="text-zinc-900 dark:text-zinc-100">
+			<main className="mx-auto max-w-3xl flex flex-col gap-4 px-6 pt-8 pb-16 md:pt-12 md:pb-24">
 				<h1 className="m-0 text-4xl font-medium text-zinc-900 dark:text-zinc-100 md:text-5xl">
 					who to bother on{" "}
 					<svg
