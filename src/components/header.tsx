@@ -110,7 +110,7 @@ export function Header() {
 						aria-label="Add who to bother"
 					>
 						<GithubIcon className="size-4 sm:size-3.5" />
-						<span className="hidden sm:inline">Add who to bother</span>
+						<span className="hidden sm:inline">Get bothered!</span>
 					</a>
 				</nav>
 			</div>
