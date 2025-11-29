@@ -34,39 +34,70 @@ export function Header() {
 		<header className="sticky top-0 z-50 w-full border-b border-zinc-200/80 bg-white/80 backdrop-blur-md dark:border-zinc-800/80 dark:bg-zinc-950/80">
 			{/* Main Header */}
 			<div className="mx-auto flex h-16 max-w-3xl items-center justify-between px-6">
-				{/* Logo / Title */}
-				<Link
-					to="/"
-					className={`flex items-center gap-2 text-zinc-900 transition-all duration-300 hover:text-orange-600 dark:text-zinc-100 dark:hover:text-orange-600 ${isScrolled ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-4 pointer-events-none"}`}
-				>
-					{company ? (
-						// Show "bother at [logo]" for company pages
-						<>
-							<span className="text-lg font-medium">who to bother at</span>
-							<div className="flex items-center [&>svg]:h-[18px] [&>svg]:w-auto">
-								{companyLogos[company.logoType]}
-							</div>
-						</>
-					) : (
-						// Show default "who to bother on X" for other pages
-						<>
-							<span className="text-lg font-medium">who to bother on</span>
-							<svg
-								fill="none"
-								viewBox="0 0 1200 1227"
-								width="20"
-								height="18"
-								className="inline-block"
-								aria-hidden="true"
-							>
-								<path
-									fill="currentColor"
-									d="M714.163 519.284 1160.89 0h-105.86L667.137 450.887 357.328 0H0l468.492 681.821L0 1226.37h105.866l409.625-476.152 327.181 476.152H1200L714.137 519.284h.026ZM569.165 687.828l-47.468-67.894-377.686-540.24h162.604l304.797 435.991 47.468 67.894 396.2 566.721H892.476L569.165 687.854v-.026Z"
-								/>
-							</svg>
-						</>
-					)}
-				</Link>
+				{/* Left side - Logo or Sub Navigation */}
+				<div className="relative">
+					{/* Sub Navigation - Visible when NOT scrolled */}
+					<nav
+						className={`flex items-center gap-4 transition-all duration-300 ${
+							isScrolled
+								? "opacity-0 -translate-x-4 pointer-events-none"
+								: "opacity-100 translate-x-0"
+						}`}
+					>
+						<Link
+							to="/sponsors"
+							className="flex items-center gap-2 text-sm font-medium text-zinc-600 transition-colors hover:text-orange-600 dark:text-zinc-400 dark:hover:text-orange-600"
+						>
+							<HeartIcon className="size-3.5" />
+							<span>Sponsors</span>
+						</Link>
+						<Link
+							to="/stats"
+							className="flex items-center gap-2 text-sm font-medium text-zinc-600 transition-colors hover:text-orange-600 dark:text-zinc-400 dark:hover:text-orange-600"
+						>
+							<ChartColumnIncreasing className="size-3.5" />
+							<span>Stats</span>
+						</Link>
+					</nav>
+
+					{/* Logo / Title - Visible when scrolled */}
+					<Link
+						to="/"
+						className={`absolute left-0 top-1/2 -translate-y-1/2 flex items-center gap-2 whitespace-nowrap text-zinc-900 transition-all duration-300 hover:text-orange-600 dark:text-zinc-100 dark:hover:text-orange-600 ${
+							isScrolled
+								? "opacity-100 translate-x-0"
+								: "opacity-0 -translate-x-4 pointer-events-none"
+						}`}
+					>
+						{company ? (
+							// Show "bother at [logo]" for company pages
+							<>
+								<span className="text-lg font-medium">who to bother at</span>
+								<div className="flex items-center [&>svg]:h-[18px] [&>svg]:w-auto">
+									{companyLogos[company.logoType]}
+								</div>
+							</>
+						) : (
+							// Show default "who to bother on X" for other pages
+							<>
+								<span className="text-lg font-medium">who to bother on</span>
+								<svg
+									fill="none"
+									viewBox="0 0 1200 1227"
+									width="20"
+									height="18"
+									className="inline-block"
+									aria-hidden="true"
+								>
+									<path
+										fill="currentColor"
+										d="M714.163 519.284 1160.89 0h-105.86L667.137 450.887 357.328 0H0l468.492 681.821L0 1226.37h105.866l409.625-476.152 327.181 476.152H1200L714.137 519.284h.026ZM569.165 687.828l-47.468-67.894-377.686-540.24h162.604l304.797 435.991 47.468 67.894 396.2 566.721H892.476L569.165 687.854v-.026Z"
+									/>
+								</svg>
+							</>
+						)}
+					</Link>
+				</div>
 
 				{/* Navigation */}
 				<nav className="flex items-center gap-2">
@@ -84,7 +115,7 @@ export function Header() {
 				</nav>
 			</div>
 
-			{/* Sub Navigation - Appears on scroll */}
+			{/* Sub Navigation Bar - Appears on scroll */}
 			<div
 				className={`border-t border-zinc-200/80 dark:border-zinc-800/80 transition-all duration-300 overflow-hidden ${
 					isScrolled ? "max-h-12 opacity-100" : "max-h-0 opacity-0"
@@ -94,14 +125,14 @@ export function Header() {
 					<nav className="flex items-center gap-4">
 						<Link
 							to="/sponsors"
-							className="flex items-center gap-2 rounded-lg  text-sm font-medium text-zinc-600 transition-colors hover:text-orange-600 dark:text-zinc-400 dark:hover:text-orange-600"
+							className="flex items-center gap-2 text-sm font-medium text-zinc-600 transition-colors hover:text-orange-600 dark:text-zinc-400 dark:hover:text-orange-600"
 						>
 							<HeartIcon className="size-3.5" />
 							<span>Sponsors</span>
 						</Link>
 						<Link
 							to="/stats"
-							className="flex items-center gap-2 rounded-lg  text-sm font-medium text-zinc-600 transition-colors hover:text-orange-600 dark:text-zinc-400 dark:hover:text-orange-600"
+							className="flex items-center gap-2 text-sm font-medium text-zinc-600 transition-colors hover:text-orange-600 dark:text-zinc-400 dark:hover:text-orange-600"
 						>
 							<ChartColumnIncreasing className="size-3.5" />
 							<span>Stats</span>
