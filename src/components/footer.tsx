@@ -1,3 +1,5 @@
+import { MobileThemeToggle, ModeToggle } from "@/components/theme-toggle";
+
 interface FooterProps {
 	contributionTitle?: string;
 	contributionMessage?: string;
@@ -57,6 +59,18 @@ export function Footer({
 					@strehldev
 				</a>
 			</p>
+
+			{/* Theme Switcher */}
+			<div className="mt-6 flex justify-center">
+				{/* Desktop theme toggle */}
+				<div className="hidden sm:block">
+					<ModeToggle />
+				</div>
+				{/* Mobile theme toggle */}
+				<div className="sm:hidden">
+					<MobileThemeToggle />
+				</div>
+			</div>
 		</footer>
 	);
 }

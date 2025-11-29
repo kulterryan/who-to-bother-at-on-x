@@ -7,7 +7,6 @@ import {
 } from "lucide-react";
 import { useEffect, useState } from "react";
 import { companyLogos } from "@/components/company-logos";
-import { MobileThemeToggle, ModeToggle } from "@/components/theme-toggle";
 import {
 	Popover,
 	PopoverContent,
@@ -76,8 +75,8 @@ export function Header() {
 					)}
 				</Link>
 
-				{/* Navigation - Regular (>= 390px) */}
-				<nav className="hidden min-[390px]:flex items-center gap-1">
+				{/* Navigation */}
+				<nav className="flex items-center gap-1">
 					<Link
 						to="/sponsors"
 						className="rounded-lg p-2 text-zinc-600 transition-colors hover:bg-zinc-100 hover:text-orange-600 dark:text-zinc-400 dark:hover:bg-zinc-800 dark:hover:text-orange-600"
@@ -101,74 +100,8 @@ export function Header() {
 					>
 						<GithubIcon className="size-4" />
 					</a>
-					{/* Separator */}
-					<div className="mx-1 h-5 w-px bg-zinc-200 dark:bg-zinc-700" />
-					{/* Desktop theme toggle */}
-					<div className="hidden sm:block">
-						<ModeToggle />
-					</div>
-					{/* Mobile theme toggle */}
-					<div className="sm:hidden">
-						<MobileThemeToggle />
-					</div>
-				</nav>
-
-				{/* Navigation - Compact (< 390px) */}
-				<nav className="flex min-[390px]:hidden items-center gap-1">
-					<MobileThemeToggle />
-					<div className="mx-0.5 h-5 w-px bg-zinc-200 dark:bg-zinc-700" />
-					<CompactMenu />
 				</nav>
 			</div>
 		</header>
-	);
-}
-
-function CompactMenu() {
-	const [open, setOpen] = useState(false);
-
-	return (
-		<Popover open={open} onOpenChange={setOpen}>
-			<PopoverTrigger
-				className="rounded-lg p-2 text-zinc-600 transition-colors hover:bg-zinc-100 hover:text-zinc-900 dark:text-zinc-400 dark:hover:bg-zinc-800 dark:hover:text-zinc-100"
-				aria-label="Menu"
-			>
-				<MenuIcon className="size-4" />
-			</PopoverTrigger>
-			<PopoverContent
-				className="w-auto border-zinc-200 bg-white p-1 shadow-lg dark:border-zinc-700 dark:bg-zinc-900"
-				align="end"
-				sideOffset={8}
-			>
-				<div className="flex flex-col gap-0.5">
-					<Link
-						to="/sponsors"
-						onClick={() => setOpen(false)}
-						className="flex items-center gap-2.5 rounded-md px-3 py-2 text-sm text-zinc-600 transition-colors hover:bg-zinc-50 hover:text-orange-600 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-orange-600"
-					>
-						<HeartIcon className="size-4" />
-						<span>Sponsors</span>
-					</Link>
-					<Link
-						to="/stats"
-						onClick={() => setOpen(false)}
-						className="flex items-center gap-2.5 rounded-md px-3 py-2 text-sm text-zinc-600 transition-colors hover:bg-zinc-50 hover:text-orange-600 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-orange-600"
-					>
-						<ChartColumnIncreasing className="size-4" />
-						<span>Stats</span>
-					</Link>
-					<a
-						href="https://github.com/kulterryan/who-to-bother-at-on-x"
-						target="_blank"
-						rel="noopener noreferrer"
-						onClick={() => setOpen(false)}
-						className="flex items-center gap-2.5 rounded-md px-3 py-2 text-sm text-zinc-600 transition-colors hover:bg-zinc-50 hover:text-zinc-900 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-100"
-					>
-						<GithubIcon className="size-4" />
-						<span>GitHub</span>
-					</a>
-				</div>
-			</PopoverContent>
-		</Popover>
 	);
 }
