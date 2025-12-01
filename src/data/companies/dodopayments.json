@@ -1,0 +1,18 @@
+{
+	"$schema": "./schema.json",
+	"id": "dodo-payments",
+	"name": "Dodo Payments",
+	"website": "https://dodopayments.com",
+	"docs": "https://docs.dodopayments.com/introduction",
+	"description": "Dodo Payments is a payment processing platform that allows you to accept payments online and offline.",
+	"logoType": "dodo-payments",
+	"categories": [
+		{
+			"name": "Official Accounts",
+			"contacts": [
+				{ "product": "Official Account", "handles": ["@dodopayments"] },
+				{ "product": "CTO", "handles": ["@aagarwal1012"] }
+			]
+		}
+	]
+}
