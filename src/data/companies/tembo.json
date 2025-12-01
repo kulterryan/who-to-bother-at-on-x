@@ -1,0 +1,21 @@
+{
+	"$schema": "./schema.json",
+	"id": "tembo",
+	"name": "Tembo",
+	"description": "Managed Postgres with batteries included",
+	"logoType": "tembo",
+	"categories": [
+		{
+			"name": "Company",
+			"contacts": [
+				{ "product": "Tembo Official", "handles": ["@tembo"] }
+			]
+		},
+		{
+			"name": "Team",
+			"contacts": [
+				{ "product": "Founder & CEO", "handles": ["@rywalker"] }
+			]
+		}
+	]
+}
