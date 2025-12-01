@@ -15,6 +15,7 @@ import { Route as SearchRouteImport } from './app/search'
 import { Route as OpengraphRouteImport } from './app/opengraph'
 import { Route as CompanyRouteImport } from './app/$company'
 import { Route as IndexRouteImport } from './app/index'
+import { Route as SitemapXmlRouteImport } from './app/sitemap.xml'
 import { Route as OgSearchRouteImport } from './app/og.search'
 import { Route as OgCompanyRouteImport } from './app/og.$company'
 
@@ -48,6 +49,11 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const SitemapXmlRoute = SitemapXmlRouteImport.update({
+  id: '/sitemap/xml',
+  path: '/sitemap/xml',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const OgSearchRoute = OgSearchRouteImport.update({
   id: '/og/search',
   path: '/og/search',
@@ -68,6 +74,7 @@ export interface FileRoutesByFullPath {
   '/stats': typeof StatsRoute
   '/og/$company': typeof OgCompanyRoute
   '/og/search': typeof OgSearchRoute
+  '/sitemap/xml': typeof SitemapXmlRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -78,6 +85,7 @@ export interface FileRoutesByTo {
   '/stats': typeof StatsRoute
   '/og/$company': typeof OgCompanyRoute
   '/og/search': typeof OgSearchRoute
+  '/sitemap/xml': typeof SitemapXmlRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -89,6 +97,7 @@ export interface FileRoutesById {
   '/stats': typeof StatsRoute
   '/og/$company': typeof OgCompanyRoute
   '/og/search': typeof OgSearchRoute
+  '/sitemap/xml': typeof SitemapXmlRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -101,6 +110,7 @@ export interface FileRouteTypes {
     | '/stats'
     | '/og/$company'
     | '/og/search'
+    | '/sitemap/xml'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -111,6 +121,7 @@ export interface FileRouteTypes {
     | '/stats'
     | '/og/$company'
     | '/og/search'
+    | '/sitemap/xml'
   id:
     | '__root__'
     | '/'
@@ -121,6 +132,7 @@ export interface FileRouteTypes {
     | '/stats'
     | '/og/$company'
     | '/og/search'
+    | '/sitemap/xml'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -132,6 +144,7 @@ export interface RootRouteChildren {
   StatsRoute: typeof StatsRoute
   OgCompanyRoute: typeof OgCompanyRoute
   OgSearchRoute: typeof OgSearchRoute
+  SitemapXmlRoute: typeof SitemapXmlRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -178,6 +191,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/sitemap/xml': {
+      id: '/sitemap/xml'
+      path: '/sitemap/xml'
+      fullPath: '/sitemap/xml'
+      preLoaderRoute: typeof SitemapXmlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/og/search': {
       id: '/og/search'
       path: '/og/search'
@@ -204,6 +224,7 @@ const rootRouteChildren: RootRouteChildren = {
   StatsRoute: StatsRoute,
   OgCompanyRoute: OgCompanyRoute,
   OgSearchRoute: OgSearchRoute,
+  SitemapXmlRoute: SitemapXmlRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
