@@ -2,7 +2,7 @@
 	"$schema": "./schema.json",
 	"id": "tembo",
 	"name": "Tembo",
-	"description": "Managed Postgres with batteries included",
+	"description": "Automate async coding agents to help your team build software faster",
 	"logoType": "tembo",
 	"categories": [
 		{
