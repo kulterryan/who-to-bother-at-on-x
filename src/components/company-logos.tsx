@@ -274,4 +274,27 @@ export const companyLogos: Record<string, React.ReactNode> = {
       ></path>
     </svg>
   ),
+  tembo: (
+    <svg viewBox="0 0 24 24" width="40" height="40" aria-labelledby="tembo-logo-title" className="text-zinc-900 dark:text-zinc-100">
+      <title id="tembo-logo">Tembo logo</title>
+      <path
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="M15.9748 11.9095C16.31 7.82653 12.955 5.63679 10.0002 5.96484V8.78782C11.9241 8.35025 13.6124 10.0028 13.1462 11.9095H15.9748Z"
+        fill="currentColor"
+      />
+      <path
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="M17.4402 11.9095C17.1051 7.82653 20.4601 5.63679 23.4149 5.96484V8.78782C21.4909 8.35025 19.8026 10.0028 20.2689 11.9095H17.4402Z"
+        fill="currentColor"
+      />
+      <path
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="M15.3387 13.3112C15.0035 17.3942 18.3585 19.5839 21.3133 19.2559V16.4329C19.3894 16.8705 17.7011 15.2179 18.1673 13.3112H15.3387Z"
+        fill="currentColor"
+      />
+    </svg>
+  ),
 };

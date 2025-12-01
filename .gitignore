@@ -35,3 +35,6 @@ next-env.d.ts
 /public/company-logos/
 
 .dev.vars
+
+# Claude Code
+.claude/settings.local.json
