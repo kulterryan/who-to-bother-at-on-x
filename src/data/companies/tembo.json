@@ -15,7 +15,11 @@
 		},
 		{
 			"name": "Team",
-			"contacts": [{ "product": "Founder & CEO", "handles": ["@rywalker"] }]
+			"contacts": [
+				{ "product": "Founder & CEO", "handles": ["@rywalker"] },
+				{ "product": "Founder & CTO", "handles": ["@darrenjr"] },
+				{ "product": "Founder & CPO", "handles": ["@benjaminakar"] }
+			]
 		}
 	]
 }
