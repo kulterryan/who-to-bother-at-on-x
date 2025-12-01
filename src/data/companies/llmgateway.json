@@ -1,0 +1,31 @@
+{
+	"$schema": "./schema.json",
+	"id": "llmgateway",
+	"name": "LLM Gateway",
+	"description": "LLM Gateway is a platform for accessing multiple language models through a unified API",
+	"logoType": "llmgateway",
+	"website": "https://llmgateway.io/",
+	"docs": "https://llmgateway.io/docs",
+	"github": "https://github.com/theopenco/llmgateway",
+	"discord": "https://discord.gg/gcqcZeYWEz",
+	"categories": [
+		{
+			"name": "Official Accounts",
+			"contacts": [
+				{
+					"product": "LLM Gateway Official",
+					"handles": ["@LLMGateway"]
+				}
+			]
+		},
+		{
+			"name": "Leadership",
+			"contacts": [
+				{
+					"product": "Founders",
+					"handles": ["@smakosh", "@steebchen"]
+				}
+			]
+		}
+	]
+}
