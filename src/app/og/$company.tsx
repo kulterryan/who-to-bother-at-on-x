@@ -217,4 +217,3 @@ export const Route = createFileRoute("/og/$company")({
     },
   },
 });
-
