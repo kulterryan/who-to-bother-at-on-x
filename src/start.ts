@@ -15,6 +15,14 @@ const redirectMiddleware = createMiddleware().server(
 			});
 		}
 
+		if (url.pathname === "/sitemap.xml") {
+			// Perform a redirect to the official sitemap
+			throw redirect({
+				href: "https://who-to-bother-at.com/sitemap/xml",
+				statusCode: 302,
+			});
+		}
+
 		// Check if the path is /laravel
 		if (url.pathname === "/laravel") {
 			// Perform a redirect to the official Laravel site

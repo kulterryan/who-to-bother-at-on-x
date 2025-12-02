@@ -3,10 +3,11 @@
 	"version": "0.1.0",
 	"license": "MIT",
 	"scripts": {
-		"predev": "tsx src/scripts/generate-favicons.ts",
+		"predev": "tsx src/scripts/generate-favicons.ts && tsx src/scripts/generate-sitemap.ts",
 		"dev": "vite dev",
-		"prebuild": "tsx src/scripts/generate-favicons.ts",
+		"prebuild": "tsx src/scripts/generate-favicons.ts && tsx src/scripts/generate-sitemap.ts",
 		"build": "pnpm validate && vite build && tsc --noEmit",
+		"generate-sitemap": "tsx src/scripts/generate-sitemap.ts",
 		"preview": "vite preview",
 		"deploy": "npm run build && wrangler deploy",
 		"cf-typegen": "wrangler types",

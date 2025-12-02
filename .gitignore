@@ -33,6 +33,7 @@ next-env.d.ts
 
 # Generated favicons
 /public/company-logos/
+/public/sitemap.xml
 
 .dev.vars
 
