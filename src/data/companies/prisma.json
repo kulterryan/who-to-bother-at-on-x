@@ -11,9 +11,7 @@
 	"categories": [
 		{
 			"name": "Official Accounts",
-			"contacts": [
-				{ "product": "Official Account", "handles": ["@Prisma"] }
-			]
+			"contacts": [{ "product": "Official Account", "handles": ["@Prisma"] }]
 		},
 		{
 			"name": "Leadership",
@@ -33,9 +31,9 @@
 			"contacts": [
 				{
 					"product": "Developer Relations",
-					"handles": ["@petradonka","@MarcHessDev"]
+					"handles": ["@petradonka", "@MarcHessDev"]
 				}
-			]	
+			]
 		}
 	]
 }
