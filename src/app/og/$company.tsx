@@ -6,7 +6,7 @@ import type { Company } from "@/types/company";
 function getCompanyDataMap(): Record<string, Company> {
   // Auto-discover all company JSON files using Vite's import.meta.glob
   const companyModules = import.meta.glob<{ default: Company }>(
-    "../data/companies/*.json",
+    "../../data/companies/*.json",
     { eager: true }
   );
 
@@ -146,7 +146,7 @@ export const Route = createFileRoute("/og/$company")({
             style: {
               width: 1200,
               height: 630,
-              backgroundColor: "#1a1a1a",
+              backgroundColor: "#09090b",
               display: "flex",
               flexDirection: "column",
               justifyContent: "center",
@@ -217,3 +217,4 @@ export const Route = createFileRoute("/og/$company")({
     },
   },
 });
+
