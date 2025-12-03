@@ -19,10 +19,6 @@
 				{
 					"product": "CEO",
 					"handles": ["@sorenbs"]
-				},
-				{
-					"product": "COO",
-					"handles": ["@gniting"]
 				}
 			]
 		},
@@ -31,7 +27,7 @@
 			"contacts": [
 				{
 					"product": "Developer Relations",
-					"handles": ["@petradonka", "@MarcHessDev"]
+					"handles": ["@MarcHessDev"]
 				}
 			]
 		}
