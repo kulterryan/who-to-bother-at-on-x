@@ -18,7 +18,8 @@
 			"contacts": [
 				{ "product": "Founder & CEO", "handles": ["@rywalker"] },
 				{ "product": "Founder & CTO", "handles": ["@darrenjr"] },
-				{ "product": "Founder & CPO", "handles": ["@benjaminakar"] }
+				{ "product": "Founder & CPO", "handles": ["@benjaminakar"] },
+				{ "product": "Founder & CGO", "handles": ["@connorpaton"]}
 			]
 		}
 	]
