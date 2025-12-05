@@ -1,30 +1,30 @@
 {
-	"$schema": "./schema.json",
-	"id": "openrouter",
-	"name": "OpenRouter",
-	"description": "AI routing platform for accessing multiple language models through a unified API",
-	"logoType": "openrouter",
-	"website": "https://openrouter.ai/",
-	"docs": "https://openrouter.ai/docs/quickstart",
+  "$schema": "./schema.json",
+  "id": "openrouter",
+  "name": "OpenRouter",
+  "description": "AI routing platform for accessing multiple language models through a unified API",
+  "logoType": "openrouter",
+  "website": "https://openrouter.ai/",
+  "docs": "https://openrouter.ai/docs/quickstart",
 
-	"categories": [
-		{
-			"name": "Official Accounts",
-			"contacts": [
-				{
-					"product": "OpenRouter Official",
-					"handles": ["@OpenRouterAI"]
-				}
-			]
-		},
-		{
-			"name": "Leadership",
-			"contacts": [
-				{
-					"product": "CEO",
-					"handles": ["@xanderatallah"]
-				}
-			]
-		}
-	]
+  "categories": [
+    {
+      "name": "Official Accounts",
+      "contacts": [
+        {
+          "product": "OpenRouter Official",
+          "handles": ["@OpenRouterAI"]
+        }
+      ]
+    },
+    {
+      "name": "Leadership",
+      "contacts": [
+        {
+          "product": "CEO",
+          "handles": ["@xanderatallah"]
+        }
+      ]
+    }
+  ]
 }
