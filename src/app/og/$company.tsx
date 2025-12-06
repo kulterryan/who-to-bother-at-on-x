@@ -1,4 +1,3 @@
-// biome-ignore lint/style/useFilenamingConvention: TanStack Router convention
 import { container, text } from "@takumi-rs/helpers";
 import { createFileRoute } from "@tanstack/react-router";
 import type { Company } from "@/types/company";
