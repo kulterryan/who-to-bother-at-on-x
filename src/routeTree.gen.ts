@@ -16,7 +16,7 @@ import { Route as OpengraphRouteImport } from './app/opengraph'
 import { Route as CompanyRouteImport } from './app/$company'
 import { Route as IndexRouteImport } from './app/index'
 import { Route as OgSearchRouteImport } from './app/og.search'
-import { Route as OgCompanyRouteImport } from './app/og.$company'
+import { Route as OgCompanyRouteImport } from './app/og/$company'
 
 const StatsRoute = StatsRouteImport.update({
   id: '/stats',
