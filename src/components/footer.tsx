@@ -1,3 +1,4 @@
+import { Link } from "@tanstack/react-router";
 import { MobileThemeToggle, ModeToggle } from "@/components/theme-toggle";
 
 interface FooterProps {
@@ -17,15 +18,13 @@ export function Footer({
 				</h3>
 				<p className="text-sm text-zinc-600 dark:text-zinc-400">
 					{contributionMessage}{" "}
-					<a
-						href="https://github.com/kulterryan/who-to-bother-at-on-x"
-						target="_blank"
-						rel="noopener noreferrer"
+					<Link
+						to="/contribute"
 						className="text-orange-600 underline decoration-orange-300 underline-offset-4 transition-colors hover:text-orange-700 hover:decoration-orange-400"
 					>
-						Submit a pull request
-					</a>{" "}
-					on GitHub and contribute to the community! Reach out to{" "}
+						Contribute directly from the website
+					</Link>{" "}
+					or submit a PR on GitHub. Reach out to{" "}
 					<a
 						href="https://x.com/thehungrybird_"
 						target="_blank"

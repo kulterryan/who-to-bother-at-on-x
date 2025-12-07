@@ -17,8 +17,15 @@ import { Route as LoginRouteImport } from './app/login'
 import { Route as DashboardRouteImport } from './app/dashboard'
 import { Route as CompanyRouteImport } from './app/$company'
 import { Route as IndexRouteImport } from './app/index'
+import { Route as ContributeIndexRouteImport } from './app/contribute/index'
 import { Route as OgSearchRouteImport } from './app/og.search'
 import { Route as OgCompanyRouteImport } from './app/og/$company'
+import { Route as ContributeEditRouteImport } from './app/contribute/edit'
+import { Route as ContributeAddRouteImport } from './app/contribute/add'
+import { Route as ContributeEditCompanyRouteImport } from './app/contribute/edit.$company'
+import { Route as ApiGithubForkRouteImport } from './app/api/github/fork'
+import { Route as ApiGithubCreatePrRouteImport } from './app/api/github/create-pr'
+import { Route as ApiGithubCompaniesRouteImport } from './app/api/github/companies'
 import { Route as ApiAuthSplatRouteImport } from './app/api/auth/$'
 
 const StatsRoute = StatsRouteImport.update({
@@ -61,6 +68,11 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ContributeIndexRoute = ContributeIndexRouteImport.update({
+  id: '/contribute/',
+  path: '/contribute/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const OgSearchRoute = OgSearchRouteImport.update({
   id: '/og/search',
   path: '/og/search',
@@ -69,6 +81,36 @@ const OgSearchRoute = OgSearchRouteImport.update({
 const OgCompanyRoute = OgCompanyRouteImport.update({
   id: '/og/$company',
   path: '/og/$company',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ContributeEditRoute = ContributeEditRouteImport.update({
+  id: '/contribute/edit',
+  path: '/contribute/edit',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ContributeAddRoute = ContributeAddRouteImport.update({
+  id: '/contribute/add',
+  path: '/contribute/add',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ContributeEditCompanyRoute = ContributeEditCompanyRouteImport.update({
+  id: '/$company',
+  path: '/$company',
+  getParentRoute: () => ContributeEditRoute,
+} as any)
+const ApiGithubForkRoute = ApiGithubForkRouteImport.update({
+  id: '/api/github/fork',
+  path: '/api/github/fork',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiGithubCreatePrRoute = ApiGithubCreatePrRouteImport.update({
+  id: '/api/github/create-pr',
+  path: '/api/github/create-pr',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiGithubCompaniesRoute = ApiGithubCompaniesRouteImport.update({
+  id: '/api/github/companies',
+  path: '/api/github/companies',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ApiAuthSplatRoute = ApiAuthSplatRouteImport.update({
@@ -86,9 +128,16 @@ export interface FileRoutesByFullPath {
   '/search': typeof SearchRoute
   '/sponsors': typeof SponsorsRoute
   '/stats': typeof StatsRoute
+  '/contribute/add': typeof ContributeAddRoute
+  '/contribute/edit': typeof ContributeEditRouteWithChildren
   '/og/$company': typeof OgCompanyRoute
   '/og/search': typeof OgSearchRoute
+  '/contribute': typeof ContributeIndexRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
+  '/api/github/companies': typeof ApiGithubCompaniesRoute
+  '/api/github/create-pr': typeof ApiGithubCreatePrRoute
+  '/api/github/fork': typeof ApiGithubForkRoute
+  '/contribute/edit/$company': typeof ContributeEditCompanyRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -99,9 +148,16 @@ export interface FileRoutesByTo {
   '/search': typeof SearchRoute
   '/sponsors': typeof SponsorsRoute
   '/stats': typeof StatsRoute
+  '/contribute/add': typeof ContributeAddRoute
+  '/contribute/edit': typeof ContributeEditRouteWithChildren
   '/og/$company': typeof OgCompanyRoute
   '/og/search': typeof OgSearchRoute
+  '/contribute': typeof ContributeIndexRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
+  '/api/github/companies': typeof ApiGithubCompaniesRoute
+  '/api/github/create-pr': typeof ApiGithubCreatePrRoute
+  '/api/github/fork': typeof ApiGithubForkRoute
+  '/contribute/edit/$company': typeof ContributeEditCompanyRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -113,9 +169,16 @@ export interface FileRoutesById {
   '/search': typeof SearchRoute
   '/sponsors': typeof SponsorsRoute
   '/stats': typeof StatsRoute
+  '/contribute/add': typeof ContributeAddRoute
+  '/contribute/edit': typeof ContributeEditRouteWithChildren
   '/og/$company': typeof OgCompanyRoute
   '/og/search': typeof OgSearchRoute
+  '/contribute/': typeof ContributeIndexRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
+  '/api/github/companies': typeof ApiGithubCompaniesRoute
+  '/api/github/create-pr': typeof ApiGithubCreatePrRoute
+  '/api/github/fork': typeof ApiGithubForkRoute
+  '/contribute/edit/$company': typeof ContributeEditCompanyRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -128,9 +191,16 @@ export interface FileRouteTypes {
     | '/search'
     | '/sponsors'
     | '/stats'
+    | '/contribute/add'
+    | '/contribute/edit'
     | '/og/$company'
     | '/og/search'
+    | '/contribute'
     | '/api/auth/$'
+    | '/api/github/companies'
+    | '/api/github/create-pr'
+    | '/api/github/fork'
+    | '/contribute/edit/$company'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -141,9 +211,16 @@ export interface FileRouteTypes {
     | '/search'
     | '/sponsors'
     | '/stats'
+    | '/contribute/add'
+    | '/contribute/edit'
     | '/og/$company'
     | '/og/search'
+    | '/contribute'
     | '/api/auth/$'
+    | '/api/github/companies'
+    | '/api/github/create-pr'
+    | '/api/github/fork'
+    | '/contribute/edit/$company'
   id:
     | '__root__'
     | '/'
@@ -154,9 +231,16 @@ export interface FileRouteTypes {
     | '/search'
     | '/sponsors'
     | '/stats'
+    | '/contribute/add'
+    | '/contribute/edit'
     | '/og/$company'
     | '/og/search'
+    | '/contribute/'
     | '/api/auth/$'
+    | '/api/github/companies'
+    | '/api/github/create-pr'
+    | '/api/github/fork'
+    | '/contribute/edit/$company'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -168,9 +252,15 @@ export interface RootRouteChildren {
   SearchRoute: typeof SearchRoute
   SponsorsRoute: typeof SponsorsRoute
   StatsRoute: typeof StatsRoute
+  ContributeAddRoute: typeof ContributeAddRoute
+  ContributeEditRoute: typeof ContributeEditRouteWithChildren
   OgCompanyRoute: typeof OgCompanyRoute
   OgSearchRoute: typeof OgSearchRoute
+  ContributeIndexRoute: typeof ContributeIndexRoute
   ApiAuthSplatRoute: typeof ApiAuthSplatRoute
+  ApiGithubCompaniesRoute: typeof ApiGithubCompaniesRoute
+  ApiGithubCreatePrRoute: typeof ApiGithubCreatePrRoute
+  ApiGithubForkRoute: typeof ApiGithubForkRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -231,6 +321,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/contribute/': {
+      id: '/contribute/'
+      path: '/contribute'
+      fullPath: '/contribute'
+      preLoaderRoute: typeof ContributeIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/og/search': {
       id: '/og/search'
       path: '/og/search'
@@ -245,6 +342,48 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof OgCompanyRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/contribute/edit': {
+      id: '/contribute/edit'
+      path: '/contribute/edit'
+      fullPath: '/contribute/edit'
+      preLoaderRoute: typeof ContributeEditRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/contribute/add': {
+      id: '/contribute/add'
+      path: '/contribute/add'
+      fullPath: '/contribute/add'
+      preLoaderRoute: typeof ContributeAddRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/contribute/edit/$company': {
+      id: '/contribute/edit/$company'
+      path: '/$company'
+      fullPath: '/contribute/edit/$company'
+      preLoaderRoute: typeof ContributeEditCompanyRouteImport
+      parentRoute: typeof ContributeEditRoute
+    }
+    '/api/github/fork': {
+      id: '/api/github/fork'
+      path: '/api/github/fork'
+      fullPath: '/api/github/fork'
+      preLoaderRoute: typeof ApiGithubForkRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/github/create-pr': {
+      id: '/api/github/create-pr'
+      path: '/api/github/create-pr'
+      fullPath: '/api/github/create-pr'
+      preLoaderRoute: typeof ApiGithubCreatePrRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/github/companies': {
+      id: '/api/github/companies'
+      path: '/api/github/companies'
+      fullPath: '/api/github/companies'
+      preLoaderRoute: typeof ApiGithubCompaniesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/auth/$': {
       id: '/api/auth/$'
       path: '/api/auth/$'
@@ -255,6 +394,18 @@ declare module '@tanstack/react-router' {
   }
 }
 
+interface ContributeEditRouteChildren {
+  ContributeEditCompanyRoute: typeof ContributeEditCompanyRoute
+}
+
+const ContributeEditRouteChildren: ContributeEditRouteChildren = {
+  ContributeEditCompanyRoute: ContributeEditCompanyRoute,
+}
+
+const ContributeEditRouteWithChildren = ContributeEditRoute._addFileChildren(
+  ContributeEditRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   CompanyRoute: CompanyRoute,
@@ -264,9 +415,15 @@ const rootRouteChildren: RootRouteChildren = {
   SearchRoute: SearchRoute,
   SponsorsRoute: SponsorsRoute,
   StatsRoute: StatsRoute,
+  ContributeAddRoute: ContributeAddRoute,
+  ContributeEditRoute: ContributeEditRouteWithChildren,
   OgCompanyRoute: OgCompanyRoute,
   OgSearchRoute: OgSearchRoute,
+  ContributeIndexRoute: ContributeIndexRoute,
   ApiAuthSplatRoute: ApiAuthSplatRoute,
+  ApiGithubCompaniesRoute: ApiGithubCompaniesRoute,
+  ApiGithubCreatePrRoute: ApiGithubCreatePrRoute,
+  ApiGithubForkRoute: ApiGithubForkRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
