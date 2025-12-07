@@ -62,10 +62,25 @@ export async function getGitHubUser(accessToken: string): Promise<GitHubUser> {
 		headers: {
 			Authorization: `Bearer ${accessToken}`,
 			Accept: "application/vnd.github.v3+json",
+			"User-Agent": "who-to-bother-on-x",
 		},
 	});
 
 	if (!response.ok) {
+		const errorBody = await response.text();
+		console.error("GitHub API error:", {
+			status: response.status,
+			statusText: response.statusText,
+			body: errorBody,
+			headers: Object.fromEntries(response.headers.entries()),
+		});
+
+		if (response.status === 401 || response.status === 403) {
+			throw new Error(
+				`GitHub authentication failed: ${response.statusText}. You may need to re-authenticate to grant the required permissions. Please log out and log back in.`,
+			);
+		}
+
 		throw new Error(`Failed to get GitHub user: ${response.statusText}`);
 	}
 
@@ -85,6 +100,7 @@ export async function getUserFork(
 			headers: {
 				Authorization: `Bearer ${accessToken}`,
 				Accept: "application/vnd.github.v3+json",
+				"User-Agent": "who-to-bother-on-x",
 			},
 		},
 	);
@@ -121,12 +137,19 @@ export async function forkRepository(accessToken: string): Promise<GitHubRepo> {
 			headers: {
 				Authorization: `Bearer ${accessToken}`,
 				Accept: "application/vnd.github.v3+json",
+				"User-Agent": "who-to-bother-on-x",
 			},
 		},
 	);
 
 	if (!response.ok) {
 		const error = await response.text();
+		console.error("GitHub API error:", {
+			status: response.status,
+			statusText: response.statusText,
+			body: error,
+			headers: Object.fromEntries(response.headers.entries()),
+		});
 		throw new Error(`Failed to fork repository: ${error}`);
 	}
 
@@ -169,17 +192,30 @@ export async function getBranchSha(
 	username: string,
 	branch: string = GITHUB_CONFIG.defaultBranch,
 ): Promise<string> {
-	const response = await fetch(
-		`${GITHUB_API_BASE}/repos/${username}/${GITHUB_CONFIG.repo}/git/ref/heads/${branch}`,
-		{
-			headers: {
-				Authorization: `Bearer ${accessToken}`,
-				Accept: "application/vnd.github.v3+json",
-			},
+	const url = `${GITHUB_API_BASE}/repos/${username}/${GITHUB_CONFIG.repo}/git/ref/heads/${branch}`;
+	const response = await fetch(url, {
+		headers: {
+			Authorization: `Bearer ${accessToken}`,
+			Accept: "application/vnd.github.v3+json",
+			"User-Agent": "who-to-bother-on-x",
 		},
-	);
+	});
 
 	if (!response.ok) {
+		const errorBody = await response.text();
+		console.error("Failed to get branch SHA:", {
+			url,
+			status: response.status,
+			statusText: response.statusText,
+			body: errorBody,
+		});
+
+		if (response.status === 404) {
+			throw new Error(
+				`Branch '${branch}' not found in repository '${username}/${GITHUB_CONFIG.repo}'. The fork may not exist yet or the branch hasn't been created.`,
+			);
+		}
+
 		throw new Error(`Failed to get branch SHA: ${response.statusText}`);
 	}
 

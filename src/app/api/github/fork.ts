@@ -37,30 +37,20 @@ export const Route = createFileRoute("/api/github/fork")({
 					}
 
 					accessToken = tokenResponse.accessToken;
+
 				} catch (tokenError) {
 					// Log the error for debugging
 					console.error("getAccessToken error:", tokenError);
 
 					// Try to get accounts via listUserAccounts
 					try {
-						const accounts = await auth.api.listUserAccounts({
-							headers: request.headers,
-						});
-						console.log(
-							"listUserAccounts result:",
-							JSON.stringify(accounts, null, 2),
-						);
+						const accounts = await auth.api.getAccessToken();
 
-						const githubAccount = accounts?.find(
-							(acc: { providerId: string; accessToken?: string }) =>
-								acc.providerId === "github",
-						);
-
-						if (githubAccount?.accessToken) {
-							accessToken = githubAccount.accessToken;
-						} else {
-							throw new Error("No GitHub account found in listUserAccounts");
+						if (!accounts?.accessToken) {
+							throw new Error("No access token returned from listUserAccounts");
 						}
+
+						accessToken = accounts.accessToken;
 					} catch (listError) {
 						console.error("listUserAccounts error:", listError);
 
@@ -98,8 +88,12 @@ export const Route = createFileRoute("/api/github/fork")({
 					// Get user info
 					const user = await getGitHubUser(accessToken);
 
+					console.log("user", user);
+
 					// Check if fork already exists
 					let fork = await getUserFork(accessToken, user.login);
+
+					console.log("fork", fork);
 
 					if (fork) {
 						// Sync fork with upstream
@@ -116,7 +110,10 @@ export const Route = createFileRoute("/api/github/fork")({
 							}),
 							{
 								status: 200,
-								headers: { "Content-Type": "application/json" },
+								headers: {
+									"Content-Type": "application/json",
+									"User-Agent": "who-to-bother-on-x",
+								},
 							},
 						);
 					}
@@ -138,7 +135,10 @@ export const Route = createFileRoute("/api/github/fork")({
 						}),
 						{
 							status: 200,
-							headers: { "Content-Type": "application/json" },
+							headers: {
+								"Content-Type": "application/json",
+								"User-Agent": "who-to-bother-on-x",
+							},
 						},
 					);
 				} catch (error) {
@@ -152,7 +152,10 @@ export const Route = createFileRoute("/api/github/fork")({
 						}),
 						{
 							status: 500,
-							headers: { "Content-Type": "application/json" },
+							headers: {
+								"Content-Type": "application/json",
+								"User-Agent": "who-to-bother-on-x",
+							},
 						},
 					);
 				}

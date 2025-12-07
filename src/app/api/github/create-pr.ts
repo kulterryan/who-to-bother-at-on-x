@@ -111,9 +111,25 @@ export const Route = createFileRoute("/api/github/create-pr")({
 					let fork = await getUserFork(accessToken, user.login);
 
 					if (!fork) {
-						fork = await forkRepository(accessToken);
-						// Wait for fork to be ready
-						await new Promise((resolve) => setTimeout(resolve, 3000));
+						// Create the fork
+						await forkRepository(accessToken);
+
+						// Wait for fork to be ready and verify it exists
+						// GitHub fork creation is asynchronous, so we need to poll
+						let retries = 0;
+						const maxRetries = 10;
+
+						while (!fork && retries < maxRetries) {
+							await new Promise((resolve) => setTimeout(resolve, 2000));
+							fork = await getUserFork(accessToken, user.login);
+							retries++;
+						}
+
+						if (!fork) {
+							throw new Error(
+								"Fork creation timed out. Please try again in a few moments.",
+							);
+						}
 					} else {
 						// Sync fork with upstream
 						await syncFork(accessToken, user.login);
