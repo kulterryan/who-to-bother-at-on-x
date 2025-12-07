@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { auth } from "@/lib/auth";
 import {
 	forkRepository,
+	GITHUB_CONFIG,
 	getGitHubUser,
 	getUserFork,
 	syncFork,
@@ -88,12 +89,30 @@ export const Route = createFileRoute("/api/github/fork")({
 					// Get user info
 					const user = await getGitHubUser(accessToken);
 
-					console.log("user", user);
+					// Check if user is the repo owner (can't fork own repo)
+					const isOwner =
+						user.login.toLowerCase() === GITHUB_CONFIG.owner.toLowerCase();
+
+					if (isOwner) {
+						// Owner doesn't need a fork - they work directly on the repo
+						return new Response(
+							JSON.stringify({
+								success: true,
+								isOwner: true,
+								message: "Owner can commit directly to the repository",
+							}),
+							{
+								status: 200,
+								headers: {
+									"Content-Type": "application/json",
+									"User-Agent": "who-to-bother-on-x",
+								},
+							},
+						);
+					}
 
 					// Check if fork already exists
 					let fork = await getUserFork(accessToken, user.login);
-
-					console.log("fork", fork);
 
 					if (fork) {
 						// Sync fork with upstream
@@ -121,8 +140,17 @@ export const Route = createFileRoute("/api/github/fork")({
 					// Create new fork
 					fork = await forkRepository(accessToken);
 
-					// Wait a bit for fork to be ready
-					await new Promise((resolve) => setTimeout(resolve, 2000));
+					// Wait for fork to be ready (GitHub fork creation is async)
+					// Poll until the fork is accessible
+					let forkReady = false;
+					for (let i = 0; i < 5 && !forkReady; i++) {
+						await new Promise((resolve) => setTimeout(resolve, 2000));
+						const verifiedFork = await getUserFork(accessToken, user.login);
+						if (verifiedFork) {
+							forkReady = true;
+							fork = verifiedFork;
+						}
+					}
 
 					return new Response(
 						JSON.stringify({

@@ -66,10 +66,21 @@ function AddCompanyPage() {
 					throw new Error(error.error || "Failed to fork repository");
 				}
 
-				setPRStatus({ type: "creating-branch" });
+				const forkResult = await forkResponse.json();
 
-				// Wait a moment for fork to be ready
-				await new Promise((resolve) => setTimeout(resolve, 1000));
+				// Update status based on fork result
+				if (forkResult.isOwner) {
+					// Owner doesn't need fork
+					setPRStatus({ type: "creating-branch" });
+				} else if (forkResult.fork?.alreadyExisted) {
+					setPRStatus({ type: "forking", alreadyExists: true });
+					await new Promise((resolve) => setTimeout(resolve, 500));
+					setPRStatus({ type: "creating-branch" });
+				} else {
+					// Wait a moment for new fork to be ready
+					await new Promise((resolve) => setTimeout(resolve, 1000));
+					setPRStatus({ type: "creating-branch" });
+				}
 
 				setPRStatus({ type: "committing" });
 
@@ -91,15 +102,25 @@ function AddCompanyPage() {
 					throw new Error(error.error || "Failed to create pull request");
 				}
 
-				setPRStatus({ type: "creating-pr" });
-
 				const result = await prResponse.json();
 
-				setPRStatus({
-					type: "success",
-					prUrl: result.pullRequest.url,
-					prNumber: result.pullRequest.number,
-				});
+				// Handle owner vs regular user success
+				if (result.branch) {
+					// Owner - direct commit
+					setPRStatus({
+						type: "success-owner",
+						branch: result.branch,
+					});
+				} else {
+					// Regular user - PR created
+					setPRStatus({ type: "creating-pr" });
+					await new Promise((resolve) => setTimeout(resolve, 500));
+					setPRStatus({
+						type: "success",
+						prUrl: result.pullRequest.url,
+						prNumber: result.pullRequest.number,
+					});
+				}
 			} catch (error) {
 				console.error("Submit error:", error);
 				setPRStatus({

@@ -5,7 +5,6 @@ import {
 	createBranch,
 	createOrUpdateFile,
 	createPullRequest,
-	forkRepository,
 	GITHUB_CONFIG,
 	generateBranchName,
 	generatePRContent,
@@ -14,7 +13,6 @@ import {
 	getGitHubUser,
 	getUserFork,
 	injectLogoIntoTsx,
-	syncFork,
 } from "@/lib/github";
 import type { Company } from "@/types/company";
 
@@ -22,15 +20,17 @@ interface CreatePRRequest {
 	company: Company;
 	svgLogo: string;
 	isEdit: boolean;
-	originalCompanyId?: string;
 }
 
 export const Route = createFileRoute("/api/github/create-pr")({
 	server: {
 		handlers: {
 			POST: async ({ request }) => {
+				console.log("[create-pr] Starting PR creation request");
+
 				// Get the session
 				const session = await auth.api.getSession({ headers: request.headers });
+				console.log("[create-pr] Session check:", session ? "authenticated" : "not authenticated");
 
 				if (!session) {
 					return new Response(JSON.stringify({ error: "Unauthorized" }), {
@@ -42,6 +42,7 @@ export const Route = createFileRoute("/api/github/create-pr")({
 				// Get the GitHub access token using getAccessToken API
 				let accessToken: string;
 				try {
+					console.log("[create-pr] Fetching GitHub access token");
 					const tokenResponse = await auth.api.getAccessToken({
 						body: {
 							providerId: "github",
@@ -50,11 +51,14 @@ export const Route = createFileRoute("/api/github/create-pr")({
 					});
 
 					if (!tokenResponse?.accessToken) {
+						console.error("[create-pr] No access token in response:", tokenResponse);
 						throw new Error("No access token returned");
 					}
 
 					accessToken = tokenResponse.accessToken;
-				} catch {
+					console.log("[create-pr] Access token retrieved successfully");
+				} catch (tokenError) {
+					console.error("[create-pr] Token fetch error:", tokenError);
 					return new Response(
 						JSON.stringify({
 							error:
@@ -70,8 +74,11 @@ export const Route = createFileRoute("/api/github/create-pr")({
 				// Parse request body
 				let body: CreatePRRequest;
 				try {
+					console.log("[create-pr] Parsing request body");
 					body = await request.json();
-				} catch {
+					console.log("[create-pr] Request body parsed:", { companyId: body.company?.id, isEdit: body.isEdit, hasSvg: Boolean(body.svgLogo) });
+				} catch (parseError) {
+					console.error("[create-pr] Body parse error:", parseError);
 					return new Response(
 						JSON.stringify({ error: "Invalid request body" }),
 						{
@@ -81,7 +88,7 @@ export const Route = createFileRoute("/api/github/create-pr")({
 					);
 				}
 
-				const { company, svgLogo, isEdit, originalCompanyId } = body;
+				const { company, svgLogo, isEdit } = body;
 
 				if (!company || !company.id || !company.name) {
 					return new Response(
@@ -105,54 +112,80 @@ export const Route = createFileRoute("/api/github/create-pr")({
 
 				try {
 					// Step 1: Get user info
+					console.log("[create-pr] Step 1: Fetching GitHub user info");
 					const user = await getGitHubUser(accessToken);
+					console.log("[create-pr] GitHub user:", user.login);
 
-					// Step 2: Ensure fork exists
-					let fork = await getUserFork(accessToken, user.login);
+					// Step 2: Check if user is the repo owner (can't fork own repo)
+					const isOwner =
+						user.login.toLowerCase() === GITHUB_CONFIG.owner.toLowerCase();
+					console.log("[create-pr] Step 2: Is owner?", isOwner);
 
-					if (!fork) {
-						// Create the fork
-						await forkRepository(accessToken);
-
-						// Wait for fork to be ready and verify it exists
-						// GitHub fork creation is asynchronous, so we need to poll
-						let retries = 0;
-						const maxRetries = 10;
-
-						while (!fork && retries < maxRetries) {
-							await new Promise((resolve) => setTimeout(resolve, 2000));
-							fork = await getUserFork(accessToken, user.login);
-							retries++;
-						}
-
+					// If not owner, verify fork exists with retries
+					if (!isOwner) {
+						console.log("[create-pr] Checking for user fork");
+						let fork = await getUserFork(accessToken, user.login);
 						if (!fork) {
+							console.log("[create-pr] Fork not found, retrying...");
+							// Retry a few times with short delays
+							for (let i = 0; i < 3 && !fork; i++) {
+								console.log(`[create-pr] Fork retry attempt ${i + 1}/3`);
+								await new Promise((resolve) => setTimeout(resolve, 1500));
+								fork = await getUserFork(accessToken, user.login);
+							}
+						}
+						if (!fork) {
+							console.error("[create-pr] Fork not found after retries");
 							throw new Error(
-								"Fork creation timed out. Please try again in a few moments.",
+								"Fork not found. Please try again - the fork may still be initializing.",
 							);
 						}
-					} else {
-						// Sync fork with upstream
-						await syncFork(accessToken, user.login);
+						console.log("[create-pr] Fork found:", fork.full_name);
 					}
 
-					// Step 3: Get the latest SHA from default branch
-					const baseSha = await getBranchSha(accessToken, user.login);
+					// Determine which repo to work on (fork or main repo if owner)
+					const workingRepo = isOwner ? GITHUB_CONFIG.owner : user.login;
+					console.log("[create-pr] Working repo:", workingRepo);
+
+					// Step 3: Get base SHA and generate branch name
+					console.log("[create-pr] Step 3: Getting base SHA and generating branch name");
+					const branchName = generateBranchName(company.id, isEdit, user.login);
+					console.log("[create-pr] Branch name:", branchName);
+					const baseSha = await getBranchSha(accessToken, workingRepo);
+					console.log("[create-pr] Base SHA:", baseSha);
 
 					// Step 4: Create a new branch
-					const branchName = generateBranchName(company.id, isEdit);
-
-					// Check if branch exists and create if not
+					console.log("[create-pr] Step 4: Checking/creating branch");
 					const exists = await branchExists(
 						accessToken,
-						user.login,
+						workingRepo,
 						branchName,
 					);
+					console.log("[create-pr] Branch exists?", exists);
 					if (!exists) {
-						await createBranch(accessToken, user.login, branchName, baseSha);
+						console.log("[create-pr] Creating new branch");
+						await createBranch(accessToken, workingRepo, branchName, baseSha);
+						console.log("[create-pr] Branch created successfully");
 					}
 
-					// Step 5: Create/update the company JSON file
+					// Step 5: Fetch both files in parallel
+					console.log("[create-pr] Step 5: Fetching existing files");
 					const companyPath = `src/data/companies/${company.id}.json`;
+					const logosPath = "src/components/company-logos.tsx";
+					console.log("[create-pr] Company path:", companyPath);
+					console.log("[create-pr] Logos path:", logosPath);
+
+					const [existingCompanyFile, existingLogosFile] = await Promise.all([
+						isEdit
+							? getFileContent(accessToken, workingRepo, companyPath, branchName)
+							: Promise.resolve(null),
+						getFileContent(accessToken, workingRepo, logosPath, branchName),
+					]);
+					console.log("[create-pr] Existing company file:", existingCompanyFile ? "found" : "not found");
+					console.log("[create-pr] Existing logos file:", existingLogosFile ? "found" : "not found");
+
+					// Step 6: Create/update both files in parallel
+					console.log("[create-pr] Step 6: Preparing file contents");
 					const companyJson = JSON.stringify(
 						{
 							$schema: "./schema.json",
@@ -162,19 +195,47 @@ export const Route = createFileRoute("/api/github/create-pr")({
 						2,
 					);
 
-					// Check if file exists (for edit mode)
-					const existingCompanyFile = isEdit
-						? await getFileContent(
-								accessToken,
-								user.login,
-								companyPath,
-								branchName,
-							)
-						: null;
+					// Get logos file content (from branch or default)
+					let logosFileContent: string;
+					let logosFileSha: string | undefined;
 
+					if (existingLogosFile) {
+						logosFileContent = existingLogosFile.content;
+						logosFileSha = existingLogosFile.sha;
+						console.log("[create-pr] Using logos file from branch");
+					} else {
+						// Try to get from default branch
+						console.log("[create-pr] Fetching logos file from default branch");
+						const defaultLogosFile = await getFileContent(
+							accessToken,
+							workingRepo,
+							logosPath,
+							GITHUB_CONFIG.defaultBranch,
+						);
+
+						if (!defaultLogosFile) {
+							console.error("[create-pr] Could not find company-logos.tsx file");
+							throw new Error("Could not find company-logos.tsx file");
+						}
+						logosFileContent = defaultLogosFile.content;
+						logosFileSha = undefined;
+						console.log("[create-pr] Using logos file from default branch");
+					}
+
+					// Inject the logo
+					console.log("[create-pr] Injecting logo into TSX");
+					const updatedLogosContent = injectLogoIntoTsx(
+						logosFileContent,
+						company.logoType || company.id,
+						svgLogo,
+					);
+					console.log("[create-pr] Logo injected successfully");
+
+					// Commit both files - must be sequential due to Git's atomic commits
+					console.log("[create-pr] Committing company JSON file");
 					await createOrUpdateFile(
 						accessToken,
-						user.login,
+						workingRepo,
 						companyPath,
 						companyJson,
 						isEdit
@@ -183,74 +244,48 @@ export const Route = createFileRoute("/api/github/create-pr")({
 						branchName,
 						existingCompanyFile?.sha,
 					);
+					console.log("[create-pr] Company JSON committed successfully");
 
-					// Step 6: Update company-logos.tsx with the new logo
-					const logosPath = "src/components/company-logos.tsx";
-					const existingLogosFile = await getFileContent(
+					console.log("[create-pr] Committing logos file");
+					await createOrUpdateFile(
 						accessToken,
-						user.login,
+						workingRepo,
 						logosPath,
+						updatedLogosContent,
+						isEdit
+							? `chore: update ${company.name} logo`
+							: `feat: add ${company.name} logo`,
 						branchName,
+						logosFileSha,
 					);
+					console.log("[create-pr] Logos file committed successfully");
 
-					if (!existingLogosFile) {
-						// Try to get from default branch
-						const defaultLogosFile = await getFileContent(
-							accessToken,
-							user.login,
-							logosPath,
-							GITHUB_CONFIG.defaultBranch,
-						);
-
-						if (!defaultLogosFile) {
-							throw new Error("Could not find company-logos.tsx file");
-						}
-
-						// Inject the logo
-						const updatedLogosContent = injectLogoIntoTsx(
-							defaultLogosFile.content,
-							company.logoType || company.id,
-							svgLogo,
-						);
-
-						await createOrUpdateFile(
-							accessToken,
-							user.login,
-							logosPath,
-							updatedLogosContent,
-							isEdit
-								? `chore: update ${company.name} logo`
-								: `feat: add ${company.name} logo`,
-							branchName,
-						);
-					} else {
-						// Inject the logo into existing content
-						const updatedLogosContent = injectLogoIntoTsx(
-							existingLogosFile.content,
-							company.logoType || company.id,
-							svgLogo,
-						);
-
-						await createOrUpdateFile(
-							accessToken,
-							user.login,
-							logosPath,
-							updatedLogosContent,
-							isEdit
-								? `chore: update ${company.name} logo`
-								: `feat: add ${company.name} logo`,
-							branchName,
-							existingLogosFile.sha,
+					// Step 7: Create the pull request (only if not owner)
+					// If owner, we just created a branch with commits - no PR needed
+					console.log("[create-pr] Step 7: Creating pull request");
+					if (isOwner) {
+						console.log("[create-pr] User is owner, skipping PR creation");
+						return new Response(
+							JSON.stringify({
+								success: true,
+								message: "Changes committed directly to branch",
+								branch: branchName,
+							}),
+							{
+								status: 200,
+								headers: { "Content-Type": "application/json" },
+							},
 						);
 					}
 
-					// Step 7: Create the pull request
 					const { title, body: prBody } = generatePRContent(
 						company.id,
 						company.name,
 						isEdit,
 					);
+					console.log("[create-pr] PR title:", title);
 
+					console.log("[create-pr] Creating pull request to upstream");
 					const pullRequest = await createPullRequest(
 						accessToken,
 						user.login,
@@ -258,6 +293,7 @@ export const Route = createFileRoute("/api/github/create-pr")({
 						title,
 						prBody,
 					);
+					console.log("[create-pr] Pull request created successfully:", pullRequest.html_url);
 
 					return new Response(
 						JSON.stringify({
@@ -274,7 +310,8 @@ export const Route = createFileRoute("/api/github/create-pr")({
 						},
 					);
 				} catch (error) {
-					console.error("Create PR error:", error);
+					console.error("[create-pr] Error occurred:", error);
+					console.error("[create-pr] Error stack:", error instanceof Error ? error.stack : "No stack trace");
 					return new Response(
 						JSON.stringify({
 							error:

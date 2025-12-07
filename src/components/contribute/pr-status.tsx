@@ -2,6 +2,7 @@ import { Link } from "@tanstack/react-router";
 import {
 	CheckCircle,
 	ExternalLink,
+	GitBranch,
 	GitPullRequest,
 	Loader2,
 	XCircle,
@@ -10,11 +11,12 @@ import { Button } from "@/components/ui/button";
 
 type PRStatusState =
 	| { type: "idle" }
-	| { type: "forking" }
+	| { type: "forking"; alreadyExists?: boolean }
 	| { type: "creating-branch" }
 	| { type: "committing" }
 	| { type: "creating-pr" }
 	| { type: "success"; prUrl: string; prNumber: number }
+	| { type: "success-owner"; branch: string }
 	| { type: "error"; message: string };
 
 interface PRStatusProps {
@@ -41,14 +43,19 @@ export function PRStatus({ status, onRetry, onReset }: PRStatusProps) {
 							<Loader2 className="h-8 w-8 animate-spin text-orange-600" />
 						</div>
 						<h3 className="text-lg font-semibold text-zinc-900 dark:text-zinc-100">
-							{status.type === "forking" && "Forking Repository..."}
+							{status.type === "forking" &&
+								(status.alreadyExists
+									? "Syncing Fork..."
+									: "Forking Repository...")}
 							{status.type === "creating-branch" && "Creating Branch..."}
 							{status.type === "committing" && "Committing Changes..."}
 							{status.type === "creating-pr" && "Creating Pull Request..."}
 						</h3>
 						<p className="mt-2 text-sm text-zinc-600 dark:text-zinc-400">
 							{status.type === "forking" &&
-								"Setting up your fork of the repository"}
+								(status.alreadyExists
+									? "Syncing your existing fork with the latest changes"
+									: "Setting up your fork of the repository")}
 							{status.type === "creating-branch" &&
 								"Creating a new branch for your changes"}
 							{status.type === "committing" &&
@@ -60,7 +67,11 @@ export function PRStatus({ status, onRetry, onReset }: PRStatusProps) {
 						{/* Progress Steps */}
 						<div className="mt-6 space-y-2">
 							<ProgressStep
-								label="Fork repository"
+								label={
+									status.type === "forking" && status.alreadyExists
+										? "Sync fork"
+										: "Fork repository"
+								}
 								completed={status.type !== "forking"}
 								active={status.type === "forking"}
 							/>
@@ -85,7 +96,7 @@ export function PRStatus({ status, onRetry, onReset }: PRStatusProps) {
 					</div>
 				)}
 
-				{/* Success State */}
+				{/* Success State - PR Created */}
 				{status.type === "success" && (
 					<div className="text-center">
 						<div className="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-full bg-green-100 dark:bg-green-900/30">
@@ -115,6 +126,48 @@ export function PRStatus({ status, onRetry, onReset }: PRStatusProps) {
 							>
 								<ExternalLink className="h-4 w-4" />
 								View Pull Request on GitHub
+							</a>
+							<Link
+								to="/contribute"
+								className="inline-flex items-center justify-center gap-2 rounded-lg border-2 border-zinc-200 px-4 py-3 font-medium text-zinc-900 transition-colors hover:bg-zinc-50 dark:border-zinc-700 dark:text-zinc-100 dark:hover:bg-zinc-800"
+							>
+								Back to Contribute
+							</Link>
+						</div>
+					</div>
+				)}
+
+				{/* Success State - Owner Direct Commit */}
+				{status.type === "success-owner" && (
+					<div className="text-center">
+						<div className="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-full bg-green-100 dark:bg-green-900/30">
+							<CheckCircle className="h-8 w-8 text-green-600" />
+						</div>
+						<h3 className="text-lg font-semibold text-zinc-900 dark:text-zinc-100">
+							Changes Committed!
+						</h3>
+						<p className="mt-2 text-sm text-zinc-600 dark:text-zinc-400">
+							Your changes have been committed directly to the repository.
+						</p>
+
+						<div className="mt-6 rounded-lg border-2 border-green-200 bg-green-50 p-4 dark:border-green-800 dark:bg-green-950/30">
+							<div className="flex items-center justify-center gap-2 text-green-700 dark:text-green-400">
+								<GitBranch className="h-5 w-5" />
+								<span className="font-medium font-mono text-sm">
+									{status.branch}
+								</span>
+							</div>
+						</div>
+
+						<div className="mt-6 flex flex-col gap-3">
+							<a
+								href={`https://github.com/kulterryan/cf-who-to-bother-at-on-x/tree/${status.branch}`}
+								target="_blank"
+								rel="noopener noreferrer"
+								className="inline-flex items-center justify-center gap-2 rounded-lg bg-zinc-900 px-4 py-3 font-medium text-white transition-colors hover:bg-zinc-800 dark:bg-zinc-100 dark:text-zinc-900 dark:hover:bg-zinc-200"
+							>
+								<ExternalLink className="h-4 w-4" />
+								View Branch on GitHub
 							</a>
 							<Link
 								to="/contribute"
