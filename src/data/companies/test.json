@@ -1,0 +1,19 @@
+{
+  "$schema": "./schema.json",
+  "id": "test",
+  "name": "Test",
+  "description": "TEST",
+  "logoType": "test",
+  "categories": [
+    {
+      "name": "TEST",
+      "contacts": [
+        {
+          "product": "TEST",
+          "handles": [],
+          "email": "test@gmail.com"
+        }
+      ]
+    }
+  ]
+}
