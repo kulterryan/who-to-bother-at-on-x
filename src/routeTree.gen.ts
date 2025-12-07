@@ -13,10 +13,13 @@ import { Route as StatsRouteImport } from './app/stats'
 import { Route as SponsorsRouteImport } from './app/sponsors'
 import { Route as SearchRouteImport } from './app/search'
 import { Route as OpengraphRouteImport } from './app/opengraph'
+import { Route as LoginRouteImport } from './app/login'
+import { Route as DashboardRouteImport } from './app/dashboard'
 import { Route as CompanyRouteImport } from './app/$company'
 import { Route as IndexRouteImport } from './app/index'
 import { Route as OgSearchRouteImport } from './app/og.search'
 import { Route as OgCompanyRouteImport } from './app/og/$company'
+import { Route as ApiAuthSplatRouteImport } from './app/api/auth/$'
 
 const StatsRoute = StatsRouteImport.update({
   id: '/stats',
@@ -36,6 +39,16 @@ const SearchRoute = SearchRouteImport.update({
 const OpengraphRoute = OpengraphRouteImport.update({
   id: '/opengraph',
   path: '/opengraph',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LoginRoute = LoginRouteImport.update({
+  id: '/login',
+  path: '/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DashboardRoute = DashboardRouteImport.update({
+  id: '/dashboard',
+  path: '/dashboard',
   getParentRoute: () => rootRouteImport,
 } as any)
 const CompanyRoute = CompanyRouteImport.update({
@@ -58,80 +71,106 @@ const OgCompanyRoute = OgCompanyRouteImport.update({
   path: '/og/$company',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiAuthSplatRoute = ApiAuthSplatRouteImport.update({
+  id: '/api/auth/$',
+  path: '/api/auth/$',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/$company': typeof CompanyRoute
+  '/dashboard': typeof DashboardRoute
+  '/login': typeof LoginRoute
   '/opengraph': typeof OpengraphRoute
   '/search': typeof SearchRoute
   '/sponsors': typeof SponsorsRoute
   '/stats': typeof StatsRoute
   '/og/$company': typeof OgCompanyRoute
   '/og/search': typeof OgSearchRoute
+  '/api/auth/$': typeof ApiAuthSplatRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/$company': typeof CompanyRoute
+  '/dashboard': typeof DashboardRoute
+  '/login': typeof LoginRoute
   '/opengraph': typeof OpengraphRoute
   '/search': typeof SearchRoute
   '/sponsors': typeof SponsorsRoute
   '/stats': typeof StatsRoute
   '/og/$company': typeof OgCompanyRoute
   '/og/search': typeof OgSearchRoute
+  '/api/auth/$': typeof ApiAuthSplatRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/$company': typeof CompanyRoute
+  '/dashboard': typeof DashboardRoute
+  '/login': typeof LoginRoute
   '/opengraph': typeof OpengraphRoute
   '/search': typeof SearchRoute
   '/sponsors': typeof SponsorsRoute
   '/stats': typeof StatsRoute
   '/og/$company': typeof OgCompanyRoute
   '/og/search': typeof OgSearchRoute
+  '/api/auth/$': typeof ApiAuthSplatRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
     | '/$company'
+    | '/dashboard'
+    | '/login'
     | '/opengraph'
     | '/search'
     | '/sponsors'
     | '/stats'
     | '/og/$company'
     | '/og/search'
+    | '/api/auth/$'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/$company'
+    | '/dashboard'
+    | '/login'
     | '/opengraph'
     | '/search'
     | '/sponsors'
     | '/stats'
     | '/og/$company'
     | '/og/search'
+    | '/api/auth/$'
   id:
     | '__root__'
     | '/'
     | '/$company'
+    | '/dashboard'
+    | '/login'
     | '/opengraph'
     | '/search'
     | '/sponsors'
     | '/stats'
     | '/og/$company'
     | '/og/search'
+    | '/api/auth/$'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   CompanyRoute: typeof CompanyRoute
+  DashboardRoute: typeof DashboardRoute
+  LoginRoute: typeof LoginRoute
   OpengraphRoute: typeof OpengraphRoute
   SearchRoute: typeof SearchRoute
   SponsorsRoute: typeof SponsorsRoute
   StatsRoute: typeof StatsRoute
   OgCompanyRoute: typeof OgCompanyRoute
   OgSearchRoute: typeof OgSearchRoute
+  ApiAuthSplatRoute: typeof ApiAuthSplatRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -164,6 +203,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof OpengraphRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/login': {
+      id: '/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof LoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/dashboard': {
+      id: '/dashboard'
+      path: '/dashboard'
+      fullPath: '/dashboard'
+      preLoaderRoute: typeof DashboardRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/$company': {
       id: '/$company'
       path: '/$company'
@@ -192,18 +245,28 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof OgCompanyRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/auth/$': {
+      id: '/api/auth/$'
+      path: '/api/auth/$'
+      fullPath: '/api/auth/$'
+      preLoaderRoute: typeof ApiAuthSplatRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   CompanyRoute: CompanyRoute,
+  DashboardRoute: DashboardRoute,
+  LoginRoute: LoginRoute,
   OpengraphRoute: OpengraphRoute,
   SearchRoute: SearchRoute,
   SponsorsRoute: SponsorsRoute,
   StatsRoute: StatsRoute,
   OgCompanyRoute: OgCompanyRoute,
   OgSearchRoute: OgSearchRoute,
+  ApiAuthSplatRoute: ApiAuthSplatRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

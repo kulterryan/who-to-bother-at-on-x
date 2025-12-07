@@ -97,7 +97,10 @@
 					"product": "Manager of Developer Advocacy",
 					"handles": ["@kristianf_"]
 				},
-				{ "product": "Developer Advocate", "handles": ["@lauragift_", "@fayazara"] }
+				{
+					"product": "Developer Advocate",
+					"handles": ["@lauragift_", "@fayazara"]
+				}
 			]
 		},
 		{
