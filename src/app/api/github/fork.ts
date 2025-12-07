@@ -1,9 +1,9 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { auth } from "@/lib/auth";
 import {
+	forkRepository,
 	getGitHubUser,
 	getUserFork,
-	forkRepository,
 	syncFork,
 } from "@/lib/github";
 
@@ -15,13 +15,10 @@ export const Route = createFileRoute("/api/github/fork")({
 				const session = await auth.api.getSession({ headers: request.headers });
 
 				if (!session) {
-					return new Response(
-						JSON.stringify({ error: "Unauthorized" }),
-						{
-							status: 401,
-							headers: { "Content-Type": "application/json" },
-						},
-					);
+					return new Response(JSON.stringify({ error: "Unauthorized" }), {
+						status: 401,
+						headers: { "Content-Type": "application/json" },
+					});
 				}
 
 				// Get the GitHub access token
@@ -49,10 +46,14 @@ export const Route = createFileRoute("/api/github/fork")({
 						const accounts = await auth.api.listUserAccounts({
 							headers: request.headers,
 						});
-						console.log("listUserAccounts result:", JSON.stringify(accounts, null, 2));
+						console.log(
+							"listUserAccounts result:",
+							JSON.stringify(accounts, null, 2),
+						);
 
 						const githubAccount = accounts?.find(
-							(acc: { providerId: string; accessToken?: string }) => acc.providerId === "github"
+							(acc: { providerId: string; accessToken?: string }) =>
+								acc.providerId === "github",
 						);
 
 						if (githubAccount?.accessToken) {
@@ -65,15 +66,25 @@ export const Route = createFileRoute("/api/github/fork")({
 
 						// Log available cookies for debugging
 						const cookieHeader = request.headers.get("cookie") || "";
-						console.log("Available cookies:", cookieHeader.split(";").map(c => c.trim().split("=")[0]));
+						console.log(
+							"Available cookies:",
+							cookieHeader.split(";").map((c) => c.trim().split("=")[0]),
+						);
 
 						return new Response(
-							JSON.stringify({ 
-								error: "GitHub access token not found. Please re-authenticate with GitHub.",
+							JSON.stringify({
+								error:
+									"GitHub access token not found. Please re-authenticate with GitHub.",
 								debug: {
-									tokenError: tokenError instanceof Error ? tokenError.message : String(tokenError),
-									listError: listError instanceof Error ? listError.message : String(listError),
-								}
+									tokenError:
+										tokenError instanceof Error
+											? tokenError.message
+											: String(tokenError),
+									listError:
+										listError instanceof Error
+											? listError.message
+											: String(listError),
+								},
 							}),
 							{
 								status: 401,
@@ -134,7 +145,10 @@ export const Route = createFileRoute("/api/github/fork")({
 					console.error("Fork error:", error);
 					return new Response(
 						JSON.stringify({
-							error: error instanceof Error ? error.message : "Failed to fork repository",
+							error:
+								error instanceof Error
+									? error.message
+									: "Failed to fork repository",
 						}),
 						{
 							status: 500,

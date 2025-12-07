@@ -1,14 +1,14 @@
-import { useState } from "react";
-import { useForm, useFieldArray } from "react-hook-form";
 import { valibotResolver } from "@hookform/resolvers/valibot";
-import * as v from "valibot";
 import { Plus, Trash2, X } from "lucide-react";
+import { useState } from "react";
+import { useFieldArray, useForm } from "react-hook-form";
+import * as v from "valibot";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
-import type { Company } from "@/types/company";
+import { Textarea } from "@/components/ui/textarea";
 import type { Category, Contact } from "@/data/companies/schema";
+import type { Company } from "@/types/company";
 
 // Form-specific schema (without $schema field)
 const ContactFormSchema = v.object({
@@ -276,7 +276,9 @@ export function CompanyForm({
 						onClick={() =>
 							appendCategory({
 								name: "",
-								contacts: [{ product: "", handles: [""], email: "", discord: "" }],
+								contacts: [
+									{ product: "", handles: [""], email: "", discord: "" },
+								],
 							})
 						}
 					>
@@ -385,7 +387,9 @@ function CategorySection({
 						{...register(`categories.${categoryIndex}.name`)}
 					/>
 					{categoryErrors?.name && (
-						<p className="text-sm text-red-600">{categoryErrors.name.message}</p>
+						<p className="text-sm text-red-600">
+							{categoryErrors.name.message}
+						</p>
 					)}
 				</div>
 				{canRemove && (
@@ -411,7 +415,12 @@ function CategorySection({
 						variant="ghost"
 						size="sm"
 						onClick={() =>
-							appendContact({ product: "", handles: [""], email: "", discord: "" })
+							appendContact({
+								product: "",
+								handles: [""],
+								email: "",
+								discord: "",
+							})
 						}
 					>
 						<Plus className="h-4 w-4" />
@@ -533,7 +542,9 @@ function ContactRow({
 					</Button>
 				</div>
 				{contactErrors?.handles?.message && (
-					<p className="text-sm text-red-600">{contactErrors.handles.message}</p>
+					<p className="text-sm text-red-600">
+						{contactErrors.handles.message}
+					</p>
 				)}
 				<div className="flex flex-wrap gap-2">
 					{handleFields.map((handleField, handleIndex) => (

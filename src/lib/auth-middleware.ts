@@ -13,4 +13,3 @@ export const authMiddleware = createMiddleware().server(
 		return await next();
 	},
 );
-

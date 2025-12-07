@@ -1,10 +1,10 @@
-import { useState } from "react";
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
+import { ArrowLeft, Building2, Search } from "lucide-react";
+import { useState } from "react";
+import { companyLogos } from "@/components/company-logos";
+import { Input } from "@/components/ui/input";
 import { useSession } from "@/lib/auth-client";
 import { seo } from "@/lib/seo";
-import { ArrowLeft, Search, Building2 } from "lucide-react";
-import { Input } from "@/components/ui/input";
-import { companyLogos } from "@/components/company-logos";
 import type { Company } from "@/types/company";
 
 interface CompanyListItem {
@@ -167,9 +167,7 @@ function EditCompanySelectPage() {
 								className="flex items-center gap-4 rounded-lg border-2 border-zinc-200 bg-white p-4 transition-all hover:border-orange-600 hover:shadow-md dark:border-zinc-700 dark:bg-zinc-900 dark:hover:border-orange-600"
 							>
 								<div className="flex h-12 w-12 items-center justify-center rounded-lg border border-zinc-200 bg-zinc-50 p-2 dark:border-zinc-700 dark:bg-zinc-800">
-									{Logo || (
-										<Building2 className="h-6 w-6 text-zinc-400" />
-									)}
+									{Logo || <Building2 className="h-6 w-6 text-zinc-400" />}
 								</div>
 								<div className="flex-1 min-w-0">
 									<h3 className="font-semibold truncate">{company.name}</h3>

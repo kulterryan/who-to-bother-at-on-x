@@ -1,20 +1,20 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { auth } from "@/lib/auth";
 import {
-	getGitHubUser,
-	getUserFork,
-	forkRepository,
-	syncFork,
-	getBranchSha,
-	createBranch,
 	branchExists,
-	getFileContent,
+	createBranch,
 	createOrUpdateFile,
 	createPullRequest,
-	injectLogoIntoTsx,
+	forkRepository,
+	GITHUB_CONFIG,
 	generateBranchName,
 	generatePRContent,
-	GITHUB_CONFIG,
+	getBranchSha,
+	getFileContent,
+	getGitHubUser,
+	getUserFork,
+	injectLogoIntoTsx,
+	syncFork,
 } from "@/lib/github";
 import type { Company } from "@/types/company";
 
@@ -33,13 +33,10 @@ export const Route = createFileRoute("/api/github/create-pr")({
 				const session = await auth.api.getSession({ headers: request.headers });
 
 				if (!session) {
-					return new Response(
-						JSON.stringify({ error: "Unauthorized" }),
-						{
-							status: 401,
-							headers: { "Content-Type": "application/json" },
-						},
-					);
+					return new Response(JSON.stringify({ error: "Unauthorized" }), {
+						status: 401,
+						headers: { "Content-Type": "application/json" },
+					});
 				}
 
 				// Get the GitHub access token using getAccessToken API
@@ -59,7 +56,10 @@ export const Route = createFileRoute("/api/github/create-pr")({
 					accessToken = tokenResponse.accessToken;
 				} catch {
 					return new Response(
-						JSON.stringify({ error: "GitHub access token not found. Please re-authenticate with GitHub." }),
+						JSON.stringify({
+							error:
+								"GitHub access token not found. Please re-authenticate with GitHub.",
+						}),
 						{
 							status: 401,
 							headers: { "Content-Type": "application/json" },
@@ -126,7 +126,11 @@ export const Route = createFileRoute("/api/github/create-pr")({
 					const branchName = generateBranchName(company.id, isEdit);
 
 					// Check if branch exists and create if not
-					const exists = await branchExists(accessToken, user.login, branchName);
+					const exists = await branchExists(
+						accessToken,
+						user.login,
+						branchName,
+					);
 					if (!exists) {
 						await createBranch(accessToken, user.login, branchName, baseSha);
 					}
@@ -144,7 +148,12 @@ export const Route = createFileRoute("/api/github/create-pr")({
 
 					// Check if file exists (for edit mode)
 					const existingCompanyFile = isEdit
-						? await getFileContent(accessToken, user.login, companyPath, branchName)
+						? await getFileContent(
+								accessToken,
+								user.login,
+								companyPath,
+								branchName,
+							)
 						: null;
 
 					await createOrUpdateFile(
@@ -252,7 +261,10 @@ export const Route = createFileRoute("/api/github/create-pr")({
 					console.error("Create PR error:", error);
 					return new Response(
 						JSON.stringify({
-							error: error instanceof Error ? error.message : "Failed to create pull request",
+							error:
+								error instanceof Error
+									? error.message
+									: "Failed to create pull request",
 						}),
 						{
 							status: 500,

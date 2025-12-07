@@ -1,6 +1,12 @@
-import { CheckCircle, XCircle, Loader2, ExternalLink, GitPullRequest } from "lucide-react";
-import { Button } from "@/components/ui/button";
 import { Link } from "@tanstack/react-router";
+import {
+	CheckCircle,
+	ExternalLink,
+	GitPullRequest,
+	Loader2,
+	XCircle,
+} from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 type PRStatusState =
 	| { type: "idle" }
@@ -55,9 +61,7 @@ export function PRStatus({ status, onRetry, onReset }: PRStatusProps) {
 						<div className="mt-6 space-y-2">
 							<ProgressStep
 								label="Fork repository"
-								completed={
-									status.type !== "forking"
-								}
+								completed={status.type !== "forking"}
 								active={status.type === "forking"}
 							/>
 							<ProgressStep

@@ -45,13 +45,10 @@ export const Route = createFileRoute("/api/github/companies")({
 						);
 					}
 
-					return new Response(
-						JSON.stringify({ company }),
-						{
-							status: 200,
-							headers: { "Content-Type": "application/json" },
-						},
-					);
+					return new Response(JSON.stringify({ company }), {
+						status: 200,
+						headers: { "Content-Type": "application/json" },
+					});
 				}
 
 				// Return all companies (for listing/selection)
@@ -62,13 +59,10 @@ export const Route = createFileRoute("/api/github/companies")({
 					logoType: c.logoType,
 				}));
 
-				return new Response(
-					JSON.stringify({ companies: allCompanies }),
-					{
-						status: 200,
-						headers: { "Content-Type": "application/json" },
-					},
-				);
+				return new Response(JSON.stringify({ companies: allCompanies }), {
+					status: 200,
+					headers: { "Content-Type": "application/json" },
+				});
 			},
 		},
 	},

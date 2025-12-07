@@ -4,14 +4,17 @@ import {
 	Github,
 	GithubIcon,
 	HeartIcon,
+	LogOut,
 	PlusIcon,
 } from "lucide-react";
 import { useEffect, useState } from "react";
 import { companyLogos } from "@/components/company-logos";
+import { signOut, useSession } from "@/lib/auth-client";
 import type { Company } from "@/types/company";
 
 export function Header() {
 	const [isScrolled, setIsScrolled] = useState(false);
+	const { data: session } = useSession();
 
 	// Get company data if we're on a company page
 	const matches = useMatches();
@@ -65,6 +68,16 @@ export function Header() {
 							<ChartColumnIncreasing className="size-3.5" />
 							<span>Stats</span>
 						</Link>
+						{session && (
+							<button
+								type="button"
+								onClick={() => signOut()}
+								className="flex items-center gap-2 text-sm font-medium text-zinc-600 transition-colors hover:text-orange-600 dark:text-zinc-400 dark:hover:text-orange-600 cursor-pointer"
+							>
+								<LogOut className="size-3.5" />
+								<span>Sign Out</span>
+							</button>
+						)}
 					</nav>
 
 					{/* Logo / Title - Visible when scrolled */}
@@ -149,6 +162,16 @@ export function Header() {
 							<ChartColumnIncreasing className="size-3.5" />
 							<span>Stats</span>
 						</Link>
+						{session && (
+							<button
+								type="button"
+								onClick={() => signOut()}
+								className="flex items-center gap-2 text-sm font-medium text-zinc-600 transition-colors hover:text-orange-600 dark:text-zinc-400 dark:hover:text-orange-600 cursor-pointer"
+							>
+								<LogOut className="size-3.5" />
+								<span>Sign Out</span>
+							</button>
+						)}
 					</nav>
 				</div>
 			</div>

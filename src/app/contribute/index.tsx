@@ -1,8 +1,8 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { BookOpen, Edit, GitPullRequest, LogIn, Plus } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import { useSession } from "@/lib/auth-client";
 import { seo } from "@/lib/seo";
-import { Plus, Edit, LogIn, GitPullRequest, BookOpen } from "lucide-react";
-import { Button } from "@/components/ui/button";
 
 export const Route = createFileRoute("/contribute/")({
 	head: () => ({
@@ -100,9 +100,7 @@ function ContributePage() {
 							<div className="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-full bg-zinc-100 dark:bg-zinc-800">
 								<LogIn className="h-8 w-8 text-zinc-600 dark:text-zinc-400" />
 							</div>
-							<h3 className="text-xl font-semibold">
-								Sign in to Contribute
-							</h3>
+							<h3 className="text-xl font-semibold">Sign in to Contribute</h3>
 							<p className="mt-2 text-zinc-600 dark:text-zinc-400">
 								You need to sign in with GitHub to submit contributions. This
 								allows us to create pull requests on your behalf.

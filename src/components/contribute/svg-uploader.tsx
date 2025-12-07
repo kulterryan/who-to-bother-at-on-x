@@ -1,5 +1,5 @@
-import { useState, useRef, useCallback } from "react";
-import { Upload, X, AlertCircle, CheckCircle } from "lucide-react";
+import { AlertCircle, CheckCircle, Upload, X } from "lucide-react";
+import { useCallback, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
@@ -57,7 +57,9 @@ export function SVGUploader({
 
 		// Warnings
 		if (!content.includes("viewBox")) {
-			warnings.push("SVG is missing viewBox attribute - may not scale properly");
+			warnings.push(
+				"SVG is missing viewBox attribute - may not scale properly",
+			);
 		}
 
 		if (content.length > 50000) {
@@ -328,9 +330,7 @@ export function SVGUploader({
 			)}
 
 			{/* External Error */}
-			{error && (
-				<p className="text-sm text-red-600">{error}</p>
-			)}
+			{error && <p className="text-sm text-red-600">{error}</p>}
 
 			{/* Guidelines */}
 			<div className="rounded-lg bg-zinc-100 p-4 dark:bg-zinc-800">

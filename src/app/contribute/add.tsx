@@ -1,11 +1,14 @@
-import { useState, useCallback } from "react";
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
+import { ArrowLeft } from "lucide-react";
+import { useCallback, useState } from "react";
+import { CompanyForm } from "@/components/contribute/company-form";
+import {
+	PRStatus,
+	type PRStatusState,
+} from "@/components/contribute/pr-status";
+import { SVGUploader } from "@/components/contribute/svg-uploader";
 import { useSession } from "@/lib/auth-client";
 import { seo } from "@/lib/seo";
-import { ArrowLeft } from "lucide-react";
-import { CompanyForm } from "@/components/contribute/company-form";
-import { SVGUploader } from "@/components/contribute/svg-uploader";
-import { PRStatus, type PRStatusState } from "@/components/contribute/pr-status";
 import type { Company } from "@/types/company";
 
 export const Route = createFileRoute("/contribute/add")({
@@ -102,7 +105,9 @@ function AddCompanyPage() {
 				setPRStatus({
 					type: "error",
 					message:
-						error instanceof Error ? error.message : "An unknown error occurred",
+						error instanceof Error
+							? error.message
+							: "An unknown error occurred",
 				});
 			}
 		},
@@ -195,11 +200,7 @@ function AddCompanyPage() {
 			</main>
 
 			{/* PR Status Modal */}
-			<PRStatus
-				status={prStatus}
-				onRetry={handleRetry}
-				onReset={handleReset}
-			/>
+			<PRStatus status={prStatus} onRetry={handleRetry} onReset={handleReset} />
 		</div>
 	);
 }

@@ -113,9 +113,7 @@ export async function getUserFork(
 /**
  * Fork the repository to user's account
  */
-export async function forkRepository(
-	accessToken: string,
-): Promise<GitHubRepo> {
+export async function forkRepository(accessToken: string): Promise<GitHubRepo> {
 	const response = await fetch(
 		`${GITHUB_API_BASE}/repos/${GITHUB_CONFIG.owner}/${GITHUB_CONFIG.repo}/forks`,
 		{
@@ -381,7 +379,10 @@ export function injectLogoIntoTsx(
 	}
 
 	// Replace fill colors with currentColor for theming
-	cleanedSvg = cleanedSvg.replace(/fill="(?!none)[^"]*"/gi, 'fill="currentColor"');
+	cleanedSvg = cleanedSvg.replace(
+		/fill="(?!none)[^"]*"/gi,
+		'fill="currentColor"',
+	);
 
 	// Create the logo entry
 	const logoEntry = `\t${companyId}: (\n\t\t${cleanedSvg.split("\n").join("\n\t\t")}\n\t),`;
@@ -418,10 +419,7 @@ export function injectLogoIntoTsx(
 /**
  * Generate a unique branch name for the PR
  */
-export function generateBranchName(
-	companyId: string,
-	isEdit: boolean,
-): string {
+export function generateBranchName(companyId: string, isEdit: boolean): string {
 	const prefix = isEdit ? "edit" : "add";
 	const timestamp = Date.now();
 	return `${prefix}-${companyId}-${timestamp}`;

@@ -1,11 +1,14 @@
-import { useState, useCallback } from "react";
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
+import { ArrowLeft } from "lucide-react";
+import { useCallback, useState } from "react";
+import { CompanyForm } from "@/components/contribute/company-form";
+import {
+	PRStatus,
+	type PRStatusState,
+} from "@/components/contribute/pr-status";
+import { SVGUploader } from "@/components/contribute/svg-uploader";
 import { useSession } from "@/lib/auth-client";
 import { seo } from "@/lib/seo";
-import { ArrowLeft } from "lucide-react";
-import { CompanyForm } from "@/components/contribute/company-form";
-import { SVGUploader } from "@/components/contribute/svg-uploader";
-import { PRStatus, type PRStatusState } from "@/components/contribute/pr-status";
 import type { Company } from "@/types/company";
 
 // Import all company data at build time
@@ -103,7 +106,9 @@ function EditCompanyPage() {
 		async (company: Company) => {
 			// Validate SVG
 			if (!svgLogo) {
-				setSvgError("Please upload an SVG logo (even if unchanged, re-upload the existing logo)");
+				setSvgError(
+					"Please upload an SVG logo (even if unchanged, re-upload the existing logo)",
+				);
 				return;
 			}
 
@@ -164,7 +169,9 @@ function EditCompanyPage() {
 				setPRStatus({
 					type: "error",
 					message:
-						error instanceof Error ? error.message : "An unknown error occurred",
+						error instanceof Error
+							? error.message
+							: "An unknown error occurred",
 				});
 			}
 		},
@@ -269,11 +276,7 @@ function EditCompanyPage() {
 			</main>
 
 			{/* PR Status Modal */}
-			<PRStatus
-				status={prStatus}
-				onRetry={handleRetry}
-				onReset={handleReset}
-			/>
+			<PRStatus status={prStatus} onRetry={handleRetry} onReset={handleReset} />
 		</div>
 	);
 }
