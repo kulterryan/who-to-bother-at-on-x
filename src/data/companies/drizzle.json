@@ -18,10 +18,10 @@
 			]
 		},
 		{
-			"name": "Leadership",
+			"name": "Core Product",
 			"contacts": [
 				{
-					"product": "Core Maintainer",
+					"product": "Core Maintainers",
 					"handles": ["@andrii_sherman"]
 				}
 			]
