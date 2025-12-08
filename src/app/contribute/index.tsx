@@ -62,7 +62,7 @@ function ContributePage() {
 
 	return (
 		<div className="min-h-screen text-zinc-900 dark:text-zinc-100">
-			<main className="mx-auto max-w-4xl px-6 pt-8 pb-16 md:pt-12 md:pb-24">
+			<main className="mx-auto max-w-3xl px-6 pt-8 pb-16 md:pt-12 md:pb-24">
 				{/* Header */}
 				<div className="mb-8">
 					<Link to="/" className="inline-block">
@@ -140,10 +140,10 @@ function ContributePage() {
 								</div>
 							)}
 							<div>
-								<p className="font-medium text-green-700 dark:text-green-400">
+								<p className="font-medium text-green-700 dark:text-green-400 mb-0">
 									Signed in as {session.user?.name || session.user?.email}
 								</p>
-								<p className="text-sm text-green-600 dark:text-green-500">
+								<p className="text-sm text-green-600 dark:text-green-500 mb-0">
 									Ready to contribute via GitHub
 								</p>
 							</div>
@@ -184,7 +184,7 @@ function ContributePage() {
 							</Link>
 
 							{/* Edit Existing Company */}
-							<Link
+							{/* <Link
 								to="/contribute/edit"
 								className="group rounded-xl border-2 border-zinc-200 bg-white p-6 transition-all hover:border-orange-600 hover:shadow-lg dark:border-zinc-700 dark:bg-zinc-900 dark:hover:border-orange-600"
 							>
@@ -213,7 +213,7 @@ function ContributePage() {
 										<path d="m12 5 7 7-7 7" />
 									</svg>
 								</div>
-							</Link>
+							</Link> */}
 						</div>
 
 						{/* How it Works */}
