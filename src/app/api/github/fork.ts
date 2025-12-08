@@ -6,92 +6,106 @@ import {
 	getGitHubUser,
 	getUserFork,
 	syncFork,
+	getTestModeConfig,
 } from "@/lib/github";
 
 export const Route = createFileRoute("/api/github/fork")({
 	server: {
 		handlers: {
 			POST: async ({ request }) => {
-				// Get the session
-				const session = await auth.api.getSession({ headers: request.headers });
+				// Check for test mode via environment variable
+				const testMode = getTestModeConfig();
 
-				if (!session) {
-					return new Response(JSON.stringify({ error: "Unauthorized" }), {
-						status: 401,
-						headers: { "Content-Type": "application/json" },
-					});
+				if (testMode?.enabled) {
+					console.log("[fork] 🧪 TEST MODE ENABLED (GITHUB_TEST_MODE=true) - No actual GitHub API calls will be made");
 				}
 
-				// Get the GitHub access token
-				let accessToken: string;
-				try {
-					// Try getAccessToken API first
-					const tokenResponse = await auth.api.getAccessToken({
-						body: {
-							providerId: "github",
-						},
-						headers: request.headers,
-					});
+				// Get the session (skip in test mode)
+				let accessToken = "test-token";
+				if (!testMode?.enabled) {
+					const session = await auth.api.getSession({ headers: request.headers });
 
-					if (!tokenResponse?.accessToken) {
-						throw new Error("No access token returned from getAccessToken");
+					if (!session) {
+						return new Response(JSON.stringify({ error: "Unauthorized" }), {
+							status: 401,
+							headers: { "Content-Type": "application/json" },
+						});
 					}
 
-					accessToken = tokenResponse.accessToken;
-
-				} catch (tokenError) {
-					// Log the error for debugging
-					console.error("getAccessToken error:", tokenError);
-
-					// Try to get accounts via listUserAccounts
+					// Get the GitHub access token
 					try {
-						const accounts = await auth.api.getAccessToken();
+						// Try getAccessToken API first
+						const tokenResponse = await auth.api.getAccessToken({
+							body: {
+								providerId: "github",
+							},
+							headers: request.headers,
+						});
 
-						if (!accounts?.accessToken) {
-							throw new Error("No access token returned from listUserAccounts");
+						if (!tokenResponse?.accessToken) {
+							throw new Error("No access token returned from getAccessToken");
 						}
 
-						accessToken = accounts.accessToken;
-					} catch (listError) {
-						console.error("listUserAccounts error:", listError);
+						accessToken = tokenResponse.accessToken;
 
-						// Log available cookies for debugging
-						const cookieHeader = request.headers.get("cookie") || "";
-						console.log(
-							"Available cookies:",
-							cookieHeader.split(";").map((c) => c.trim().split("=")[0]),
-						);
+					} catch (tokenError) {
+						// Log the error for debugging
+						console.error("getAccessToken error:", tokenError);
 
-						return new Response(
-							JSON.stringify({
-								error:
-									"GitHub access token not found. Please re-authenticate with GitHub.",
-								debug: {
-									tokenError:
-										tokenError instanceof Error
-											? tokenError.message
-											: String(tokenError),
-									listError:
-										listError instanceof Error
-											? listError.message
-											: String(listError),
+						// Try to get accounts via listUserAccounts
+						try {
+							const accounts = await auth.api.getAccessToken();
+
+							if (!accounts?.accessToken) {
+								throw new Error("No access token returned from listUserAccounts");
+							}
+
+							accessToken = accounts.accessToken;
+						} catch (listError) {
+							console.error("listUserAccounts error:", listError);
+
+							// Log available cookies for debugging
+							const cookieHeader = request.headers.get("cookie") || "";
+							console.log(
+								"Available cookies:",
+								cookieHeader.split(";").map((c) => c.trim().split("=")[0]),
+							);
+
+							return new Response(
+								JSON.stringify({
+									error:
+										"GitHub access token not found. Please re-authenticate with GitHub.",
+									debug: {
+										tokenError:
+											tokenError instanceof Error
+												? tokenError.message
+												: String(tokenError),
+										listError:
+											listError instanceof Error
+												? listError.message
+												: String(listError),
+									},
+								}),
+								{
+									status: 401,
+									headers: { "Content-Type": "application/json" },
 								},
-							}),
-							{
-								status: 401,
-								headers: { "Content-Type": "application/json" },
-							},
-						);
+							);
+						}
 					}
+				} else {
+					console.log("[fork] 🧪 Skipping authentication in test mode");
 				}
 
 				try {
 					// Get user info
-					const user = await getGitHubUser(accessToken);
+					const user = await getGitHubUser(accessToken, testMode);
 
 					// Check if user is the repo owner (can't fork own repo)
-					const isOwner =
-						user.login.toLowerCase() === GITHUB_CONFIG.owner.toLowerCase();
+					// In test mode, simulate as non-owner to test full flow
+					const isOwner = testMode?.enabled
+						? false
+						: user.login.toLowerCase() === GITHUB_CONFIG.owner.toLowerCase();
 
 					if (isOwner) {
 						// Owner doesn't need a fork - they work directly on the repo
@@ -112,15 +126,16 @@ export const Route = createFileRoute("/api/github/fork")({
 					}
 
 					// Check if fork already exists
-					let fork = await getUserFork(accessToken, user.login);
+					let fork = await getUserFork(accessToken, user.login, testMode);
 
 					if (fork) {
 						// Sync fork with upstream
-						await syncFork(accessToken, user.login);
+						await syncFork(accessToken, user.login, testMode);
 
 						return new Response(
 							JSON.stringify({
 								success: true,
+								testMode: testMode?.enabled ?? false,
 								fork: {
 									fullName: fork.full_name,
 									username: user.login,
@@ -138,23 +153,26 @@ export const Route = createFileRoute("/api/github/fork")({
 					}
 
 					// Create new fork
-					fork = await forkRepository(accessToken);
+					fork = await forkRepository(accessToken, testMode, user.login);
 
 					// Wait for fork to be ready (GitHub fork creation is async)
-					// Poll until the fork is accessible
-					let forkReady = false;
-					for (let i = 0; i < 5 && !forkReady; i++) {
-						await new Promise((resolve) => setTimeout(resolve, 2000));
-						const verifiedFork = await getUserFork(accessToken, user.login);
-						if (verifiedFork) {
-							forkReady = true;
-							fork = verifiedFork;
+					// In test mode, skip polling since mock is instant
+					if (!testMode?.enabled) {
+						let forkReady = false;
+						for (let i = 0; i < 5 && !forkReady; i++) {
+							await new Promise((resolve) => setTimeout(resolve, 2000));
+							const verifiedFork = await getUserFork(accessToken, user.login, testMode);
+							if (verifiedFork) {
+								forkReady = true;
+								fork = verifiedFork;
+							}
 						}
 					}
 
 					return new Response(
 						JSON.stringify({
 							success: true,
+							testMode: testMode?.enabled ?? false,
 							fork: {
 								fullName: fork.full_name,
 								username: user.login,

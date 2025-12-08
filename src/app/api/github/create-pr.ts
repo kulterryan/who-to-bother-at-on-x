@@ -13,6 +13,8 @@ import {
 	getGitHubUser,
 	getUserFork,
 	injectLogoIntoTsx,
+	forkRepository,
+	getTestModeConfig,
 } from "@/lib/github";
 import type { Company } from "@/types/company";
 
@@ -28,47 +30,11 @@ export const Route = createFileRoute("/api/github/create-pr")({
 			POST: async ({ request }) => {
 				console.log("[create-pr] Starting PR creation request");
 
-				// Get the session
-				const session = await auth.api.getSession({ headers: request.headers });
-				console.log("[create-pr] Session check:", session ? "authenticated" : "not authenticated");
+				// Check for test mode via environment variable
+				const testMode = getTestModeConfig();
 
-				if (!session) {
-					return new Response(JSON.stringify({ error: "Unauthorized" }), {
-						status: 401,
-						headers: { "Content-Type": "application/json" },
-					});
-				}
-
-				// Get the GitHub access token using getAccessToken API
-				let accessToken: string;
-				try {
-					console.log("[create-pr] Fetching GitHub access token");
-					const tokenResponse = await auth.api.getAccessToken({
-						body: {
-							providerId: "github",
-						},
-						headers: request.headers,
-					});
-
-					if (!tokenResponse?.accessToken) {
-						console.error("[create-pr] No access token in response:", tokenResponse);
-						throw new Error("No access token returned");
-					}
-
-					accessToken = tokenResponse.accessToken;
-					console.log("[create-pr] Access token retrieved successfully");
-				} catch (tokenError) {
-					console.error("[create-pr] Token fetch error:", tokenError);
-					return new Response(
-						JSON.stringify({
-							error:
-								"GitHub access token not found. Please re-authenticate with GitHub.",
-						}),
-						{
-							status: 401,
-							headers: { "Content-Type": "application/json" },
-						},
-					);
+				if (testMode?.enabled) {
+					console.log("[create-pr] 🧪 TEST MODE ENABLED (GITHUB_TEST_MODE=true) - No actual GitHub API calls will be made");
 				}
 
 				// Parse request body
@@ -89,6 +55,53 @@ export const Route = createFileRoute("/api/github/create-pr")({
 				}
 
 				const { company, svgLogo, isEdit } = body;
+
+				// Get the session (skip in test mode)
+				let accessToken = "test-token";
+				if (!testMode?.enabled) {
+					const session = await auth.api.getSession({ headers: request.headers });
+					console.log("[create-pr] Session check:", session ? "authenticated" : "not authenticated");
+
+					if (!session) {
+						return new Response(JSON.stringify({ error: "Unauthorized" }), {
+							status: 401,
+							headers: { "Content-Type": "application/json" },
+						});
+					}
+
+					// Get the GitHub access token using getAccessToken API
+					try {
+						console.log("[create-pr] Fetching GitHub access token");
+						const tokenResponse = await auth.api.getAccessToken({
+							body: {
+								providerId: "github",
+							},
+							headers: request.headers,
+						});
+
+						if (!tokenResponse?.accessToken) {
+							console.error("[create-pr] No access token in response:", tokenResponse);
+							throw new Error("No access token returned");
+						}
+
+						accessToken = tokenResponse.accessToken;
+						console.log("[create-pr] Access token retrieved successfully");
+					} catch (tokenError) {
+						console.error("[create-pr] Token fetch error:", tokenError);
+						return new Response(
+							JSON.stringify({
+								error:
+									"GitHub access token not found. Please re-authenticate with GitHub.",
+							}),
+							{
+								status: 401,
+								headers: { "Content-Type": "application/json" },
+							},
+						);
+					}
+				} else {
+					console.log("[create-pr] 🧪 Skipping authentication in test mode");
+				}
 
 				if (!company || !company.id || !company.name) {
 					return new Response(
@@ -113,25 +126,33 @@ export const Route = createFileRoute("/api/github/create-pr")({
 				try {
 					// Step 1: Get user info
 					console.log("[create-pr] Step 1: Fetching GitHub user info");
-					const user = await getGitHubUser(accessToken);
+					const user = await getGitHubUser(accessToken, testMode);
 					console.log("[create-pr] GitHub user:", user.login);
 
 					// Step 2: Check if user is the repo owner (can't fork own repo)
-					const isOwner =
-						user.login.toLowerCase() === GITHUB_CONFIG.owner.toLowerCase();
+					// In test mode, we always simulate as non-owner to test the full flow
+					const isOwner = testMode?.enabled
+						? false
+						: user.login.toLowerCase() === GITHUB_CONFIG.owner.toLowerCase();
 					console.log("[create-pr] Step 2: Is owner?", isOwner);
 
 					// If not owner, verify fork exists with retries
 					if (!isOwner) {
 						console.log("[create-pr] Checking for user fork");
-						let fork = await getUserFork(accessToken, user.login);
+						let fork = await getUserFork(accessToken, user.login, testMode);
 						if (!fork) {
-							console.log("[create-pr] Fork not found, retrying...");
-							// Retry a few times with short delays
-							for (let i = 0; i < 3 && !fork; i++) {
-								console.log(`[create-pr] Fork retry attempt ${i + 1}/3`);
-								await new Promise((resolve) => setTimeout(resolve, 1500));
-								fork = await getUserFork(accessToken, user.login);
+							if (testMode?.enabled) {
+								// In test mode, auto-create a fork
+								console.log("[create-pr] 🧪 Test mode: Auto-creating fork");
+								fork = await forkRepository(accessToken, testMode, user.login);
+							} else {
+								console.log("[create-pr] Fork not found, retrying...");
+								// Retry a few times with short delays
+								for (let i = 0; i < 3 && !fork; i++) {
+									console.log(`[create-pr] Fork retry attempt ${i + 1}/3`);
+									await new Promise((resolve) => setTimeout(resolve, 1500));
+									fork = await getUserFork(accessToken, user.login, testMode);
+								}
 							}
 						}
 						if (!fork) {
@@ -151,7 +172,7 @@ export const Route = createFileRoute("/api/github/create-pr")({
 					console.log("[create-pr] Step 3: Getting base SHA and generating branch name");
 					const branchName = generateBranchName(company.id, isEdit, user.login);
 					console.log("[create-pr] Branch name:", branchName);
-					const baseSha = await getBranchSha(accessToken, workingRepo);
+					const baseSha = await getBranchSha(accessToken, workingRepo, GITHUB_CONFIG.defaultBranch, testMode);
 					console.log("[create-pr] Base SHA:", baseSha);
 
 					// Step 4: Create a new branch
@@ -160,11 +181,12 @@ export const Route = createFileRoute("/api/github/create-pr")({
 						accessToken,
 						workingRepo,
 						branchName,
+						testMode,
 					);
 					console.log("[create-pr] Branch exists?", exists);
 					if (!exists) {
 						console.log("[create-pr] Creating new branch");
-						await createBranch(accessToken, workingRepo, branchName, baseSha);
+						await createBranch(accessToken, workingRepo, branchName, baseSha, testMode);
 						console.log("[create-pr] Branch created successfully");
 					}
 
@@ -177,9 +199,9 @@ export const Route = createFileRoute("/api/github/create-pr")({
 
 					const [existingCompanyFile, existingLogosFile] = await Promise.all([
 						isEdit
-							? getFileContent(accessToken, workingRepo, companyPath, branchName)
+							? getFileContent(accessToken, workingRepo, companyPath, branchName, testMode)
 							: Promise.resolve(null),
-						getFileContent(accessToken, workingRepo, logosPath, branchName),
+						getFileContent(accessToken, workingRepo, logosPath, branchName, testMode),
 					]);
 					console.log("[create-pr] Existing company file:", existingCompanyFile ? "found" : "not found");
 					console.log("[create-pr] Existing logos file:", existingLogosFile ? "found" : "not found");
@@ -211,15 +233,31 @@ export const Route = createFileRoute("/api/github/create-pr")({
 							workingRepo,
 							logosPath,
 							GITHUB_CONFIG.defaultBranch,
+							testMode,
 						);
 
 						if (!defaultLogosFile) {
-							console.error("[create-pr] Could not find company-logos.tsx file");
-							throw new Error("Could not find company-logos.tsx file");
+							// In test mode, provide a mock logos file content
+							if (testMode?.enabled) {
+								console.log("[create-pr] 🧪 Test mode: Using mock logos file content");
+								logosFileContent = `export const companyLogos: Record<string, JSX.Element> = {
+	example: (
+		<svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+			<circle cx="15" cy="15" r="14" fill="currentColor"/>
+		</svg>
+	),
+};
+`;
+								logosFileSha = undefined;
+							} else {
+								console.error("[create-pr] Could not find company-logos.tsx file");
+								throw new Error("Could not find company-logos.tsx file");
+							}
+						} else {
+							logosFileContent = defaultLogosFile.content;
+							logosFileSha = undefined;
+							console.log("[create-pr] Using logos file from default branch");
 						}
-						logosFileContent = defaultLogosFile.content;
-						logosFileSha = undefined;
-						console.log("[create-pr] Using logos file from default branch");
 					}
 
 					// Inject the logo
@@ -243,6 +281,7 @@ export const Route = createFileRoute("/api/github/create-pr")({
 							: `feat: add ${company.name} company data`,
 						branchName,
 						existingCompanyFile?.sha,
+						testMode,
 					);
 					console.log("[create-pr] Company JSON committed successfully");
 
@@ -257,6 +296,7 @@ export const Route = createFileRoute("/api/github/create-pr")({
 							: `feat: add ${company.name} logo`,
 						branchName,
 						logosFileSha,
+						testMode,
 					);
 					console.log("[create-pr] Logos file committed successfully");
 
@@ -292,12 +332,14 @@ export const Route = createFileRoute("/api/github/create-pr")({
 						branchName,
 						title,
 						prBody,
+						testMode,
 					);
 					console.log("[create-pr] Pull request created successfully:", pullRequest.html_url);
 
 					return new Response(
 						JSON.stringify({
 							success: true,
+							testMode: testMode?.enabled ?? false,
 							pullRequest: {
 								number: pullRequest.number,
 								url: pullRequest.html_url,

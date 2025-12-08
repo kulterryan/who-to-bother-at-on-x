@@ -9,6 +9,64 @@ export const GITHUB_CONFIG = {
 	defaultBranch: "main",
 } as const;
 
+/**
+ * Test mode configuration - when enabled, simulates GitHub API calls
+ * without making actual requests. Useful for development and testing.
+ *
+ * Set GITHUB_TEST_MODE=true in your environment to enable test mode.
+ */
+export interface TestModeConfig {
+	enabled: boolean;
+	simulatedDelay?: number; // milliseconds to simulate API latency
+}
+
+/**
+ * Check if GitHub test mode is enabled via environment variable
+ */
+export function isGitHubTestModeEnabled(): boolean {
+	return process.env.GITHUB_TEST_MODE === "true";
+}
+
+/**
+ * Get test mode config from environment variable
+ */
+export function getTestModeConfig(): TestModeConfig | undefined {
+	if (isGitHubTestModeEnabled()) {
+		return { enabled: true, simulatedDelay: 200 };
+	}
+	return undefined;
+}
+
+// In-memory storage for test mode to simulate state
+const testModeState = {
+	forks: new Map<string, GitHubRepo>(),
+	branches: new Map<string, { sha: string }>(),
+	files: new Map<string, { content: string; sha: string }>(),
+	pullRequests: new Map<number, GitHubPullRequest>(),
+	prCounter: 1,
+};
+
+/**
+ * Reset test mode state (useful between tests)
+ */
+export function resetTestModeState(): void {
+	testModeState.forks.clear();
+	testModeState.branches.clear();
+	testModeState.files.clear();
+	testModeState.pullRequests.clear();
+	testModeState.prCounter = 1;
+}
+
+/**
+ * Helper to simulate API delay in test mode
+ */
+async function simulateDelay(config: TestModeConfig): Promise<void> {
+	const delay = config.simulatedDelay ?? 100;
+	if (delay > 0) {
+		await new Promise((resolve) => setTimeout(resolve, delay));
+	}
+}
+
 const GITHUB_API_BASE = "https://api.github.com";
 const FETCH_TIMEOUT_MS = 8000; // 8 second timeout for GitHub API calls
 
@@ -85,7 +143,19 @@ interface GitHubPullRequest {
 /**
  * Get the authenticated user's GitHub info
  */
-export async function getGitHubUser(accessToken: string): Promise<GitHubUser> {
+export async function getGitHubUser(
+	accessToken: string,
+	testMode?: TestModeConfig,
+): Promise<GitHubUser> {
+	if (testMode?.enabled) {
+		await simulateDelay(testMode);
+		console.log("[TEST MODE] getGitHubUser: Returning mock user");
+		return {
+			login: "test-user",
+			id: 12345678,
+		};
+	}
+
 	const response = await fetchWithTimeout(`${GITHUB_API_BASE}/user`, {
 		headers: {
 			Authorization: `Bearer ${accessToken}`,
@@ -121,7 +191,16 @@ export async function getGitHubUser(accessToken: string): Promise<GitHubUser> {
 export async function getUserFork(
 	accessToken: string,
 	username: string,
+	testMode?: TestModeConfig,
 ): Promise<GitHubRepo | null> {
+	if (testMode?.enabled) {
+		await simulateDelay(testMode);
+		const forkKey = `${username}/${GITHUB_CONFIG.repo}`;
+		const existingFork = testModeState.forks.get(forkKey);
+		console.log(`[TEST MODE] getUserFork: ${existingFork ? "Found" : "Not found"} fork for ${username}`);
+		return existingFork ?? null;
+	}
+
 	const url = `${GITHUB_API_BASE}/repos/${username}/${GITHUB_CONFIG.repo}`;
 	console.log("[getUserFork] Checking fork at URL:", url);
 	console.log("[getUserFork] Username:", username);
@@ -222,7 +301,28 @@ export async function getUserFork(
 /**
  * Fork the repository to user's account
  */
-export async function forkRepository(accessToken: string): Promise<GitHubRepo> {
+export async function forkRepository(
+	accessToken: string,
+	testMode?: TestModeConfig,
+	testUsername?: string,
+): Promise<GitHubRepo> {
+	if (testMode?.enabled) {
+		await simulateDelay(testMode);
+		const username = testUsername ?? "test-user";
+		const forkKey = `${username}/${GITHUB_CONFIG.repo}`;
+		const mockFork: GitHubRepo = {
+			full_name: forkKey,
+			default_branch: GITHUB_CONFIG.defaultBranch,
+			fork: true,
+			parent: {
+				full_name: `${GITHUB_CONFIG.owner}/${GITHUB_CONFIG.repo}`,
+			},
+		};
+		testModeState.forks.set(forkKey, mockFork);
+		console.log(`[TEST MODE] forkRepository: Created mock fork ${forkKey}`);
+		return mockFork;
+	}
+
 	const forkUrl = `${GITHUB_API_BASE}/repos/${GITHUB_CONFIG.owner}/${GITHUB_CONFIG.repo}/forks`;
 	console.log("[forkRepository] Creating fork at:", forkUrl);
 
@@ -264,7 +364,14 @@ export async function forkRepository(accessToken: string): Promise<GitHubRepo> {
 export async function syncFork(
 	accessToken: string,
 	username: string,
+	testMode?: TestModeConfig,
 ): Promise<void> {
+	if (testMode?.enabled) {
+		await simulateDelay(testMode);
+		console.log(`[TEST MODE] syncFork: Simulated sync for ${username}`);
+		return;
+	}
+
 	const response = await fetchWithTimeout(
 		`${GITHUB_API_BASE}/repos/${username}/${GITHUB_CONFIG.repo}/merge-upstream`,
 		{
@@ -294,7 +401,20 @@ export async function getBranchSha(
 	accessToken: string,
 	username: string,
 	branch: string = GITHUB_CONFIG.defaultBranch,
+	testMode?: TestModeConfig,
 ): Promise<string> {
+	if (testMode?.enabled) {
+		await simulateDelay(testMode);
+		const branchKey = `${username}/${GITHUB_CONFIG.repo}/${branch}`;
+		const existingBranch = testModeState.branches.get(branchKey);
+		const sha = existingBranch?.sha ?? `mock-sha-${Date.now()}`;
+		if (!existingBranch) {
+			testModeState.branches.set(branchKey, { sha });
+		}
+		console.log(`[TEST MODE] getBranchSha: Returning SHA ${sha} for ${branchKey}`);
+		return sha;
+	}
+
 	const url = `${GITHUB_API_BASE}/repos/${username}/${GITHUB_CONFIG.repo}/git/ref/heads/${branch}`;
 	const response = await fetchWithTimeout(url, {
 		headers: {
@@ -334,7 +454,16 @@ export async function createBranch(
 	username: string,
 	branchName: string,
 	sha: string,
+	testMode?: TestModeConfig,
 ): Promise<void> {
+	if (testMode?.enabled) {
+		await simulateDelay(testMode);
+		const branchKey = `${username}/${GITHUB_CONFIG.repo}/${branchName}`;
+		testModeState.branches.set(branchKey, { sha });
+		console.log(`[TEST MODE] createBranch: Created branch ${branchKey} with SHA ${sha}`);
+		return;
+	}
+
 	const response = await fetchWithTimeout(
 		`${GITHUB_API_BASE}/repos/${username}/${GITHUB_CONFIG.repo}/git/refs`,
 		{
@@ -365,7 +494,16 @@ export async function branchExists(
 	accessToken: string,
 	username: string,
 	branchName: string,
+	testMode?: TestModeConfig,
 ): Promise<boolean> {
+	if (testMode?.enabled) {
+		await simulateDelay(testMode);
+		const branchKey = `${username}/${GITHUB_CONFIG.repo}/${branchName}`;
+		const exists = testModeState.branches.has(branchKey);
+		console.log(`[TEST MODE] branchExists: Branch ${branchKey} ${exists ? "exists" : "does not exist"}`);
+		return exists;
+	}
+
 	const response = await fetchWithTimeout(
 		`${GITHUB_API_BASE}/repos/${username}/${GITHUB_CONFIG.repo}/git/ref/heads/${branchName}`,
 		{
@@ -388,7 +526,16 @@ export async function getFileContent(
 	username: string,
 	path: string,
 	branch: string = GITHUB_CONFIG.defaultBranch,
+	testMode?: TestModeConfig,
 ): Promise<{ content: string; sha: string } | null> {
+	if (testMode?.enabled) {
+		await simulateDelay(testMode);
+		const fileKey = `${username}/${GITHUB_CONFIG.repo}/${branch}/${path}`;
+		const existingFile = testModeState.files.get(fileKey);
+		console.log(`[TEST MODE] getFileContent: ${existingFile ? "Found" : "Not found"} file ${fileKey}`);
+		return existingFile ?? null;
+	}
+
 	const response = await fetchWithTimeout(
 		`${GITHUB_API_BASE}/repos/${username}/${GITHUB_CONFIG.repo}/contents/${path}?ref=${branch}`,
 		{
@@ -425,7 +572,22 @@ export async function createOrUpdateFile(
 	message: string,
 	branch: string,
 	existingSha?: string,
+	testMode?: TestModeConfig,
 ): Promise<GitHubCommitResponse> {
+	if (testMode?.enabled) {
+		await simulateDelay(testMode);
+		const fileKey = `${username}/${GITHUB_CONFIG.repo}/${branch}/${path}`;
+		const newSha = `mock-file-sha-${Date.now()}`;
+		const commitSha = `mock-commit-sha-${Date.now()}`;
+		testModeState.files.set(fileKey, { content, sha: newSha });
+		console.log(`[TEST MODE] createOrUpdateFile: ${existingSha ? "Updated" : "Created"} file ${fileKey}`);
+		console.log(`[TEST MODE] Commit message: ${message}`);
+		return {
+			content: { sha: newSha },
+			commit: { sha: commitSha },
+		};
+	}
+
 	const body: Record<string, string> = {
 		message,
 		content: Buffer.from(content).toString("base64"),
@@ -467,7 +629,24 @@ export async function createPullRequest(
 	branchName: string,
 	title: string,
 	body: string,
+	testMode?: TestModeConfig,
 ): Promise<GitHubPullRequest> {
+	if (testMode?.enabled) {
+		await simulateDelay(testMode);
+		const prNumber = testModeState.prCounter++;
+		const mockPR: GitHubPullRequest = {
+			number: prNumber,
+			html_url: `https://github.com/${GITHUB_CONFIG.owner}/${GITHUB_CONFIG.repo}/pull/${prNumber}`,
+			title,
+			state: "open",
+		};
+		testModeState.pullRequests.set(prNumber, mockPR);
+		console.log(`[TEST MODE] createPullRequest: Created mock PR #${prNumber}`);
+		console.log(`[TEST MODE] PR Title: ${title}`);
+		console.log(`[TEST MODE] PR from ${username}:${branchName} to ${GITHUB_CONFIG.owner}:${GITHUB_CONFIG.defaultBranch}`);
+		return mockPR;
+	}
+
 	const response = await fetchWithTimeout(
 		`${GITHUB_API_BASE}/repos/${GITHUB_CONFIG.owner}/${GITHUB_CONFIG.repo}/pulls`,
 		{
