@@ -282,4 +282,7 @@ export const companyLogos: Record<string, React.ReactNode> = {
       <path fillRule="evenodd" clipRule="evenodd" d="M15.3387 13.3112C15.0035 17.3942 18.3585 19.5839 21.3133 19.2559V16.4329C19.3894 16.8705 17.7011 15.2179 18.1673 13.3112H15.3387Z" fill="currentColor" />
     </svg>
   ),
+  drizzle: (
+    <svg fill="none" viewBox="0 0 160 160"><rect width="9.631" height="40.852" fill="currentColor" rx="4.816" transform="matrix(.87303 .48767 -.49721 .86763 43.48 67.304)"/><rect width="9.631" height="40.852" fill="#121212" rx="4.816" transform="matrix(.87303 .48767 -.49721 .86763 76.94 46.534)"/><rect width="9.631" height="40.852" fill="#121212" rx="4.816" transform="matrix(.87303 .48767 -.49721 .86763 128.424 46.535)"/><rect width="9.631" height="40.852" fill="#121212" rx="4.816" transform="matrix(.87303 .48767 -.49721 .86763 94.957 67.304)"/></svg>
+  )
 };

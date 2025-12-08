@@ -1,0 +1,30 @@
+{
+	"$schema": "./schema.json",
+	"id": "drizzle",
+	"name": "Drizzle",
+	"description": "Open-source database ORM for TypeScript.",
+	"logoType": "drizzle",
+	"discord": "https://discord.gg/tCe773yFeZ",
+	"github": "https://github.com/drizzle-team",
+	"website": "https://drizzle.team/",
+	"categories": [
+		{
+			"name": "Official Account",
+			"contacts": [
+				{
+					"product": "Official Account",
+					"handles": ["@DrizzleORM"]
+				}
+			]
+		},
+		{
+			"name": "Leadership",
+			"contacts": [
+				{
+					"product": "Core Maintainer",
+					"handles": ["@andrii_sherman"]
+				}
+			]
+		}
+	]
+}
