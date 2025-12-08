@@ -91,6 +91,47 @@ function AddCompanyPage() {
 		}
 	};
 
+	// Validate if form can be submitted
+	const isFormValid = (): boolean => {
+		// Check required basic fields
+		if (!companyData.id || !companyData.name || !companyData.description || !companyData.logoType) {
+			return false;
+		}
+
+		// Check ID format (lowercase, letters, numbers, hyphens only)
+		if (!/^[a-z0-9-]+$/.test(companyData.id)) {
+			return false;
+		}
+
+		// Check SVG logo
+		if (!svgLogo) {
+			return false;
+		}
+
+		// Check at least one category with name
+		const hasValidCategory = companyData.categories.some((cat) => cat.name.trim() !== "");
+		if (!hasValidCategory) {
+			return false;
+		}
+
+		// Check at least one contact with product and valid handle
+		const hasValidContact = companyData.categories.some((cat) =>
+			cat.contacts.some(
+				(contact) =>
+					contact.product.trim() !== "" &&
+					contact.handles.some((h) => h.startsWith("@") && h.length > 1),
+			),
+		);
+		if (!hasValidContact) {
+			return false;
+		}
+
+		return true;
+	};
+
+	const canSubmit = isFormValid();
+	const isSubmitting = prStatus.type !== "idle" && prStatus.type !== "error";
+
 	const handleSubmit = useCallback(
 		async (company: Company) => {
 			// Validate SVG
@@ -582,44 +623,49 @@ function AddCompanyPage() {
 				</Tabs>
 
 				{/* Submit Button - visible on all tabs */}
-				<div className="mt-8 flex justify-end gap-4 pt-6 border-t border-zinc-200 dark:border-zinc-700">
-					<Button
-						type="button"
-						onClick={() => handleSubmit(companyData)}
-						disabled={
-							prStatus.type !== "idle" && prStatus.type !== "error"
-						}
-						className="min-w-[180px]"
-					>
-						{prStatus.type !== "idle" && prStatus.type !== "error" ? (
-							<>
-								<svg
-									className="h-4 w-4 animate-spin"
-									xmlns="http://www.w3.org/2000/svg"
-									fill="none"
-									viewBox="0 0 24 24"
-								>
-									<title>Loading</title>
-									<circle
-										className="opacity-25"
-										cx="12"
-										cy="12"
-										r="10"
-										stroke="currentColor"
-										strokeWidth="4"
-									/>
-									<path
-										className="opacity-75"
-										fill="currentColor"
-										d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-									/>
-								</svg>
-								Creating PR...
-							</>
-						) : (
-							"Submit & Create PR"
-						)}
-					</Button>
+				<div className="mt-8 flex flex-col gap-4 pt-6 border-t border-zinc-200 dark:border-zinc-700">
+					{!canSubmit && !isSubmitting && (
+						<p className="text-sm text-zinc-500 dark:text-zinc-400 text-right">
+							Please fill in all required fields: company name, ID, description, logo, at least one category with a contact and valid @handle.
+						</p>
+					)}
+					<div className="flex justify-end">
+						<Button
+							type="button"
+							onClick={() => handleSubmit(companyData)}
+							disabled={!canSubmit || isSubmitting}
+							className="min-w-[180px]"
+						>
+							{isSubmitting ? (
+								<>
+									<svg
+										className="h-4 w-4 animate-spin"
+										xmlns="http://www.w3.org/2000/svg"
+										fill="none"
+										viewBox="0 0 24 24"
+									>
+										<title>Loading</title>
+										<circle
+											className="opacity-25"
+											cx="12"
+											cy="12"
+											r="10"
+											stroke="currentColor"
+											strokeWidth="4"
+										/>
+										<path
+											className="opacity-75"
+											fill="currentColor"
+											d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+										/>
+									</svg>
+									Creating PR...
+								</>
+							) : (
+								"Submit & Create PR"
+							)}
+						</Button>
+					</div>
 				</div>
 			</main>
 
