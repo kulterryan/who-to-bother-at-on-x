@@ -1,6 +1,4 @@
-/**
- * GitHub API utilities for creating PRs with company contributions
- */
+// GitHub API utilities for creating PRs with company contributions
 
 // Repository configuration
 export const GITHUB_CONFIG = {
@@ -9,27 +7,18 @@ export const GITHUB_CONFIG = {
 	defaultBranch: "main",
 } as const;
 
-/**
- * Test mode configuration - when enabled, simulates GitHub API calls
- * without making actual requests. Useful for development and testing.
- *
- * Set GITHUB_TEST_MODE=true in your environment to enable test mode.
- */
+// Test mode configuration - when enabled, simulates GitHub API calls without making actual requests. Set GITHUB_TEST_MODE=true in your environment to enable test mode.
 export interface TestModeConfig {
 	enabled: boolean;
 	simulatedDelay?: number; // milliseconds to simulate API latency
 }
 
-/**
- * Check if GitHub test mode is enabled via environment variable
- */
+// Check if GitHub test mode is enabled via environment variable
 export function isGitHubTestModeEnabled(): boolean {
 	return process.env.GITHUB_TEST_MODE === "true";
 }
 
-/**
- * Get test mode config from environment variable
- */
+// Get test mode config from environment variable
 export function getTestModeConfig(): TestModeConfig | undefined {
 	if (isGitHubTestModeEnabled()) {
 		return { enabled: true, simulatedDelay: 200 };
@@ -46,9 +35,7 @@ const testModeState = {
 	prCounter: 1,
 };
 
-/**
- * Reset test mode state (useful between tests)
- */
+// Reset test mode state (useful between tests)
 export function resetTestModeState(): void {
 	testModeState.forks.clear();
 	testModeState.branches.clear();
@@ -57,9 +44,7 @@ export function resetTestModeState(): void {
 	testModeState.prCounter = 1;
 }
 
-/**
- * Helper to simulate API delay in test mode
- */
+// Helper to simulate API delay in test mode
 async function simulateDelay(config: TestModeConfig): Promise<void> {
 	const delay = config.simulatedDelay ?? 100;
 	if (delay > 0) {
@@ -70,9 +55,7 @@ async function simulateDelay(config: TestModeConfig): Promise<void> {
 const GITHUB_API_BASE = "https://api.github.com";
 const FETCH_TIMEOUT_MS = 8000; // 8 second timeout for GitHub API calls
 
-/**
- * Fetch with timeout using AbortController
- */
+// Fetch with timeout using AbortController
 async function fetchWithTimeout(
 	url: string,
 	options: RequestInit = {},
@@ -140,9 +123,7 @@ interface GitHubPullRequest {
 	state: string;
 }
 
-/**
- * Get the authenticated user's GitHub info
- */
+// Get the authenticated user's GitHub info
 export async function getGitHubUser(
 	accessToken: string,
 	testMode?: TestModeConfig,
@@ -185,9 +166,7 @@ export async function getGitHubUser(
 	return response.json();
 }
 
-/**
- * Check if user has a fork of the repository
- */
+// Check if user has a fork of the repository
 export async function getUserFork(
 	accessToken: string,
 	username: string,
@@ -298,9 +277,7 @@ export async function getUserFork(
 	return null;
 }
 
-/**
- * Fork the repository to user's account
- */
+// Fork the repository to user's account
 export async function forkRepository(
 	accessToken: string,
 	testMode?: TestModeConfig,
@@ -358,9 +335,7 @@ export async function forkRepository(
 	return fork;
 }
 
-/**
- * Sync fork with upstream (in case it's behind)
- */
+// Sync fork with upstream (in case it's behind)
 export async function syncFork(
 	accessToken: string,
 	username: string,
@@ -394,9 +369,7 @@ export async function syncFork(
 	}
 }
 
-/**
- * Get the latest commit SHA from a branch
- */
+// Get the latest commit SHA from a branch
 export async function getBranchSha(
 	accessToken: string,
 	username: string,
@@ -446,9 +419,7 @@ export async function getBranchSha(
 	return data.object.sha;
 }
 
-/**
- * Create a new branch from a SHA
- */
+// Create a new branch from a SHA
 export async function createBranch(
 	accessToken: string,
 	username: string,
@@ -487,9 +458,7 @@ export async function createBranch(
 	}
 }
 
-/**
- * Check if a branch exists
- */
+// Check if a branch exists
 export async function branchExists(
 	accessToken: string,
 	username: string,
@@ -518,9 +487,7 @@ export async function branchExists(
 	return response.ok;
 }
 
-/**
- * Get file content from repository
- */
+// Get file content from repository
 export async function getFileContent(
 	accessToken: string,
 	username: string,
@@ -561,9 +528,7 @@ export async function getFileContent(
 	return { content, sha: data.sha };
 }
 
-/**
- * Create or update a file in the repository
- */
+// Create or update a file in the repository
 export async function createOrUpdateFile(
 	accessToken: string,
 	username: string,
@@ -620,9 +585,7 @@ export async function createOrUpdateFile(
 	return response.json();
 }
 
-/**
- * Create a pull request from fork to upstream
- */
+// Create a pull request from fork to upstream
 export async function createPullRequest(
 	accessToken: string,
 	username: string,
@@ -674,9 +637,7 @@ export async function createPullRequest(
 	return response.json();
 }
 
-/**
- * Inject a new logo entry into company-logos.tsx content
- */
+// Inject a new logo entry into company-logos.tsx content
 export function injectLogoIntoTsx(
 	existingContent: string,
 	companyId: string,
@@ -739,9 +700,7 @@ export function injectLogoIntoTsx(
 	);
 }
 
-/**
- * Generate a unique branch name for the PR
- */
+// Generate a unique branch name for the PR
 export function generateBranchName(
 	companyId: string,
 	isEdit: boolean,
@@ -752,9 +711,7 @@ export function generateBranchName(
 	return `${prefix}-${companyId}-${username}-${timestamp}`;
 }
 
-/**
- * Generate PR title and body
- */
+// Generate PR title and body
 export function generatePRContent(
 	companyId: string,
 	companyName: string,
