@@ -88,7 +88,7 @@ function ContributePage() {
 				<div className="mb-8">
 					<h2 className="text-3xl font-bold">Contribute</h2>
 					<p className="mt-2 text-lg text-zinc-600 dark:text-zinc-400">
-						Add your company or update existing information. Your changes will
+						Add your company to the directory. Your changes will
 						be submitted as a pull request.
 					</p>
 				</div>
