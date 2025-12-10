@@ -5,8 +5,9 @@ import type { Company } from "@/types/company";
 // Helper function to build company data map
 function getCompanyDataMap(): Record<string, Company> {
 	// Auto-discover all company JSON files using Vite's import.meta.glob
+	// Path is relative to src/app/og/ so need to go up two levels
 	const companyModules = import.meta.glob<{ default: Company }>(
-		"../data/companies/*.json",
+		"../../data/companies/*.json",
 		{ eager: true },
 	);
 
