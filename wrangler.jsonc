@@ -42,6 +42,9 @@
 			"custom_domain": true
 		}
 	],
+	"vars": {
+		"VITE_APP_URL": "https://who-to-bother-at.com"
+	},
 	"observability": {
 		"logs": {
 			"enabled": true,
