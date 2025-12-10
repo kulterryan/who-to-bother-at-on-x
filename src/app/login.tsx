@@ -30,7 +30,7 @@ function LoginPage() {
 	const handleGitHubLogin = async () => {
 		await signIn.social({
 			provider: "github",
-			callbackURL: "/",
+			callbackURL: "/contribute",
 		});
 	};
 
