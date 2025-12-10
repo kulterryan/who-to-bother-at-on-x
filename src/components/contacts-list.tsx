@@ -291,7 +291,7 @@ export function ContactsList({
 															rel="noopener noreferrer"
 															className="inline-flex items-center gap-1.5 text-sm text-zinc-600 transition-colors hover:text-orange-600 md:text-base dark:text-zinc-400 dark:hover:text-orange-600"
 														>
-															<Avatar className="h-5 w-5 flex-shrink-0">
+															<Avatar className="h-5 w-5 shrink-0">
 																<AvatarImage
 																	src={`https://unavatar.io/x/${handle.replace("@", "")}?fallback=https://avatar.vercel.sh/${handle.replace("@", "")}?size=400`}
 																	alt={handle}
