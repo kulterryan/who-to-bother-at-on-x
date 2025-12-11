@@ -76,7 +76,7 @@ function EditCompanyError({ error }: { error: Error }) {
 				</div>
 
 				<div className="rounded-xl border-2 border-red-200 bg-red-50 p-8 text-center dark:border-red-800 dark:bg-red-950/30">
-					<h2 className="text-xl font-semibold text-red-700 dark:text-red-400">
+					<h2 className="font-semibold text-red-700 text-xl dark:text-red-400">
 						Company Not Found
 					</h2>
 					<p className="mt-2 text-red-600 dark:text-red-500">
@@ -257,7 +257,7 @@ function EditCompanyPage() {
 
 				{/* Page Title */}
 				<div className="mb-8">
-					<h2 className="text-3xl font-bold">Edit {initialCompany.name}</h2>
+					<h2 className="font-bold text-3xl">Edit {initialCompany.name}</h2>
 					<p className="mt-2 text-lg text-zinc-600 dark:text-zinc-400">
 						Update the company information below. We'll create a pull request
 						with your changes.
@@ -266,7 +266,7 @@ function EditCompanyPage() {
 
 				{/* Info Banner */}
 				<div className="mb-8 rounded-lg border-2 border-blue-200 bg-blue-50 p-4 dark:border-blue-800 dark:bg-blue-950/30">
-					<p className="text-sm text-blue-700 dark:text-blue-400">
+					<p className="text-blue-700 text-sm dark:text-blue-400">
 						<strong>Note:</strong> You'll need to upload the company logo again,
 						even if you're not changing it. This ensures the logo is properly
 						included in your pull request.
@@ -276,7 +276,7 @@ function EditCompanyPage() {
 				{/* Form Container */}
 				<div className="rounded-xl border-2 border-zinc-200 bg-white p-6 md:p-8 dark:border-zinc-700 dark:bg-zinc-900">
 					{/* SVG Uploader */}
-					<div className="mb-8 pb-8 border-b border-zinc-200 dark:border-zinc-700">
+					<div className="mb-8 border-zinc-200 border-b pb-8 dark:border-zinc-700">
 						<SVGUploader
 							value={svgLogo}
 							onChange={setSvgLogo}

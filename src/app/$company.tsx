@@ -93,12 +93,11 @@ export const Route = createFileRoute("/$company")({
 		};
 	},
 	component: CompanyPage,
-	errorComponent: ({ error }) => {
-		return (
-			<div className="min-h-screen bg-white text-zinc-900 dark:bg-zinc-950 dark:text-zinc-100 flex items-center justify-center">
+	errorComponent: ({ error }) => (
+			<div className="flex min-h-screen items-center justify-center bg-white text-zinc-900 dark:bg-zinc-950 dark:text-zinc-100">
 				<div className="text-center">
-					<h1 className="text-2xl font-medium mb-4">Company Not Found</h1>
-					<p className="text-zinc-600 dark:text-zinc-400 mb-6">
+					<h1 className="mb-4 font-medium text-2xl">Company Not Found</h1>
+					<p className="mb-6 text-zinc-600 dark:text-zinc-400">
 						{error.message}
 					</p>
 					<Link to="/" className="text-orange-600 underline">
@@ -106,8 +105,7 @@ export const Route = createFileRoute("/$company")({
 					</Link>
 				</div>
 			</div>
-		);
-	},
+		),
 });
 
 function CompanyPage() {

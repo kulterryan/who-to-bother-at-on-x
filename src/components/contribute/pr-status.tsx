@@ -42,7 +42,7 @@ export function PRStatus({ status, onRetry, onReset }: PRStatusProps) {
 						<div className="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-full bg-orange-100 dark:bg-orange-900/30">
 							<Loader2 className="h-8 w-8 animate-spin text-orange-600" />
 						</div>
-						<h3 className="text-lg font-semibold text-zinc-900 dark:text-zinc-100">
+						<h3 className="font-semibold text-lg text-zinc-900 dark:text-zinc-100">
 							{status.type === "forking" &&
 								(status.alreadyExists
 									? "Syncing Fork..."
@@ -102,7 +102,7 @@ export function PRStatus({ status, onRetry, onReset }: PRStatusProps) {
 						<div className="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-full bg-green-100 dark:bg-green-900/30">
 							<CheckCircle className="h-8 w-8 text-green-600" />
 						</div>
-						<h3 className="text-lg font-semibold text-zinc-900 dark:text-zinc-100">
+						<h3 className="font-semibold text-lg text-zinc-900 dark:text-zinc-100">
 							Pull Request Created!
 						</h3>
 						<p className="mt-2 text-sm text-zinc-600 dark:text-zinc-400">
@@ -143,7 +143,7 @@ export function PRStatus({ status, onRetry, onReset }: PRStatusProps) {
 						<div className="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-full bg-green-100 dark:bg-green-900/30">
 							<CheckCircle className="h-8 w-8 text-green-600" />
 						</div>
-						<h3 className="text-lg font-semibold text-zinc-900 dark:text-zinc-100">
+						<h3 className="font-semibold text-lg text-zinc-900 dark:text-zinc-100">
 							Changes Committed!
 						</h3>
 						<p className="mt-2 text-sm text-zinc-600 dark:text-zinc-400">
@@ -185,7 +185,7 @@ export function PRStatus({ status, onRetry, onReset }: PRStatusProps) {
 						<div className="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-full bg-red-100 dark:bg-red-900/30">
 							<XCircle className="h-8 w-8 text-red-600" />
 						</div>
-						<h3 className="text-lg font-semibold text-zinc-900 dark:text-zinc-100">
+						<h3 className="font-semibold text-lg text-zinc-900 dark:text-zinc-100">
 							Something Went Wrong
 						</h3>
 						<p className="mt-2 text-sm text-zinc-600 dark:text-zinc-400">

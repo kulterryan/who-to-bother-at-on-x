@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { GithubIcon, HeartIcon, TwitterIcon, XIcon } from "lucide-react";
+import { GithubIcon, HeartIcon, } from "lucide-react";
 import { Footer } from "@/components/footer";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { seo } from "@/lib/seo";
@@ -49,12 +49,12 @@ export const Route = createFileRoute("/sponsors")({
 function SponsorsPage() {
 	return (
 		<div className="text-zinc-900 dark:text-zinc-100">
-			<main className="mx-auto max-w-3xl flex flex-col gap-8 px-6 pt-8 pb-16 md:pt-12 md:pb-24">
+			<main className="mx-auto flex max-w-3xl flex-col gap-8 px-6 pt-8 pb-16 md:pt-12 md:pb-24">
 				{/* Header */}
 				<div className="flex flex-col gap-4">
 					<Link
 						to="/"
-						className="inline-flex items-center gap-2 text-sm text-zinc-600 hover:text-orange-600 dark:text-zinc-400 dark:hover:text-orange-600 transition-colors w-fit"
+						className="inline-flex w-fit items-center gap-2 text-sm text-zinc-600 transition-colors hover:text-orange-600 dark:text-zinc-400 dark:hover:text-orange-600"
 					>
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
@@ -75,10 +75,10 @@ function SponsorsPage() {
 					</Link>
 
 					<div className="flex items-center gap-3">
-						<h1 className="m-0 text-4xl font-medium text-zinc-900 dark:text-zinc-100 md:text-5xl">
+						<h1 className="m-0 font-medium text-4xl text-zinc-900 md:text-5xl dark:text-zinc-100">
 							Sponsors
 						</h1>
-						<HeartIcon className="size-8 text-red-500 fill-red-500 animate-pulse" />
+						<HeartIcon className="size-8 animate-pulse fill-red-500 text-red-500" />
 					</div>
 
 					<p className="m-0 text-lg text-zinc-600 dark:text-zinc-400">
@@ -103,8 +103,8 @@ function SponsorsPage() {
 								</AvatarFallback>
 							</Avatar>
 
-							<div className="flex flex-col gap-2 min-w-0 flex-1">
-								<span className="truncate text-lg font-semibold text-zinc-900 dark:text-zinc-100">
+							<div className="flex min-w-0 flex-1 flex-col gap-2">
+								<span className="truncate font-semibold text-lg text-zinc-900 dark:text-zinc-100">
 									{sponsor.name}
 								</span>
 								<div className="flex flex-col gap-1 text-sm text-zinc-500 dark:text-zinc-400">
@@ -113,7 +113,7 @@ function SponsorsPage() {
 											href={`https://x.com/${sponsor.twitterHandle}`}
 											target="_blank"
 											rel="noopener noreferrer"
-											className="flex items-center gap-2 hover:text-orange-600 hover:underline w-fit"
+											className="flex w-fit items-center gap-2 hover:text-orange-600 hover:underline"
 										>
 											<svg
 												fill="none"
@@ -134,7 +134,7 @@ function SponsorsPage() {
 											href={`https://github.com/${sponsor.githubHandle}`}
 											target="_blank"
 											rel="noopener noreferrer"
-											className="flex items-center gap-2 hover:text-orange-600 hover:underline w-fit"
+											className="flex w-fit items-center gap-2 hover:text-orange-600 hover:underline"
 										>
 											<GithubIcon className="size-4" />
 											{sponsor.githubHandle}
@@ -150,13 +150,13 @@ function SponsorsPage() {
 						href="https://github.com/sponsors/kulterryan"
 						target="_blank"
 						rel="noopener noreferrer"
-						className="flex items-center gap-5 rounded-xl border border-dashed border-zinc-300 bg-zinc-50 p-6 transition-all hover:border-pink-400 hover:bg-pink-50 dark:border-zinc-700 dark:bg-zinc-900/50 dark:hover:border-pink-600 dark:hover:bg-pink-950/20"
+						className="flex items-center gap-5 rounded-xl border border-zinc-300 border-dashed bg-zinc-50 p-6 transition-all hover:border-pink-400 hover:bg-pink-50 dark:border-zinc-700 dark:bg-zinc-900/50 dark:hover:border-pink-600 dark:hover:bg-pink-950/20"
 					>
-						<div className="flex size-16 items-center justify-center rounded-full border-2 border-dashed border-zinc-300 dark:border-zinc-600">
+						<div className="flex size-16 items-center justify-center rounded-full border-2 border-zinc-300 border-dashed dark:border-zinc-600">
 							<HeartIcon className="size-7 text-pink-500" />
 						</div>
 						<div className="flex flex-col gap-1">
-							<span className="text-lg font-semibold text-zinc-900 dark:text-zinc-100">
+							<span className="font-semibold text-lg text-zinc-900 dark:text-zinc-100">
 								Become a sponsor
 							</span>
 							<span className="text-sm text-zinc-500 dark:text-zinc-400">

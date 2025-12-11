@@ -108,7 +108,9 @@ export const Route = createFileRoute("/og/$company")({
 
 					// Fetch the font file
 					const fontRes = await fetch(fontUrl);
-					if (!fontRes.ok) {
+					if (fontRes.ok) {
+						fontBuffer = await fontRes.arrayBuffer();
+					} else {
 						// Last resort: try a different CDN
 						if (fontUrl.includes("fonts.gstatic.com")) {
 							console.warn("Google Fonts failed, trying jsDelivr CDN");
@@ -127,8 +129,6 @@ export const Route = createFileRoute("/og/$company")({
 								`Failed to fetch font file from ${fontUrl}: ${fontRes.status}`,
 							);
 						}
-					} else {
-						fontBuffer = await fontRes.arrayBuffer();
 					}
 
 					// Initialize WASM

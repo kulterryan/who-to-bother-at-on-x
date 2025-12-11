@@ -13,7 +13,7 @@ export function Footer({
 	return (
 		<footer className="mt-16">
 			<div className="rounded-lg bg-zinc-50 p-6 dark:bg-zinc-900/50">
-				<h3 className="mb-2 text-lg font-medium text-zinc-900 dark:text-zinc-100">
+				<h3 className="mb-2 font-medium text-lg text-zinc-900 dark:text-zinc-100">
 					{contributionTitle}
 				</h3>
 				<p className="text-sm text-zinc-600 dark:text-zinc-400">

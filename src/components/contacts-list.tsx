@@ -97,13 +97,13 @@ export function ContactsList({
 			<main className="mx-auto max-w-3xl px-6 pt-8 pb-16 md:pt-12 md:pb-24">
 				<Link
 					to="/"
-					className="mb-8 inline-flex items-center gap-2 text-sm font-medium text-zinc-600 transition-colors hover:text-orange-600 dark:text-zinc-400 dark:hover:text-orange-600"
+					className="mb-8 inline-flex items-center gap-2 font-medium text-sm text-zinc-600 transition-colors hover:text-orange-600 dark:text-zinc-400 dark:hover:text-orange-600"
 				>
 					<ArrowLeft className="h-4 w-4" />
 					Back to home
 				</Link>
 
-				<h1 className="mb-6 flex items-center gap-2 text-2xl font-medium text-balance text-zinc-900 dark:text-zinc-100 md:text-3xl">
+				<h1 className="mb-6 flex items-center gap-2 text-balance font-medium text-2xl text-zinc-900 md:text-3xl dark:text-zinc-100">
 					who to bother at {logo} on{" "}
 					<svg fill="none" viewBox="0 0 1200 1227" width="33" height="30">
 						<path
@@ -173,7 +173,7 @@ export function ContactsList({
 					<span>Click any topic to copy all contacts</span>
 				</div>
 
-				<div className="mb-8 relative">
+				<div className="relative mb-8">
 					<input
 						type="text"
 						placeholder="search products or topics"
@@ -208,7 +208,7 @@ export function ContactsList({
 				<div className="space-y-12">
 					{filteredCategories.map((category) => (
 						<div key={category.name}>
-							<h2 className="mb-4 text-xs font-medium uppercase tracking-wider text-zinc-500 dark:text-zinc-400">
+							<h2 className="mb-4 font-medium text-xs text-zinc-500 uppercase tracking-wider dark:text-zinc-400">
 								{category.name}
 							</h2>
 							<div className="space-y-px">
@@ -235,7 +235,7 @@ export function ContactsList({
 										<div
 											key={contact.product}
 											ref={isFirstMatch ? firstMatchRef : null}
-											className="scroll-mt-24 flex items-start justify-between border-t border-zinc-200 py-4 first:border-t-0 dark:border-zinc-800 transition-colors"
+											className="flex scroll-mt-24 items-start justify-between border-zinc-200 border-t py-4 transition-colors first:border-t-0 dark:border-zinc-800"
 										>
 											<div className="flex-1">
 												<button
@@ -245,9 +245,9 @@ export function ContactsList({
 															contact.handles,
 														)
 													}
-													className={`cursor-pointer text-left text-sm font-medium transition-colors hover:text-orange-600 md:text-base dark:hover:text-orange-600 ${
+													className={`cursor-pointer text-left font-medium text-sm transition-colors hover:text-orange-600 md:text-base dark:hover:text-orange-600 ${
 														isHighlighted
-															? "text-orange-700 dark:text-orange-300 font-semibold"
+															? "font-semibold text-orange-700 dark:text-orange-300"
 															: "text-zinc-900 dark:text-zinc-100"
 													}`}
 													title="Click to copy all handles"

@@ -37,8 +37,6 @@ const redirectMiddleware = createMiddleware().server(
 	},
 );
 
-export const startInstance = createStart(() => {
-	return {
+export const startInstance = createStart(() => ({
 		requestMiddleware: [redirectMiddleware],
-	};
-});
+	}));

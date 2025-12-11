@@ -22,7 +22,9 @@ export const Route = createFileRoute("/api/github/fork")({
 
 				// Get the session (skip in test mode)
 				let accessToken = "test-token";
-				if (!testMode?.enabled) {
+				if (testMode?.enabled) {
+					console.log("[fork] 🧪 Skipping authentication in test mode");
+				} else {
 					const session = await auth.api.getSession({ headers: request.headers });
 
 					if (!session) {
@@ -93,8 +95,6 @@ export const Route = createFileRoute("/api/github/fork")({
 							);
 						}
 					}
-				} else {
-					console.log("[fork] 🧪 Skipping authentication in test mode");
 				}
 
 				try {

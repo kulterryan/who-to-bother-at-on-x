@@ -94,7 +94,7 @@ function AddCompanyPage() {
 	// Validate if form can be submitted
 	const isFormValid = (): boolean => {
 		// Check required basic fields
-		if (!companyData.id || !companyData.name || !companyData.description || !companyData.logoType) {
+		if (!(((companyData.id && companyData.name ) && companyData.description ) && companyData.logoType)) {
 			return false;
 		}
 
@@ -286,7 +286,7 @@ function AddCompanyPage() {
 
 				{/* Page Title */}
 				<div className="mb-8">
-					<h2 className="text-3xl font-bold">Add New Company</h2>
+					<h2 className="font-bold text-3xl">Add New Company</h2>
 					<p className="mt-2 text-lg text-zinc-600 dark:text-zinc-400">
 						Fill out the form below to add a new company. We'll create a pull
 						request with your changes.
@@ -318,7 +318,7 @@ function AddCompanyPage() {
 					<TabsContent value="form">
 						<div className="rounded-xl border-2 border-zinc-200 bg-white p-6 md:p-8 dark:border-zinc-700 dark:bg-zinc-900">
 							{/* SVG Uploader */}
-							<div className="mb-8 pb-8 border-b border-zinc-200 dark:border-zinc-700">
+							<div className="mb-8 border-zinc-200 border-b pb-8 dark:border-zinc-700">
 								<SVGUploader
 									value={svgLogo}
 									onChange={setSvgLogo}
@@ -343,7 +343,7 @@ function AddCompanyPage() {
 						<div className="space-y-8">
 							{/* Card Preview Section */}
 							<div className="rounded-xl border-2 border-zinc-200 bg-white p-6 dark:border-zinc-700 dark:bg-zinc-900">
-								<h3 className="mb-4 text-lg font-semibold">
+								<h3 className="mb-4 font-semibold text-lg">
 									Homepage Card Preview
 								</h3>
 								<p className="mb-6 text-sm text-zinc-600 dark:text-zinc-400">
@@ -360,13 +360,13 @@ function AddCompanyPage() {
 												dangerouslySetInnerHTML={{ __html: svgLogo }}
 											/>
 										)}
-										<h2 className="mb-2 text-2xl font-semibold text-zinc-900 transition-colors group-hover:text-orange-600 dark:text-zinc-100">
+										<h2 className="mb-2 font-semibold text-2xl text-zinc-900 transition-colors group-hover:text-orange-600 dark:text-zinc-100">
 											{companyData.name || "Company Name"}
 										</h2>
-										<p className="flex-1 text-sm text-zinc-600 dark:text-zinc-400 line-clamp-3">
+										<p className="line-clamp-3 flex-1 text-sm text-zinc-600 dark:text-zinc-400">
 											{companyData.description || "Company description..."}
 										</p>
-										<div className="mt-4 inline-flex items-center gap-2 text-sm font-medium text-orange-600">
+										<div className="mt-4 inline-flex items-center gap-2 font-medium text-orange-600 text-sm">
 											View contacts
 											<svg
 												xmlns="http://www.w3.org/2000/svg"
@@ -389,9 +389,9 @@ function AddCompanyPage() {
 							</div>
 
 							{/* Full Company Page Preview */}
-							<div className="rounded-xl border-2 border-zinc-200 bg-white dark:border-zinc-700 dark:bg-zinc-900 overflow-hidden">
-								<div className="border-b border-zinc-200 bg-zinc-50 px-6 py-4 dark:border-zinc-700 dark:bg-zinc-800">
-									<h3 className="text-lg font-semibold">
+							<div className="overflow-hidden rounded-xl border-2 border-zinc-200 bg-white dark:border-zinc-700 dark:bg-zinc-900">
+								<div className="border-zinc-200 border-b bg-zinc-50 px-6 py-4 dark:border-zinc-700 dark:bg-zinc-800">
+									<h3 className="font-semibold text-lg">
 										Company Page Preview
 									</h3>
 									<p className="text-sm text-zinc-600 dark:text-zinc-400">
@@ -403,13 +403,13 @@ function AddCompanyPage() {
 								<div className="p-6">
 									<div className="text-zinc-900 dark:text-zinc-100">
 										{/* Back link simulation */}
-										<div className="mb-8 inline-flex items-center gap-2 text-sm font-medium text-zinc-600 dark:text-zinc-400">
+										<div className="mb-8 inline-flex items-center gap-2 font-medium text-sm text-zinc-600 dark:text-zinc-400">
 											<ArrowLeft className="h-4 w-4" />
 											Back to home
 										</div>
 
 										{/* Company header */}
-										<h1 className="mb-6 flex items-center gap-2 text-2xl font-medium text-balance text-zinc-900 dark:text-zinc-100 md:text-3xl">
+										<h1 className="mb-6 flex items-center gap-2 text-balance font-medium text-2xl text-zinc-900 md:text-3xl dark:text-zinc-100">
 											who to bother at{" "}
 											{svgLogo ? (
 												<span
@@ -500,7 +500,7 @@ function AddCompanyPage() {
 												.filter((cat) => cat.name)
 												.map((category) => (
 													<div key={category.name}>
-														<h2 className="mb-4 text-xs font-medium uppercase tracking-wider text-zinc-500 dark:text-zinc-400">
+														<h2 className="mb-4 font-medium text-xs text-zinc-500 uppercase tracking-wider dark:text-zinc-400">
 															{category.name}
 														</h2>
 														<div className="space-y-px">
@@ -509,10 +509,10 @@ function AddCompanyPage() {
 																.map((contact) => (
 																	<div
 																		key={contact.product}
-																		className="flex items-start justify-between border-t border-zinc-200 py-4 first:border-t-0 dark:border-zinc-800"
+																		className="flex items-start justify-between border-zinc-200 border-t py-4 first:border-t-0 dark:border-zinc-800"
 																	>
 																		<div className="flex-1">
-																			<span className="text-sm font-medium text-zinc-900 md:text-base dark:text-zinc-100">
+																			<span className="font-medium text-sm text-zinc-900 md:text-base dark:text-zinc-100">
 																				{contact.product}
 																			</span>
 																		</div>
@@ -553,7 +553,7 @@ function AddCompanyPage() {
 													cat.name &&
 													cat.contacts.some((c) => c.product),
 											) && (
-												<div className="text-center py-12 text-zinc-500 dark:text-zinc-400">
+												<div className="py-12 text-center text-zinc-500 dark:text-zinc-400">
 													<p>
 														Add categories and contacts in the Form tab to see
 														them here.
@@ -572,7 +572,7 @@ function AddCompanyPage() {
 						<div className="space-y-6">
 							{/* SVG Code Editor */}
 							<div className="rounded-xl border-2 border-zinc-200 bg-white p-6 dark:border-zinc-700 dark:bg-zinc-900">
-								<h3 className="mb-2 text-lg font-semibold">SVG Logo</h3>
+								<h3 className="mb-2 font-semibold text-lg">SVG Logo</h3>
 								<p className="mb-4 text-sm text-zinc-600 dark:text-zinc-400">
 									Paste or edit your SVG logo code directly.
 								</p>
@@ -599,7 +599,7 @@ function AddCompanyPage() {
 
 							{/* JSON Code Editor */}
 							<div className="rounded-xl border-2 border-zinc-200 bg-white p-6 dark:border-zinc-700 dark:bg-zinc-900">
-								<h3 className="mb-2 text-lg font-semibold">Company JSON</h3>
+								<h3 className="mb-2 font-semibold text-lg">Company JSON</h3>
 								<p className="mb-4 text-sm text-zinc-600 dark:text-zinc-400">
 									Edit the company data directly in JSON format.
 								</p>
@@ -615,7 +615,7 @@ function AddCompanyPage() {
 									spellCheck={false}
 								/>
 								{jsonError && (
-									<p className="mt-2 text-sm text-red-600">{jsonError}</p>
+									<p className="mt-2 text-red-600 text-sm">{jsonError}</p>
 								)}
 							</div>
 						</div>
@@ -623,9 +623,9 @@ function AddCompanyPage() {
 				</Tabs>
 
 				{/* Submit Button - visible on all tabs */}
-				<div className="mt-8 flex flex-col gap-4 pt-6 border-t border-zinc-200 dark:border-zinc-700">
-					{!canSubmit && !isSubmitting && (
-						<p className="text-sm text-zinc-500 dark:text-zinc-400 text-right">
+				<div className="mt-8 flex flex-col gap-4 border-zinc-200 border-t pt-6 dark:border-zinc-700">
+					{!(canSubmit || isSubmitting ) && (
+						<p className="text-right text-sm text-zinc-500 dark:text-zinc-400">
 							Please fill in all required fields: company name, ID, description, logo, at least one category with a contact and valid @handle.
 						</p>
 					)}

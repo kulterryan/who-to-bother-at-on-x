@@ -97,7 +97,7 @@ async function generateSitemap(): Promise<void> {
 		console.log(`\n📊 Generated sitemap with ${totalUrls} URLs`);
 		console.log(`   - ${staticPages.length} static pages`);
 		console.log(`   - ${companyIds.length} company pages`);
-		console.log(`\n✅ Sitemap generated at: public/sitemap.xml`);
+		console.log("\n✅ Sitemap generated at: public/sitemap.xml");
 	} catch (error) {
 		console.error("❌ Failed to generate sitemap:", error);
 		process.exit(1);

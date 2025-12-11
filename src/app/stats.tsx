@@ -14,7 +14,7 @@ const companyModules = import.meta.glob<{ default: Company }>(
 // Calculate stats
 function calculateStats() {
 	const companies = Object.entries(companyModules)
-		.filter(([path]) => !path.includes("template") && !path.includes("schema"))
+		.filter(([path]) => !(path.includes("template") || path.includes("schema")))
 		.map(([_, module]) => module.default);
 
 	const companyCount = companies.length;
@@ -34,14 +34,10 @@ function calculateStats() {
 	const peopleCount = uniqueHandles.size;
 
 	// Count total contact entries (products/roles)
-	const totalContacts = companies.reduce((sum, company) => {
-		return (
+	const totalContacts = companies.reduce((sum, company) => (
 			sum +
-			company.categories.reduce((catSum, category) => {
-				return catSum + category.contacts.length;
-			}, 0)
-		);
-	}, 0);
+			company.categories.reduce((catSum, category) => catSum + category.contacts.length, 0)
+		), 0);
 
 	return {
 		companyCount,
@@ -77,12 +73,12 @@ export const Route = createFileRoute("/stats")({
 function StatsPage() {
 	return (
 		<div className="text-zinc-900 dark:text-zinc-100">
-			<main className="mx-auto max-w-3xl flex flex-col gap-8 px-6 pt-8 pb-16 md:pt-12 md:pb-24">
+			<main className="mx-auto flex max-w-3xl flex-col gap-8 px-6 pt-8 pb-16 md:pt-12 md:pb-24">
 				{/* Header */}
 				<div className="flex flex-col gap-4">
 					<Link
 						to="/"
-						className="inline-flex items-center gap-2 text-sm text-zinc-600 hover:text-orange-600 dark:text-zinc-400 dark:hover:text-orange-600 transition-colors w-fit"
+						className="inline-flex w-fit items-center gap-2 text-sm text-zinc-600 transition-colors hover:text-orange-600 dark:text-zinc-400 dark:hover:text-orange-600"
 					>
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
@@ -101,7 +97,7 @@ function StatsPage() {
 						Back to home
 					</Link>
 
-					<h1 className="m-0 text-4xl font-medium text-zinc-900 dark:text-zinc-100 md:text-5xl">
+					<h1 className="m-0 font-medium text-4xl text-zinc-900 md:text-5xl dark:text-zinc-100">
 						Statistics
 					</h1>
 
@@ -114,10 +110,10 @@ function StatsPage() {
 				<div className="grid gap-6 md:grid-cols-3">
 					{/* Companies */}
 					<div className="flex flex-col rounded-xl border-2 border-zinc-200 bg-white p-6 dark:border-zinc-700 dark:bg-zinc-900">
-						<div className="mb-2 text-5xl font-bold text-orange-600">
+						<div className="mb-2 font-bold text-5xl text-orange-600">
 							{stats.companyCount}
 						</div>
-						<div className="text-lg font-medium text-zinc-900 dark:text-zinc-100">
+						<div className="font-medium text-lg text-zinc-900 dark:text-zinc-100">
 							Companies
 						</div>
 						<p className="mt-2 text-sm text-zinc-600 dark:text-zinc-400">
@@ -127,10 +123,10 @@ function StatsPage() {
 
 					{/* People */}
 					<div className="flex flex-col rounded-xl border-2 border-zinc-200 bg-white p-6 dark:border-zinc-700 dark:bg-zinc-900">
-						<div className="mb-2 text-5xl font-bold text-orange-600">
+						<div className="mb-2 font-bold text-5xl text-orange-600">
 							{stats.peopleCount}
 						</div>
-						<div className="text-lg font-medium text-zinc-900 dark:text-zinc-100">
+						<div className="font-medium text-lg text-zinc-900 dark:text-zinc-100">
 							People
 						</div>
 						<p className="mt-2 text-sm text-zinc-600 dark:text-zinc-400">
@@ -140,10 +136,10 @@ function StatsPage() {
 
 					{/* Contact Entries */}
 					<div className="flex flex-col rounded-xl border-2 border-zinc-200 bg-white p-6 dark:border-zinc-700 dark:bg-zinc-900">
-						<div className="mb-2 text-5xl font-bold text-orange-600">
+						<div className="mb-2 font-bold text-5xl text-orange-600">
 							{stats.totalContacts}
 						</div>
-						<div className="text-lg font-medium text-zinc-900 dark:text-zinc-100">
+						<div className="font-medium text-lg text-zinc-900 dark:text-zinc-100">
 							Contact Entries
 						</div>
 						<p className="mt-2 text-sm text-zinc-600 dark:text-zinc-400">
@@ -154,10 +150,10 @@ function StatsPage() {
 
 				{/* Additional Info */}
 				<div className="rounded-xl border-2 border-zinc-200 bg-white p-6 dark:border-zinc-700 dark:bg-zinc-900">
-					<h2 className="mb-4 text-2xl font-semibold text-zinc-900 dark:text-zinc-100">
+					<h2 className="mb-4 font-semibold text-2xl text-zinc-900 dark:text-zinc-100">
 						About the Data
 					</h2>
-					<div className="space-y-3 text-sm text-balance">
+					<div className="space-y-3 text-balance text-sm">
 						<p className="text-zinc-600 dark:text-zinc-400">
 							This database contains contact information for{" "}
 							{stats.companyCount} tech companies, with {stats.peopleCount}{" "}

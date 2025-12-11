@@ -94,7 +94,7 @@ async function generateFavicons(): Promise<void> {
 
 			// Add CSS with media query for theme-based colors
 			// Dark mode = light favicon, Light mode = dark favicon
-			const styleTag = `<style>:root{--favicon-color:#000}@media(prefers-color-scheme:dark){:root{--favicon-color:#fff}}</style>`;
+			const styleTag = "<style>:root{--favicon-color:#000}@media(prefers-color-scheme:dark){:root{--favicon-color:#fff}}</style>";
 
 			// Insert style tag after the opening SVG tag
 			svgString = svgString.replace(/(<svg[^>]*>)/, `$1${styleTag}`);
@@ -115,7 +115,7 @@ async function generateFavicons(): Promise<void> {
 	}
 
 	console.log(`\n📊 Generated ${generatedCount} favicon files`);
-	console.log(`✅ Favicon generation complete!`);
+	console.log("✅ Favicon generation complete!");
 }
 
 // Run generation

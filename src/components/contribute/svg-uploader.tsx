@@ -1,4 +1,4 @@
-import { AlertCircle, CheckCircle, Upload, X } from "lucide-react";
+import { AlertCircle, Upload, X } from "lucide-react";
 import { useCallback, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
@@ -33,7 +33,7 @@ export function SVGUploader({
 		const warnings: string[] = [];
 
 		// Check if it's valid SVG
-		if (!content.trim().startsWith("<svg") && !content.includes("<svg")) {
+		if (!(content.trim().startsWith("<svg") || content.includes("<svg"))) {
 			errors.push("Content does not appear to be a valid SVG");
 		}
 
@@ -62,7 +62,7 @@ export function SVGUploader({
 			);
 		}
 
-		if (content.length > 50000) {
+		if (content.length > 50_000) {
 			warnings.push("SVG is quite large - consider optimizing it");
 		}
 
@@ -90,7 +90,7 @@ export function SVGUploader({
 			const file = e.target.files?.[0];
 			if (!file) return;
 
-			if (!file.type.includes("svg") && !file.name.endsWith(".svg")) {
+			if (!(file.type.includes("svg") || file.name.endsWith(".svg"))) {
 				setValidation({
 					isValid: false,
 					errors: ["Please upload an SVG file"],
@@ -128,7 +128,7 @@ export function SVGUploader({
 			const file = e.dataTransfer.files?.[0];
 			if (!file) return;
 
-			if (!file.type.includes("svg") && !file.name.endsWith(".svg")) {
+			if (!(file.type.includes("svg") || file.name.endsWith(".svg"))) {
 				setValidation({
 					isValid: false,
 					errors: ["Please upload an SVG file"],
@@ -181,7 +181,7 @@ export function SVGUploader({
 							<p className="font-medium text-green-700 dark:text-green-400">
 								Logo uploaded successfully
 							</p>
-							<p className="text-sm text-green-600 dark:text-green-500">
+							<p className="text-green-600 text-sm dark:text-green-500">
 								{companyName} logo is ready
 							</p>
 						</div>
@@ -212,7 +212,7 @@ export function SVGUploader({
 			)}
 
 			{/* Upload Area */}
-			{(!value || !validation?.isValid) && (
+			{(!(value && validation?.isValid)) && (
 				<div
 					className={`relative rounded-lg border-2 border-dashed p-8 text-center transition-colors ${
 						dragActive
@@ -233,7 +233,7 @@ export function SVGUploader({
 					/>
 
 					<Upload className="mx-auto h-12 w-12 text-zinc-400" />
-					<p className="mt-4 text-sm font-medium text-zinc-900 dark:text-zinc-100">
+					<p className="mt-4 font-medium text-sm text-zinc-900 dark:text-zinc-100">
 						Drag and drop your SVG logo here
 					</p>
 					<p className="mt-1 text-xs text-zinc-500">
@@ -301,7 +301,7 @@ export function SVGUploader({
 							<p className="font-medium text-red-700 dark:text-red-400">
 								Invalid SVG
 							</p>
-							<ul className="mt-1 list-disc pl-4 text-sm text-red-600 dark:text-red-500">
+							<ul className="mt-1 list-disc pl-4 text-red-600 text-sm dark:text-red-500">
 								{validation.errors.map((err) => (
 									<li key={err}>{err}</li>
 								))}
@@ -330,11 +330,11 @@ export function SVGUploader({
 			)}
 
 			{/* External Error */}
-			{error && <p className="text-sm text-red-600">{error}</p>}
+			{error && <p className="text-red-600 text-sm">{error}</p>}
 
 			{/* Guidelines */}
 			<div className="rounded-lg bg-zinc-100 p-4 dark:bg-zinc-800">
-				<p className="text-sm font-medium text-zinc-900 dark:text-zinc-100">
+				<p className="font-medium text-sm text-zinc-900 dark:text-zinc-100">
 					Logo Guidelines
 				</p>
 				<ul className="mt-2 list-disc pl-4 text-xs text-zinc-600 dark:text-zinc-400">

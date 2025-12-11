@@ -20,8 +20,7 @@ export const Route = createFileRoute("/search")({
 	validateSearch: createStandardSchemaV1(searchParams, {
 		partialOutput: true,
 	}),
-	head: () => {
-		return {
+	head: () => ({
 			meta: [
 				...seo({
 					title: "Search | who to bother on X",
@@ -40,8 +39,7 @@ export const Route = createFileRoute("/search")({
 					href: "/favicon.svg",
 				},
 			],
-		};
-	},
+		}),
 	component: SearchPage,
 });
 
@@ -65,12 +63,12 @@ function SearchPage() {
 
 	return (
 		<div className="text-zinc-900 dark:text-zinc-100">
-			<main className="mx-auto max-w-3xl flex flex-col gap-6 px-6 pt-8 pb-16 md:pt-12 md:pb-24">
+			<main className="mx-auto flex max-w-3xl flex-col gap-6 px-6 pt-8 pb-16 md:pt-12 md:pb-24">
 				{/* Header */}
 				<div className="flex flex-col gap-4">
 					<Link
 						to="/"
-						className="text-orange-600 hover:text-orange-700 dark:hover:text-orange-500 transition-colors inline-flex items-center gap-2 w-fit"
+						className="inline-flex w-fit items-center gap-2 text-orange-600 transition-colors hover:text-orange-700 dark:hover:text-orange-500"
 					>
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
@@ -89,7 +87,7 @@ function SearchPage() {
 						Back to home
 					</Link>
 
-					<h1 className="m-0 text-4xl font-medium text-zinc-900 dark:text-zinc-100 md:text-5xl">
+					<h1 className="m-0 font-medium text-4xl text-zinc-900 md:text-5xl dark:text-zinc-100">
 						Search companies & products
 					</h1>
 				</div>
@@ -116,7 +114,7 @@ function SearchPage() {
 						placeholder="Search for companies or products..."
 						value={query}
 						onChange={(e) => setQuery(e.target.value || null)}
-						className="w-full rounded-lg border-2 border-zinc-200 bg-white py-3 pl-11 pr-4 text-zinc-900 placeholder-zinc-400 transition-colors focus:border-orange-600 focus:outline-none dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-100 dark:placeholder-zinc-500 dark:focus:border-orange-600"
+						className="w-full rounded-lg border-2 border-zinc-200 bg-white py-3 pr-4 pl-11 text-zinc-900 placeholder-zinc-400 transition-colors focus:border-orange-600 focus:outline-none dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-100 dark:placeholder-zinc-500 dark:focus:border-orange-600"
 						aria-label="Search for companies or products"
 						autoFocus
 					/>
@@ -145,29 +143,10 @@ function SearchPage() {
 				</form>
 
 				{/* Results */}
-				{!query ? (
+				{query ? results.length === 0 ? (
 					<div className="py-12 text-center">
 						<svg
-							className="mx-auto h-12 w-12 text-zinc-300 dark:text-zinc-700 mb-4"
-							fill="none"
-							viewBox="0 0 24 24"
-							stroke="currentColor"
-						>
-							<path
-								strokeLinecap="round"
-								strokeLinejoin="round"
-								strokeWidth={2}
-								d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-							/>
-						</svg>
-						<p className="text-lg text-zinc-600 dark:text-zinc-400">
-							Enter a search term to find companies or products
-						</p>
-					</div>
-				) : results.length === 0 ? (
-					<div className="py-12 text-center">
-						<svg
-							className="mx-auto h-12 w-12 text-zinc-300 dark:text-zinc-700 mb-4"
+							className="mx-auto mb-4 h-12 w-12 text-zinc-300 dark:text-zinc-700"
 							fill="none"
 							viewBox="0 0 24 24"
 							stroke="currentColor"
@@ -179,7 +158,7 @@ function SearchPage() {
 								d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
 							/>
 						</svg>
-						<p className="text-lg text-zinc-600 dark:text-zinc-400 mb-2">
+						<p className="mb-2 text-lg text-zinc-600 dark:text-zinc-400">
 							No results found for "{query}"
 						</p>
 						<p className="text-sm text-zinc-500 dark:text-zinc-500">
@@ -199,6 +178,25 @@ function SearchPage() {
 							))}
 						</div>
 					</>
+				) : (
+					<div className="py-12 text-center">
+						<svg
+							className="mx-auto mb-4 h-12 w-12 text-zinc-300 dark:text-zinc-700"
+							fill="none"
+							viewBox="0 0 24 24"
+							stroke="currentColor"
+						>
+							<path
+								strokeLinecap="round"
+								strokeLinejoin="round"
+								strokeWidth={2}
+								d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+							/>
+						</svg>
+						<p className="text-lg text-zinc-600 dark:text-zinc-400">
+							Enter a search term to find companies or products
+						</p>
+					</div>
 				)}
 
 				<Footer />
@@ -228,20 +226,18 @@ const SearchResultCard = memo(function SearchResultCard({
 			role="listitem"
 		>
 			{logo && (
-				<div className="shrink-0 w-14 h-12 flex items-center justify-center">
+				<div className="flex h-12 w-14 shrink-0 items-center justify-center">
 					{logo}
 				</div>
 			)}
 
-			<div className="flex-1 min-w-0">
-				<div className="flex items-center gap-2 mb-1">
-					<h3 className="text-lg font-semibold text-zinc-900 transition-colors group-hover:text-orange-600 dark:text-zinc-100">
+			<div className="min-w-0 flex-1">
+				<div className="mb-1 flex items-center gap-2">
+					<h3 className="font-semibold text-lg text-zinc-900 transition-colors group-hover:text-orange-600 dark:text-zinc-100">
 						{result.name}
 					</h3>
 					<span
-						className={`
-            inline-flex items-center rounded-full px-2 py-0.5 text-xs font-medium
-            ${
+						className={`inline-flex items-center rounded-full px-2 py-0.5 font-medium text-xs ${
 							isCompany
 								? "bg-blue-50 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300"
 								: "bg-purple-50 text-purple-700 dark:bg-purple-900/30 dark:text-purple-300"
@@ -252,7 +248,7 @@ const SearchResultCard = memo(function SearchResultCard({
 					</span>
 				</div>
 
-				<p className="text-sm text-zinc-600 dark:text-zinc-400 line-clamp-2 mb-0">
+				<p className="mb-0 line-clamp-2 text-sm text-zinc-600 dark:text-zinc-400">
 					{result.description}
 				</p>
 			</div>
@@ -268,7 +264,7 @@ const SearchResultCard = memo(function SearchResultCard({
 					strokeWidth="2"
 					strokeLinecap="round"
 					strokeLinejoin="round"
-					className="text-zinc-400 group-hover:text-orange-600 transition-colors"
+					className="text-zinc-400 transition-colors group-hover:text-orange-600"
 				>
 					<path d="M5 12h14" />
 					<path d="m12 5 7 7-7 7" />

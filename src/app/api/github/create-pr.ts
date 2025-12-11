@@ -58,7 +58,9 @@ export const Route = createFileRoute("/api/github/create-pr")({
 
 				// Get the session (skip in test mode)
 				let accessToken = "test-token";
-				if (!testMode?.enabled) {
+				if (testMode?.enabled) {
+					console.log("[create-pr] 🧪 Skipping authentication in test mode");
+				} else {
 					const session = await auth.api.getSession({ headers: request.headers });
 					console.log("[create-pr] Session check:", session ? "authenticated" : "not authenticated");
 
@@ -99,11 +101,9 @@ export const Route = createFileRoute("/api/github/create-pr")({
 							},
 						);
 					}
-				} else {
-					console.log("[create-pr] 🧪 Skipping authentication in test mode");
 				}
 
-				if (!company || !company.id || !company.name) {
+				if (!((company && company.id ) && company.name)) {
 					return new Response(
 						JSON.stringify({ error: "Company data is required" }),
 						{
@@ -236,7 +236,11 @@ export const Route = createFileRoute("/api/github/create-pr")({
 							testMode,
 						);
 
-						if (!defaultLogosFile) {
+						if (defaultLogosFile) {
+							logosFileContent = defaultLogosFile.content;
+							logosFileSha = undefined;
+							console.log("[create-pr] Using logos file from default branch");
+						} else {
 							// In test mode, provide a mock logos file content
 							if (testMode?.enabled) {
 								console.log("[create-pr] 🧪 Test mode: Using mock logos file content");
@@ -253,10 +257,6 @@ export const Route = createFileRoute("/api/github/create-pr")({
 								console.error("[create-pr] Could not find company-logos.tsx file");
 								throw new Error("Could not find company-logos.tsx file");
 							}
-						} else {
-							logosFileContent = defaultLogosFile.content;
-							logosFileSha = undefined;
-							console.log("[create-pr] Using logos file from default branch");
 						}
 					}
 

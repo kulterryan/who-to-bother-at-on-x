@@ -14,7 +14,7 @@ export default defineConfig({
 			protocol: "ws",
 			port: 3311,
 			overlay: true,
-			timeout: 30000, // Increase timeout to 30 seconds
+			timeout: 30_000, // Increase timeout to 30 seconds
 		},
 		watch: {
 			// Disable polling for better performance

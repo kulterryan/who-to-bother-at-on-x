@@ -125,7 +125,7 @@ function EditCompanySelectPage() {
 
 				{/* Page Title */}
 				<div className="mb-8">
-					<h2 className="text-3xl font-bold">Edit Company</h2>
+					<h2 className="font-bold text-3xl">Edit Company</h2>
 					<p className="mt-2 text-lg text-zinc-600 dark:text-zinc-400">
 						Select a company to edit. You can update information, contacts, and
 						logos.
@@ -133,8 +133,8 @@ function EditCompanySelectPage() {
 				</div>
 
 				{/* Search */}
-				<div className="mb-6 relative">
-					<Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-zinc-500" />
+				<div className="relative mb-6">
+					<Search className="-translate-y-1/2 absolute top-1/2 left-3 h-4 w-4 text-zinc-500" />
 					<Input
 						placeholder="Search companies..."
 						value={searchQuery}
@@ -169,9 +169,9 @@ function EditCompanySelectPage() {
 								<div className="flex h-12 w-12 items-center justify-center rounded-lg border border-zinc-200 bg-zinc-50 p-2 dark:border-zinc-700 dark:bg-zinc-800">
 									{Logo || <Building2 className="h-6 w-6 text-zinc-400" />}
 								</div>
-								<div className="flex-1 min-w-0">
-									<h3 className="font-semibold truncate">{company.name}</h3>
-									<p className="text-sm text-zinc-600 dark:text-zinc-400 truncate">
+								<div className="min-w-0 flex-1">
+									<h3 className="truncate font-semibold">{company.name}</h3>
+									<p className="truncate text-sm text-zinc-600 dark:text-zinc-400">
 										{company.description}
 									</p>
 								</div>

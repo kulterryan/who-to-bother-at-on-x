@@ -59,8 +59,9 @@ export const Route = createFileRoute("/opengraph")({
 
 					// Fetch the font file
 					const fontRes = await fetch(fontUrl);
-					if (!fontRes.ok) {
-						if (fontUrl.includes("fonts.gstatic.com")) {
+					if (fontRes.ok) {
+						fontBuffer = await fontRes.arrayBuffer();
+					} else if (fontUrl.includes("fonts.gstatic.com")) {
 							console.warn("Google Fonts failed, trying jsDelivr CDN");
 							const jsdelivrUrl =
 								"https://cdn.jsdelivr.net/npm/@fontsource/dm-sans@5/files/dm-sans-latin-400-normal.woff2";
@@ -77,9 +78,6 @@ export const Route = createFileRoute("/opengraph")({
 								`Failed to fetch font file from ${fontUrl}: ${fontRes.status}`,
 							);
 						}
-					} else {
-						fontBuffer = await fontRes.arrayBuffer();
-					}
 
 					// Initialize WASM
 					initSync({ module: wasmModule.default });

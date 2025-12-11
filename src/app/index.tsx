@@ -21,7 +21,7 @@ const companyModules = import.meta.glob<{ default: Company }>(
 
 // Extract company list items from the loaded modules
 const companies: CompanyListItem[] = Object.entries(companyModules)
-	.filter(([path]) => !path.includes("template") && !path.includes("schema"))
+	.filter(([path]) => !(path.includes("template") || path.includes("schema")))
 	.map(([_, module]) => {
 		const company = module.default;
 		return {
@@ -87,8 +87,8 @@ function HomePage() {
 
 	return (
 		<div className="text-zinc-900 dark:text-zinc-100">
-			<main className="mx-auto max-w-3xl flex flex-col gap-4 px-6 pt-8 pb-16 md:pt-12 md:pb-24">
-				<h1 className="m-0 text-4xl font-medium text-zinc-900 dark:text-zinc-100 md:text-5xl">
+			<main className="mx-auto flex max-w-3xl flex-col gap-4 px-6 pt-8 pb-16 md:pt-12 md:pb-24">
+				<h1 className="m-0 font-medium text-4xl text-zinc-900 md:text-5xl dark:text-zinc-100">
 					who to bother on{" "}
 					<svg
 						fill="none"
@@ -130,7 +130,7 @@ function HomePage() {
 						placeholder="Search companies and products..."
 						value={searchTerm}
 						onChange={(e) => setSearchTerm(e.target.value || null)}
-						className="w-full rounded-lg border-2 border-zinc-200 bg-white py-3 pl-11 pr-4 text-zinc-900 placeholder-zinc-400 transition-colors focus:border-orange-600 focus:outline-none dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-100 dark:placeholder-zinc-500 dark:focus:border-orange-600"
+						className="w-full rounded-lg border-2 border-zinc-200 bg-white py-3 pr-4 pl-11 text-zinc-900 placeholder-zinc-400 transition-colors focus:border-orange-600 focus:outline-none dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-100 dark:placeholder-zinc-500 dark:focus:border-orange-600"
 						aria-label="Search companies and products"
 					/>
 					{searchTerm && (
@@ -171,13 +171,13 @@ function HomePage() {
 									className="group flex flex-col rounded-xl border-2 border-zinc-200 bg-white p-6 transition-all hover:border-zinc-900 hover:shadow-lg dark:border-zinc-700 dark:bg-zinc-900 dark:hover:border-orange-600"
 								>
 									{logo && <div className="mb-4">{logo}</div>}
-									<h2 className="mb-2 text-2xl font-semibold text-zinc-900 transition-colors group-hover:text-orange-600 dark:text-zinc-100">
+									<h2 className="mb-2 font-semibold text-2xl text-zinc-900 transition-colors group-hover:text-orange-600 dark:text-zinc-100">
 										{company.name}
 									</h2>
-									<p className="flex-1 text-sm text-zinc-600 dark:text-zinc-400 line-clamp-3">
+									<p className="line-clamp-3 flex-1 text-sm text-zinc-600 dark:text-zinc-400">
 										{company.description}
 									</p>
-									<div className="mt-4 inline-flex items-center gap-2 text-sm font-medium text-orange-600">
+									<div className="mt-4 inline-flex items-center gap-2 font-medium text-orange-600 text-sm">
 										View contacts
 										<svg
 											xmlns="http://www.w3.org/2000/svg"
@@ -206,13 +206,13 @@ function HomePage() {
 								className="group flex flex-col rounded-xl border-2 border-zinc-200 bg-white p-6 transition-all hover:border-zinc-900 hover:shadow-lg dark:border-zinc-700 dark:bg-zinc-900 dark:hover:border-orange-600"
 							>
 								{logo && <div className="mb-4">{logo}</div>}
-								<h2 className="mb-2 text-2xl font-semibold text-zinc-900 transition-colors group-hover:text-orange-600 dark:text-zinc-100">
+								<h2 className="mb-2 font-semibold text-2xl text-zinc-900 transition-colors group-hover:text-orange-600 dark:text-zinc-100">
 									{company.name}
 								</h2>
-								<p className="flex-1 text-sm text-zinc-600 dark:text-zinc-400 line-clamp-3">
+								<p className="line-clamp-3 flex-1 text-sm text-zinc-600 dark:text-zinc-400">
 									{company.description}
 								</p>
-								<div className="mt-4 inline-flex items-center gap-2 text-sm font-medium text-orange-600">
+								<div className="mt-4 inline-flex items-center gap-2 font-medium text-orange-600 text-sm">
 									View contacts
 									<svg
 										xmlns="http://www.w3.org/2000/svg"

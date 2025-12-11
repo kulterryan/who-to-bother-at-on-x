@@ -23,7 +23,7 @@ export function getTestModeConfig(): TestModeConfig | undefined {
 	if (isGitHubTestModeEnabled()) {
 		return { enabled: true, simulatedDelay: 200 };
 	}
-	return undefined;
+	return ;
 }
 
 // In-memory storage for test mode to simulate state
@@ -133,7 +133,7 @@ export async function getGitHubUser(
 		console.log("[TEST MODE] getGitHubUser: Returning mock user");
 		return {
 			login: "test-user",
-			id: 12345678,
+			id: 12_345_678,
 		};
 	}
 

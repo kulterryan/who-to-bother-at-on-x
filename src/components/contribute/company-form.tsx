@@ -64,13 +64,13 @@ interface CompanyFormProps {
 function getFirstError(
 	errors: ReadonlyArray<unknown>,
 ): string | undefined {
-	if (errors.length === 0) return undefined;
+	if (errors.length === 0) return ;
 	const first = errors.at(0);
 	if (typeof first === "string") return first;
 	if (first && typeof first === "object" && "message" in first) {
 		return String((first as { message: unknown }).message);
 	}
-	return undefined;
+	return ;
 }
 
 export function CompanyForm({
@@ -166,7 +166,7 @@ export function CompanyForm({
 		>
 			{/* Basic Information */}
 			<div className="space-y-6">
-				<h3 className="text-lg font-semibold text-zinc-900 dark:text-zinc-100">
+				<h3 className="font-semibold text-lg text-zinc-900 dark:text-zinc-100">
 					Basic Information
 				</h3>
 
@@ -175,7 +175,7 @@ export function CompanyForm({
 						name="name"
 						validators={{
 							onChange: ({ value }: { value: string }) =>
-								!value ? "Company name is required" : undefined,
+								value ? undefined : "Company name is required",
 						}}
 					>
 						{(field) => (
@@ -192,7 +192,7 @@ export function CompanyForm({
 									}}
 								/>
 								{field.state.meta.errors.length > 0 && (
-									<p className="text-sm text-red-600">
+									<p className="text-red-600 text-sm">
 										{getFirstError(field.state.meta.errors)}
 									</p>
 								)}
@@ -208,7 +208,7 @@ export function CompanyForm({
 								if (!/^[a-z0-9-]+$/.test(value)) {
 									return "ID must be lowercase with only letters, numbers, and hyphens";
 								}
-								return undefined;
+								return ;
 							},
 						}}
 					>
@@ -224,7 +224,7 @@ export function CompanyForm({
 									onChange={(e) => field.handleChange(e.target.value)}
 								/>
 								{field.state.meta.errors.length > 0 && (
-									<p className="text-sm text-red-600">
+									<p className="text-red-600 text-sm">
 										{getFirstError(field.state.meta.errors)}
 									</p>
 								)}
@@ -240,7 +240,7 @@ export function CompanyForm({
 					name="description"
 					validators={{
 						onChange: ({ value }: { value: string }) =>
-							!value ? "Description is required" : undefined,
+							value ? undefined : "Description is required",
 					}}
 				>
 					{(field) => (
@@ -254,7 +254,7 @@ export function CompanyForm({
 								onChange={(e) => field.handleChange(e.target.value)}
 							/>
 							{field.state.meta.errors.length > 0 && (
-								<p className="text-sm text-red-600">
+								<p className="text-red-600 text-sm">
 									{getFirstError(field.state.meta.errors)}
 								</p>
 							)}
@@ -266,7 +266,7 @@ export function CompanyForm({
 					name="logoType"
 					validators={{
 						onChange: ({ value }: { value: string }) =>
-							!value ? "Logo type is required" : undefined,
+							value ? undefined : "Logo type is required",
 					}}
 				>
 					{(field) => (
@@ -280,7 +280,7 @@ export function CompanyForm({
 								onChange={(e) => field.handleChange(e.target.value)}
 							/>
 							{field.state.meta.errors.length > 0 && (
-								<p className="text-sm text-red-600">
+								<p className="text-red-600 text-sm">
 									{getFirstError(field.state.meta.errors)}
 								</p>
 							)}
@@ -294,7 +294,7 @@ export function CompanyForm({
 
 			{/* Links */}
 			<div className="space-y-6">
-				<h3 className="text-lg font-semibold text-zinc-900 dark:text-zinc-100">
+				<h3 className="font-semibold text-lg text-zinc-900 dark:text-zinc-100">
 					Links (Optional)
 				</h3>
 
@@ -371,7 +371,7 @@ export function CompanyForm({
 					{(categoriesField) => (
 						<>
 							<div className="flex items-center justify-between">
-								<h3 className="text-lg font-semibold text-zinc-900 dark:text-zinc-100">
+								<h3 className="font-semibold text-lg text-zinc-900 dark:text-zinc-100">
 									Categories & Contacts
 								</h3>
 								<Button
@@ -393,7 +393,7 @@ export function CompanyForm({
 							</div>
 
 							{categoriesField.state.meta.errors.length > 0 && (
-								<p className="text-sm text-red-600">
+								<p className="text-red-600 text-sm">
 									{getFirstError(categoriesField.state.meta.errors)}
 								</p>
 							)}
@@ -404,12 +404,12 @@ export function CompanyForm({
 										key={categoryIndex}
 										className="rounded-lg border-2 border-zinc-200 bg-zinc-50/50 p-4 dark:border-zinc-700 dark:bg-zinc-800/50"
 									>
-										<div className="flex items-start justify-between gap-4 mb-4">
+										<div className="mb-4 flex items-start justify-between gap-4">
 											<form.Field
 												name={`categories[${categoryIndex}].name`}
 												validators={{
 													onChange: ({ value }: { value: string }) =>
-														!value ? "Category name is required" : undefined,
+														value ? undefined : "Category name is required",
 												}}
 											>
 												{(field) => (
@@ -427,7 +427,7 @@ export function CompanyForm({
 															}
 														/>
 														{field.state.meta.errors.length > 0 && (
-															<p className="text-sm text-red-600">
+															<p className="text-red-600 text-sm">
 																{getFirstError(field.state.meta.errors)}
 															</p>
 														)}
@@ -442,7 +442,7 @@ export function CompanyForm({
 													onClick={() =>
 														categoriesField.removeValue(categoryIndex)
 													}
-													className="text-red-600 hover:text-red-700 hover:bg-red-50 dark:hover:bg-red-950"
+													className="text-red-600 hover:bg-red-50 hover:text-red-700 dark:hover:bg-red-950"
 												>
 													<Trash2 className="h-4 w-4" />
 												</Button>
@@ -478,7 +478,7 @@ export function CompanyForm({
 													</div>
 
 													{contactsField.state.meta.errors.length > 0 && (
-														<p className="text-sm text-red-600">
+														<p className="text-red-600 text-sm">
 															{getFirstError(contactsField.state.meta.errors)}
 														</p>
 													)}
@@ -488,17 +488,16 @@ export function CompanyForm({
 															key={contactIndex}
 															className="rounded-lg border border-zinc-200 bg-white p-4 dark:border-zinc-700 dark:bg-zinc-900"
 														>
-															<div className="flex items-start justify-between gap-4 mb-4">
-																<div className="flex-1 grid gap-4 sm:grid-cols-2">
+															<div className="mb-4 flex items-start justify-between gap-4">
+																<div className="grid flex-1 gap-4 sm:grid-cols-2">
 																	<form.Field
 																		name={`categories[${categoryIndex}].contacts[${contactIndex}].product`}
 																		validators={{
 																			onChange: ({
 																				value,
 																			}: { value: string }) =>
-																				!value
-																					? "Product/role name is required"
-																					: undefined,
+																				value
+																					? undefined : "Product/role name is required",
 																		}}
 																	>
 																		{(field) => (
@@ -513,7 +512,7 @@ export function CompanyForm({
 																					}
 																				/>
 																				{field.state.meta.errors.length > 0 && (
-																					<p className="text-sm text-red-600">
+																					<p className="text-red-600 text-sm">
 																						{getFirstError(
 																							field.state.meta.errors,
 																						)}
@@ -579,7 +578,7 @@ export function CompanyForm({
 																		</div>
 																		{handlesField.state.meta.errors.length >
 																			0 && (
-																			<p className="text-sm text-red-600">
+																			<p className="text-red-600 text-sm">
 																				{getFirstError(
 																					handlesField.state.meta.errors,
 																				)}
@@ -645,7 +644,7 @@ export function CompanyForm({
 
 			{/* Submit */}
 			{!hideSubmitButton && (
-				<div className="flex justify-end gap-4 pt-4 border-t border-zinc-200 dark:border-zinc-700">
+				<div className="flex justify-end gap-4 border-zinc-200 border-t pt-4 dark:border-zinc-700">
 					<form.Subscribe selector={(state) => state.canSubmit}>
 						{(canSubmit) => (
 							<Button type="submit" disabled={isSubmitting || !canSubmit}>

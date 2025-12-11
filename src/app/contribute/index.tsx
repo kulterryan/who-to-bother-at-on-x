@@ -1,6 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { BookOpen, Edit, GitPullRequest, LogIn, Plus } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { BookOpen, GitPullRequest, LogIn, Plus } from "lucide-react";
 import { useSession } from "@/lib/auth-client";
 import { seo } from "@/lib/seo";
 
@@ -66,7 +65,7 @@ function ContributePage() {
 				{/* Header */}
 				<div className="mb-8">
 					<Link to="/" className="inline-block">
-						<h1 className="text-2xl font-medium">
+						<h1 className="font-medium text-2xl">
 							who to bother on{" "}
 							<svg
 								fill="none"
@@ -86,7 +85,7 @@ function ContributePage() {
 
 				{/* Page Title */}
 				<div className="mb-8">
-					<h2 className="text-3xl font-bold">Contribute</h2>
+					<h2 className="font-bold text-3xl">Contribute</h2>
 					<p className="mt-2 text-lg text-zinc-600 dark:text-zinc-400">
 						Add your company to the directory. Your changes will
 						be submitted as a pull request.
@@ -100,7 +99,7 @@ function ContributePage() {
 							<div className="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-full bg-zinc-100 dark:bg-zinc-800">
 								<LogIn className="h-8 w-8 text-zinc-600 dark:text-zinc-400" />
 							</div>
-							<h3 className="text-xl font-semibold">Sign in to Contribute</h3>
+							<h3 className="font-semibold text-xl">Sign in to Contribute</h3>
 							<p className="mt-2 text-zinc-600 dark:text-zinc-400">
 								You need to sign in with GitHub to submit contributions. This
 								allows us to create pull requests on your behalf.
@@ -135,15 +134,15 @@ function ContributePage() {
 									className="h-12 w-12 rounded-full border-2 border-green-300 dark:border-green-700"
 								/>
 							) : (
-								<div className="flex h-12 w-12 items-center justify-center rounded-full bg-green-600 text-lg font-bold text-white">
+								<div className="flex h-12 w-12 items-center justify-center rounded-full bg-green-600 font-bold text-lg text-white">
 									{session.user?.name?.charAt(0) || "U"}
 								</div>
 							)}
 							<div>
-								<p className="font-medium text-green-700 dark:text-green-400 mb-0">
+								<p className="mb-0 font-medium text-green-700 dark:text-green-400">
 									Signed in as {session.user?.name || session.user?.email}
 								</p>
-								<p className="text-sm text-green-600 dark:text-green-500 mb-0">
+								<p className="mb-0 text-green-600 text-sm dark:text-green-500">
 									Ready to contribute via GitHub
 								</p>
 							</div>
@@ -159,12 +158,12 @@ function ContributePage() {
 								<div className="mb-4 flex h-12 w-12 items-center justify-center rounded-lg bg-orange-100 text-orange-600 transition-colors group-hover:bg-orange-600 group-hover:text-white dark:bg-orange-900/30">
 									<Plus className="h-6 w-6" />
 								</div>
-								<h3 className="text-xl font-semibold">Add New Company</h3>
+								<h3 className="font-semibold text-xl">Add New Company</h3>
 								<p className="mt-2 text-zinc-600 dark:text-zinc-400">
 									Add a new company with contact information and logo. Perfect
 									for companies not yet in our directory.
 								</p>
-								<div className="mt-4 flex items-center gap-2 text-sm font-medium text-orange-600 dark:text-orange-500">
+								<div className="mt-4 flex items-center gap-2 font-medium text-orange-600 text-sm dark:text-orange-500">
 									<span>Get started</span>
 									<svg
 										xmlns="http://www.w3.org/2000/svg"
@@ -218,10 +217,10 @@ function ContributePage() {
 
 						{/* How it Works */}
 						<div className="mt-12">
-							<h3 className="mb-6 text-xl font-semibold">How it Works</h3>
+							<h3 className="mb-6 font-semibold text-xl">How it Works</h3>
 							<div className="grid gap-4 md:grid-cols-3">
 								<div className="rounded-lg border-2 border-zinc-200 bg-zinc-50 p-4 dark:border-zinc-700 dark:bg-zinc-800/50">
-									<div className="mb-3 flex h-8 w-8 items-center justify-center rounded-full bg-orange-600 text-sm font-bold text-white">
+									<div className="mb-3 flex h-8 w-8 items-center justify-center rounded-full bg-orange-600 font-bold text-sm text-white">
 										1
 									</div>
 									<h4 className="font-medium">Fill out the form</h4>
@@ -230,7 +229,7 @@ function ContributePage() {
 									</p>
 								</div>
 								<div className="rounded-lg border-2 border-zinc-200 bg-zinc-50 p-4 dark:border-zinc-700 dark:bg-zinc-800/50">
-									<div className="mb-3 flex h-8 w-8 items-center justify-center rounded-full bg-orange-600 text-sm font-bold text-white">
+									<div className="mb-3 flex h-8 w-8 items-center justify-center rounded-full bg-orange-600 font-bold text-sm text-white">
 										2
 									</div>
 									<h4 className="font-medium">Submit your changes</h4>
@@ -239,7 +238,7 @@ function ContributePage() {
 									</p>
 								</div>
 								<div className="rounded-lg border-2 border-zinc-200 bg-zinc-50 p-4 dark:border-zinc-700 dark:bg-zinc-800/50">
-									<div className="mb-3 flex h-8 w-8 items-center justify-center rounded-full bg-orange-600 text-sm font-bold text-white">
+									<div className="mb-3 flex h-8 w-8 items-center justify-center rounded-full bg-orange-600 font-bold text-sm text-white">
 										3
 									</div>
 									<h4 className="font-medium">Get it reviewed</h4>
@@ -253,7 +252,7 @@ function ContributePage() {
 				)}
 
 				{/* Links */}
-				<div className="mt-12 flex flex-wrap justify-center gap-4 border-t border-zinc-200 pt-8 dark:border-zinc-700">
+				<div className="mt-12 flex flex-wrap justify-center gap-4 border-zinc-200 border-t pt-8 dark:border-zinc-700">
 					<a
 						href="https://github.com/kulterryan/cf-who-to-bother-at-on-x"
 						target="_blank"

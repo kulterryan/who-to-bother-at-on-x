@@ -68,7 +68,7 @@ function LoginPage() {
 		return (
 			<div className="flex min-h-screen items-center justify-center text-zinc-900 dark:text-zinc-100">
 				<div className="mx-auto max-w-md text-center">
-					<h1 className="mb-4 text-2xl font-medium">
+					<h1 className="mb-4 font-medium text-2xl">
 						You're already signed in
 					</h1>
 					<p className="mb-6 text-zinc-600 dark:text-zinc-400">
@@ -106,7 +106,7 @@ function LoginPage() {
 					{/* Header */}
 					<div className="mb-8 text-center">
 						<Link to="/" className="inline-block">
-							<h1 className="text-2xl font-medium">
+							<h1 className="font-medium text-2xl">
 								who to bother on{" "}
 								<svg
 									fill="none"
@@ -141,9 +141,9 @@ function LoginPage() {
 
 					{/* Divider */}
 					<div className="my-6 flex items-center">
-						<div className="flex-1 border-t border-zinc-200 dark:border-zinc-700" />
+						<div className="flex-1 border-zinc-200 border-t dark:border-zinc-700" />
 						<span className="px-4 text-sm text-zinc-500">or</span>
-						<div className="flex-1 border-t border-zinc-200 dark:border-zinc-700" />
+						<div className="flex-1 border-zinc-200 border-t dark:border-zinc-700" />
 					</div>
 
 					{/* Back to Home */}

@@ -47,7 +47,7 @@ function DashboardPage() {
 				{/* Header */}
 				<div className="mb-8 flex items-center justify-between">
 					<Link to="/" className="inline-block">
-						<h1 className="text-2xl font-medium">
+						<h1 className="font-medium text-2xl">
 							who to bother on{" "}
 							<svg
 								fill="none"
@@ -66,7 +66,7 @@ function DashboardPage() {
 					<button
 						type="button"
 						onClick={handleSignOut}
-						className="rounded-lg border-2 border-zinc-200 px-4 py-2 text-sm font-medium transition-colors hover:border-red-500 hover:text-red-500 dark:border-zinc-700 dark:hover:border-red-500"
+						className="rounded-lg border-2 border-zinc-200 px-4 py-2 font-medium text-sm transition-colors hover:border-red-500 hover:text-red-500 dark:border-zinc-700 dark:hover:border-red-500"
 					>
 						Sign Out
 					</button>
@@ -74,7 +74,7 @@ function DashboardPage() {
 
 				{/* Welcome Card */}
 				<div className="rounded-xl border-2 border-zinc-200 bg-white p-8 dark:border-zinc-700 dark:bg-zinc-900">
-					<div className="flex items-center gap-4 mb-6">
+					<div className="mb-6 flex items-center gap-4">
 						{session?.user?.image ? (
 							<img
 								src={session.user.image}
@@ -82,12 +82,12 @@ function DashboardPage() {
 								className="h-16 w-16 rounded-full border-2 border-zinc-200 dark:border-zinc-700"
 							/>
 						) : (
-							<div className="flex h-16 w-16 items-center justify-center rounded-full bg-orange-600 text-2xl font-bold text-white">
+							<div className="flex h-16 w-16 items-center justify-center rounded-full bg-orange-600 font-bold text-2xl text-white">
 								{session?.user?.name?.charAt(0) || "U"}
 							</div>
 						)}
 						<div>
-							<h2 className="text-2xl font-semibold">
+							<h2 className="font-semibold text-2xl">
 								Welcome, {session?.user?.name || "User"}!
 							</h2>
 							<p className="text-zinc-600 dark:text-zinc-400">
@@ -96,7 +96,7 @@ function DashboardPage() {
 						</div>
 					</div>
 
-					<div className="rounded-lg bg-green-50 border-2 border-green-200 p-4 dark:bg-green-950/20 dark:border-green-800">
+					<div className="rounded-lg border-2 border-green-200 bg-green-50 p-4 dark:border-green-800 dark:bg-green-950/20">
 						<div className="flex items-center gap-2 text-green-700 dark:text-green-400">
 							<svg
 								xmlns="http://www.w3.org/2000/svg"
@@ -114,7 +114,7 @@ function DashboardPage() {
 							</svg>
 							<span className="font-medium">🎉 Authentication is working!</span>
 						</div>
-						<p className="mt-2 text-sm text-green-600 dark:text-green-500">
+						<p className="mt-2 text-green-600 text-sm dark:text-green-500">
 							You've successfully authenticated with GitHub. This page is
 							protected by the auth middleware.
 						</p>
@@ -123,7 +123,7 @@ function DashboardPage() {
 
 				{/* Session Info */}
 				<div className="mt-6 rounded-xl border-2 border-zinc-200 bg-white p-6 dark:border-zinc-700 dark:bg-zinc-900">
-					<h3 className="mb-4 text-lg font-semibold">Session Details</h3>
+					<h3 className="mb-4 font-semibold text-lg">Session Details</h3>
 					<div className="overflow-x-auto">
 						<pre className="rounded-lg bg-zinc-100 p-4 text-sm text-zinc-800 dark:bg-zinc-800 dark:text-zinc-200">
 							{JSON.stringify(session, null, 2)}
