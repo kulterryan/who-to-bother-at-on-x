@@ -47,13 +47,13 @@ export function Header() {
 								: "opacity-100 translate-x-0"
 						}`}
 					>
-						<Link
+						{/* <Link
 							to="/contribute"
 							className="flex items-center gap-2 text-sm font-medium text-zinc-600 transition-colors hover:text-orange-600 dark:text-zinc-400 dark:hover:text-orange-600"
 						>
 							<PlusIcon className="size-3.5" />
 							<span>Contribute</span>
-						</Link>
+						</Link> */}
 						<Link
 							to="/sponsors"
 							className="flex items-center gap-2 text-sm font-medium text-zinc-600 transition-colors hover:text-orange-600 dark:text-zinc-400 dark:hover:text-orange-600"
@@ -122,14 +122,16 @@ export function Header() {
 				{/* Navigation */}
 				<nav className="flex items-center gap-2">
 					{/* Contribute Button */}
-					<Link
-						to="/contribute"
+					<a
+						href="https://github.com/kulterryan/who-to-bother-at-on-x"
+						target="_blank"
+						rel="noopener noreferrer"
 						className="flex items-center gap-1.5 rounded-lg bg-orange-600 p-2 sm:px-3 sm:py-1.5 text-sm font-medium text-white transition-colors hover:bg-orange-700"
-						aria-label="Contribute to the directory"
+						aria-label="View the repository on GitHub"
 					>
-						<PlusIcon className="size-4 sm:size-3.5" />
-						<span className="hidden sm:inline">Contribute</span>
-					</Link>
+						<GithubIcon className="size-4 sm:size-3.5" />
+						<span className="hidden sm:inline">GitHub</span>
+					</a>
 				</nav>
 			</div>
 

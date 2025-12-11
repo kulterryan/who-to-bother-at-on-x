@@ -24,7 +24,16 @@ export function Footer({
 					>
 						Contribute directly from the website
 					</Link>{" "}
-					or submit a PR on GitHub. Reach out to{" "}
+					or{" "}
+					<a
+						href="https://github.com/kulterryan/who-to-bother-at-on-x"
+						target="_blank"
+						rel="noopener noreferrer"
+						className="text-orange-600 underline decoration-orange-300 underline-offset-4 transition-colors hover:text-orange-700 hover:decoration-orange-400"
+					>
+						submit a PR on GitHub
+					</a>
+					. Reach out to{" "}
 					<a
 						href="https://x.com/thehungrybird_"
 						target="_blank"
