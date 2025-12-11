@@ -58,11 +58,12 @@
 				},
 				{
 					"product": "AI Gateway",
-					"handles": ["@KankaniAbhishek", "@_mchenco"]
+					"handles": ["@KankaniAbhishek", "@_mchenco", "@palashgolecha", "@roerohan", "@BansalRishit"]
 				},
 				{ "product": "API & Terraform", "handles": ["@korinne_dev"] },
 				{ "product": "Browser Rendering", "handles": ["@kathyyliao"] },
 				{ "product": "Sandboxes", "handles": ["@whoiskatrin"] },
+				{ "product": "Realtime", "handles": ["@rrnn", "@roerohan"] },
 				{ "product": "Workers AI", "handles": ["@_mchenco"] },
 				{ "product": "Workers Builds", "handles": ["@yomnashousha"] },
 				{ "product": "Workers for Platforms", "handles": ["@dinasaur_404"] },
