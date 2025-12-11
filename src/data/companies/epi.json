@@ -1,0 +1,22 @@
+{
+	"$schema": "./schema.json",
+	"id": "epi",
+	"name": "Epi",
+	"description": "Contrarian cybersecurity to defeat phishing, quishing, scams and fraud",
+	"logoType": "epi",
+	"categories": [
+		{
+			"name": "Official Accounts",
+			"contacts": [
+				{
+					"product": "Official Epi Account",
+					"handles": ["@epiapp"]
+				},
+				{
+					"product": "CEO",
+					"handles": ["@ajrgd"]
+				}
+			]
+		}
+	]
+}
