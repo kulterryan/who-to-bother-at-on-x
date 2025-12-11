@@ -5,7 +5,7 @@ export type { Company } from "../data/companies/schema";
 export type { Category } from "./contacts";
 
 export type CompanyListItem = {
-	id: string;
-	name: string;
-	description: string;
+  id: string;
+  name: string;
+  description: string;
 };

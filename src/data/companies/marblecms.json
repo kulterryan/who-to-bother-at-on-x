@@ -1,21 +1,27 @@
 {
-	"$schema": "./schema.json",
-	"id": "marblecms",
-	"name": "Marble CMS",
-	"description": "The AI-first code editor",
-	"logoType": "marblecms",
-	"categories": [
-		{
-			"name": "Official Accounts",
-			"contacts": [
-				{ "product": "Official MarbleCMS Account", "handles": ["@usemarblecms"] }
-			]
-		},
-		{
-			"name": "Core Products",
-			"contacts": [
-				{ "product": "Core Maintainer", "handles": ["@dominikkoch", "@retaqib"] }
-			]
-		}
-	]
+  "$schema": "./schema.json",
+  "id": "marblecms",
+  "name": "Marble CMS",
+  "description": "The AI-first code editor",
+  "logoType": "marblecms",
+  "categories": [
+    {
+      "name": "Official Accounts",
+      "contacts": [
+        {
+          "product": "Official MarbleCMS Account",
+          "handles": ["@usemarblecms"]
+        }
+      ]
+    },
+    {
+      "name": "Core Products",
+      "contacts": [
+        {
+          "product": "Core Maintainer",
+          "handles": ["@dominikkoch", "@retaqib"]
+        }
+      ]
+    }
+  ]
 }

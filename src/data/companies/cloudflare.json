@@ -1,116 +1,116 @@
 {
-	"$schema": "./schema.json",
-	"id": "cloudflare",
-	"name": "Cloudflare",
-	"description": "Global cloud platform for security and performance",
-	"logoType": "cloudflare",
-	"categories": [
-		{
-			"name": "Official Accounts",
-			"contacts": [
-				{
-					"product": "Official Cloudflare Account",
-					"handles": ["@Cloudflare"]
-				},
-				{
-					"product": "Official Cloudflare Developers Account",
-					"handles": ["@CloudflareDev"]
-				},
-				{ "product": "CTO", "handles": ["@dok2001"] }
-			]
-		},
-		{
-			"name": "Developer Platform",
-			"contacts": [
-				{ "product": "VP of Developers & AI", "handles": ["@ritakozlov_"] },
-				{ "product": "VP of Storage & Databases", "handles": ["@elithrar"] },
-				{
-					"product": "Dashboard",
-					"handles": [
-						"@bradgarropy",
-						"@BraydenWilmoth",
-						"@dillon_mulroy",
-						"@burcs",
-						"@nandafyi",
-						"@kyliestew"
-					]
-				}
-			]
-		},
-		{
-			"name": "Compute & AI",
-			"contacts": [
-				{
-					"product": "Workers Platform",
-					"handles": ["@KentonVarda", "@yagiznizipli"]
-				},
-				{
-					"product": "Durable Objects",
-					"handles": ["@KentonVarda", "@ajoshhoward"]
-				},
-				{
-					"product": "AI Search (fka. AutoRAG)",
-					"handles": ["@aninibread", "@G4brym"]
-				},
-				{
-					"product": "AI Agents & MCP",
-					"handles": ["@threepointone", "@whoiskatrin", "@mattzcarey"]
-				},
-				{
-					"product": "AI Gateway",
-					"handles": ["@KankaniAbhishek", "@_mchenco"]
-				},
-				{ "product": "API & Terraform", "handles": ["@korinne_dev"] },
-				{ "product": "Browser Rendering", "handles": ["@kathyyliao"] },
-				{ "product": "Sandboxes", "handles": ["@whoiskatrin"] },
-				{ "product": "Workers AI", "handles": ["@_mchenco"] },
-				{ "product": "Workers Builds", "handles": ["@yomnashousha"] },
-				{ "product": "Workers for Platforms", "handles": ["@dinasaur_404"] },
-				{ "product": "Wrangler CLI", "handles": ["@MattieTK"] }
-			]
-		},
-		{
-			"name": "Storage & Databases",
-			"contacts": [
-				{ "product": "Storage & Data Platform", "handles": ["@akaphill"] },
-				{ "product": "Pipelines", "handles": ["@MarcSelwan", "@mwylde"] },
-				{ "product": "Queues", "handles": ["@miacmal"] },
-				{
-					"product": "R2",
-					"handles": ["@aninibread", "@fireblaze_15", "@_developeter"]
-				},
-				{
-					"product": "R2 Data Catalog",
-					"handles": ["@MarcSelwan", "@Cole_MacKenzie"]
-				},
-				{
-					"product": "R2 SQL",
-					"handles": ["@MarcSelwan", "@jeromeschneider", "@sejoker"]
-				},
-				{ "product": "Workflows", "handles": ["@miacmal"] }
-			]
-		},
-		{
-			"name": "Developer Advocacy",
-			"contacts": [
-				{
-					"product": "Manager of Developer Advocacy",
-					"handles": ["@kristianf_"]
-				},
-				{
-					"product": "Developer Advocate",
-					"handles": ["@lauragift_", "@fayazara"]
-				}
-			]
-		},
-		{
-			"name": "Billing & Payments",
-			"contacts": [
-				{
-					"product": "Billing, Payments, Subscriptions, Invoices",
-					"handles": ["@dalexeenko"]
-				}
-			]
-		}
-	]
+  "$schema": "./schema.json",
+  "id": "cloudflare",
+  "name": "Cloudflare",
+  "description": "Global cloud platform for security and performance",
+  "logoType": "cloudflare",
+  "categories": [
+    {
+      "name": "Official Accounts",
+      "contacts": [
+        {
+          "product": "Official Cloudflare Account",
+          "handles": ["@Cloudflare"]
+        },
+        {
+          "product": "Official Cloudflare Developers Account",
+          "handles": ["@CloudflareDev"]
+        },
+        { "product": "CTO", "handles": ["@dok2001"] }
+      ]
+    },
+    {
+      "name": "Developer Platform",
+      "contacts": [
+        { "product": "VP of Developers & AI", "handles": ["@ritakozlov_"] },
+        { "product": "VP of Storage & Databases", "handles": ["@elithrar"] },
+        {
+          "product": "Dashboard",
+          "handles": [
+            "@bradgarropy",
+            "@BraydenWilmoth",
+            "@dillon_mulroy",
+            "@burcs",
+            "@nandafyi",
+            "@kyliestew"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Compute & AI",
+      "contacts": [
+        {
+          "product": "Workers Platform",
+          "handles": ["@KentonVarda", "@yagiznizipli"]
+        },
+        {
+          "product": "Durable Objects",
+          "handles": ["@KentonVarda", "@ajoshhoward"]
+        },
+        {
+          "product": "AI Search (fka. AutoRAG)",
+          "handles": ["@aninibread", "@G4brym"]
+        },
+        {
+          "product": "AI Agents & MCP",
+          "handles": ["@threepointone", "@whoiskatrin", "@mattzcarey"]
+        },
+        {
+          "product": "AI Gateway",
+          "handles": ["@KankaniAbhishek", "@_mchenco"]
+        },
+        { "product": "API & Terraform", "handles": ["@korinne_dev"] },
+        { "product": "Browser Rendering", "handles": ["@kathyyliao"] },
+        { "product": "Sandboxes", "handles": ["@whoiskatrin"] },
+        { "product": "Workers AI", "handles": ["@_mchenco"] },
+        { "product": "Workers Builds", "handles": ["@yomnashousha"] },
+        { "product": "Workers for Platforms", "handles": ["@dinasaur_404"] },
+        { "product": "Wrangler CLI", "handles": ["@MattieTK"] }
+      ]
+    },
+    {
+      "name": "Storage & Databases",
+      "contacts": [
+        { "product": "Storage & Data Platform", "handles": ["@akaphill"] },
+        { "product": "Pipelines", "handles": ["@MarcSelwan", "@mwylde"] },
+        { "product": "Queues", "handles": ["@miacmal"] },
+        {
+          "product": "R2",
+          "handles": ["@aninibread", "@fireblaze_15", "@_developeter"]
+        },
+        {
+          "product": "R2 Data Catalog",
+          "handles": ["@MarcSelwan", "@Cole_MacKenzie"]
+        },
+        {
+          "product": "R2 SQL",
+          "handles": ["@MarcSelwan", "@jeromeschneider", "@sejoker"]
+        },
+        { "product": "Workflows", "handles": ["@miacmal"] }
+      ]
+    },
+    {
+      "name": "Developer Advocacy",
+      "contacts": [
+        {
+          "product": "Manager of Developer Advocacy",
+          "handles": ["@kristianf_"]
+        },
+        {
+          "product": "Developer Advocate",
+          "handles": ["@lauragift_", "@fayazara"]
+        }
+      ]
+    },
+    {
+      "name": "Billing & Payments",
+      "contacts": [
+        {
+          "product": "Billing, Payments, Subscriptions, Invoices",
+          "handles": ["@dalexeenko"]
+        }
+      ]
+    }
+  ]
 }

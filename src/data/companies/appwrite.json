@@ -1,36 +1,36 @@
 {
-	"$schema": "./schema.json",
-	"id": "appwrite",
-	"name": "Appwrite",
-	"description": "The Developers’ Cloud: a best-in-class, developer-first platform that gives builders everything they need to create scalable, stable, and production-ready software, fast.",
-	"logoType": "appwrite",
-	"categories": [
-		{
-			"name": "Official Accounts",
-			"contacts": [
-				{
-					"product": "Official Appwrite Account",
-					"handles": ["@appwrite"],
-					"email": "support@appwrite.io"
-				}
-			]
-		},
-		{
-			"name": "Main Contacts",
-			"contacts": [
-				{
-					"product": "Founder & CEO",
-					"handles": ["@eldadfux"]
-				},
-				{
-					"product": "Customer Success and Developer Experience Lead",
-					"handles": ["@g33kdev"]
-				},
-				{
-					"product": "Head of Developer Relations",
-					"handles": ["@tessamero"]
-				}
-			]
-		}
-	]
+  "$schema": "./schema.json",
+  "id": "appwrite",
+  "name": "Appwrite",
+  "description": "The Developers’ Cloud: a best-in-class, developer-first platform that gives builders everything they need to create scalable, stable, and production-ready software, fast.",
+  "logoType": "appwrite",
+  "categories": [
+    {
+      "name": "Official Accounts",
+      "contacts": [
+        {
+          "product": "Official Appwrite Account",
+          "handles": ["@appwrite"],
+          "email": "support@appwrite.io"
+        }
+      ]
+    },
+    {
+      "name": "Main Contacts",
+      "contacts": [
+        {
+          "product": "Founder & CEO",
+          "handles": ["@eldadfux"]
+        },
+        {
+          "product": "Customer Success and Developer Experience Lead",
+          "handles": ["@g33kdev"]
+        },
+        {
+          "product": "Head of Developer Relations",
+          "handles": ["@tessamero"]
+        }
+      ]
+    }
+  ]
 }

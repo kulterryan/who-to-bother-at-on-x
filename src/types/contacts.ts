@@ -2,9 +2,9 @@
 export type { Category, Contact } from "../data/companies/schema";
 
 export type Company = {
-	name: string;
-	slug: string;
-	description: string;
-	primaryColor: string;
-	logo: React.ReactNode;
+  name: string;
+  slug: string;
+  description: string;
+  primaryColor: string;
+  logo: React.ReactNode;
 };

@@ -1,60 +1,60 @@
 {
-	"$schema": "./schema.json",
-	"id": "hackernoon",
-	"name": "HackerNoon",
-	"description": "Technology publishing platform with 45,000+ contributing writers and over 4 million monthly readers.",
-	"logoType": "hackernoon",
-	"categories": [
-		{
-			"name": "Official Accounts",
-			"contacts": [
-				{
-					"product": "Official HackerNoon Account",
-					"handles": ["@hackernoon"]
-				},
-				{
-					"product": "Support",
-					"handles": ["@supportnoon"]
-				},
-				{
-					"product": "HQ",
-					"handles": ["@hackernoonhq"]
-				},
-				{
-					"product": "Web3",
-					"handles": ["@hackerhodl"]
-				}
-			]
-		},
-		{
-			"name": "Leadership",
-			"contacts": [
-				{
-					"product": "Founder & CEO",
-					"handles": ["@davidsmooke"]
-				},
-				{
-					"product": "COO",
-					"handles": ["@linhsmooke"]
-				}
-			]
-		},
-		{
-			"name": "Team",
-			"contacts": [
-				{
-					"product": "Business Development",
-					"handles": ["@SidraIjazHashmi"]
-				},
-				{
-					"product": "Editorial",
-					"handles": ["@asherfromHN"]
-				},
-				{
-					"product": "Design",
-					"handles": ["@kientdao", "@rex12543"]
-				}
-			]
-		}
-	]
+  "$schema": "./schema.json",
+  "id": "hackernoon",
+  "name": "HackerNoon",
+  "description": "Technology publishing platform with 45,000+ contributing writers and over 4 million monthly readers.",
+  "logoType": "hackernoon",
+  "categories": [
+    {
+      "name": "Official Accounts",
+      "contacts": [
+        {
+          "product": "Official HackerNoon Account",
+          "handles": ["@hackernoon"]
+        },
+        {
+          "product": "Support",
+          "handles": ["@supportnoon"]
+        },
+        {
+          "product": "HQ",
+          "handles": ["@hackernoonhq"]
+        },
+        {
+          "product": "Web3",
+          "handles": ["@hackerhodl"]
+        }
+      ]
+    },
+    {
+      "name": "Leadership",
+      "contacts": [
+        {
+          "product": "Founder & CEO",
+          "handles": ["@davidsmooke"]
+        },
+        {
+          "product": "COO",
+          "handles": ["@linhsmooke"]
+        }
+      ]
+    },
+    {
+      "name": "Team",
+      "contacts": [
+        {
+          "product": "Business Development",
+          "handles": ["@SidraIjazHashmi"]
+        },
+        {
+          "product": "Editorial",
+          "handles": ["@asherfromHN"]
+        },
+        {
+          "product": "Design",
+          "handles": ["@kientdao", "@rex12543"]
+        }
+      ]
+    }
+  ]
 }
