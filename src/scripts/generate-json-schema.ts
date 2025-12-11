@@ -1,9 +1,9 @@
 #!/usr/bin/env tsx
 
 import { toJsonSchema } from "@valibot/to-json-schema";
-import * as fs from "fs";
-import * as path from "path";
-import { fileURLToPath } from "url";
+import * as fs from "node:fs";
+import * as path from "node:path";
+import { fileURLToPath } from "node:url";
 import { CompanySchema } from "../data/companies/schema.js";
 
 const __filename = fileURLToPath(import.meta.url);
@@ -31,7 +31,7 @@ async function generateJsonSchema(): Promise<void> {
 		const jsonContent = JSON.stringify(schemaWithMetadata, null, 2);
 
 		// Write to file
-		fs.writeFileSync(OUTPUT_PATH, jsonContent + "\n", "utf-8");
+		fs.writeFileSync(OUTPUT_PATH, `${jsonContent}\n`, "utf-8");
 
 		console.log(`Generated JSON Schema: ${OUTPUT_PATH}`);
 		process.exit(0);

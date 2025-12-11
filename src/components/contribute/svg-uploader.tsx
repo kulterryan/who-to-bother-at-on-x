@@ -4,18 +4,18 @@ import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 
-interface SVGUploaderProps {
+type SVGUploaderProps = {
 	value: string;
 	onChange: (svg: string) => void;
 	companyName?: string;
 	error?: string;
-}
+};
 
-interface ValidationResult {
+type ValidationResult = {
 	isValid: boolean;
 	errors: string[];
 	warnings: string[];
-}
+};
 
 export function SVGUploader({
 	value,
@@ -88,7 +88,7 @@ export function SVGUploader({
 	const handleFileChange = useCallback(
 		(e: React.ChangeEvent<HTMLInputElement>) => {
 			const file = e.target.files?.[0];
-			if (!file) return;
+			if (!file) { return; }
 
 			if (!(file.type.includes("svg") || file.name.endsWith(".svg"))) {
 				setValidation({
@@ -126,7 +126,7 @@ export function SVGUploader({
 			setDragActive(false);
 
 			const file = e.dataTransfer.files?.[0];
-			if (!file) return;
+			if (!file) { return; }
 
 			if (!(file.type.includes("svg") || file.name.endsWith(".svg"))) {
 				setValidation({

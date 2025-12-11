@@ -72,7 +72,7 @@ function HomePage() {
 	}, [router]);
 
 	useEffect(() => {
-		if (searchTerm && searchTerm.trim()) {
+		if (searchTerm?.trim()) {
 			navigate({
 				to: "/search",
 				search: { q: searchTerm.trim() },

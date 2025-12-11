@@ -1,8 +1,8 @@
 #!/usr/bin/env tsx
 
-import * as fs from "fs";
-import * as path from "path";
-import { fileURLToPath } from "url";
+import * as fs from "node:fs";
+import * as path from "node:path";
+import { fileURLToPath } from "node:url";
 import * as v from "valibot";
 import { CompanySchema } from "../data/companies/schema.js";
 
@@ -12,11 +12,11 @@ const __dirname = path.dirname(__filename);
 const COMPANIES_DIR = path.join(__dirname, "../data/companies");
 const EXCLUDE_FILES = ["schema.json", "example.json.template"];
 
-interface ValidationResult {
+type ValidationResult = {
 	file: string;
 	success: boolean;
 	errors?: string[];
-}
+};
 
 /**
  * Validates all company JSON files against the valibot schema
@@ -87,7 +87,7 @@ async function validateCompanies(): Promise<void> {
 	}
 
 	// Print summary
-	console.log("\n" + "=".repeat(50));
+	console.log(`\n${"=".repeat(50)}`);
 	const successCount = results.filter((r) => r.success).length;
 	const failCount = results.filter((r) => !r.success).length;
 

@@ -19,11 +19,11 @@ type PRStatusState =
 	| { type: "success-owner"; branch: string }
 	| { type: "error"; message: string };
 
-interface PRStatusProps {
+type PRStatusProps = {
 	status: PRStatusState;
 	onRetry?: () => void;
 	onReset?: () => void;
-}
+};
 
 export function PRStatus({ status, onRetry, onReset }: PRStatusProps) {
 	if (status.type === "idle") {

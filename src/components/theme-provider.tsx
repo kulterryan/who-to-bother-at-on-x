@@ -16,7 +16,7 @@ type Props = PropsWithChildren<{ theme: Theme }>;
 export const ThemeContext = createContext<ThemeContextVal | null>(null);
 
 function getSystemTheme(): "light" | "dark" {
-	if (typeof window === "undefined") return "light";
+	if (typeof window === "undefined") { return "light"; }
 	return window.matchMedia("(prefers-color-scheme: dark)").matches
 		? "dark"
 		: "light";

@@ -7,12 +7,12 @@ import { useSession } from "@/lib/auth-client";
 import { seo } from "@/lib/seo";
 import type { Company } from "@/types/company";
 
-interface CompanyListItem {
+type CompanyListItem = {
 	id: string;
 	name: string;
 	description: string;
 	logoType: string;
-}
+};
 
 // Import all company data at build time
 const companyModules = import.meta.glob<{ default: Company }>(
@@ -25,7 +25,7 @@ const companyModules = import.meta.glob<{ default: Company }>(
 // Build company list
 const allCompanies: CompanyListItem[] = [];
 for (const [path, module] of Object.entries(companyModules)) {
-	if (path.includes("template") || path.includes("schema")) continue;
+	if (path.includes("template") || path.includes("schema")) { continue; }
 	const company = module.default;
 	if (company?.id) {
 		allCompanies.push({

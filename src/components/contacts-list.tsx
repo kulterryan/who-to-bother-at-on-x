@@ -18,7 +18,7 @@ import {
 } from "@/components/ui/popover";
 import type { Category } from "@/types/contacts";
 
-interface ContactsListProps {
+type ContactsListProps = {
 	categories: Category[];
 	companyName: string;
 	logo: React.ReactNode;
@@ -28,7 +28,7 @@ interface ContactsListProps {
 	docs?: string;
 	github?: string;
 	discord?: string;
-}
+};
 
 export function ContactsList({
 	categories,

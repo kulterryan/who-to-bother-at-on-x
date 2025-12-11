@@ -36,7 +36,7 @@ export const Route = createFileRoute("/opengraph")({
 					const fontFaces = cssText.split("@font-face");
 					for (const face of fontFaces) {
 						const urlMatch = face.match(/url\(([^)]+\.woff2[^)]*)\)/);
-						if (urlMatch && urlMatch[1]) {
+						if (urlMatch?.[1]) {
 							fontUrl = urlMatch[1].trim().replace(/^['"]|['"]$/g, "");
 							break;
 						}
@@ -46,7 +46,7 @@ export const Route = createFileRoute("/opengraph")({
 						const simpleMatch = cssText.match(
 							/(https:\/\/fonts\.gstatic\.com\/[^\s'")]+\.woff2)/,
 						);
-						if (simpleMatch && simpleMatch[1]) {
+						if (simpleMatch?.[1]) {
 							fontUrl = simpleMatch[1];
 						}
 					}

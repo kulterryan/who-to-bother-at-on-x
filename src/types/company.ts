@@ -4,8 +4,8 @@ export type { Company } from "../data/companies/schema";
 // Keep Category export for backwards compatibility
 export type { Category } from "./contacts";
 
-export interface CompanyListItem {
+export type CompanyListItem = {
 	id: string;
 	name: string;
 	description: string;
-}
+};

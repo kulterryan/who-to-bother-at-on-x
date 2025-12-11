@@ -18,11 +18,11 @@ import {
 } from "@/lib/github";
 import type { Company } from "@/types/company";
 
-interface CreatePRRequest {
+type CreatePRRequest = {
 	company: Company;
 	svgLogo: string;
 	isEdit: boolean;
-}
+};
 
 export const Route = createFileRoute("/api/github/create-pr")({
 	server: {
@@ -103,7 +103,7 @@ export const Route = createFileRoute("/api/github/create-pr")({
 					}
 				}
 
-				if (!((company && company.id ) && company.name)) {
+				if (!((company?.id ) && company.name)) {
 					return new Response(
 						JSON.stringify({ error: "Company data is required" }),
 						{

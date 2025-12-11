@@ -78,7 +78,7 @@ export const Route = createFileRoute("/og/$company")({
 					for (const face of fontFaces) {
 						// Look for url() with .woff2
 						const urlMatch = face.match(/url\(([^)]+\.woff2[^)]*)\)/);
-						if (urlMatch && urlMatch[1]) {
+						if (urlMatch?.[1]) {
 							fontUrl = urlMatch[1].trim().replace(/^['"]|['"]$/g, "");
 							break;
 						}
@@ -89,7 +89,7 @@ export const Route = createFileRoute("/og/$company")({
 						const simpleMatch = cssText.match(
 							/(https:\/\/fonts\.gstatic\.com\/[^\s'")]+\.woff2)/,
 						);
-						if (simpleMatch && simpleMatch[1]) {
+						if (simpleMatch?.[1]) {
 							fontUrl = simpleMatch[1];
 						}
 					}

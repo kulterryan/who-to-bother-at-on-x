@@ -51,22 +51,22 @@ const companySchema = v.object({
 
 type CompanyFormData = v.InferOutput<typeof companySchema>;
 
-interface CompanyFormProps {
+type CompanyFormProps = {
 	initialData?: Company;
 	onSubmit: (data: Company) => void;
 	onFormChange?: (data: Company) => void;
 	isSubmitting?: boolean;
 	isEdit?: boolean;
 	hideSubmitButton?: boolean;
-}
+};
 
 // Helper to extract first error message from errors array
 function getFirstError(
-	errors: ReadonlyArray<unknown>,
+	errors: readonly unknown[],
 ): string | undefined {
-	if (errors.length === 0) return ;
+	if (errors.length === 0) { return ; }
 	const first = errors.at(0);
-	if (typeof first === "string") return first;
+	if (typeof first === "string") { return first; }
 	if (first && typeof first === "object" && "message" in first) {
 		return String((first as { message: unknown }).message);
 	}
@@ -145,7 +145,7 @@ export function CompanyForm({
 
 	// Subscribe to form value changes for live preview
 	useEffect(() => {
-		if (!onFormChange) return;
+		if (!onFormChange) { return; }
 
 		const unsubscribe = form.store.subscribe(() => {
 			const values = form.store.state.values;
@@ -204,7 +204,7 @@ export function CompanyForm({
 						name="id"
 						validators={{
 							onChange: ({ value }: { value: string }) => {
-								if (!value) return "Company ID is required";
+								if (!value) { return "Company ID is required"; }
 								if (!/^[a-z0-9-]+$/.test(value)) {
 									return "ID must be lowercase with only letters, numbers, and hyphens";
 								}

@@ -3,7 +3,7 @@ import type { Company } from "@/types/company";
 
 export type SearchResultType = "company" | "product";
 
-export interface SearchResult {
+export type SearchResult = {
 	type: SearchResultType;
 	id: string;
 	name: string;
@@ -11,7 +11,7 @@ export interface SearchResult {
 	companyId: string;
 	companyName: string;
 	handles?: string[];
-}
+};
 
 // Auto-discover all company JSON files (excluding templates)
 const companyModules = import.meta.glob<{ default: Company }>(

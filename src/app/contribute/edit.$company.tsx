@@ -22,7 +22,7 @@ const companyModules = import.meta.glob<{ default: Company }>(
 // Build company map
 const companies: Map<string, Company> = new Map();
 for (const [path, module] of Object.entries(companyModules)) {
-	if (path.includes("template") || path.includes("schema")) continue;
+	if (path.includes("template") || path.includes("schema")) { continue; }
 	const company = module.default;
 	if (company?.id) {
 		companies.set(company.id, company);

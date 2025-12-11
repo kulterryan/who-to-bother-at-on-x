@@ -8,10 +8,10 @@ export const GITHUB_CONFIG = {
 } as const;
 
 // Test mode configuration - when enabled, simulates GitHub API calls without making actual requests. Set GITHUB_TEST_MODE=true in your environment to enable test mode.
-export interface TestModeConfig {
+export type TestModeConfig = {
 	enabled: boolean;
 	simulatedDelay?: number; // milliseconds to simulate API latency
-}
+};
 
 // Check if GitHub test mode is enabled via environment variable
 export function isGitHubTestModeEnabled(): boolean {
@@ -80,48 +80,48 @@ async function fetchWithTimeout(
 	}
 }
 
-interface GitHubUser {
+type GitHubUser = {
 	login: string;
 	id: number;
-}
+};
 
-interface GitHubRepo {
+type GitHubRepo = {
 	full_name: string;
 	default_branch: string;
 	fork: boolean;
 	parent?: {
 		full_name: string;
 	};
-}
+};
 
-interface GitHubBranch {
+type GitHubBranch = {
 	name: string;
 	commit: {
 		sha: string;
 	};
-}
+};
 
-interface GitHubFileContent {
+type GitHubFileContent = {
 	content: string;
 	sha: string;
 	encoding: string;
-}
+};
 
-interface GitHubCommitResponse {
+type GitHubCommitResponse = {
 	content: {
 		sha: string;
 	};
 	commit: {
 		sha: string;
 	};
-}
+};
 
-interface GitHubPullRequest {
+type GitHubPullRequest = {
 	number: number;
 	html_url: string;
 	title: string;
 	state: string;
-}
+};
 
 // Get the authenticated user's GitHub info
 export async function getGitHubUser(
