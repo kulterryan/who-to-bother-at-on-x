@@ -97,6 +97,7 @@ function HomePage() {
             viewBox="0 0 1200 1227"
             width="40"
           >
+            <title>X (Twitter) logo</title>
             <path
               d="M714.163 519.284 1160.89 0h-105.86L667.137 450.887 357.328 0H0l468.492 681.821L0 1226.37h105.866l409.625-476.152 327.181 476.152H1200L714.137 519.284h.026ZM569.165 687.828l-47.468-67.894-377.686-540.24h162.604l304.797 435.991 47.468 67.894 396.2 566.721H892.476L569.165 687.854v-.026Z"
               fill="currentColor"
@@ -117,6 +118,7 @@ function HomePage() {
               stroke="currentColor"
               viewBox="0 0 24 24"
             >
+              <title>Search icon</title>
               <path
                 d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
                 strokeLinecap="round"
@@ -146,6 +148,7 @@ function HomePage() {
                 stroke="currentColor"
                 viewBox="0 0 24 24"
               >
+                <title>Clear icon</title>
                 <path
                   d="M6 18L18 6M6 6l12 12"
                   strokeLinecap="round"
@@ -190,6 +193,7 @@ function HomePage() {
                       width="16"
                       xmlns="http://www.w3.org/2000/svg"
                     >
+                      <title>Arrow right</title>
                       <path d="M5 12h14" />
                       <path d="m12 5 7 7-7 7" />
                     </svg>
@@ -225,6 +229,7 @@ function HomePage() {
                     width="16"
                     xmlns="http://www.w3.org/2000/svg"
                   >
+                    <title>Arrow right</title>
                     <path d="M5 12h14" />
                     <path d="m12 5 7 7-7 7" />
                   </svg>

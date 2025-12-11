@@ -81,6 +81,7 @@ function SearchPage() {
               width="16"
               xmlns="http://www.w3.org/2000/svg"
             >
+              <title>Back arrow</title>
               <path d="m12 19-7-7 7-7" />
               <path d="M19 12H5" />
             </svg>
@@ -101,6 +102,7 @@ function SearchPage() {
               stroke="currentColor"
               viewBox="0 0 24 24"
             >
+              <title>Search icon</title>
               <path
                 d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
                 strokeLinecap="round"
@@ -131,6 +133,7 @@ function SearchPage() {
                 stroke="currentColor"
                 viewBox="0 0 24 24"
               >
+                <title>Clear icon</title>
                 <path
                   d="M6 18L18 6M6 6l12 12"
                   strokeLinecap="round"
@@ -152,6 +155,7 @@ function SearchPage() {
                 stroke="currentColor"
                 viewBox="0 0 24 24"
               >
+                <title>No results icon</title>
                 <path
                   d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
                   strokeLinecap="round"
@@ -192,6 +196,7 @@ function SearchPage() {
               stroke="currentColor"
               viewBox="0 0 24 24"
             >
+              <title>Search icon</title>
               <path
                 d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
                 strokeLinecap="round"
@@ -272,6 +277,7 @@ const SearchResultCard = memo(function SearchResultCard({
           width="20"
           xmlns="http://www.w3.org/2000/svg"
         >
+          <title>Arrow right</title>
           <path d="M5 12h14" />
           <path d="m12 5 7 7-7 7" />
         </svg>

@@ -218,6 +218,7 @@ function EditCompanyPage() {
             viewBox="0 0 24 24"
             xmlns="http://www.w3.org/2000/svg"
           >
+            <title>Loading spinner</title>
             <circle
               className="opacity-25"
               cx="12"

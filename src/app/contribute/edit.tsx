@@ -86,6 +86,7 @@ function EditCompanySelectPage() {
             viewBox="0 0 24 24"
             xmlns="http://www.w3.org/2000/svg"
           >
+            <title>Loading spinner</title>
             <circle
               className="opacity-25"
               cx="12"
@@ -189,6 +190,7 @@ function EditCompanySelectPage() {
                   width="20"
                   xmlns="http://www.w3.org/2000/svg"
                 >
+                  <title>Arrow right</title>
                   <path d="m9 18 6-6-6-6" />
                 </svg>
               </Link>
