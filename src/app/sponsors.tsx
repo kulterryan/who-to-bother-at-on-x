@@ -109,7 +109,7 @@ function SponsorsPage() {
                   {sponsor.name}
                 </span>
                 <div className="flex flex-col gap-1 text-sm text-zinc-500 dark:text-zinc-400">
-                  {sponsor.twitterHandle && (
+                  {sponsor.twitterHandle ? (
                     <a
                       className="flex w-fit items-center gap-2 hover:text-orange-600 hover:underline"
                       href={`https://x.com/${sponsor.twitterHandle}`}
@@ -129,8 +129,8 @@ function SponsorsPage() {
                       </svg>
                       @{sponsor.twitterHandle}
                     </a>
-                  )}
-                  {sponsor.githubHandle && (
+                  ) : null}
+                  {sponsor.githubHandle ? (
                     <a
                       className="flex w-fit items-center gap-2 hover:text-orange-600 hover:underline"
                       href={`https://github.com/${sponsor.githubHandle}`}
@@ -140,7 +140,7 @@ function SponsorsPage() {
                       <GithubIcon className="size-4" />
                       {sponsor.githubHandle}
                     </a>
-                  )}
+                  ) : null}
                 </div>
               </div>
             </div>

@@ -126,7 +126,7 @@ function ContributePage() {
         )}
 
         {/* Logged In */}
-        {session && (
+        {session ? (
           <>
             {/* User Info */}
             <div className="mb-8 flex items-center gap-4 rounded-lg border-2 border-green-200 bg-green-50 p-4 dark:border-green-800 dark:bg-green-950/30">
@@ -134,7 +134,9 @@ function ContributePage() {
                 <img
                   alt={session.user.name || "User"}
                   className="h-12 w-12 rounded-full border-2 border-green-300 dark:border-green-700"
+                  height={48}
                   src={session.user.image}
+                  width={48}
                 />
               ) : (
                 <div className="flex h-12 w-12 items-center justify-center rounded-full bg-green-600 font-bold text-lg text-white">
@@ -253,7 +255,7 @@ function ContributePage() {
               </div>
             </div>
           </>
-        )}
+        ) : null}
 
         {/* Links */}
         <div className="mt-12 flex flex-wrap justify-center gap-4 border-zinc-200 border-t pt-8 dark:border-zinc-700">

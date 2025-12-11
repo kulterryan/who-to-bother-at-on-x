@@ -1,15 +1,15 @@
 #!/usr/bin/env tsx
 
-import * as fs from "node:fs";
-import * as path from "node:path";
+import { readdirSync, readFileSync, writeFileSync } from "node:fs";
+import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+const __dirname = dirname(__filename);
 
 const BASE_URL = "https://who-to-bother-at.com";
-const companiesDir = path.join(__dirname, "../data/companies");
-const outputPath = path.join(__dirname, "../../public/sitemap.xml");
+const companiesDir = join(__dirname, "../data/companies");
+const outputPath = join(__dirname, "../../public/sitemap.xml");
 
 // Static pages in the site
 const staticPages = [
@@ -23,7 +23,7 @@ const staticPages = [
  * Get all company IDs from JSON files in the companies directory
  */
 function getCompanyIds(): string[] {
-  const files = fs.readdirSync(companiesDir);
+  const files = readdirSync(companiesDir);
 
   return files
     .filter(
@@ -33,8 +33,8 @@ function getCompanyIds(): string[] {
         !file.includes("schema")
     )
     .map((file) => {
-      const filePath = path.join(companiesDir, file);
-      const content = fs.readFileSync(filePath, "utf-8");
+      const filePath = join(companiesDir, file);
+      const content = readFileSync(filePath, "utf-8");
       const company = JSON.parse(content);
       return company.id;
     })
@@ -79,7 +79,7 @@ ${companyUrls}
 /**
  * Main function to generate sitemap
  */
-async function generateSitemap(): Promise<void> {
+function generateSitemap(): void {
   console.log("🗺️  Generating sitemap.xml...\n");
 
   try {
@@ -91,7 +91,7 @@ async function generateSitemap(): Promise<void> {
     const xml = generateSitemapXml(companyIds);
 
     // Write to public directory
-    fs.writeFileSync(outputPath, xml, "utf-8");
+    writeFileSync(outputPath, xml, "utf-8");
 
     const totalUrls = staticPages.length + companyIds.length;
     console.log(`\n📊 Generated sitemap with ${totalUrls} URLs`);
@@ -105,7 +105,9 @@ async function generateSitemap(): Promise<void> {
 }
 
 // Run generation
-generateSitemap().catch((error) => {
+try {
+  generateSitemap();
+} catch (error) {
   console.error("💥 Unexpected error:", error);
   process.exit(1);
-});
+}

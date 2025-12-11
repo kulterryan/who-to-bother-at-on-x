@@ -80,7 +80,9 @@ function DashboardPage() {
               <img
                 alt={session.user.name || "User"}
                 className="h-16 w-16 rounded-full border-2 border-zinc-200 dark:border-zinc-700"
+                height={64}
                 src={session.user.image}
+                width={64}
               />
             ) : (
               <div className="flex h-16 w-16 items-center justify-center rounded-full bg-orange-600 font-bold text-2xl text-white">

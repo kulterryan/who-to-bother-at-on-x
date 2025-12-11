@@ -1,6 +1,56 @@
 import { container, text } from "@takumi-rs/helpers";
 import { createFileRoute } from "@tanstack/react-router";
 
+// Regex patterns for font URL extraction (top-level for performance)
+const FONT_URL_PATTERN = /url\(([^)]+\.woff2[^)]*)\)/;
+const SIMPLE_FONT_URL_PATTERN =
+  /(https:\/\/fonts\.gstatic\.com\/[^\s'")]+\.woff2)/;
+const QUOTE_TRIM_PATTERN = /^['"]|['"]$/g;
+
+// Helper function to extract font URL from CSS
+function extractFontUrl(cssText: string): string {
+  const fontFaces = cssText.split("@font-face");
+  for (const face of fontFaces) {
+    const urlMatch = face.match(FONT_URL_PATTERN);
+    if (urlMatch?.[1]) {
+      return urlMatch[1].trim().replace(QUOTE_TRIM_PATTERN, "");
+    }
+  }
+
+  const simpleMatch = cssText.match(SIMPLE_FONT_URL_PATTERN);
+  if (simpleMatch?.[1]) {
+    return simpleMatch[1];
+  }
+
+  // Fallback to jsDelivr CDN
+  return "https://cdn.jsdelivr.net/npm/@fontsource/dm-sans@5/files/dm-sans-latin-400-normal.woff2";
+}
+
+// Helper function to fetch font buffer
+async function fetchFontBuffer(fontUrl: string): Promise<ArrayBuffer> {
+  const fontRes = await fetch(fontUrl);
+  if (fontRes.ok) {
+    return fontRes.arrayBuffer();
+  }
+
+  if (fontUrl.includes("fonts.gstatic.com")) {
+    console.warn("Google Fonts failed, trying jsDelivr CDN");
+    const jsdelivrUrl =
+      "https://cdn.jsdelivr.net/npm/@fontsource/dm-sans@5/files/dm-sans-latin-400-normal.woff2";
+    const jsdelivrRes = await fetch(jsdelivrUrl);
+    if (jsdelivrRes.ok) {
+      return jsdelivrRes.arrayBuffer();
+    }
+    throw new Error(
+      `Failed to fetch font from ${fontUrl} (${fontRes.status}) and fallback (${jsdelivrRes.status})`
+    );
+  }
+
+  throw new Error(
+    `Failed to fetch font file from ${fontUrl}: ${fontRes.status}`
+  );
+}
+
 export const Route = createFileRoute("/opengraph")({
   server: {
     handlers: {
@@ -13,8 +63,6 @@ export const Route = createFileRoute("/opengraph")({
           );
 
           // Load DM Sans variable font from Google Fonts CDN
-          let fontBuffer: ArrayBuffer;
-
           const cssUrl =
             "https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap";
           const cssRes = await fetch(cssUrl, {
@@ -30,54 +78,9 @@ export const Route = createFileRoute("/opengraph")({
 
           const cssText = await cssRes.text();
 
-          // Extract WOFF2 URL
-          let fontUrl: string | null = null;
-
-          const fontFaces = cssText.split("@font-face");
-          for (const face of fontFaces) {
-            const urlMatch = face.match(/url\(([^)]+\.woff2[^)]*)\)/);
-            if (urlMatch?.[1]) {
-              fontUrl = urlMatch[1].trim().replace(/^['"]|['"]$/g, "");
-              break;
-            }
-          }
-
-          if (!fontUrl) {
-            const simpleMatch = cssText.match(
-              /(https:\/\/fonts\.gstatic\.com\/[^\s'")]+\.woff2)/
-            );
-            if (simpleMatch?.[1]) {
-              fontUrl = simpleMatch[1];
-            }
-          }
-
-          if (!fontUrl) {
-            console.warn("Falling back to jsDelivr CDN for DM Sans font");
-            fontUrl =
-              "https://cdn.jsdelivr.net/npm/@fontsource/dm-sans@5/files/dm-sans-latin-400-normal.woff2";
-          }
-
-          // Fetch the font file
-          const fontRes = await fetch(fontUrl);
-          if (fontRes.ok) {
-            fontBuffer = await fontRes.arrayBuffer();
-          } else if (fontUrl.includes("fonts.gstatic.com")) {
-            console.warn("Google Fonts failed, trying jsDelivr CDN");
-            const jsdelivrUrl =
-              "https://cdn.jsdelivr.net/npm/@fontsource/dm-sans@5/files/dm-sans-latin-400-normal.woff2";
-            const jsdelivrRes = await fetch(jsdelivrUrl);
-            if (jsdelivrRes.ok) {
-              fontBuffer = await jsdelivrRes.arrayBuffer();
-            } else {
-              throw new Error(
-                `Failed to fetch font from ${fontUrl} (${fontRes.status}) and fallback (${jsdelivrRes.status})`
-              );
-            }
-          } else {
-            throw new Error(
-              `Failed to fetch font file from ${fontUrl}: ${fontRes.status}`
-            );
-          }
+          // Extract and fetch font
+          const fontUrl = extractFontUrl(cssText);
+          const fontBuffer = await fetchFontBuffer(fontUrl);
 
           // Initialize WASM
           initSync({ module: wasmModule.default });

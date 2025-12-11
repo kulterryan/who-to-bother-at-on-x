@@ -28,50 +28,61 @@ export function SVGUploader({
   const [showPasteInput, setShowPasteInput] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
 
-  const validateSVG = useCallback((content: string): ValidationResult => {
+  // Helper functions for SVG validation
+  const checkSVGStructure = useCallback((content: string): string[] => {
     const errors: string[] = [];
-    const warnings: string[] = [];
-
-    // Check if it's valid SVG
     if (!(content.trim().startsWith("<svg") || content.includes("<svg"))) {
       errors.push("Content does not appear to be a valid SVG");
     }
-
-    // Check for closing tag
     if (!content.includes("</svg>")) {
       errors.push("SVG is missing closing tag");
     }
+    return errors;
+  }, []);
 
-    // Check for potentially dangerous content
+  const checkSVGSecurity = useCallback((content: string): string[] => {
+    const errors: string[] = [];
     if (content.includes("<script")) {
       errors.push("SVG contains script tags which are not allowed");
     }
-
     if (content.includes("javascript:")) {
       errors.push("SVG contains JavaScript which is not allowed");
     }
-
     if (content.includes("onclick") || content.includes("onerror")) {
       errors.push("SVG contains event handlers which are not allowed");
     }
+    return errors;
+  }, []);
 
-    // Warnings
+  const checkSVGWarnings = useCallback((content: string): string[] => {
+    const warnings: string[] = [];
     if (!content.includes("viewBox")) {
       warnings.push(
         "SVG is missing viewBox attribute - may not scale properly"
       );
     }
-
     if (content.length > 50_000) {
       warnings.push("SVG is quite large - consider optimizing it");
     }
-
-    return {
-      isValid: errors.length === 0,
-      errors,
-      warnings,
-    };
+    return warnings;
   }, []);
+
+  const validateSVG = useCallback(
+    (content: string): ValidationResult => {
+      const errors = [
+        ...checkSVGStructure(content),
+        ...checkSVGSecurity(content),
+      ];
+      const warnings = checkSVGWarnings(content);
+
+      return {
+        isValid: errors.length === 0,
+        errors,
+        warnings,
+      };
+    },
+    [checkSVGStructure, checkSVGSecurity, checkSVGWarnings]
+  );
 
   const processSVG = useCallback(
     (content: string) => {
@@ -172,12 +183,13 @@ export function SVGUploader({
       <Label>Company Logo (SVG) *</Label>
 
       {/* Preview */}
-      {value && validation?.isValid && (
+      {Boolean(value) && validation?.isValid ? (
         <div className="relative rounded-lg border-2 border-green-200 bg-green-50 p-4 dark:border-green-800 dark:bg-green-950/30">
           <div className="flex items-center gap-4">
             <div className="flex h-16 w-16 items-center justify-center rounded-lg border border-zinc-200 bg-white p-2 dark:border-zinc-700 dark:bg-zinc-900">
               <div
                 className="h-12 w-12 [&>svg]:h-full [&>svg]:w-full"
+                // biome-ignore lint/security/noDangerouslySetInnerHtml: SVG is validated before rendering
                 dangerouslySetInnerHTML={{ __html: value }}
               />
             </div>
@@ -205,6 +217,7 @@ export function SVGUploader({
             <div className="flex h-12 w-12 items-center justify-center rounded-lg border border-zinc-700 bg-zinc-900 p-2">
               <div
                 className="h-8 w-8 text-zinc-100 [&>svg]:h-full [&>svg]:w-full [&>svg]:fill-current"
+                // biome-ignore lint/security/noDangerouslySetInnerHtml: SVG is validated before rendering
                 dangerouslySetInnerHTML={{ __html: value }}
               />
             </div>
@@ -213,10 +226,11 @@ export function SVGUploader({
             </span>
           </div>
         </div>
-      )}
+      ) : null}
 
       {/* Upload Area */}
-      {!(value && validation?.isValid) && (
+      {Boolean(value) && validation?.isValid ? null : (
+        // biome-ignore lint/a11y/useSemanticElements: Drag-and-drop requires handlers on container element, button inside handles clicks
         <div
           className={`relative rounded-lg border-2 border-dashed p-8 text-center transition-colors ${
             dragActive
@@ -227,7 +241,14 @@ export function SVGUploader({
           onDragLeave={handleDrag}
           onDragOver={handleDrag}
           onDrop={handleDrop}
+          role="button"
+          tabIndex={0}
         >
+          <button
+            className="absolute inset-0 h-full w-full cursor-pointer opacity-0"
+            onClick={() => inputRef.current?.click()}
+            type="button"
+          />
           <input
             accept=".svg,image/svg+xml"
             className="absolute inset-0 h-full w-full cursor-pointer opacity-0"
@@ -267,7 +288,7 @@ export function SVGUploader({
       )}
 
       {/* Paste Input */}
-      {showPasteInput && (
+      {showPasteInput ? (
         <div className="space-y-2">
           <Textarea
             className="min-h-[120px] font-mono text-xs"
@@ -294,10 +315,10 @@ export function SVGUploader({
             </Button>
           </div>
         </div>
-      )}
+      ) : null}
 
       {/* Validation Messages */}
-      {validation && !validation.isValid && (
+      {Boolean(validation) && !validation.isValid ? (
         <div className="rounded-lg border-2 border-red-200 bg-red-50 p-4 dark:border-red-800 dark:bg-red-950/30">
           <div className="flex items-start gap-2">
             <AlertCircle className="mt-0.5 h-4 w-4 text-red-600" />
@@ -313,9 +334,10 @@ export function SVGUploader({
             </div>
           </div>
         </div>
-      )}
+      ) : null}
 
-      {validation?.isValid && validation.warnings.length > 0 && (
+      {Boolean(validation?.isValid) &&
+      (validation?.warnings.length ?? 0) > 0 ? (
         <div className="rounded-lg border-2 border-yellow-200 bg-yellow-50 p-4 dark:border-yellow-800 dark:bg-yellow-950/30">
           <div className="flex items-start gap-2">
             <AlertCircle className="mt-0.5 h-4 w-4 text-yellow-600" />
@@ -324,17 +346,17 @@ export function SVGUploader({
                 Warnings
               </p>
               <ul className="mt-1 list-disc pl-4 text-sm text-yellow-600 dark:text-yellow-500">
-                {validation.warnings.map((warn) => (
+                {validation?.warnings.map((warn) => (
                   <li key={warn}>{warn}</li>
                 ))}
               </ul>
             </div>
           </div>
         </div>
-      )}
+      ) : null}
 
       {/* External Error */}
-      {error && <p className="text-red-600 text-sm">{error}</p>}
+      {error ? <p className="text-red-600 text-sm">{error}</p> : null}
 
       {/* Guidelines */}
       <div className="rounded-lg bg-zinc-100 p-4 dark:bg-zinc-800">

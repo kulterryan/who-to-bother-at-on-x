@@ -1,20 +1,20 @@
 #!/usr/bin/env tsx
 
-import * as fs from "node:fs";
-import * as path from "node:path";
+import { writeFileSync } from "node:fs";
+import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { toJsonSchema } from "@valibot/to-json-schema";
 import { CompanySchema } from "../data/companies/schema.js";
 
 const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+const __dirname = dirname(__filename);
 
-const OUTPUT_PATH = path.join(__dirname, "../data/companies/schema.json");
+const OUTPUT_PATH = join(__dirname, "../data/companies/schema.json");
 
 /**
  * Generates JSON Schema from Valibot schema
  */
-async function generateJsonSchema(): Promise<void> {
+function generateJsonSchema(): void {
   try {
     // Convert Valibot schema to JSON Schema
     const jsonSchema = toJsonSchema(CompanySchema);
@@ -31,7 +31,7 @@ async function generateJsonSchema(): Promise<void> {
     const jsonContent = JSON.stringify(schemaWithMetadata, null, 2);
 
     // Write to file
-    fs.writeFileSync(OUTPUT_PATH, `${jsonContent}\n`, "utf-8");
+    writeFileSync(OUTPUT_PATH, `${jsonContent}\n`, "utf-8");
 
     console.log(`Generated JSON Schema: ${OUTPUT_PATH}`);
     process.exit(0);
@@ -42,7 +42,9 @@ async function generateJsonSchema(): Promise<void> {
 }
 
 // Run generation
-generateJsonSchema().catch((error) => {
+try {
+  generateJsonSchema();
+} catch (error) {
   console.error("Unexpected error:", error);
   process.exit(1);
-});
+}

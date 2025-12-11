@@ -1,15 +1,15 @@
 #!/usr/bin/env tsx
 
-import * as fs from "node:fs";
-import * as path from "node:path";
+import { readdirSync, readFileSync } from "node:fs";
+import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
-import * as v from "valibot";
+import { parse, ValiError } from "valibot";
 import { CompanySchema } from "../data/companies/schema.js";
 
 const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+const __dirname = dirname(__filename);
 
-const COMPANIES_DIR = path.join(__dirname, "../data/companies");
+const COMPANIES_DIR = join(__dirname, "../data/companies");
 const EXCLUDE_FILES = ["schema.json", "example.json.template"];
 
 type ValidationResult = {
@@ -19,74 +19,58 @@ type ValidationResult = {
 };
 
 /**
- * Validates all company JSON files against the valibot schema
+ * Formats validation errors from different error types
  */
-async function validateCompanies(): Promise<void> {
-  console.log("🔍 Validating company JSON files...\n");
-
-  // Read all JSON files from the companies directory
-  const files = fs
-    .readdirSync(COMPANIES_DIR)
-    .filter((file) => file.endsWith(".json"))
-    .filter((file) => !EXCLUDE_FILES.includes(file));
-
-  if (files.length === 0) {
-    console.log("⚠️  No company JSON files found to validate.");
-    process.exit(1);
+function formatValidationError(error: unknown): string[] {
+  if (error instanceof ValiError) {
+    return error.issues.map((issue) => {
+      const pathStr = issue.path
+        ? issue.path.map((p: { key: string }) => p.key).join(".")
+        : "root";
+      return `  - ${pathStr}: ${issue.message}`;
+    });
   }
+  if (error instanceof SyntaxError) {
+    return [`  - JSON Syntax Error: ${error.message}`];
+  }
+  return [`  - ${String(error)}`];
+}
 
-  const results: ValidationResult[] = [];
-  let hasErrors = false;
+/**
+ * Validates a single company file
+ */
+function validateFile(file: string): ValidationResult {
+  const filePath = join(COMPANIES_DIR, file);
+  const result: ValidationResult = {
+    file,
+    success: false,
+  };
 
-  // Validate each file
-  for (const file of files) {
-    const filePath = path.join(COMPANIES_DIR, file);
-    const result: ValidationResult = {
-      file,
-      success: false,
-    };
-
-    try {
-      // Read and parse JSON file
-      const content = fs.readFileSync(filePath, "utf-8");
-      const data = JSON.parse(content);
-
-      // Validate against schema
-      v.parse(CompanySchema, data);
-
-      result.success = true;
-      console.log(`✅ ${file}`);
-    } catch (error) {
-      result.success = false;
-      hasErrors = true;
-
-      if (error instanceof v.ValiError) {
-        // Format valibot validation errors
-        result.errors = error.issues.map((issue) => {
-          const pathStr = issue.path
-            ? issue.path.map((p: { key: string }) => p.key).join(".")
-            : "root";
-          return `  - ${pathStr}: ${issue.message}`;
-        });
-      } else if (error instanceof SyntaxError) {
-        // JSON parsing error
-        result.errors = [`  - JSON Syntax Error: ${error.message}`];
-      } else {
-        // Other errors
-        result.errors = [`  - ${String(error)}`];
+  try {
+    const content = readFileSync(filePath, "utf-8");
+    const data = JSON.parse(content);
+    parse(CompanySchema, data);
+    result.success = true;
+    console.log(`✅ ${file}`);
+  } catch (error) {
+    result.success = false;
+    result.errors = formatValidationError(error);
+    console.log(`❌ ${file}`);
+    if (result.errors) {
+      for (const err of result.errors) {
+        console.log(err);
       }
-
-      console.log(`❌ ${file}`);
-      if (result.errors) {
-        result.errors.forEach((err) => console.log(err));
-      }
-      console.log();
     }
-
-    results.push(result);
+    console.log();
   }
 
-  // Print summary
+  return result;
+}
+
+/**
+ * Prints validation summary
+ */
+function printSummary(results: ValidationResult[]): void {
   console.log(`\n${"=".repeat(50)}`);
   const successCount = results.filter((r) => r.success).length;
   const failCount = results.filter((r) => !r.success).length;
@@ -96,6 +80,7 @@ async function validateCompanies(): Promise<void> {
   console.log(`   ✅ Passed: ${successCount}`);
   console.log(`   ❌ Failed: ${failCount}`);
 
+  const hasErrors = failCount > 0;
   if (hasErrors) {
     console.log("\n❌ Validation failed! Please fix the errors above.");
     process.exit(1);
@@ -105,8 +90,29 @@ async function validateCompanies(): Promise<void> {
   }
 }
 
+/**
+ * Validates all company JSON files against the valibot schema
+ */
+function validateCompanies(): void {
+  console.log("🔍 Validating company JSON files...\n");
+
+  const files = readdirSync(COMPANIES_DIR)
+    .filter((file) => file.endsWith(".json"))
+    .filter((file) => !EXCLUDE_FILES.includes(file));
+
+  if (files.length === 0) {
+    console.log("⚠️  No company JSON files found to validate.");
+    process.exit(1);
+  }
+
+  const results = files.map(validateFile);
+  printSummary(results);
+}
+
 // Run validation
-validateCompanies().catch((error) => {
+try {
+  validateCompanies();
+} catch (error) {
   console.error("💥 Unexpected error:", error);
   process.exit(1);
-});
+}

@@ -44,6 +44,11 @@ export function resetTestModeState(): void {
   testModeState.prCounter = 1;
 }
 
+// Regex patterns for SVG processing (top-level for performance)
+const SVG_TAG_PATTERN = /<svg/;
+const _SVG_TAG_WITH_ATTRS_PATTERN = /<svg[^>]*>/;
+const CLOSING_BRACE_PATTERN = /^};?\s*$/m;
+
 // Helper to simulate API delay in test mode
 async function simulateDelay(config: TestModeConfig): Promise<void> {
   const delay = config.simulatedDelay ?? 100;
@@ -91,13 +96,6 @@ type GitHubRepo = {
   fork: boolean;
   parent?: {
     full_name: string;
-  };
-};
-
-type GitHubBranch = {
-  name: string;
-  commit: {
-    sha: string;
   };
 };
 
@@ -166,6 +164,86 @@ export async function getGitHubUser(
   return response.json();
 }
 
+// Helper function to search for fork in user's repositories
+async function searchUserForks(
+  accessToken: string,
+  username: string
+): Promise<GitHubRepo | null> {
+  console.log("[getUserFork] Searching for forks in user's repositories...");
+  try {
+    const userReposResponse = await fetchWithTimeout(
+      `${GITHUB_API_BASE}/users/${username}/repos?type=fork&per_page=100`,
+      {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+          Accept: "application/vnd.github.v3+json",
+          "User-Agent": "who-to-bother-on-x",
+        },
+      }
+    );
+
+    if (!userReposResponse.ok) {
+      return null;
+    }
+
+    const userRepos: GitHubRepo[] = await userReposResponse.json();
+    const expectedParent =
+      `${GITHUB_CONFIG.owner}/${GITHUB_CONFIG.repo}`.toLowerCase();
+
+    console.log(
+      `[getUserFork] Found ${userRepos.length} forked repos for user`
+    );
+
+    for (const repo of userRepos) {
+      const parentName = repo.parent?.full_name?.toLowerCase();
+      console.log(
+        `[getUserFork] Checking repo: ${repo.full_name}, parent: ${parentName || "unknown"}`
+      );
+
+      if (parentName === expectedParent) {
+        console.log(
+          `[getUserFork] Found fork with different name: ${repo.full_name}`
+        );
+        return repo;
+      }
+    }
+    console.log("[getUserFork] No matching fork found in user's repositories");
+  } catch (searchError) {
+    console.error("[getUserFork] Error searching user repos:", searchError);
+  }
+
+  return null;
+}
+
+// Helper function to validate fork
+function validateFork(repo: GitHubRepo): boolean {
+  const expectedParent =
+    `${GITHUB_CONFIG.owner}/${GITHUB_CONFIG.repo}`.toLowerCase();
+  const actualParent = repo.parent?.full_name?.toLowerCase();
+
+  if (repo.fork && actualParent === expectedParent) {
+    console.log("Fork validation passed");
+    return true;
+  }
+
+  // Log for debugging if the check fails
+  console.log("Fork validation failed:", {
+    isFork: repo.fork,
+    expectedParent,
+    actualParent,
+    repoFullName: repo.full_name,
+  });
+
+  // If the repo exists with the same name and is a fork, accept it
+  // This handles edge cases where parent info might be incomplete
+  if (repo.fork) {
+    console.log("Accepting fork despite parent mismatch");
+    return true;
+  }
+
+  return false;
+}
+
 // Check if user has a fork of the repository
 export async function getUserFork(
   accessToken: string,
@@ -208,51 +286,7 @@ export async function getUserFork(
     console.log("[getUserFork]   2. Fork has a different name");
     console.log("[getUserFork]   3. Fork is still being created by GitHub");
 
-    // Try to find any fork of the upstream repo in user's repos
-    console.log("[getUserFork] Searching for forks in user's repositories...");
-    try {
-      const userReposResponse = await fetchWithTimeout(
-        `${GITHUB_API_BASE}/users/${username}/repos?type=fork&per_page=100`,
-        {
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-            Accept: "application/vnd.github.v3+json",
-            "User-Agent": "who-to-bother-on-x",
-          },
-        }
-      );
-
-      if (userReposResponse.ok) {
-        const userRepos: GitHubRepo[] = await userReposResponse.json();
-        const expectedParent =
-          `${GITHUB_CONFIG.owner}/${GITHUB_CONFIG.repo}`.toLowerCase();
-
-        console.log(
-          `[getUserFork] Found ${userRepos.length} forked repos for user`
-        );
-
-        for (const repo of userRepos) {
-          const parentName = repo.parent?.full_name?.toLowerCase();
-          console.log(
-            `[getUserFork] Checking repo: ${repo.full_name}, parent: ${parentName || "unknown"}`
-          );
-
-          if (parentName === expectedParent) {
-            console.log(
-              `[getUserFork] Found fork with different name: ${repo.full_name}`
-            );
-            return repo;
-          }
-        }
-        console.log(
-          "[getUserFork] No matching fork found in user's repositories"
-        );
-      }
-    } catch (searchError) {
-      console.error("[getUserFork] Error searching user repos:", searchError);
-    }
-
-    return null;
+    return searchUserForks(accessToken, username);
   }
 
   if (!response.ok) {
@@ -262,31 +296,9 @@ export async function getUserFork(
   }
 
   const repo: GitHubRepo = await response.json();
-
   console.log("Fork response:", repo);
 
-  // Verify it's actually a fork of our repo
-  const expectedParent =
-    `${GITHUB_CONFIG.owner}/${GITHUB_CONFIG.repo}`.toLowerCase();
-  const actualParent = repo.parent?.full_name?.toLowerCase();
-
-  if (repo.fork && actualParent === expectedParent) {
-    console.log("Fork validation passed");
-    return repo;
-  }
-
-  // Log for debugging if the check fails
-  console.log("Fork validation failed:", {
-    isFork: repo.fork,
-    expectedParent,
-    actualParent,
-    repoFullName: repo.full_name,
-  });
-
-  // If the repo exists with the same name and is a fork, accept it
-  // This handles edge cases where parent info might be incomplete
-  if (repo.fork) {
-    console.log("Accepting fork despite parent mismatch");
+  if (validateFork(repo)) {
     return repo;
   }
 
@@ -441,14 +453,20 @@ export async function getBranchSha(
   return data.object.sha;
 }
 
+// Options for creating a branch
+export type CreateBranchOptions = {
+  accessToken: string;
+  username: string;
+  branchName: string;
+  sha: string;
+  testMode?: TestModeConfig;
+};
+
 // Create a new branch from a SHA
 export async function createBranch(
-  accessToken: string,
-  username: string,
-  branchName: string,
-  sha: string,
-  testMode?: TestModeConfig
+  options: CreateBranchOptions
 ): Promise<void> {
+  const { accessToken, username, branchName, sha, testMode } = options;
   if (testMode?.enabled) {
     await simulateDelay(testMode);
     const branchKey = `${username}/${GITHUB_CONFIG.repo}/${branchName}`;
@@ -513,14 +531,26 @@ export async function branchExists(
   return response.ok;
 }
 
+// Options for getting file content
+export type GetFileContentOptions = {
+  accessToken: string;
+  username: string;
+  path: string;
+  branch?: string;
+  testMode?: TestModeConfig;
+};
+
 // Get file content from repository
 export async function getFileContent(
-  accessToken: string,
-  username: string,
-  path: string,
-  branch: string = GITHUB_CONFIG.defaultBranch,
-  testMode?: TestModeConfig
+  options: GetFileContentOptions
 ): Promise<{ content: string; sha: string } | null> {
+  const {
+    accessToken,
+    username,
+    path,
+    branch = GITHUB_CONFIG.defaultBranch,
+    testMode,
+  } = options;
   if (testMode?.enabled) {
     await simulateDelay(testMode);
     const fileKey = `${username}/${GITHUB_CONFIG.repo}/${branch}/${path}`;
@@ -556,17 +586,32 @@ export async function getFileContent(
   return { content, sha: data.sha };
 }
 
+// Options for creating or updating a file
+export type CreateOrUpdateFileOptions = {
+  accessToken: string;
+  username: string;
+  path: string;
+  content: string;
+  message: string;
+  branch: string;
+  existingSha?: string;
+  testMode?: TestModeConfig;
+};
+
 // Create or update a file in the repository
 export async function createOrUpdateFile(
-  accessToken: string,
-  username: string,
-  path: string,
-  content: string,
-  message: string,
-  branch: string,
-  existingSha?: string,
-  testMode?: TestModeConfig
+  options: CreateOrUpdateFileOptions
 ): Promise<GitHubCommitResponse> {
+  const {
+    accessToken,
+    username,
+    path,
+    content,
+    message,
+    branch,
+    existingSha,
+    testMode,
+  } = options;
   if (testMode?.enabled) {
     await simulateDelay(testMode);
     const fileKey = `${username}/${GITHUB_CONFIG.repo}/${branch}/${path}`;
@@ -615,18 +660,25 @@ export async function createOrUpdateFile(
   return response.json();
 }
 
+// Options for creating a pull request
+export type CreatePullRequestOptions = {
+  accessToken: string;
+  username: string;
+  branchName: string;
+  title: string;
+  body: string;
+  testMode?: TestModeConfig;
+};
+
 // Create a pull request from fork to upstream
 export async function createPullRequest(
-  accessToken: string,
-  username: string,
-  branchName: string,
-  title: string,
-  body: string,
-  testMode?: TestModeConfig
+  options: CreatePullRequestOptions
 ): Promise<GitHubPullRequest> {
+  const { accessToken, username, branchName, title, body, testMode } = options;
   if (testMode?.enabled) {
     await simulateDelay(testMode);
-    const prNumber = testModeState.prCounter++;
+    const prNumber = testModeState.prCounter;
+    testModeState.prCounter += 1;
     const mockPR: GitHubPullRequest = {
       number: prNumber,
       html_url: `https://github.com/${GITHUB_CONFIG.owner}/${GITHUB_CONFIG.repo}/pull/${prNumber}`,
@@ -683,13 +735,16 @@ export function injectLogoIntoTsx(
 
   // Ensure the SVG has proper sizing and classes
   if (!cleanedSvg.includes('width="30"')) {
-    cleanedSvg = cleanedSvg.replace(/<svg/, '<svg width="30" height="30"');
+    cleanedSvg = cleanedSvg.replace(
+      SVG_TAG_PATTERN,
+      '<svg width="30" height="30"'
+    );
   }
 
   // Add className for dark mode support if not present
   if (!cleanedSvg.includes("className")) {
     cleanedSvg = cleanedSvg.replace(
-      /<svg/,
+      SVG_TAG_PATTERN,
       '<svg className="text-zinc-900 dark:text-zinc-100"'
     );
   }
@@ -704,8 +759,7 @@ export function injectLogoIntoTsx(
   const logoEntry = `\t${companyId}: (\n\t\t${cleanedSvg.split("\n").join("\n\t\t")}\n\t),`;
 
   // Find the position to insert (before the closing brace of companyLogos object)
-  const closingBracePattern = /^};?\s*$/m;
-  const match = existingContent.match(closingBracePattern);
+  const match = existingContent.match(CLOSING_BRACE_PATTERN);
 
   if (!match || match.index === undefined) {
     throw new Error("Could not find closing brace of companyLogos object");

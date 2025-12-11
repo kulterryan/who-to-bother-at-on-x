@@ -1,5 +1,6 @@
 "use client";
 
+// biome-ignore lint/performance/noNamespaceImport: Radix UI requires namespace import for component types
 import * as AvatarPrimitive from "@radix-ui/react-avatar";
 import type * as React from "react";
 

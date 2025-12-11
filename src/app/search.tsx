@@ -43,6 +43,81 @@ export const Route = createFileRoute("/search")({
   component: SearchPage,
 });
 
+// Helper component to render search results
+function SearchResults({
+  query,
+  results,
+}: {
+  query: string;
+  results: SearchResult[];
+}) {
+  if (!query) {
+    return (
+      <div className="py-12 text-center">
+        <svg
+          className="mx-auto mb-4 h-12 w-12 text-zinc-300 dark:text-zinc-700"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <title>Search icon</title>
+          <path
+            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+          />
+        </svg>
+        <p className="text-lg text-zinc-600 dark:text-zinc-400">
+          Enter a search term to find companies or products
+        </p>
+      </div>
+    );
+  }
+
+  if (results.length === 0) {
+    return (
+      <div className="py-12 text-center">
+        <svg
+          className="mx-auto mb-4 h-12 w-12 text-zinc-300 dark:text-zinc-700"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <title>No results icon</title>
+          <path
+            d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+          />
+        </svg>
+        <p className="mb-2 text-lg text-zinc-600 dark:text-zinc-400">
+          No results found for "{query}"
+        </p>
+        <p className="text-sm text-zinc-500 dark:text-zinc-500">
+          Try searching with different keywords
+        </p>
+      </div>
+    );
+  }
+
+  return (
+    <>
+      <div className="text-sm text-zinc-600 dark:text-zinc-400">
+        Found {results.length} result{results.length !== 1 ? "s" : ""} for "
+        {query}"
+      </div>
+
+      <ul aria-label="Search results" className="grid gap-4">
+        {results.map((result) => (
+          <SearchResultCard key={result.id} result={result} />
+        ))}
+      </ul>
+    </>
+  );
+}
+
 function SearchPage() {
   const [query, setQuery] = useQueryState(
     "q",
@@ -92,7 +167,6 @@ function SearchPage() {
             Search companies & products
           </h1>
         </div>
-
         {/* Search Input */}
         <form className="relative" onSubmit={(e) => e.preventDefault()}>
           <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-4">
@@ -120,7 +194,7 @@ function SearchPage() {
             type="text"
             value={query}
           />
-          {query && (
+          {query ? (
             <button
               aria-label="Clear search"
               className="absolute inset-y-0 right-0 flex items-center pr-4 text-zinc-400 hover:text-zinc-600 dark:hover:text-zinc-300"
@@ -142,74 +216,10 @@ function SearchPage() {
                 />
               </svg>
             </button>
-          )}
+          ) : null}
         </form>
-
         {/* Results */}
-        {query ? (
-          results.length === 0 ? (
-            <div className="py-12 text-center">
-              <svg
-                className="mx-auto mb-4 h-12 w-12 text-zinc-300 dark:text-zinc-700"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <title>No results icon</title>
-                <path
-                  d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                />
-              </svg>
-              <p className="mb-2 text-lg text-zinc-600 dark:text-zinc-400">
-                No results found for "{query}"
-              </p>
-              <p className="text-sm text-zinc-500 dark:text-zinc-500">
-                Try searching with different keywords
-              </p>
-            </div>
-          ) : (
-            <>
-              <div className="text-sm text-zinc-600 dark:text-zinc-400">
-                Found {results.length} result{results.length !== 1 ? "s" : ""}{" "}
-                for "{query}"
-              </div>
-
-              <div
-                aria-label="Search results"
-                className="grid gap-4"
-                role="list"
-              >
-                {results.map((result) => (
-                  <SearchResultCard key={result.id} result={result} />
-                ))}
-              </div>
-            </>
-          )
-        ) : (
-          <div className="py-12 text-center">
-            <svg
-              className="mx-auto mb-4 h-12 w-12 text-zinc-300 dark:text-zinc-700"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <title>Search icon</title>
-              <path
-                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-              />
-            </svg>
-            <p className="text-lg text-zinc-600 dark:text-zinc-400">
-              Enter a search term to find companies or products
-            </p>
-          </div>
-        )}
-
+        <SearchResults query={query} results={results} />
         <Footer />
       </main>
     </div>
@@ -217,7 +227,7 @@ function SearchPage() {
 }
 
 // Memoize SearchResultCard to prevent rerenders when props don't change
-const SearchResultCard = memo(function SearchResultCard({
+const SearchResultCard = memo(function SearchResultCardComponent({
   result,
 }: {
   result: SearchResult;
@@ -226,21 +236,21 @@ const SearchResultCard = memo(function SearchResultCard({
   const isCompany = result.type === "company";
 
   // For products, link with search query to filter and highlight the product
-  const searchParams = isCompany ? undefined : { q: result.name };
+  const resultSearchParams = isCompany ? undefined : { q: result.name };
 
   return (
     <Link
       className="group flex items-start gap-4 rounded-xl border-2 border-zinc-200 bg-white p-4 transition-all hover:border-zinc-900 hover:shadow-lg dark:border-zinc-700 dark:bg-zinc-900 dark:hover:border-orange-600"
       params={{ company: result.companyId }}
       role="listitem"
-      search={searchParams}
+      search={resultSearchParams}
       to="/$company"
     >
-      {logo && (
+      {logo ? (
         <div className="flex h-12 w-14 shrink-0 items-center justify-center">
           {logo}
         </div>
-      )}
+      ) : null}
 
       <div className="min-w-0 flex-1">
         <div className="mb-1 flex items-center gap-2">

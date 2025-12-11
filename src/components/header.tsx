@@ -66,7 +66,7 @@ export function Header() {
               <ChartColumnIncreasing className="size-3.5" />
               <span>Stats</span>
             </Link>
-            {session && (
+            {session ? (
               <button
                 className="flex cursor-pointer items-center gap-2 font-medium text-sm text-zinc-600 transition-colors hover:text-orange-600 dark:text-zinc-400 dark:hover:text-orange-600"
                 onClick={() => signOut()}
@@ -75,7 +75,7 @@ export function Header() {
                 <LogOut className="size-3.5" />
                 <span>Sign Out</span>
               </button>
-            )}
+            ) : null}
           </nav>
 
           {/* Logo / Title - Visible when scrolled */}
@@ -161,7 +161,7 @@ export function Header() {
               <ChartColumnIncreasing className="size-3.5" />
               <span>Stats</span>
             </Link>
-            {session && (
+            {session ? (
               <button
                 className="flex cursor-pointer items-center gap-2 font-medium text-sm text-zinc-600 transition-colors hover:text-orange-600 dark:text-zinc-400 dark:hover:text-orange-600"
                 onClick={() => signOut()}
@@ -170,7 +170,7 @@ export function Header() {
                 <LogOut className="size-3.5" />
                 <span>Sign Out</span>
               </button>
-            )}
+            ) : null}
           </nav>
         </div>
       </div>

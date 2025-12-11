@@ -135,7 +135,7 @@ function HomePage() {
             type="text"
             value={searchTerm}
           />
-          {searchTerm && (
+          {searchTerm ? (
             <button
               aria-label="Clear search"
               className="absolute inset-y-0 right-0 flex items-center pr-4 text-zinc-400 hover:text-zinc-600 dark:hover:text-zinc-300"
@@ -157,7 +157,7 @@ function HomePage() {
                 />
               </svg>
             </button>
-          )}
+          ) : null}
         </form>
 
         <div className="grid gap-6 md:grid-cols-2">
@@ -173,7 +173,7 @@ function HomePage() {
                   key={company.id}
                   target="_blank"
                 >
-                  {logo && <div className="mb-4">{logo}</div>}
+                  {logo ? <div className="mb-4">{logo}</div> : null}
                   <h2 className="mb-2 font-semibold text-2xl text-zinc-900 transition-colors group-hover:text-orange-600 dark:text-zinc-100">
                     {company.name}
                   </h2>
@@ -209,7 +209,7 @@ function HomePage() {
                 params={{ company: company.id }}
                 to="/$company"
               >
-                {logo && <div className="mb-4">{logo}</div>}
+                {logo ? <div className="mb-4">{logo}</div> : null}
                 <h2 className="mb-2 font-semibold text-2xl text-zinc-900 transition-colors group-hover:text-orange-600 dark:text-zinc-100">
                   {company.name}
                 </h2>

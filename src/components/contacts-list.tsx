@@ -8,6 +8,7 @@ import {
   Mail,
   MessageCircle,
 } from "lucide-react";
+import type React from "react";
 import { useEffect, useRef, useState } from "react";
 import { Footer } from "@/components/footer";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -16,7 +17,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import type { Category } from "@/types/contacts";
+import type { Category, Contact } from "@/types/contacts";
 
 type ContactsListProps = {
   categories: Category[];
@@ -29,6 +30,247 @@ type ContactsListProps = {
   github?: string;
   discord?: string;
 };
+
+// Helper function to filter contacts by search query
+function filterContactsByQuery(
+  categories: Category[],
+  searchQuery: string
+): Category[] {
+  const query = searchQuery.toLowerCase();
+  return categories
+    .map((category) => ({
+      ...category,
+      contacts: category.contacts.filter((contact) => {
+        const productMatch = contact.product.toLowerCase().includes(query);
+        const handleMatch = contact.handles.some((handle) =>
+          handle.toLowerCase().includes(query)
+        );
+        const emailMatch = contact.email?.toLowerCase().includes(query);
+        return productMatch || handleMatch || emailMatch;
+      }),
+    }))
+    .filter((category) => category.contacts.length > 0);
+}
+
+// Helper function to check if contact matches search query
+function isContactHighlighted(contact: Contact, searchQuery: string): boolean {
+  if (!searchQuery) {
+    return false;
+  }
+  const query = searchQuery.toLowerCase();
+  return (
+    contact.product.toLowerCase().includes(query) ||
+    contact.handles.some((handle) => handle.toLowerCase().includes(query)) ||
+    Boolean(contact.email?.toLowerCase().includes(query))
+  );
+}
+
+// Company links component to reduce complexity
+function CompanyLinks({
+  website,
+  docs,
+  github,
+  discord,
+}: {
+  website?: string;
+  docs?: string;
+  github?: string;
+  discord?: string;
+}) {
+  if (!(website || docs || github || discord)) {
+    return null;
+  }
+
+  return (
+    <div className="mb-8 flex flex-wrap items-center gap-4">
+      {website ? (
+        <a
+          className="inline-flex items-center gap-1.5 text-sm text-zinc-600 transition-colors hover:text-orange-600 dark:text-zinc-400 dark:hover:text-orange-600"
+          href={website}
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          <Globe className="h-4 w-4" />
+          <span>Website</span>
+        </a>
+      ) : null}
+      {docs ? (
+        <a
+          className="inline-flex items-center gap-1.5 text-sm text-zinc-600 transition-colors hover:text-orange-600 dark:text-zinc-400 dark:hover:text-orange-600"
+          href={docs}
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          <BookOpen className="h-4 w-4" />
+          <span>Docs</span>
+        </a>
+      ) : null}
+      {github ? (
+        <a
+          className="inline-flex items-center gap-1.5 text-sm text-zinc-600 transition-colors hover:text-orange-600 dark:text-zinc-400 dark:hover:text-orange-600"
+          href={github}
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          <Github className="h-4 w-4" />
+          <span>GitHub</span>
+        </a>
+      ) : null}
+      {discord ? (
+        <a
+          className="inline-flex items-center gap-1.5 text-sm text-zinc-600 transition-colors hover:text-orange-600 dark:text-zinc-400 dark:hover:text-orange-600"
+          href={discord}
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          <MessageCircle className="h-4 w-4" />
+          <span>Discord</span>
+        </a>
+      ) : null}
+    </div>
+  );
+}
+
+// Contact item component to reduce complexity
+function ContactItem({
+  contact,
+  isFirstMatch,
+  isHighlighted,
+  copiedProduct,
+  firstMatchRef,
+  onCopy,
+}: {
+  contact: Contact;
+  isFirstMatch: boolean;
+  isHighlighted: boolean;
+  copiedProduct: string | null;
+  firstMatchRef: React.RefObject<HTMLDivElement>;
+  onCopy: (product: string, handles: string[]) => void;
+}) {
+  return (
+    <div
+      className="flex scroll-mt-24 items-start justify-between border-zinc-200 border-t py-4 transition-colors first:border-t-0 dark:border-zinc-800"
+      ref={isFirstMatch ? firstMatchRef : null}
+    >
+      <div className="flex-1">
+        <button
+          className={`cursor-pointer text-left font-medium text-sm transition-colors hover:text-orange-600 md:text-base dark:hover:text-orange-600 ${
+            isHighlighted
+              ? "font-semibold text-orange-700 dark:text-orange-300"
+              : "text-zinc-900 dark:text-zinc-100"
+          }`}
+          onClick={() => onCopy(contact.product, contact.handles)}
+          title="Click to copy all handles"
+          type="button"
+        >
+          {copiedProduct === contact.product ? (
+            <span className="text-green-600">Copied!</span>
+          ) : (
+            contact.product
+          )}
+        </button>
+        <div className="mt-1 flex flex-wrap items-center gap-x-3 gap-y-1">
+          {contact.email ? (
+            <a
+              className="flex items-center gap-1.5 text-xs text-zinc-500 transition-colors hover:text-orange-600 md:text-sm dark:text-zinc-400 dark:hover:text-orange-600"
+              href={`mailto:${contact.email}`}
+            >
+              <Mail className="h-3 w-3" />
+              <span>{contact.email}</span>
+            </a>
+          ) : null}
+          {contact.discord ? (
+            <a
+              className="flex items-center gap-1.5 text-xs text-zinc-500 transition-colors hover:text-orange-600 md:text-sm dark:text-zinc-400 dark:hover:text-orange-600"
+              href={contact.discord}
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              <MessageCircle className="h-3 w-3" />
+              <span>Discord</span>
+            </a>
+          ) : null}
+        </div>
+      </div>
+      <div className="inline-flex flex-wrap items-center justify-end gap-x-3 gap-y-1">
+        {contact.handles.length <= 2 ? (
+          contact.handles.map((handle) => (
+            <a
+              className="inline-flex items-center gap-1.5 text-sm text-zinc-600 transition-colors hover:text-orange-600 md:text-base dark:text-zinc-400 dark:hover:text-orange-600"
+              href={`https://x.com/${handle.replace("@", "")}`}
+              key={handle}
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              <Avatar className="h-5 w-5 shrink-0">
+                <AvatarImage
+                  alt={handle}
+                  src={`https://unavatar.io/x/${handle.replace("@", "")}?fallback=https://avatar.vercel.sh/${handle.replace("@", "")}?size=400`}
+                />
+                <AvatarFallback className="bg-zinc-100 text-[10px] text-zinc-600 dark:bg-zinc-800 dark:text-zinc-400">
+                  {handle.slice(1, 3).toUpperCase()}
+                </AvatarFallback>
+              </Avatar>
+              <span className="leading-none">{handle}</span>
+            </a>
+          ))
+        ) : (
+          <>
+            {contact.handles.slice(0, 2).map((handle) => (
+              <a
+                className="inline-flex items-center gap-1.5 text-sm text-zinc-600 transition-colors hover:text-orange-600 md:text-base dark:text-zinc-400 dark:hover:text-orange-600"
+                href={`https://x.com/${handle.replace("@", "")}`}
+                key={handle}
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                <Avatar className="h-5 w-5 shrink-0">
+                  <AvatarImage
+                    alt={handle}
+                    src={`https://unavatar.io/x/${handle.replace("@", "")}?fallback=https://avatar.vercel.sh/${handle.replace("@", "")}?size=400`}
+                  />
+                  <AvatarFallback className="bg-zinc-100 text-[10px] text-zinc-600 dark:bg-zinc-800 dark:text-zinc-400">
+                    {handle.slice(1, 3).toUpperCase()}
+                  </AvatarFallback>
+                </Avatar>
+                <span className="leading-none">{handle}</span>
+              </a>
+            ))}
+            <Popover>
+              <PopoverTrigger className="text-sm text-zinc-600 transition-colors hover:text-orange-600 md:text-base dark:text-zinc-400 dark:hover:text-orange-600">
+                more
+              </PopoverTrigger>
+              <PopoverContent className="w-auto border-zinc-200 bg-white p-3 shadow-lg dark:border-zinc-700 dark:bg-zinc-900">
+                <div className="flex flex-col gap-2">
+                  {contact.handles.slice(2).map((handle) => (
+                    <a
+                      className="inline-flex items-center gap-1.5 text-sm text-zinc-600 transition-colors hover:text-orange-600 dark:text-zinc-400 dark:hover:text-orange-600"
+                      href={`https://x.com/${handle.replace("@", "")}`}
+                      key={handle}
+                      rel="noopener noreferrer"
+                      target="_blank"
+                    >
+                      <Avatar className="h-5 w-5 shrink-0">
+                        <AvatarImage
+                          alt={handle}
+                          src={`https://unavatar.io/x/${handle.replace("@", "")}`}
+                        />
+                        <AvatarFallback className="bg-zinc-100 text-[10px] text-zinc-600 dark:bg-zinc-800 dark:text-zinc-400">
+                          {handle.slice(1, 3).toUpperCase()}
+                        </AvatarFallback>
+                      </Avatar>
+                      <span className="leading-none">{handle}</span>
+                    </a>
+                  ))}
+                </div>
+              </PopoverContent>
+            </Popover>
+          </>
+        )}
+      </div>
+    </div>
+  );
+}
 
 export function ContactsList({
   categories,
@@ -44,20 +286,7 @@ export function ContactsList({
   const [copiedProduct, setCopiedProduct] = useState<string | null>(null);
   const firstMatchRef = useRef<HTMLDivElement | null>(null);
 
-  const filteredCategories: Category[] = categories
-    .map((category) => ({
-      ...category,
-      contacts: category.contacts.filter((contact) => {
-        const query = searchQuery.toLowerCase();
-        const productMatch = contact.product.toLowerCase().includes(query);
-        const handleMatch = contact.handles.some((handle) =>
-          handle.toLowerCase().includes(query)
-        );
-        const emailMatch = contact.email?.toLowerCase().includes(query);
-        return productMatch || handleMatch || emailMatch;
-      }),
-    }))
-    .filter((category) => category.contacts.length > 0);
+  const filteredCategories = filterContactsByQuery(categories, searchQuery);
 
   // Find the first matching product for scrolling
   const firstMatchingProduct =
@@ -114,54 +343,12 @@ export function ContactsList({
           </svg>
         </h1>
 
-        {(website || docs || github || discord) && (
-          <div className="mb-8 flex flex-wrap items-center gap-4">
-            {website && (
-              <a
-                className="inline-flex items-center gap-1.5 text-sm text-zinc-600 transition-colors hover:text-orange-600 dark:text-zinc-400 dark:hover:text-orange-600"
-                href={website}
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                <Globe className="h-4 w-4" />
-                <span>Website</span>
-              </a>
-            )}
-            {docs && (
-              <a
-                className="inline-flex items-center gap-1.5 text-sm text-zinc-600 transition-colors hover:text-orange-600 dark:text-zinc-400 dark:hover:text-orange-600"
-                href={docs}
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                <BookOpen className="h-4 w-4" />
-                <span>Docs</span>
-              </a>
-            )}
-            {github && (
-              <a
-                className="inline-flex items-center gap-1.5 text-sm text-zinc-600 transition-colors hover:text-orange-600 dark:text-zinc-400 dark:hover:text-orange-600"
-                href={github}
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                <Github className="h-4 w-4" />
-                <span>GitHub</span>
-              </a>
-            )}
-            {discord && (
-              <a
-                className="inline-flex items-center gap-1.5 text-sm text-zinc-600 transition-colors hover:text-orange-600 dark:text-zinc-400 dark:hover:text-orange-600"
-                href={discord}
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                <MessageCircle className="h-4 w-4" />
-                <span>Discord</span>
-              </a>
-            )}
-          </div>
-        )}
+        <CompanyLinks
+          discord={discord}
+          docs={docs}
+          github={github}
+          website={website}
+        />
 
         <p className="mb-8 text-sm text-zinc-600 dark:text-zinc-500">
           This is a community-maintained list and not officially affiliated with{" "}
@@ -175,36 +362,46 @@ export function ContactsList({
         </div>
 
         <div className="relative mb-8">
-          <input
-            className={`w-full rounded-lg border border-zinc-200 bg-white px-4 py-3 text-sm text-zinc-900 placeholder-zinc-400 outline-none transition-colors focus:border-orange-400 focus:ring-1 focus:ring-orange-400 dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-100 dark:placeholder-zinc-500 ${searchQuery && onSearchQueryChange ? "pr-11" : ""}`}
-            onChange={(e) => onSearchQueryChange?.(e.target.value || null)}
-            placeholder="search products or topics"
-            type="text"
-            value={searchQuery}
-          />
-          {searchQuery && onSearchQueryChange && (
-            <button
-              aria-label="Clear search"
-              className="absolute inset-y-0 right-0 flex items-center pr-4 text-zinc-400 hover:text-zinc-600 dark:hover:text-zinc-300"
-              onClick={() => onSearchQueryChange(null)}
-              type="button"
-            >
-              <svg
-                className="h-5 w-5"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <title>Clear icon</title>
-                <path
-                  d="M6 18L18 6M6 6l12 12"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
+          {(() => {
+            const hasSearch =
+              Boolean(searchQuery) && Boolean(onSearchQueryChange);
+            return (
+              <>
+                <input
+                  className={`w-full rounded-lg border border-zinc-200 bg-white px-4 py-3 text-sm text-zinc-900 placeholder-zinc-400 outline-none transition-colors focus:border-orange-400 focus:ring-1 focus:ring-orange-400 dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-100 dark:placeholder-zinc-500 ${hasSearch ? "pr-11" : ""}`}
+                  onChange={(e) =>
+                    onSearchQueryChange?.(e.target.value || null)
+                  }
+                  placeholder="search products or topics"
+                  type="text"
+                  value={searchQuery}
                 />
-              </svg>
-            </button>
-          )}
+                {hasSearch ? (
+                  <button
+                    aria-label="Clear search"
+                    className="absolute inset-y-0 right-0 flex items-center pr-4 text-zinc-400 hover:text-zinc-600 dark:hover:text-zinc-300"
+                    onClick={() => onSearchQueryChange(null)}
+                    type="button"
+                  >
+                    <svg
+                      className="h-5 w-5"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <title>Clear search</title>
+                      <path
+                        d="M6 18L18 6M6 6l12 12"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                      />
+                    </svg>
+                  </button>
+                ) : null}
+              </>
+            );
+          })()}
         </div>
 
         <div className="space-y-12">
@@ -219,147 +416,21 @@ export function ContactsList({
                     contactIndex === 0 &&
                     category === filteredCategories[0] &&
                     contact.product === firstMatchingProduct;
-                  const isHighlighted =
-                    searchQuery &&
-                    (contact.product
-                      .toLowerCase()
-                      .includes(searchQuery.toLowerCase()) ||
-                      contact.handles.some((handle) =>
-                        handle.toLowerCase().includes(searchQuery.toLowerCase())
-                      ) ||
-                      contact.email
-                        ?.toLowerCase()
-                        .includes(searchQuery.toLowerCase()));
+                  const isHighlighted = isContactHighlighted(
+                    contact,
+                    searchQuery
+                  );
 
                   return (
-                    <div
-                      className="flex scroll-mt-24 items-start justify-between border-zinc-200 border-t py-4 transition-colors first:border-t-0 dark:border-zinc-800"
+                    <ContactItem
+                      contact={contact}
+                      copiedProduct={copiedProduct}
+                      firstMatchRef={firstMatchRef}
+                      isFirstMatch={isFirstMatch}
+                      isHighlighted={isHighlighted}
                       key={contact.product}
-                      ref={isFirstMatch ? firstMatchRef : null}
-                    >
-                      <div className="flex-1">
-                        <button
-                          className={`cursor-pointer text-left font-medium text-sm transition-colors hover:text-orange-600 md:text-base dark:hover:text-orange-600 ${
-                            isHighlighted
-                              ? "font-semibold text-orange-700 dark:text-orange-300"
-                              : "text-zinc-900 dark:text-zinc-100"
-                          }`}
-                          onClick={() =>
-                            copyHandlesToClipboard(
-                              contact.product,
-                              contact.handles
-                            )
-                          }
-                          title="Click to copy all handles"
-                        >
-                          {copiedProduct === contact.product ? (
-                            <span className="text-green-600">Copied!</span>
-                          ) : (
-                            contact.product
-                          )}
-                        </button>
-                        <div className="mt-1 flex flex-wrap items-center gap-x-3 gap-y-1">
-                          {contact.email && (
-                            <a
-                              className="flex items-center gap-1.5 text-xs text-zinc-500 transition-colors hover:text-orange-600 md:text-sm dark:text-zinc-400 dark:hover:text-orange-600"
-                              href={`mailto:${contact.email}`}
-                            >
-                              <Mail className="h-3 w-3" />
-                              <span>{contact.email}</span>
-                            </a>
-                          )}
-                          {contact.discord && (
-                            <a
-                              className="flex items-center gap-1.5 text-xs text-zinc-500 transition-colors hover:text-orange-600 md:text-sm dark:text-zinc-400 dark:hover:text-orange-600"
-                              href={contact.discord}
-                              rel="noopener noreferrer"
-                              target="_blank"
-                            >
-                              <MessageCircle className="h-3 w-3" />
-                              <span>Discord</span>
-                            </a>
-                          )}
-                        </div>
-                      </div>
-                      <div className="inline-flex flex-wrap items-center justify-end gap-x-3 gap-y-1">
-                        {contact.handles.length <= 2 ? (
-                          contact.handles.map((handle) => (
-                            <a
-                              className="inline-flex items-center gap-1.5 text-sm text-zinc-600 transition-colors hover:text-orange-600 md:text-base dark:text-zinc-400 dark:hover:text-orange-600"
-                              href={`https://x.com/${handle.replace("@", "")}`}
-                              key={handle}
-                              rel="noopener noreferrer"
-                              target="_blank"
-                            >
-                              <Avatar className="h-5 w-5 shrink-0">
-                                <AvatarImage
-                                  alt={handle}
-                                  src={`https://unavatar.io/x/${handle.replace("@", "")}?fallback=https://avatar.vercel.sh/${handle.replace("@", "")}?size=400`}
-                                />
-                                <AvatarFallback className="bg-zinc-100 text-[10px] text-zinc-600 dark:bg-zinc-800 dark:text-zinc-400">
-                                  {handle.slice(1, 3).toUpperCase()}
-                                </AvatarFallback>
-                              </Avatar>
-                              <span className="leading-none">{handle}</span>
-                            </a>
-                          ))
-                        ) : (
-                          <>
-                            {contact.handles.slice(0, 2).map((handle) => (
-                              <a
-                                className="inline-flex items-center gap-1.5 text-sm text-zinc-600 transition-colors hover:text-orange-600 md:text-base dark:text-zinc-400 dark:hover:text-orange-600"
-                                href={`https://x.com/${handle.replace("@", "")}`}
-                                key={handle}
-                                rel="noopener noreferrer"
-                                target="_blank"
-                              >
-                                <Avatar className="h-5 w-5 shrink-0">
-                                  <AvatarImage
-                                    alt={handle}
-                                    src={`https://unavatar.io/x/${handle.replace("@", "")}?fallback=https://avatar.vercel.sh/${handle.replace("@", "")}?size=400`}
-                                  />
-                                  <AvatarFallback className="bg-zinc-100 text-[10px] text-zinc-600 dark:bg-zinc-800 dark:text-zinc-400">
-                                    {handle.slice(1, 3).toUpperCase()}
-                                  </AvatarFallback>
-                                </Avatar>
-                                <span className="leading-none">{handle}</span>
-                              </a>
-                            ))}
-                            <Popover>
-                              <PopoverTrigger className="text-sm text-zinc-600 transition-colors hover:text-orange-600 md:text-base dark:text-zinc-400 dark:hover:text-orange-600">
-                                more
-                              </PopoverTrigger>
-                              <PopoverContent className="w-auto border-zinc-200 bg-white p-3 shadow-lg dark:border-zinc-700 dark:bg-zinc-900">
-                                <div className="flex flex-col gap-2">
-                                  {contact.handles.slice(2).map((handle) => (
-                                    <a
-                                      className="inline-flex items-center gap-1.5 text-sm text-zinc-600 transition-colors hover:text-orange-600 dark:text-zinc-400 dark:hover:text-orange-600"
-                                      href={`https://x.com/${handle.replace("@", "")}`}
-                                      key={handle}
-                                      rel="noopener noreferrer"
-                                      target="_blank"
-                                    >
-                                      <Avatar className="h-5 w-5 shrink-0">
-                                        <AvatarImage
-                                          alt={handle}
-                                          src={`https://unavatar.io/x/${handle.replace("@", "")}`}
-                                        />
-                                        <AvatarFallback className="bg-zinc-100 text-[10px] text-zinc-600 dark:bg-zinc-800 dark:text-zinc-400">
-                                          {handle.slice(1, 3).toUpperCase()}
-                                        </AvatarFallback>
-                                      </Avatar>
-                                      <span className="leading-none">
-                                        {handle}
-                                      </span>
-                                    </a>
-                                  ))}
-                                </div>
-                              </PopoverContent>
-                            </Popover>
-                          </>
-                        )}
-                      </div>
-                    </div>
+                      onCopy={copyHandlesToClipboard}
+                    />
                   );
                 })}
               </div>

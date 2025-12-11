@@ -46,7 +46,7 @@ export const Route = createFileRoute("/$company")({
   validateSearch: createStandardSchemaV1(searchParams, {
     partialOutput: true,
   }),
-  loader: async ({ params }) => {
+  loader: ({ params }) => {
     const { company } = params;
 
     // Get company data map

@@ -80,6 +80,7 @@ function RootLayout() {
     <html lang="en" suppressHydrationWarning>
       <head>
         <script
+          // biome-ignore lint/security/noDangerouslySetInnerHtml: Theme script must run before React hydration to prevent flash
           dangerouslySetInnerHTML={{
             __html: `!function(){try{var e=localStorage.getItem('${THEME_STORAGE_KEY}')||'system';document.documentElement.className='system'===e?matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light':e}catch{document.documentElement.className=matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light'}}()`,
           }}

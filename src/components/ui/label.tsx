@@ -4,6 +4,7 @@ import { cn } from "@/lib/utils";
 
 function Label({ className, ...props }: React.ComponentProps<"label">) {
   return (
+    // biome-ignore lint/a11y/noLabelWithoutControl: This is a generic Label component wrapper - parent components provide the control association via htmlFor prop
     <label
       className={cn(
         "font-medium text-sm text-zinc-900 leading-none dark:text-zinc-100",

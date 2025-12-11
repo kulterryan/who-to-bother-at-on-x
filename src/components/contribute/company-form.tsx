@@ -1,55 +1,85 @@
 import { useForm } from "@tanstack/react-form";
 import { Plus, Trash2, X } from "lucide-react";
+import type React from "react";
 import { useEffect } from "react";
-import * as v from "valibot";
+import {
+  array,
+  minLength,
+  object,
+  optional,
+  pipe,
+  regex,
+  string,
+} from "valibot";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import type { Company } from "@/types/company";
 
+// Regex pattern for company ID validation (top-level for performance)
+const COMPANY_ID_PATTERN = /^[a-z0-9-]+$/;
+
 // Validation schemas
-const contactSchema = v.object({
-  product: v.pipe(v.string(), v.minLength(1, "Product/role name is required")),
-  handles: v.pipe(
-    v.array(v.string()),
-    v.minLength(1, "At least one handle is required")
+const contactSchema = object({
+  product: pipe(string(), minLength(1, "Product/role name is required")),
+  handles: pipe(
+    array(string()),
+    minLength(1, "At least one handle is required")
   ),
-  email: v.optional(v.string()),
-  discord: v.optional(v.string()),
+  email: optional(string()),
+  discord: optional(string()),
 });
 
-const categorySchema = v.object({
-  name: v.pipe(v.string(), v.minLength(1, "Category name is required")),
-  contacts: v.pipe(
-    v.array(contactSchema),
-    v.minLength(1, "At least one contact is required")
+const categorySchema = object({
+  name: pipe(string(), minLength(1, "Category name is required")),
+  contacts: pipe(
+    array(contactSchema),
+    minLength(1, "At least one contact is required")
   ),
 });
 
-const companySchema = v.object({
-  id: v.pipe(
-    v.string(),
-    v.minLength(1, "Company ID is required"),
-    v.regex(
-      /^[a-z0-9-]+$/,
+const companySchema = object({
+  id: pipe(
+    string(),
+    minLength(1, "Company ID is required"),
+    regex(
+      COMPANY_ID_PATTERN,
       "ID must be lowercase with only letters, numbers, and hyphens"
     )
   ),
-  name: v.pipe(v.string(), v.minLength(1, "Company name is required")),
-  description: v.pipe(v.string(), v.minLength(1, "Description is required")),
-  logoType: v.pipe(v.string(), v.minLength(1, "Logo type is required")),
-  website: v.optional(v.string()),
-  docs: v.optional(v.string()),
-  github: v.optional(v.string()),
-  discord: v.optional(v.string()),
-  categories: v.pipe(
-    v.array(categorySchema),
-    v.minLength(1, "At least one category is required")
+  name: pipe(string(), minLength(1, "Company name is required")),
+  description: pipe(string(), minLength(1, "Description is required")),
+  logoType: pipe(string(), minLength(1, "Logo type is required")),
+  website: optional(string()),
+  docs: optional(string()),
+  github: optional(string()),
+  discord: optional(string()),
+  categories: pipe(
+    array(categorySchema),
+    minLength(1, "At least one category is required")
   ),
 });
 
-type CompanyFormData = v.InferOutput<typeof companySchema>;
+type CompanyFormData = {
+  id: string;
+  name: string;
+  description: string;
+  logoType: string;
+  website?: string;
+  docs?: string;
+  github?: string;
+  discord?: string;
+  categories: Array<{
+    name: string;
+    contacts: Array<{
+      product: string;
+      handles: string[];
+      email?: string;
+      discord?: string;
+    }>;
+  }>;
+};
 
 type CompanyFormProps = {
   initialData?: Company;
@@ -110,7 +140,7 @@ export function CompanyForm({
     validators: {
       onChange: companySchema,
     },
-    onSubmit: async ({ value }) => {
+    onSubmit: ({ value }) => {
       // Clean up empty optional fields
       const cleanedData: Company = {
         ...value,
@@ -211,7 +241,7 @@ export function CompanyForm({
                 if (!value) {
                   return "Company ID is required";
                 }
-                if (!/^[a-z0-9-]+$/.test(value)) {
+                if (!COMPANY_ID_PATTERN.test(value)) {
                   return "ID must be lowercase with only letters, numbers, and hyphens";
                 }
                 return;
@@ -405,10 +435,10 @@ export function CompanyForm({
               )}
 
               <div className="space-y-6">
-                {categoriesField.state.value.map((_, categoryIndex) => (
+                {categoriesField.state.value.map((category, categoryIndex) => (
                   <div
                     className="rounded-lg border-2 border-zinc-200 bg-zinc-50/50 p-4 dark:border-zinc-700 dark:bg-zinc-800/50"
-                    key={categoryIndex}
+                    key={`category-${categoryIndex}-${category.name || ""}`}
                   >
                     <div className="mb-4 flex items-start justify-between gap-4">
                       <form.Field
@@ -489,161 +519,164 @@ export function CompanyForm({
                             </p>
                           )}
 
-                          {contactsField.state.value.map((_, contactIndex) => (
-                            <div
-                              className="rounded-lg border border-zinc-200 bg-white p-4 dark:border-zinc-700 dark:bg-zinc-900"
-                              key={contactIndex}
-                            >
-                              <div className="mb-4 flex items-start justify-between gap-4">
-                                <div className="grid flex-1 gap-4 sm:grid-cols-2">
-                                  <form.Field
-                                    name={`categories[${categoryIndex}].contacts[${contactIndex}].product`}
-                                    validators={{
-                                      onChange: ({
-                                        value,
-                                      }: {
-                                        value: string;
-                                      }) =>
-                                        value
-                                          ? undefined
-                                          : "Product/role name is required",
-                                    }}
-                                  >
-                                    {(field) => (
-                                      <div className="space-y-2">
-                                        <Label>Product/Role *</Label>
-                                        <Input
-                                          onBlur={field.handleBlur}
-                                          onChange={(e) =>
-                                            field.handleChange(e.target.value)
-                                          }
-                                          placeholder="e.g., Frontend Dev, DevRel"
-                                          value={field.state.value}
-                                        />
-                                        {field.state.meta.errors.length > 0 && (
-                                          <p className="text-red-600 text-sm">
-                                            {getFirstError(
-                                              field.state.meta.errors
-                                            )}
-                                          </p>
-                                        )}
-                                      </div>
-                                    )}
-                                  </form.Field>
-
-                                  <form.Field
-                                    name={`categories[${categoryIndex}].contacts[${contactIndex}].email`}
-                                  >
-                                    {(field) => (
-                                      <div className="space-y-2">
-                                        <Label>Email (optional)</Label>
-                                        <Input
-                                          onBlur={field.handleBlur}
-                                          onChange={(e) =>
-                                            field.handleChange(e.target.value)
-                                          }
-                                          placeholder="contact@company.com"
-                                          type="email"
-                                          value={field.state.value}
-                                        />
-                                      </div>
-                                    )}
-                                  </form.Field>
-                                </div>
-                                {contactsField.state.value.length > 1 && (
-                                  <Button
-                                    className="text-zinc-500 hover:text-red-600"
-                                    onClick={() =>
-                                      contactsField.removeValue(contactIndex)
-                                    }
-                                    size="icon"
-                                    type="button"
-                                    variant="ghost"
-                                  >
-                                    <X className="h-4 w-4" />
-                                  </Button>
-                                )}
-                              </div>
-
-                              <form.Field
-                                mode="array"
-                                name={`categories[${categoryIndex}].contacts[${contactIndex}].handles`}
+                          {contactsField.state.value.map(
+                            (contact, contactIndex) => (
+                              <div
+                                className="rounded-lg border border-zinc-200 bg-white p-4 dark:border-zinc-700 dark:bg-zinc-900"
+                                key={`contact-${categoryIndex}-${contactIndex}-${contact.product || ""}`}
                               >
-                                {(handlesField) => (
-                                  <div className="space-y-2">
-                                    <div className="flex items-center justify-between">
-                                      <Label>X (Twitter) Handles *</Label>
-                                      <Button
-                                        onClick={() =>
-                                          handlesField.pushValue("")
-                                        }
-                                        size="sm"
-                                        type="button"
-                                        variant="ghost"
-                                      >
-                                        <Plus className="h-4 w-4" />
-                                        Add Handle
-                                      </Button>
-                                    </div>
-                                    {handlesField.state.meta.errors.length >
-                                      0 && (
-                                      <p className="text-red-600 text-sm">
-                                        {getFirstError(
-                                          handlesField.state.meta.errors
-                                        )}
-                                      </p>
-                                    )}
-                                    <div className="flex flex-wrap gap-2">
-                                      {handlesField.state.value.map(
-                                        (_, handleIndex) => (
-                                          <form.Field
-                                            key={handleIndex}
-                                            name={`categories[${categoryIndex}].contacts[${contactIndex}].handles[${handleIndex}]`}
-                                          >
-                                            {(handleField) => (
-                                              <div className="flex items-center gap-1">
-                                                <Input
-                                                  className="w-40"
-                                                  onBlur={
-                                                    handleField.handleBlur
-                                                  }
-                                                  onChange={(e) =>
-                                                    handleField.handleChange(
-                                                      e.target.value
-                                                    )
-                                                  }
-                                                  placeholder="@username"
-                                                  value={
-                                                    handleField.state.value
-                                                  }
-                                                />
-                                                {handlesField.state.value
-                                                  .length > 1 && (
-                                                  <Button
-                                                    className="h-8 w-8 text-zinc-500 hover:text-red-600"
-                                                    onClick={() =>
-                                                      handlesField.removeValue(
-                                                        handleIndex
+                                <div className="mb-4 flex items-start justify-between gap-4">
+                                  <div className="grid flex-1 gap-4 sm:grid-cols-2">
+                                    <form.Field
+                                      name={`categories[${categoryIndex}].contacts[${contactIndex}].product`}
+                                      validators={{
+                                        onChange: ({
+                                          value,
+                                        }: {
+                                          value: string;
+                                        }) =>
+                                          value
+                                            ? undefined
+                                            : "Product/role name is required",
+                                      }}
+                                    >
+                                      {(field) => (
+                                        <div className="space-y-2">
+                                          <Label>Product/Role *</Label>
+                                          <Input
+                                            onBlur={field.handleBlur}
+                                            onChange={(e) =>
+                                              field.handleChange(e.target.value)
+                                            }
+                                            placeholder="e.g., Frontend Dev, DevRel"
+                                            value={field.state.value}
+                                          />
+                                          {field.state.meta.errors.length >
+                                            0 && (
+                                            <p className="text-red-600 text-sm">
+                                              {getFirstError(
+                                                field.state.meta.errors
+                                              )}
+                                            </p>
+                                          )}
+                                        </div>
+                                      )}
+                                    </form.Field>
+
+                                    <form.Field
+                                      name={`categories[${categoryIndex}].contacts[${contactIndex}].email`}
+                                    >
+                                      {(field) => (
+                                        <div className="space-y-2">
+                                          <Label>Email (optional)</Label>
+                                          <Input
+                                            onBlur={field.handleBlur}
+                                            onChange={(e) =>
+                                              field.handleChange(e.target.value)
+                                            }
+                                            placeholder="contact@company.com"
+                                            type="email"
+                                            value={field.state.value}
+                                          />
+                                        </div>
+                                      )}
+                                    </form.Field>
+                                  </div>
+                                  {contactsField.state.value.length > 1 && (
+                                    <Button
+                                      className="text-zinc-500 hover:text-red-600"
+                                      onClick={() =>
+                                        contactsField.removeValue(contactIndex)
+                                      }
+                                      size="icon"
+                                      type="button"
+                                      variant="ghost"
+                                    >
+                                      <X className="h-4 w-4" />
+                                    </Button>
+                                  )}
+                                </div>
+
+                                <form.Field
+                                  mode="array"
+                                  name={`categories[${categoryIndex}].contacts[${contactIndex}].handles`}
+                                >
+                                  {(handlesField) => (
+                                    <div className="space-y-2">
+                                      <div className="flex items-center justify-between">
+                                        <Label>X (Twitter) Handles *</Label>
+                                        <Button
+                                          onClick={() =>
+                                            handlesField.pushValue("")
+                                          }
+                                          size="sm"
+                                          type="button"
+                                          variant="ghost"
+                                        >
+                                          <Plus className="h-4 w-4" />
+                                          Add Handle
+                                        </Button>
+                                      </div>
+                                      {handlesField.state.meta.errors.length >
+                                        0 && (
+                                        <p className="text-red-600 text-sm">
+                                          {getFirstError(
+                                            handlesField.state.meta.errors
+                                          )}
+                                        </p>
+                                      )}
+                                      <div className="flex flex-wrap gap-2">
+                                        {handlesField.state.value.map(
+                                          (handle, handleIndex) => (
+                                            <form.Field
+                                              key={`handle-${categoryIndex}-${contactIndex}-${handleIndex}-${handle || ""}`}
+                                              name={`categories[${categoryIndex}].contacts[${contactIndex}].handles[${handleIndex}]`}
+                                            >
+                                              {(handleField) => (
+                                                <div className="flex items-center gap-1">
+                                                  <Input
+                                                    className="w-40"
+                                                    onBlur={
+                                                      handleField.handleBlur
+                                                    }
+                                                    onChange={(e) =>
+                                                      handleField.handleChange(
+                                                        e.target.value
                                                       )
                                                     }
-                                                    size="icon"
-                                                    type="button"
-                                                    variant="ghost"
-                                                  >
-                                                    <X className="h-3 w-3" />
-                                                  </Button>
-                                                )}
-                                              </div>
-                                            )}
-                                          </form.Field>
-                                        )
-                                      )}
+                                                    placeholder="@username"
+                                                    value={
+                                                      handleField.state.value
+                                                    }
+                                                  />
+                                                  {handlesField.state.value
+                                                    .length > 1 && (
+                                                    <Button
+                                                      className="h-8 w-8 text-zinc-500 hover:text-red-600"
+                                                      onClick={() =>
+                                                        handlesField.removeValue(
+                                                          handleIndex
+                                                        )
+                                                      }
+                                                      size="icon"
+                                                      type="button"
+                                                      variant="ghost"
+                                                    >
+                                                      <X className="h-3 w-3" />
+                                                    </Button>
+                                                  )}
+                                                </div>
+                                              )}
+                                            </form.Field>
+                                          )
+                                        )}
+                                      </div>
                                     </div>
-                                  </div>
-                                )}
-                              </form.Field>
-                            </div>
-                          ))}
+                                  )}
+                                </form.Field>
+                              </div>
+                            )
+                          )}
                         </div>
                       )}
                     </form.Field>
@@ -659,9 +692,10 @@ export function CompanyForm({
       {!hideSubmitButton && (
         <div className="flex justify-end gap-4 border-zinc-200 border-t pt-4 dark:border-zinc-700">
           <form.Subscribe selector={(state) => state.canSubmit}>
-            {(canSubmit) => (
-              <Button disabled={isSubmitting || !canSubmit} type="submit">
-                {isSubmitting ? (
+            {(canSubmit) => {
+              let buttonText: string | React.ReactNode;
+              if (isSubmitting) {
+                buttonText = (
                   <>
                     <svg
                       className="h-4 w-4 animate-spin"
@@ -686,13 +720,19 @@ export function CompanyForm({
                     </svg>
                     Creating PR...
                   </>
-                ) : isEdit ? (
-                  "Update & Create PR"
-                ) : (
-                  "Submit & Create PR"
-                )}
-              </Button>
-            )}
+                );
+              } else if (isEdit) {
+                buttonText = "Update & Create PR";
+              } else {
+                buttonText = "Submit & Create PR";
+              }
+
+              return (
+                <Button disabled={isSubmitting || !canSubmit} type="submit">
+                  {buttonText}
+                </Button>
+              );
+            }}
           </form.Subscribe>
         </div>
       )}

@@ -86,6 +86,7 @@ export function MobileThemeToggle() {
                 }`}
                 key={themeOption}
                 onClick={() => handleSelect(themeOption)}
+                type="button"
               >
                 <Icon className="size-4" />
               </button>

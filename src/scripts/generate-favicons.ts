@@ -1,25 +1,28 @@
 #!/usr/bin/env tsx
 
-import * as fs from "node:fs";
-import * as path from "node:path";
+import { existsSync, mkdirSync, writeFileSync } from "node:fs";
+import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { renderToString } from "react-dom/server";
 import { companyLogos } from "../components/company-logos.js";
 
 const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+const __dirname = dirname(__filename);
 
-const outputDir = path.join(__dirname, "../../public/company-logos");
+const outputDir = join(__dirname, "../../public/company-logos");
+
+// Regex pattern for SVG tag replacement (top-level for performance)
+const SVG_TAG_WITH_ATTRS_PATTERN = /(<svg[^>]*>)/;
 
 /**
  * Generates SVG favicon files from company logo components
  */
-async function generateFavicons(): Promise<void> {
+function generateFavicons(): void {
   console.log("🎨 Generating favicon SVG files...\n");
 
   // Ensure output directory exists
-  if (!fs.existsSync(outputDir)) {
-    fs.mkdirSync(outputDir, { recursive: true });
+  if (!existsSync(outputDir)) {
+    mkdirSync(outputDir, { recursive: true });
     console.log(`📁 Created directory: ${outputDir}`);
   }
 
@@ -98,17 +101,20 @@ async function generateFavicons(): Promise<void> {
         "<style>:root{--favicon-color:#000}@media(prefers-color-scheme:dark){:root{--favicon-color:#fff}}</style>";
 
       // Insert style tag after the opening SVG tag
-      svgString = svgString.replace(/(<svg[^>]*>)/, `$1${styleTag}`);
+      svgString = svgString.replace(
+        SVG_TAG_WITH_ATTRS_PATTERN,
+        `$1${styleTag}`
+      );
 
       // Add XML declaration for valid standalone SVG
       svgString = `<?xml version="1.0" encoding="UTF-8"?>\n${svgString}`;
 
       // Write to file
-      const filePath = path.join(outputDir, `${name}.svg`);
-      fs.writeFileSync(filePath, svgString, "utf-8");
+      const filePath = join(outputDir, `${name}.svg`);
+      writeFileSync(filePath, svgString, "utf-8");
 
       console.log(`✅ Generated ${name}.svg`);
-      generatedCount++;
+      generatedCount += 1;
     } catch (error) {
       console.error(`❌ Failed to generate ${name}.svg:`, error);
       process.exit(1);
@@ -120,7 +126,9 @@ async function generateFavicons(): Promise<void> {
 }
 
 // Run generation
-generateFavicons().catch((error) => {
+try {
+  generateFavicons();
+} catch (error) {
   console.error("💥 Unexpected error:", error);
   process.exit(1);
-});
+}

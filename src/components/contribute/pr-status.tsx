@@ -25,6 +25,52 @@ type PRStatusProps = {
   onReset?: () => void;
 };
 
+// Helper function to get loading title
+function getLoadingTitle(status: PRStatusState): string {
+  if (status.type === "forking") {
+    return status.alreadyExists ? "Syncing Fork..." : "Forking Repository...";
+  }
+  if (status.type === "creating-branch") {
+    return "Creating Branch...";
+  }
+  if (status.type === "committing") {
+    return "Committing Changes...";
+  }
+  if (status.type === "creating-pr") {
+    return "Creating Pull Request...";
+  }
+  return "";
+}
+
+// Helper function to get loading description
+function getLoadingDescription(status: PRStatusState): string {
+  if (status.type === "forking") {
+    return status.alreadyExists
+      ? "Syncing your existing fork with the latest changes"
+      : "Setting up your fork of the repository";
+  }
+  if (status.type === "creating-branch") {
+    return "Creating a new branch for your changes";
+  }
+  if (status.type === "committing") {
+    return "Adding your company data and logo";
+  }
+  if (status.type === "creating-pr") {
+    return "Opening a pull request with your contribution";
+  }
+  return "";
+}
+
+// Helper function to check if status is loading
+function isLoadingStatus(status: PRStatusState): boolean {
+  return (
+    status.type === "forking" ||
+    status.type === "creating-branch" ||
+    status.type === "committing" ||
+    status.type === "creating-pr"
+  );
+}
+
 export function PRStatus({ status, onRetry, onReset }: PRStatusProps) {
   if (status.type === "idle") {
     return null;
@@ -34,34 +80,16 @@ export function PRStatus({ status, onRetry, onReset }: PRStatusProps) {
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm">
       <div className="mx-4 w-full max-w-md rounded-xl border-2 border-zinc-200 bg-white p-8 shadow-2xl dark:border-zinc-700 dark:bg-zinc-900">
         {/* Loading States */}
-        {(status.type === "forking" ||
-          status.type === "creating-branch" ||
-          status.type === "committing" ||
-          status.type === "creating-pr") && (
+        {isLoadingStatus(status) && (
           <div className="text-center">
             <div className="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-full bg-orange-100 dark:bg-orange-900/30">
               <Loader2 className="h-8 w-8 animate-spin text-orange-600" />
             </div>
             <h3 className="font-semibold text-lg text-zinc-900 dark:text-zinc-100">
-              {status.type === "forking" &&
-                (status.alreadyExists
-                  ? "Syncing Fork..."
-                  : "Forking Repository...")}
-              {status.type === "creating-branch" && "Creating Branch..."}
-              {status.type === "committing" && "Committing Changes..."}
-              {status.type === "creating-pr" && "Creating Pull Request..."}
+              {getLoadingTitle(status)}
             </h3>
             <p className="mt-2 text-sm text-zinc-600 dark:text-zinc-400">
-              {status.type === "forking" &&
-                (status.alreadyExists
-                  ? "Syncing your existing fork with the latest changes"
-                  : "Setting up your fork of the repository")}
-              {status.type === "creating-branch" &&
-                "Creating a new branch for your changes"}
-              {status.type === "committing" &&
-                "Adding your company data and logo"}
-              {status.type === "creating-pr" &&
-                "Opening a pull request with your contribution"}
+              {getLoadingDescription(status)}
             </p>
 
             {/* Progress Steps */}
@@ -193,16 +221,16 @@ export function PRStatus({ status, onRetry, onReset }: PRStatusProps) {
             </p>
 
             <div className="mt-6 flex flex-col gap-3">
-              {onRetry && (
+              {onRetry ? (
                 <Button className="w-full" onClick={onRetry}>
                   Try Again
                 </Button>
-              )}
-              {onReset && (
+              ) : null}
+              {onReset ? (
                 <Button className="w-full" onClick={onReset} variant="outline">
                   Go Back
                 </Button>
-              )}
+              ) : null}
             </div>
           </div>
         )}
@@ -220,36 +248,40 @@ function ProgressStep({
   completed: boolean;
   active: boolean;
 }) {
+  // Helper function to get step circle className
+  const getCircleClassName = () => {
+    if (completed) {
+      return "bg-green-500 text-white";
+    }
+    if (active) {
+      return "bg-orange-500 text-white";
+    }
+    return "bg-zinc-200 text-zinc-500 dark:bg-zinc-700";
+  };
+
+  // Helper function to get step label className
+  const getLabelClassName = () => {
+    if (completed) {
+      return "text-green-600 dark:text-green-400";
+    }
+    if (active) {
+      return "font-medium text-zinc-900 dark:text-zinc-100";
+    }
+    return "text-zinc-500";
+  };
+
   return (
     <div className="flex items-center gap-3">
       <div
-        className={`flex h-6 w-6 items-center justify-center rounded-full ${
-          completed
-            ? "bg-green-500 text-white"
-            : active
-              ? "bg-orange-500 text-white"
-              : "bg-zinc-200 text-zinc-500 dark:bg-zinc-700"
-        }`}
+        className={`flex h-6 w-6 items-center justify-center rounded-full ${getCircleClassName()}`}
       >
-        {completed ? (
-          <CheckCircle className="h-4 w-4" />
-        ) : active ? (
+        {completed ? <CheckCircle className="h-4 w-4" /> : null}
+        {!completed && active ? (
           <Loader2 className="h-4 w-4 animate-spin" />
-        ) : (
-          <span className="text-xs">•</span>
-        )}
+        ) : null}
+        {completed || active ? null : <span className="text-xs">•</span>}
       </div>
-      <span
-        className={`text-sm ${
-          completed
-            ? "text-green-600 dark:text-green-400"
-            : active
-              ? "font-medium text-zinc-900 dark:text-zinc-100"
-              : "text-zinc-500"
-        }`}
-      >
-        {label}
-      </span>
+      <span className={`text-sm ${getLabelClassName()}`}>{label}</span>
     </div>
   );
 }

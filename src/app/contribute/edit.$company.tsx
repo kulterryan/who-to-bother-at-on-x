@@ -32,7 +32,7 @@ for (const [path, module] of Object.entries(companyModules)) {
 }
 
 export const Route = createFileRoute("/contribute/edit/$company")({
-  loader: async ({ params }) => {
+  loader: ({ params }) => {
     const company = companies.get(params.company);
 
     if (!company) {
@@ -104,6 +104,97 @@ function EditCompanyPage() {
   const [svgError, setSvgError] = useState<string | undefined>();
   const [prStatus, setPRStatus] = useState<PRStatusState>({ type: "idle" });
 
+  // Helper function to handle fork process
+  const handleForkProcess = useCallback(
+    async (setStatus: (status: PRStatusState) => void): Promise<void> => {
+      const forkResponse = await fetch("/api/github/fork", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      if (!forkResponse.ok) {
+        const error = await forkResponse.json();
+        throw new Error(error.error || "Failed to fork repository");
+      }
+
+      const forkResult = await forkResponse.json();
+
+      // Update status based on fork result
+      if (forkResult.isOwner) {
+        setStatus({ type: "creating-branch" });
+      } else if (forkResult.fork?.alreadyExisted) {
+        setStatus({ type: "forking", alreadyExists: true });
+        await new Promise((resolve) => setTimeout(resolve, 500));
+        setStatus({ type: "creating-branch" });
+      } else {
+        await new Promise((resolve) => setTimeout(resolve, 1000));
+        setStatus({ type: "creating-branch" });
+      }
+    },
+    []
+  );
+
+  // Helper function to create PR
+  const createPullRequest = useCallback(
+    async (
+      company: Company,
+      logoSvg: string,
+      isEdit: boolean
+    ): Promise<{
+      branch?: string;
+      pullRequest?: { url: string; number: number };
+    }> => {
+      const prResponse = await fetch("/api/github/create-pr", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          company,
+          svgLogo: logoSvg,
+          isEdit,
+        }),
+      });
+
+      if (!prResponse.ok) {
+        const error = await prResponse.json();
+        throw new Error(error.error || "Failed to create pull request");
+      }
+
+      return prResponse.json();
+    },
+    []
+  );
+
+  // Helper function to handle PR result
+  const handlePRResult = useCallback(
+    async (
+      result: {
+        branch?: string;
+        pullRequest?: { url: string; number: number };
+      },
+      statusSetter: (status: PRStatusState) => void
+    ): Promise<void> => {
+      if (result.branch) {
+        statusSetter({
+          type: "success-owner",
+          branch: result.branch,
+        });
+      } else if (result.pullRequest) {
+        statusSetter({ type: "creating-pr" });
+        await new Promise((resolve) => setTimeout(resolve, 500));
+        statusSetter({
+          type: "success",
+          prUrl: result.pullRequest.url,
+          prNumber: result.pullRequest.number,
+        });
+      }
+    },
+    []
+  );
+
   const handleSubmit = useCallback(
     async (company: Company) => {
       // Validate SVG
@@ -118,74 +209,10 @@ function EditCompanyPage() {
       setPRStatus({ type: "forking" });
 
       try {
-        // First, fork the repository
-        const forkResponse = await fetch("/api/github/fork", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        });
-
-        if (!forkResponse.ok) {
-          const error = await forkResponse.json();
-          throw new Error(error.error || "Failed to fork repository");
-        }
-
-        const forkResult = await forkResponse.json();
-
-        // Update status based on fork result
-        if (forkResult.isOwner) {
-          // Owner doesn't need fork
-          setPRStatus({ type: "creating-branch" });
-        } else if (forkResult.fork?.alreadyExisted) {
-          setPRStatus({ type: "forking", alreadyExists: true });
-          await new Promise((resolve) => setTimeout(resolve, 500));
-          setPRStatus({ type: "creating-branch" });
-        } else {
-          // Wait a moment for new fork to be ready
-          await new Promise((resolve) => setTimeout(resolve, 1000));
-          setPRStatus({ type: "creating-branch" });
-        }
-
+        await handleForkProcess(setPRStatus);
         setPRStatus({ type: "committing" });
-
-        // Then create the PR
-        const prResponse = await fetch("/api/github/create-pr", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            company,
-            svgLogo,
-            isEdit: true,
-          }),
-        });
-
-        if (!prResponse.ok) {
-          const error = await prResponse.json();
-          throw new Error(error.error || "Failed to create pull request");
-        }
-
-        const result = await prResponse.json();
-
-        // Handle owner vs regular user success
-        if (result.branch) {
-          // Owner - direct commit
-          setPRStatus({
-            type: "success-owner",
-            branch: result.branch,
-          });
-        } else {
-          // Regular user - PR created
-          setPRStatus({ type: "creating-pr" });
-          await new Promise((resolve) => setTimeout(resolve, 500));
-          setPRStatus({
-            type: "success",
-            prUrl: result.pullRequest.url,
-            prNumber: result.pullRequest.number,
-          });
-        }
+        const result = await createPullRequest(company, svgLogo, true);
+        await handlePRResult(result, setPRStatus);
       } catch (error) {
         console.error("Submit error:", error);
         setPRStatus({
@@ -197,7 +224,7 @@ function EditCompanyPage() {
         });
       }
     },
-    [svgLogo]
+    [svgLogo, handleForkProcess, createPullRequest, handlePRResult]
   );
 
   const handleRetry = useCallback(() => {

@@ -1,5 +1,7 @@
 @import "tailwindcss";
 @import "tw-animate-css";
+@import "@fontsource-variable/dm-sans";
+@import "@fontsource-variable/jetbrains-mono";
 
 @custom-variant dark (&:is(.dark *));
 
@@ -10,9 +12,6 @@ html {
 html.dark {
   color-scheme: dark;
 }
-
-@import "@fontsource-variable/dm-sans";
-@import "@fontsource-variable/jetbrains-mono";
 
 :root {
   --background: oklch(0.8858 0.0364 64.63);

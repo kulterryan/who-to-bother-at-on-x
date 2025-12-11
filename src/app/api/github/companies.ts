@@ -27,7 +27,7 @@ for (const [path, module] of Object.entries(companyModules)) {
 export const Route = createFileRoute("/api/github/companies")({
   server: {
     handlers: {
-      GET: async ({ request }) => {
+      GET: ({ request }) => {
         const url = new URL(request.url);
         const companyId = url.searchParams.get("id");
 
