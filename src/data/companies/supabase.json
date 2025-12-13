@@ -1,42 +1,42 @@
 {
-	"$schema": "./schema.json",
-	"id": "supabase",
-	"name": "Supabase",
-	"description": "The Postgres development platform.",
-	"logoType": "supabase",
-	"categories": [
-		{
-			"name": "Official Accounts",
-			"contacts": [
-				{ "product": "Official Supabase Account", "handles": ["@supabase"] }
-			]
-		},
-		{
-			"name": "General",
-			"contacts": [
-				{ "product": "CEO", "handles": ["@kiwicopple"] },
-				{ "product": "CTO/Memes", "handles": ["@AntWilson"] },
-				{ "product": "Design", "handles": ["@JSummersMuir"] },
-				{ "product": "Community", "handles": ["@saltcod", "@tomaspozo_"] },
-				{
-					"product": "DevRel",
-					"handles": ["@jonmeyers_io", "@dshukertjr", "@Meech_Ward"]
-				}
-			]
-		},
-		{
-			"name": "Product",
-			"contacts": [
-				{
-					"product": "Dashboard",
-					"handles": ["@softwarecuddler"]
-				},
-				{ "product": "Auth", "handles": ["@stojaaan"] },
-				{ "product": "Realtime", "handles": ["@filipecabaco"] },
-				{ "product": "Vector/AI", "handles": ["@ggrdson"] },
-				{ "product": "Edge Functions", "handles": ["@laktek"] },
-				{ "product": "Self-hosting", "handles": ["@_aantti"] }
-			]
-		}
-	]
+  "$schema": "./schema.json",
+  "id": "supabase",
+  "name": "Supabase",
+  "description": "The Postgres development platform.",
+  "logoType": "supabase",
+  "categories": [
+    {
+      "name": "Official Accounts",
+      "contacts": [
+        { "product": "Official Supabase Account", "handles": ["@supabase"] }
+      ]
+    },
+    {
+      "name": "General",
+      "contacts": [
+        { "product": "CEO", "handles": ["@kiwicopple"] },
+        { "product": "CTO/Memes", "handles": ["@AntWilson"] },
+        { "product": "Design", "handles": ["@JSummersMuir"] },
+        { "product": "Community", "handles": ["@saltcod", "@tomaspozo_"] },
+        {
+          "product": "DevRel",
+          "handles": ["@jonmeyers_io", "@dshukertjr", "@Meech_Ward"]
+        }
+      ]
+    },
+    {
+      "name": "Product",
+      "contacts": [
+        {
+          "product": "Dashboard",
+          "handles": ["@softwarecuddler"]
+        },
+        { "product": "Auth", "handles": ["@stojaaan"] },
+        { "product": "Realtime", "handles": ["@filipecabaco"] },
+        { "product": "Vector/AI", "handles": ["@ggrdson"] },
+        { "product": "Edge Functions", "handles": ["@laktek"] },
+        { "product": "Self-hosting", "handles": ["@_aantti"] }
+      ]
+    }
+  ]
 }

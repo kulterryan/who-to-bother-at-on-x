@@ -1,35 +1,35 @@
 {
-	"$schema": "./schema.json",
-	"id": "prisma",
-	"name": "Prisma",
-	"description": "Prisma is an open-source database toolkit for Node.js and TypeScript. It provides a modern database client, migrations, and a data modeling layer for your database.",
-	"logoType": "prisma",
-	"discord": "https://pris.ly/t/discord",
-	"website": "https://www.prisma.io/",
-	"github": "https://github.com/prisma/prisma",
-	"docs": "https://www.prisma.io/docs",
-	"categories": [
-		{
-			"name": "Official Accounts",
-			"contacts": [{ "product": "Official Account", "handles": ["@Prisma"] }]
-		},
-		{
-			"name": "Leadership",
-			"contacts": [
-				{
-					"product": "CEO",
-					"handles": ["@sorenbs"]
-				}
-			]
-		},
-		{
-			"name": "Product",
-			"contacts": [
-				{
-					"product": "Developer Relations",
-					"handles": ["@MarcHessDev"]
-				}
-			]
-		}
-	]
+  "$schema": "./schema.json",
+  "id": "prisma",
+  "name": "Prisma",
+  "description": "Prisma is an open-source database toolkit for Node.js and TypeScript. It provides a modern database client, migrations, and a data modeling layer for your database.",
+  "logoType": "prisma",
+  "discord": "https://pris.ly/t/discord",
+  "website": "https://www.prisma.io/",
+  "github": "https://github.com/prisma/prisma",
+  "docs": "https://www.prisma.io/docs",
+  "categories": [
+    {
+      "name": "Official Accounts",
+      "contacts": [{ "product": "Official Account", "handles": ["@Prisma"] }]
+    },
+    {
+      "name": "Leadership",
+      "contacts": [
+        {
+          "product": "CEO",
+          "handles": ["@sorenbs"]
+        }
+      ]
+    },
+    {
+      "name": "Product",
+      "contacts": [
+        {
+          "product": "Developer Relations",
+          "handles": ["@MarcHessDev"]
+        }
+      ]
+    }
+  ]
 }

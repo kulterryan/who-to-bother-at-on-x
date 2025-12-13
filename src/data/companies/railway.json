@@ -1,61 +1,61 @@
 {
-	"$schema": "./schema.json",
-	"id": "railway",
-	"name": "Railway",
-	"description": "Deploy anything instantly",
-	"logoType": "railway",
-	"categories": [
-		{
-			"name": "Official Accounts",
-			"contacts": [
-				{ "product": "Official Railway Account", "handles": ["@Railway"] },
-				{ "product": "CEO", "handles": ["@JustJake"] }
-			]
-		},
-		{
-			"name": "Product",
-			"contacts": [
-				{
-					"product": "DevRel",
-					"handles": ["@thisismahmoud_"]
-				},
-				{
-					"product": "Engineering",
-					"handles": [
-						"@jaredLunde",
-						"@timomeh",
-						"@farazpatankar",
-						"@jakerunzer"
-					]
-				},
-				{ "product": "Design", "handles": ["@jitachi"] }
-			]
-		},
-		{
-			"name": "GTM",
-			"contacts": [
-				{
-					"product": "Partnerships",
-					"handles": ["@sarahkb125"]
-				},
-				{
-					"product": "Sales",
-					"handles": ["@parmstar"]
-				},
-				{
-					"product": "Solutions Engineering",
-					"handles": ["@ngeloxyz", "@echohack"]
-				}
-			]
-		},
-		{
-			"name": "Support",
-			"contacts": [
-				{
-					"product": "Engineering",
-					"handles": ["@itsnoahd", "@rayofbytes", "@OverBrody", "@RemsItIs"]
-				}
-			]
-		}
-	]
+  "$schema": "./schema.json",
+  "id": "railway",
+  "name": "Railway",
+  "description": "Deploy anything instantly",
+  "logoType": "railway",
+  "categories": [
+    {
+      "name": "Official Accounts",
+      "contacts": [
+        { "product": "Official Railway Account", "handles": ["@Railway"] },
+        { "product": "CEO", "handles": ["@JustJake"] }
+      ]
+    },
+    {
+      "name": "Product",
+      "contacts": [
+        {
+          "product": "DevRel",
+          "handles": ["@thisismahmoud_"]
+        },
+        {
+          "product": "Engineering",
+          "handles": [
+            "@jaredLunde",
+            "@timomeh",
+            "@farazpatankar",
+            "@jakerunzer"
+          ]
+        },
+        { "product": "Design", "handles": ["@jitachi"] }
+      ]
+    },
+    {
+      "name": "GTM",
+      "contacts": [
+        {
+          "product": "Partnerships",
+          "handles": ["@sarahkb125"]
+        },
+        {
+          "product": "Sales",
+          "handles": ["@parmstar"]
+        },
+        {
+          "product": "Solutions Engineering",
+          "handles": ["@ngeloxyz", "@echohack"]
+        }
+      ]
+    },
+    {
+      "name": "Support",
+      "contacts": [
+        {
+          "product": "Engineering",
+          "handles": ["@itsnoahd", "@rayofbytes", "@OverBrody", "@RemsItIs"]
+        }
+      ]
+    }
+  ]
 }

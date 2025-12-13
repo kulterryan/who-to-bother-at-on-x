@@ -1,27 +1,27 @@
 {
-	"$schema": "./schema.json",
-	"id": "reactnative",
-	"name": "React Native",
-	"description": "React Native is a framework for building native applications using React.",
-	"logoType": "reactnative",
-	"website": "https://reactnative.dev/",
-	"github": "https://github.com/facebook/react-native",
-	"docs": "https://reactnative.dev/docs/getting-started",
-	"categories": [
-		{
-			"name": "Official Accounts",
-			"contacts": [
-				{ "product": "Official Account", "handles": ["@reactnative"] }
-			]
-		},
-		{
-			"name": "Developers",
-			"contacts": [
-				{
-					"product": "Core Contributors",
-					"handles": ["@mrousavy"]
-				}
-			]
-		}
-	]
+  "$schema": "./schema.json",
+  "id": "reactnative",
+  "name": "React Native",
+  "description": "React Native is a framework for building native applications using React.",
+  "logoType": "reactnative",
+  "website": "https://reactnative.dev/",
+  "github": "https://github.com/facebook/react-native",
+  "docs": "https://reactnative.dev/docs/getting-started",
+  "categories": [
+    {
+      "name": "Official Accounts",
+      "contacts": [
+        { "product": "Official Account", "handles": ["@reactnative"] }
+      ]
+    },
+    {
+      "name": "Developers",
+      "contacts": [
+        {
+          "product": "Core Contributors",
+          "handles": ["@mrousavy"]
+        }
+      ]
+    }
+  ]
 }
