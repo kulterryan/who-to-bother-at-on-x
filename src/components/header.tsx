@@ -1,6 +1,7 @@
 import { Link, useMatches } from "@tanstack/react-router";
 import {
   ChartColumnIncreasing,
+  GithubIcon,
   HeartIcon,
   LogOut,
   PlusIcon,
