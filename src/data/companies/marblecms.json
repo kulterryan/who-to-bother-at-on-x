@@ -2,7 +2,7 @@
 	"$schema": "./schema.json",
 	"id": "marblecms",
 	"name": "Marble CMS",
-	"description": "The AI-first code editor",
+	"description": "Simple content management for modern apps",
 	"logoType": "marblecms",
 	"categories": [
 		{
@@ -14,7 +14,7 @@
 		{
 			"name": "Core Products",
 			"contacts": [
-				{ "product": "Core Maintainer", "handles": ["@dominikkoch", "@retaqib"] }
+				{ "product": "Core Maintainer", "handles": ["@retaqib"] }
 			]
 		}
 	]
