@@ -1,9 +1,9 @@
 {
   "$schema": "./schema.json",
-  "id": "dubco",
-  "name": "Dub Co",
+  "id": "dub",
+  "name": "Dub",
   "description": "Dub is the modern link attribution platform for short links, conversion tracking, and affiliate programs.",
-  "logoType": "dubco",
+  "logoType": "dub",
   "website": "https://dub.co",
   "docs": "https://dub.co/docs/introduction",
   "github": "https://github.com/dubinc/dub",
