@@ -302,4 +302,15 @@ export const companyLogos: Record<string, React.ReactNode> = {
 		    d="M32 64c17.673 0 32-14.327 32-32 0-11.844-6.435-22.186-16-27.719V48h-8v-2.14A15.9 15.9 0 0 1 32 48c-8.837 0-16-7.163-16-16s7.163-16 16-16c2.914 0 5.647.78 8 2.14V1.008A32 32 0 0 0 32 0C14.327 0 0 14.327 0 32s14.327 32 32 32"/>
 		</svg>
 	),
+  epi: (
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 73.33 73.33" className="text-zinc-900 dark:text-zinc-100">
+      <path d="M7.35,7.41c0,30.8,26.68,55.72,59.65,55.72" fill="none" stroke="currentColor" strokeMiterlimit="10" strokeWidth="8.02px" />
+      <path d="M7.35,7.41c0,20.28,27.34,36.7,61.12,36.7" fill="none" stroke="currentColor" strokeMiterlimit="10" strokeWidth="7.86px" />
+      <path d="M68.48,25.5C41.63,25.5,7.35,16.26,7.35,7.41" fill="none" stroke="currentColor" strokeMiterlimit="10" strokeWidth="7.24px" />
+      <path d="M69.48,63.13c0-2.92-2.37-5.29-5.29-5.29s-5.29,2.37-5.29,5.29,2.37,5.29,5.29,5.29,5.29-2.37,5.29-5.29Z" fill="white" className="dark:fill-black" stroke="currentColor" strokeMiterlimit="10" strokeWidth="3px" />
+      <path d="M69.48,44.11c0-2.92-2.37-5.29-5.29-5.29s-5.29,2.37-5.29,5.29,2.37,5.29,5.29,5.29,5.29-2.37,5.29-5.29Z" fill="white" className="dark:fill-black" stroke="currentColor" strokeMiterlimit="10" strokeWidth="3px" />
+      <path d="M69.48,25.5c0-2.92-2.37-5.29-5.29-5.29s-5.29,2.37-5.29,5.29,2.37,5.29,5.29,5.29,5.29-2.37,5.29-5.29Z" fill="white" className="dark:fill-black" stroke="currentColor" strokeMiterlimit="10" strokeWidth="3px" />
+      <path d="M13.64,9.02c0,2.92-2.37,5.29-5.29,5.29s-5.29-2.37-5.29-5.29,2.37-5.29,5.29-5.29,5.29,2.37,5.29,5.29Z" fill="white" className="dark:fill-black" stroke="currentColor" strokeMiterlimit="10" strokeWidth="3px" />
+    </svg>
+  ),  
 };

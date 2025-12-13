@@ -1,0 +1,23 @@
+{
+	"$schema": "./schema.json",
+	"id": "epi",
+	"name": "Epi",
+	"website": "https://epihq.com",
+	"description": "Contrarian cybersecurity software to defeat phishing, quishing and cyber threats",
+	"logoType": "epi",
+	"categories": [
+		{
+			"name": "Official Accounts",
+			"contacts": [
+				{
+					"product": "Official Epi Account",
+					"handles": ["@epiapp"]
+				},
+				{
+					"product": "CEO",
+					"handles": ["@ajrgd"]
+				}
+			]
+		}
+	]
+}
