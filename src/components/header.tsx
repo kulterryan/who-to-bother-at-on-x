@@ -118,19 +118,21 @@ export function Header() {
           </Link>
         </div>
 
-        {/* Navigation */}
-        <nav className="flex items-center gap-2">
-          {/* Contribute Button */}
-          <Link
-            aria-label="Contribute to the directory"
-            className="flex items-center gap-1.5 rounded-lg bg-orange-600 p-2 font-medium text-sm text-white transition-colors hover:bg-orange-700 sm:px-3 sm:py-1.5"
-            to="/contribute"
-          >
-            <PlusIcon className="size-4 sm:size-3.5" />
-            <span className="hidden sm:inline">Contribute</span>
-          </Link>
-        </nav>
-      </div>
+				{/* Navigation */}
+				<nav className="flex items-center gap-2">
+					{/* Contribute Button */}
+					<a
+						href="https://github.com/kulterryan/who-to-bother-at-on-x"
+						target="_blank"
+						rel="noopener noreferrer"
+						className="flex items-center gap-1.5 rounded-lg bg-orange-600 p-2 sm:px-3 sm:py-1.5 text-sm font-medium text-white transition-colors hover:bg-orange-700"
+						aria-label="View the repository on GitHub"
+					>
+						<GithubIcon className="size-4 sm:size-3.5" />
+						<span className="hidden sm:inline">GitHub</span>
+					</a>
+				</nav>
+			</div>
 
       {/* Sub Navigation Bar - Appears on scroll */}
       <div
