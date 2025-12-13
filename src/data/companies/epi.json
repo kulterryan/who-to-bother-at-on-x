@@ -2,7 +2,7 @@
 	"$schema": "./schema.json",
 	"id": "epi",
 	"name": "Epi",
-	"description": "Contrarian cybersecurity to defeat phishing, quishing, scams and fraud",
+	"description": "Contrarian cybersecurity software to defeat phishing, quishing and cyber threats",
 	"logoType": "epi",
 	"categories": [
 		{
