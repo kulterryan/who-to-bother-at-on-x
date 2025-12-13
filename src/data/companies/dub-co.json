@@ -1,14 +1,19 @@
 {
   "$schema": "./schema.json",
-  "id": "dub-co",
+  "id": "dubco",
   "name": "Dub Co",
   "description": "Dub is the modern link attribution platform for short links, conversion tracking, and affiliate programs.",
-  "logoType": "dub-co",
+  "logoType": "dubco",
   "website": "https://dub.co",
-  "docs": "",
-  "github": "",
-  "discord": "",
+  "docs": "https://dub.co/docs/introduction",
+  "github": "https://github.com/dubinc/dub",
   "categories": [
+    {
+      "name": "Official Accounts",
+      "contacts": [
+        { "product": "Official Dub Account", "handles": ["@dubdotco"] }
+      ]
+    },
     {
       "name": "Core Product",
       "contacts": [
@@ -16,9 +21,7 @@
           "product": "Founder",
           "handles": [
             "@steventey"
-          ],
-          "email": "",
-          "discord": ""
+          ]
         }
       ]
     }
