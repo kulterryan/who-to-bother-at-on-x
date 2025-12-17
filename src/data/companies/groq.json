@@ -1,51 +1,51 @@
 {
-	"$schema": "./schema.json",
-	"id": "groq",
-	"name": "Groq",
-	"description": "AI inference platform that delivers low‑latency, high‑throughput, cost‑effective inference for LLMs you can scale with",
-	"logoType": "groq",
-	"categories": [
-		{
-			"name": "Official Account & Leadership",
-			"contacts": [
-				{ "product": "Official Groq Account", "handles": ["@GroqInc"] },
-				{ "product": "CEO", "handles": ["@jonathanross321"] },
-				{ "product": "COO", "handles": ["@sundeep"] },
-				{ "product": "VP of Engineering", "handles": ["@gavinsherry"] },
-				{ "product": "CRO", "handles": ["@ianandrewsdc"] }
-			]
-		},
-		{
-			"name": "Developer Relations & Developer Experience",
-			"contacts": [
-				{ "product": "Head of Developer Relations", "handles": ["@ozenhati"] },
-				{
-					"product": "Developer Relations Team",
-					"handles": ["@benank", "@yawnxyz"]
-				}
-			]
-		},
-		{
-			"name": "Product & Engineering",
-			"contacts": [
-				{
-					"product": "Groq Console & APIs/SDKs",
-					"handles": ["@kraken_9076", "@geeksplainer", "@carygnoel"]
-				},
-				{ "product": "OpenBench & Evals", "handles": ["@aarush"] },
-				{ "product": "Compound Systems", "handles": ["@benklieger"] }
-			]
-		},
-		{
-			"name": "GTM",
-			"contacts": [{ "product": "Partnerships", "handles": ["@spatialjlo"] }]
-		},
-		{
-			"name": "Community Forum & Public Groq Sites",
-			"contacts": [
-				{ "product": "Community", "handles": ["@ellatrib"] },
-				{ "product": "Public Groq Sites", "handles": ["@dylanmitic"] }
-			]
-		}
-	]
+  "$schema": "./schema.json",
+  "id": "groq",
+  "name": "Groq",
+  "description": "AI inference platform that delivers low‑latency, high‑throughput, cost‑effective inference for LLMs you can scale with",
+  "logoType": "groq",
+  "categories": [
+    {
+      "name": "Official Account & Leadership",
+      "contacts": [
+        { "product": "Official Groq Account", "handles": ["@GroqInc"] },
+        { "product": "CEO", "handles": ["@jonathanross321"] },
+        { "product": "COO", "handles": ["@sundeep"] },
+        { "product": "VP of Engineering", "handles": ["@gavinsherry"] },
+        { "product": "CRO", "handles": ["@ianandrewsdc"] }
+      ]
+    },
+    {
+      "name": "Developer Relations & Developer Experience",
+      "contacts": [
+        { "product": "Head of Developer Relations", "handles": ["@ozenhati"] },
+        {
+          "product": "Developer Relations Team",
+          "handles": ["@benank", "@yawnxyz"]
+        }
+      ]
+    },
+    {
+      "name": "Product & Engineering",
+      "contacts": [
+        {
+          "product": "Groq Console & APIs/SDKs",
+          "handles": ["@kraken_9076", "@geeksplainer", "@carygnoel"]
+        },
+        { "product": "OpenBench & Evals", "handles": ["@aarush"] },
+        { "product": "Compound Systems", "handles": ["@benklieger"] }
+      ]
+    },
+    {
+      "name": "GTM",
+      "contacts": [{ "product": "Partnerships", "handles": ["@spatialjlo"] }]
+    },
+    {
+      "name": "Community Forum & Public Groq Sites",
+      "contacts": [
+        { "product": "Community", "handles": ["@ellatrib"] },
+        { "product": "Public Groq Sites", "handles": ["@dylanmitic"] }
+      ]
+    }
+  ]
 }

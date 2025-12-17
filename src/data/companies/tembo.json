@@ -1,26 +1,26 @@
 {
-	"$schema": "./schema.json",
-	"id": "tembo",
-	"name": "Tembo",
-	"description": "Automate async coding agents to help your team build software faster",
-	"logoType": "tembo",
-	"discord": "https://discord.gg/anPdgArb",
-	"website": "https://tembo.io/",
-	"github": "https://github.com/tembo",
-	"docs": "https://docs.tembo.io",
-	"categories": [
-		{
-			"name": "Company",
-			"contacts": [{ "product": "Tembo Official", "handles": ["@tembo"] }]
-		},
-		{
-			"name": "Team",
-			"contacts": [
-				{ "product": "Founder & CEO", "handles": ["@rywalker"] },
-				{ "product": "Founder & CTO", "handles": ["@darrenjr"] },
-				{ "product": "Founder & CPO", "handles": ["@benjaminakar"] },
-				{ "product": "Founder & CGO", "handles": ["@connorpaton"] }
-			]
-		}
-	]
+  "$schema": "./schema.json",
+  "id": "tembo",
+  "name": "Tembo",
+  "description": "Automate async coding agents to help your team build software faster",
+  "logoType": "tembo",
+  "discord": "https://discord.gg/anPdgArb",
+  "website": "https://tembo.io/",
+  "github": "https://github.com/tembo",
+  "docs": "https://docs.tembo.io",
+  "categories": [
+    {
+      "name": "Company",
+      "contacts": [{ "product": "Tembo Official", "handles": ["@tembo"] }]
+    },
+    {
+      "name": "Team",
+      "contacts": [
+        { "product": "Founder & CEO", "handles": ["@rywalker"] },
+        { "product": "Founder & CTO", "handles": ["@darrenjr"] },
+        { "product": "Founder & CPO", "handles": ["@benjaminakar"] },
+        { "product": "Founder & CGO", "handles": ["@connorpaton"] }
+      ]
+    }
+  ]
 }

@@ -1,19 +1,19 @@
 {
-	"$schema": "./schema.json",
-	"id": "telebugs",
-	"name": "Telebugs",
-	"description": "Self-hosted Sentry alternative for error tracking",
-	"logoType": "telebugs",
-	"categories": [
-		{
-			"name": "Official Accounts",
-			"contacts": [
-				{ "product": "Official Telebugs Account", "handles": ["@TelebugsHQ"] }
-			]
-		},
-		{
-			"name": "General",
-			"contacts": [{ "product": "CEO", "handles": ["@kyrylosilin"] }]
-		}
-	]
+  "$schema": "./schema.json",
+  "id": "telebugs",
+  "name": "Telebugs",
+  "description": "Self-hosted Sentry alternative for error tracking",
+  "logoType": "telebugs",
+  "categories": [
+    {
+      "name": "Official Accounts",
+      "contacts": [
+        { "product": "Official Telebugs Account", "handles": ["@TelebugsHQ"] }
+      ]
+    },
+    {
+      "name": "General",
+      "contacts": [{ "product": "CEO", "handles": ["@kyrylosilin"] }]
+    }
+  ]
 }
