@@ -42,7 +42,7 @@ export function Header() {
           <nav
             className={`flex items-center gap-4 transition-all duration-300 ${
               isScrolled
-                ? "-translate-x-4 pointer-events-none opacity-0"
+                ? "pointer-events-none -translate-x-4 opacity-0"
                 : "translate-x-0 opacity-100"
             }`}
           >
@@ -81,10 +81,10 @@ export function Header() {
 
           {/* Logo / Title - Visible when scrolled */}
           <Link
-            className={`-translate-y-1/2 absolute top-1/2 left-0 flex items-center gap-2 whitespace-nowrap text-zinc-900 transition-all duration-300 hover:text-orange-600 dark:text-zinc-100 dark:hover:text-orange-600 ${
+            className={`absolute top-1/2 left-0 flex -translate-y-1/2 items-center gap-2 whitespace-nowrap text-zinc-900 transition-all duration-300 hover:text-orange-600 dark:text-zinc-100 dark:hover:text-orange-600 ${
               isScrolled
                 ? "translate-x-0 opacity-100"
-                : "-translate-x-4 pointer-events-none opacity-0"
+                : "pointer-events-none -translate-x-4 opacity-0"
             }`}
             to="/"
           >
@@ -119,21 +119,21 @@ export function Header() {
           </Link>
         </div>
 
-				{/* Navigation */}
-				<nav className="flex items-center gap-2">
-					{/* Contribute Button */}
-					<a
-						href="https://github.com/kulterryan/who-to-bother-at-on-x"
-						target="_blank"
-						rel="noopener noreferrer"
-						className="flex items-center gap-1.5 rounded-lg bg-orange-600 p-2 sm:px-3 sm:py-1.5 text-sm font-medium text-white transition-colors hover:bg-orange-700"
-						aria-label="View the repository on GitHub"
-					>
-						<GithubIcon className="size-4 sm:size-3.5" />
-						<span className="hidden sm:inline">GitHub</span>
-					</a>
-				</nav>
-			</div>
+        {/* Navigation */}
+        <nav className="flex items-center gap-2">
+          {/* Contribute Button */}
+          <a
+            aria-label="View the repository on GitHub"
+            className="flex items-center gap-1.5 rounded-lg bg-orange-600 p-2 font-medium text-sm text-white transition-colors hover:bg-orange-700 sm:px-3 sm:py-1.5"
+            href="https://github.com/kulterryan/who-to-bother-at-on-x"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            <GithubIcon className="size-4 sm:size-3.5" />
+            <span className="hidden sm:inline">GitHub</span>
+          </a>
+        </nav>
+      </div>
 
       {/* Sub Navigation Bar - Appears on scroll */}
       <div
