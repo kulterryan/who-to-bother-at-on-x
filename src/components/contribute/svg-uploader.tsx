@@ -318,7 +318,7 @@ export function SVGUploader({
       ) : null}
 
       {/* Validation Messages */}
-      {Boolean(validation) && !validation.isValid ? (
+      {validation && !validation.isValid ? (
         <div className="rounded-lg border-2 border-red-200 bg-red-50 p-4 dark:border-red-800 dark:bg-red-950/30">
           <div className="flex items-start gap-2">
             <AlertCircle className="mt-0.5 h-4 w-4 text-red-600" />
@@ -327,7 +327,7 @@ export function SVGUploader({
                 Invalid SVG
               </p>
               <ul className="mt-1 list-disc pl-4 text-red-600 text-sm dark:text-red-500">
-                {validation.errors.map((err) => (
+                {validation?.errors.map((err) => (
                   <li key={err}>{err}</li>
                 ))}
               </ul>

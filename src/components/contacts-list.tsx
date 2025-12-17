@@ -144,7 +144,7 @@ function ContactItem({
   isFirstMatch: boolean;
   isHighlighted: boolean;
   copiedProduct: string | null;
-  firstMatchRef: React.RefObject<HTMLDivElement>;
+  firstMatchRef: React.RefObject<HTMLDivElement | null>;
   onCopy: (product: string, handles: string[]) => void;
 }) {
   return (
@@ -380,7 +380,7 @@ export function ContactsList({
                   <button
                     aria-label="Clear search"
                     className="absolute inset-y-0 right-0 flex items-center pr-4 text-zinc-400 hover:text-zinc-600 dark:hover:text-zinc-300"
-                    onClick={() => onSearchQueryChange(null)}
+                    onClick={() => onSearchQueryChange?.(null)}
                     type="button"
                   >
                     <svg

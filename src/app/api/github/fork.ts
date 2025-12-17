@@ -100,7 +100,7 @@ async function handleExistingFork(
       success: true,
       testMode: testMode?.enabled ?? false,
       fork: {
-        fullName: fork.full_name,
+        fullName: fork?.full_name ?? "",
         username: userLogin,
         alreadyExisted: true,
       },
@@ -149,7 +149,7 @@ function createSuccessResponse(
       success: true,
       testMode: testMode?.enabled ?? false,
       fork: {
-        fullName: fork.full_name,
+        fullName: fork?.full_name ?? "",
         username: userLogin,
         alreadyExisted,
       },
