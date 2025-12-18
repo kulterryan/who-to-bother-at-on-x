@@ -70,7 +70,7 @@
         { "product": "API & Terraform", "handles": ["@korinne_dev"] },
         { "product": "Browser Rendering", "handles": ["@kathyyliao"] },
         { "product": "Sandboxes", "handles": ["@whoiskatrin"] },
-        { "product": "Realtime", "handles": ["@rrnn", "@roerohan"] },
+        { "product": "Realtime & WebRTC", "handles": ["@rrnn", "@roerohan", "@nilsohlmeier"] },
         {
           "product": "Workers AI",
           "handles": ["@_mchenco", "@minglu", "@bfirsh", "@corywilkerson"]
@@ -106,11 +106,11 @@
       "contacts": [
         {
           "product": "Manager of Developer Advocacy",
-          "handles": ["@kristianf_"]
+          "handles": ["@kristianf_", "@ade_oshineye"]
         },
         {
           "product": "Developer Advocate",
-          "handles": ["@lauragift_", "@fayazara"]
+          "handles": ["@lauragift_", "@fayazara", "@craigsdennis", "@Jilles", "@harshil1712", "@megaconfidence", "@yusukebe"]
         }
       ]
     },
