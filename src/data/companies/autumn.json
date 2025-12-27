@@ -1,0 +1,38 @@
+{
+  "$schema": "./schema.json",
+  "id": "autumn",
+  "name": "Autumn",
+  "description": "Autumn is the easiest and most flexible way to set up your app's pricing model.",
+  "logoType": "autumn",
+  "categories": [
+    {
+      "name": "Official Accounts",
+      "contacts": [
+        {
+          "product": "Official Autumn Account",
+          "handles": ["@autumnpricing"]
+        },
+        { "product": "CEO", "handles": ["@ay_ushr"] },
+        { "product": "CTO", "handles": ["@johnyeo_"] }
+      ]
+    },
+    {
+      "name": "Engineering",
+      "contacts": [
+        {
+          "product": "Founding Engineer",
+          "handles": ["@charlietlamb"]
+        }
+      ]
+    },
+        {
+      "name": "Community",
+      "contacts": [
+        {
+          "product": "Discord Community Manager",
+          "handles": ["@kgmatzen"]
+        }
+      ]
+    }
+  ]
+}
