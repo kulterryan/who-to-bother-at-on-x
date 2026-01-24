@@ -13,6 +13,10 @@
           "handles": ["@Cloudflare"]
         },
         {
+          "product": "Official Cloudflare Changelog Account",
+          "handles": ["@CFchangelog"]
+        },
+        {
           "product": "Official Cloudflare Developers Account",
           "handles": ["@CloudflareDev"]
         },
