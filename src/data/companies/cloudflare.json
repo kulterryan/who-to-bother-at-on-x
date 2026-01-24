@@ -33,7 +33,6 @@
           "handles": [
             "@bradgarropy",
             "@BraydenWilmoth",
-            "@dillon_mulroy",
             "@burcs",
             "@nandafyi",
             "@kyliestew"
@@ -71,6 +70,7 @@
             "@minglu"
           ]
         },
+        { "product": "AI Experience", "handles": ["@dillon_mulroy"] },
         { "product": "API & Terraform", "handles": ["@korinne_dev"] },
         { "product": "Browser Rendering", "handles": ["@kathyyliao"] },
         { "product": "Sandboxes", "handles": ["@whoiskatrin"] },
