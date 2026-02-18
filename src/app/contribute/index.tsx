@@ -50,9 +50,9 @@ function ContributePage() {
   return (
     <main className="mx-auto max-w-4xl px-6 pt-8 pb-20 md:pt-12 md:pb-28">
       {/* Header */}
-      <div className="mb-8 flex flex-col gap-3">
+      <div className="mb-8 flex flex-col gap-3 animate-fade-in">
         <Link
-          className="inline-flex w-fit items-center gap-1.5 text-muted-foreground text-sm transition-colors hover:text-foreground"
+          className="inline-flex w-fit items-center gap-1.5 text-muted-foreground text-sm transition-colors duration-200 hover:text-foreground"
           to="/"
         >
           <ArrowLeft className="size-3.5" />
@@ -68,16 +68,16 @@ function ContributePage() {
 
       {/* Not Logged In */}
       {!session && (
-        <div className="rounded-xl border border-border bg-card p-8 text-center">
+        <div className="rounded-2xl bg-card p-8 text-center animate-scale-in">
           <div className="mx-auto mb-5 flex h-14 w-14 items-center justify-center rounded-full bg-secondary">
             <LogIn className="h-6 w-6 text-muted-foreground" />
           </div>
-          <h3 className="font-semibold text-card-foreground text-lg">Sign in to Contribute</h3>
+          <h3 className="font-semibold text-foreground text-lg">Sign in to Contribute</h3>
           <p className="mt-2 text-muted-foreground text-sm">
             You need to sign in with GitHub to submit contributions. This allows us to create pull requests on your behalf.
           </p>
           <Link
-            className="mt-5 inline-flex items-center gap-2 rounded-lg bg-primary px-5 py-2.5 font-medium text-primary-foreground text-sm transition-opacity hover:opacity-90"
+            className="mt-5 inline-flex items-center gap-2 rounded-lg bg-primary px-5 py-2.5 font-medium text-primary-foreground text-sm transition-all duration-200 hover:opacity-90 active:scale-95"
             to="/login"
           >
             <svg fill="currentColor" height="16" viewBox="0 0 24 24" width="16">
@@ -93,11 +93,11 @@ function ContributePage() {
       {session ? (
         <>
           {/* User Info */}
-          <div className="mb-8 flex items-center gap-3 rounded-xl border border-green-200 bg-green-50 p-4 dark:border-green-900 dark:bg-green-950/30">
+          <div className="mb-8 flex items-center gap-3 rounded-2xl bg-green-50 p-4 dark:bg-green-950/30 animate-fade-in">
             {session.user?.image ? (
               <img
                 alt={session.user.name || "User"}
-                className="h-10 w-10 rounded-full border border-green-300 dark:border-green-800"
+                className="h-10 w-10 rounded-full"
                 height={40}
                 src={session.user.image}
                 width={40}
@@ -120,19 +120,19 @@ function ContributePage() {
           {/* Action Cards */}
           <div className="grid gap-3 md:grid-cols-2">
             <Link
-              className="group rounded-xl border border-border bg-card p-6 transition-all hover:border-accent/40 hover:shadow-sm"
+              className="group rounded-2xl bg-card p-6 transition-all duration-200 hover:bg-secondary/80 active:scale-[0.98] animate-scale-in"
               to="/contribute/add"
             >
-              <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-lg bg-accent/10 text-accent transition-colors group-hover:bg-accent group-hover:text-accent-foreground">
+              <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-lg bg-accent/10 text-accent transition-all duration-200 group-hover:bg-accent group-hover:text-accent-foreground">
                 <Plus className="h-5 w-5" />
               </div>
-              <h3 className="font-semibold text-card-foreground text-lg">Add New Company</h3>
+              <h3 className="font-semibold text-foreground text-lg">Add New Company</h3>
               <p className="mt-1.5 text-muted-foreground text-sm leading-relaxed">
                 Add a new company with contact information and logo.
               </p>
               <div className="mt-4 flex items-center gap-1.5 font-medium text-accent text-xs">
                 <span>Get started</span>
-                <ArrowRight className="size-3 transition-transform group-hover:translate-x-0.5" />
+                <ArrowRight className="size-3 transition-transform duration-200 group-hover:translate-x-0.5" />
               </div>
             </Link>
           </div>
@@ -145,12 +145,12 @@ function ContributePage() {
                 { step: "1", title: "Fill out the form", desc: "Enter company details, contacts, and upload your logo." },
                 { step: "2", title: "Submit your changes", desc: "We'll automatically create a pull request on your behalf." },
                 { step: "3", title: "Get it reviewed", desc: "A maintainer will review and merge your contribution." },
-              ].map((item) => (
-                <div className="rounded-xl border border-border bg-card p-5" key={item.step}>
+              ].map((item, i) => (
+                <div className="rounded-2xl bg-card p-5 animate-slide-up" key={item.step} style={{ animationDelay: `${0.05 * i + 0.1}s` }}>
                   <div className="mb-3 flex h-7 w-7 items-center justify-center rounded-full bg-accent font-mono font-bold text-accent-foreground text-xs">
                     {item.step}
                   </div>
-                  <h4 className="font-medium text-card-foreground text-sm">{item.title}</h4>
+                  <h4 className="font-medium text-foreground text-sm">{item.title}</h4>
                   <p className="mt-1 text-muted-foreground text-xs leading-relaxed">
                     {item.desc}
                   </p>
@@ -162,9 +162,9 @@ function ContributePage() {
       ) : null}
 
       {/* Links */}
-      <div className="mt-12 flex flex-wrap justify-center gap-4 border-border border-t pt-8">
+      <div className="mt-12 flex flex-wrap justify-center gap-4 border-border/40 border-t pt-8">
         <a
-          className="inline-flex items-center gap-1.5 text-muted-foreground text-xs transition-colors hover:text-foreground"
+          className="inline-flex items-center gap-1.5 text-muted-foreground text-xs transition-colors duration-200 hover:text-foreground"
           href="https://github.com/kulterryan/cf-who-to-bother-at-on-x"
           rel="noopener noreferrer"
           target="_blank"
@@ -173,7 +173,7 @@ function ContributePage() {
           View Repository
         </a>
         <a
-          className="inline-flex items-center gap-1.5 text-muted-foreground text-xs transition-colors hover:text-foreground"
+          className="inline-flex items-center gap-1.5 text-muted-foreground text-xs transition-colors duration-200 hover:text-foreground"
           href="https://github.com/kulterryan/cf-who-to-bother-at-on-x/blob/main/CONTRIBUTING.md"
           rel="noopener noreferrer"
           target="_blank"

@@ -75,7 +75,7 @@ function CompanyLinks({
   if (!(website || docs || github || discord)) return null;
 
   const linkClass =
-    "inline-flex items-center gap-1.5 rounded-lg border border-border bg-card px-3 py-1.5 text-xs text-muted-foreground transition-colors hover:text-foreground hover:border-accent/40";
+    "inline-flex items-center gap-1.5 rounded-lg bg-secondary/70 px-3 py-1.5 text-xs text-muted-foreground transition-all duration-200 hover:text-foreground hover:bg-secondary";
 
   return (
     <div className="flex flex-wrap items-center gap-2">
@@ -124,14 +124,14 @@ function ContactItem({
 }) {
   return (
     <div
-      className={`flex scroll-mt-24 items-start justify-between border-border/60 border-t py-3.5 transition-colors first:border-t-0 ${
+      className={`flex scroll-mt-24 items-start justify-between border-border/40 border-t py-3.5 transition-colors duration-200 first:border-t-0 ${
         isHighlighted ? "bg-accent/5 -mx-3 px-3 rounded-lg" : ""
       }`}
       ref={isFirstMatch ? firstMatchRef : null}
     >
       <div className="flex-1">
         <button
-          className={`cursor-pointer text-left font-medium text-sm transition-colors hover:text-accent ${
+          className={`cursor-pointer text-left font-medium text-sm transition-colors duration-200 hover:text-accent ${
             isHighlighted
               ? "text-accent"
               : "text-foreground"
@@ -149,7 +149,7 @@ function ContactItem({
         <div className="mt-1 flex flex-wrap items-center gap-x-3 gap-y-1">
           {contact.email ? (
             <a
-              className="flex items-center gap-1 text-muted-foreground text-xs transition-colors hover:text-accent"
+              className="flex items-center gap-1 text-muted-foreground text-xs transition-colors duration-200 hover:text-accent"
               href={`mailto:${contact.email}`}
             >
               <Mail className="h-3 w-3" />
@@ -158,7 +158,7 @@ function ContactItem({
           ) : null}
           {contact.discord ? (
             <a
-              className="flex items-center gap-1 text-muted-foreground text-xs transition-colors hover:text-accent"
+              className="flex items-center gap-1 text-muted-foreground text-xs transition-colors duration-200 hover:text-accent"
               href={contact.discord}
               rel="noopener noreferrer"
               target="_blank"
@@ -180,10 +180,10 @@ function ContactItem({
               <HandleLink handle={handle} key={handle} />
             ))}
             <Popover>
-              <PopoverTrigger className="text-muted-foreground text-xs transition-colors hover:text-accent">
+              <PopoverTrigger className="text-muted-foreground text-xs transition-colors duration-200 hover:text-accent">
                 +{contact.handles.length - 2} more
               </PopoverTrigger>
-              <PopoverContent className="w-auto border-border bg-popover p-2 shadow-lg">
+              <PopoverContent className="w-auto bg-popover p-2 shadow-lg">
                 <div className="flex flex-col gap-1.5">
                   {contact.handles.slice(2).map((handle) => (
                     <HandleLink handle={handle} key={handle} />
@@ -201,7 +201,7 @@ function ContactItem({
 function HandleLink({ handle }: { handle: string }) {
   return (
     <a
-      className="inline-flex items-center gap-1.5 text-muted-foreground text-sm transition-colors hover:text-accent"
+      className="inline-flex items-center gap-1.5 text-muted-foreground text-sm transition-colors duration-200 hover:text-accent"
       href={`https://x.com/${handle.replace("@", "")}`}
       rel="noopener noreferrer"
       target="_blank"
@@ -269,14 +269,14 @@ export function ContactsList({
   return (
     <main className="mx-auto max-w-4xl px-6 pt-8 pb-20 md:pt-12 md:pb-28">
       <Link
-        className="mb-6 inline-flex items-center gap-1.5 text-muted-foreground text-sm transition-colors hover:text-foreground"
+        className="mb-6 inline-flex items-center gap-1.5 text-muted-foreground text-sm transition-colors duration-200 hover:text-foreground animate-fade-in"
         to="/"
       >
         <ArrowLeft className="h-3.5 w-3.5" />
         Back to home
       </Link>
 
-      <h1 className="mb-6 flex items-center gap-2 font-semibold text-2xl text-foreground tracking-tight md:text-3xl">
+      <h1 className="mb-6 flex items-center gap-2 font-semibold text-2xl text-foreground tracking-tight md:text-3xl animate-slide-up">
         who to bother at{" "}
         <span className="inline-flex items-center [&>svg]:h-6 [&>svg]:w-auto md:[&>svg]:h-7">
           {logo}
@@ -291,14 +291,16 @@ export function ContactsList({
         </svg>
       </h1>
 
-      <CompanyLinks
-        discord={discord}
-        docs={docs}
-        github={github}
-        website={website}
-      />
+      <div className="animate-slide-up" style={{ animationDelay: '0.05s' }}>
+        <CompanyLinks
+          discord={discord}
+          docs={docs}
+          github={github}
+          website={website}
+        />
+      </div>
 
-      <p className="mt-6 text-muted-foreground text-xs leading-relaxed">
+      <p className="mt-6 text-muted-foreground text-xs leading-relaxed animate-fade-in" style={{ animationDelay: '0.1s' }}>
         This is a community-maintained list and not officially affiliated with{" "}
         {companyName}. For official support, visit the official {companyName}{" "}
         website.
@@ -310,13 +312,13 @@ export function ContactsList({
       </div>
 
       {/* Search */}
-      <div className="relative mt-6">
+      <div className="relative mt-6 animate-slide-up" style={{ animationDelay: '0.1s' }}>
         {(() => {
           const hasSearch = Boolean(searchQuery) && Boolean(onSearchQueryChange);
           return (
             <>
               <input
-                className={`w-full rounded-xl border border-border bg-card px-4 py-2.5 text-foreground text-sm placeholder-muted-foreground outline-none transition-all focus:border-accent focus:ring-1 focus:ring-accent ${hasSearch ? "pr-10" : ""}`}
+                className={`w-full rounded-xl bg-secondary/70 px-4 py-2.5 text-foreground text-sm placeholder-muted-foreground outline-none transition-all duration-200 focus:bg-secondary focus:ring-2 focus:ring-accent/30 ${hasSearch ? "pr-10" : ""}`}
                 onChange={(e) => onSearchQueryChange?.(e.target.value || null)}
                 placeholder="Search products or topics..."
                 type="text"
@@ -325,7 +327,7 @@ export function ContactsList({
               {hasSearch ? (
                 <button
                   aria-label="Clear search"
-                  className="absolute inset-y-0 right-0 flex items-center pr-4 text-muted-foreground hover:text-foreground"
+                  className="absolute inset-y-0 right-0 flex items-center pr-4 text-muted-foreground transition-colors duration-200 hover:text-foreground"
                   onClick={() => onSearchQueryChange?.(null)}
                   type="button"
                 >
@@ -342,8 +344,8 @@ export function ContactsList({
 
       {/* Categories */}
       <div className="mt-8 space-y-10">
-        {filteredCategories.map((category) => (
-          <div key={category.name}>
+        {filteredCategories.map((category, catIdx) => (
+          <div className="animate-slide-up" key={category.name} style={{ animationDelay: `${0.05 * catIdx + 0.15}s` }}>
             <h2 className="mb-3 font-mono text-[11px] text-muted-foreground uppercase tracking-widest">
               {category.name}
             </h2>

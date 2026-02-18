@@ -84,7 +84,7 @@ function HomePage() {
   return (
     <main className="mx-auto flex max-w-4xl flex-col gap-8 px-6 pt-10 pb-20 md:pt-16 md:pb-28">
       {/* Hero */}
-      <div className="flex flex-col gap-3">
+      <div className="flex flex-col gap-3 animate-fade-in">
         <h1 className="flex items-center gap-2 font-semibold text-3xl text-foreground tracking-tight md:text-4xl">
           <span className="text-balance">who to bother on</span>
           <svg
@@ -107,7 +107,7 @@ function HomePage() {
       </div>
 
       {/* Search */}
-      <form className="relative" onSubmit={handleSearch}>
+      <form className="relative animate-slide-up" onSubmit={handleSearch} style={{ animationDelay: '0.05s' }}>
         <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-4">
           <svg
             className="h-4 w-4 text-muted-foreground"
@@ -126,7 +126,7 @@ function HomePage() {
         </div>
         <input
           aria-label="Search companies and products"
-          className="w-full rounded-xl border border-border bg-card py-3 pr-10 pl-10 text-foreground text-sm placeholder-muted-foreground transition-all focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent"
+          className="w-full rounded-xl bg-secondary/70 py-3 pr-10 pl-10 text-foreground text-sm placeholder-muted-foreground transition-all duration-200 focus:bg-secondary focus:outline-none focus:ring-2 focus:ring-accent/30"
           onChange={(e) => setSearchTerm(e.target.value || null)}
           placeholder="Search companies and products..."
           type="text"
@@ -135,7 +135,7 @@ function HomePage() {
         {searchTerm ? (
           <button
             aria-label="Clear search"
-            className="absolute inset-y-0 right-0 flex items-center pr-4 text-muted-foreground hover:text-foreground"
+            className="absolute inset-y-0 right-0 flex items-center pr-4 text-muted-foreground transition-colors duration-200 hover:text-foreground"
             onClick={() => setSearchTerm(null)}
             type="button"
           >
@@ -159,11 +159,13 @@ function HomePage() {
 
       {/* Company Grid */}
       <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-        {companies.map((company) => {
+        {companies.map((company, i) => {
           const logo = companyLogos[company.id];
 
           const cardClasses =
-            "group flex flex-col rounded-xl border border-border bg-card p-5 transition-all hover:border-accent/40 hover:shadow-sm";
+            "group flex flex-col rounded-2xl bg-card p-5 transition-all duration-200 hover:bg-secondary/80 hover:shadow-sm active:scale-[0.98] animate-slide-up";
+
+          const cardStyle = { animationDelay: `${0.03 * Math.min(i, 12)}s` };
 
           if (company.id === "vercel" || company.id === "laravel") {
             return (
@@ -171,6 +173,7 @@ function HomePage() {
                 className={cardClasses}
                 href={`/${company.id}`}
                 key={company.id}
+                style={cardStyle}
                 target="_blank"
               >
                 <CompanyCardContent
@@ -186,6 +189,7 @@ function HomePage() {
               className={cardClasses}
               key={company.id}
               params={{ company: company.id }}
+              style={cardStyle}
               to="/$company"
             >
               <CompanyCardContent
@@ -216,7 +220,7 @@ function CompanyCardContent({
           {logo}
         </div>
       ) : null}
-      <h2 className="font-semibold text-card-foreground text-lg leading-tight transition-colors group-hover:text-accent">
+      <h2 className="font-semibold text-card-foreground text-lg leading-tight transition-colors duration-200 group-hover:text-accent">
         {company.name}
       </h2>
       <p className="mt-1.5 line-clamp-2 flex-1 text-muted-foreground text-sm leading-relaxed">
@@ -224,7 +228,7 @@ function CompanyCardContent({
       </p>
       <div className="mt-4 inline-flex items-center gap-1.5 font-medium text-accent text-xs">
         View contacts
-        <ArrowRight className="size-3 transition-transform group-hover:translate-x-0.5" />
+        <ArrowRight className="size-3 transition-transform duration-200 group-hover:translate-x-0.5" />
       </div>
     </>
   );

@@ -11,23 +11,23 @@ export function Footer({
   contributionMessage = "This is a community-maintained directory. Have more contacts or companies to add?",
 }: FooterProps) {
   return (
-    <footer className="mt-16 space-y-8">
+    <footer className="mt-16 space-y-8 animate-fade-in">
       {/* CTA Card */}
-      <div className="rounded-xl border border-border bg-card p-6">
-        <h3 className="mb-2 font-semibold text-card-foreground text-base">
+      <div className="rounded-2xl bg-secondary/60 p-6">
+        <h3 className="mb-2 font-semibold text-foreground text-base">
           {contributionTitle}
         </h3>
         <p className="text-muted-foreground text-sm leading-relaxed">
           {contributionMessage}{" "}
           <Link
-            className="font-medium text-accent underline underline-offset-4 transition-colors hover:text-accent/80"
+            className="font-medium text-accent underline underline-offset-4 transition-colors duration-200 hover:text-accent/80"
             to="/contribute"
           >
             Contribute directly from the website
           </Link>{" "}
           or{" "}
           <a
-            className="font-medium text-accent underline underline-offset-4 transition-colors hover:text-accent/80"
+            className="font-medium text-accent underline underline-offset-4 transition-colors duration-200 hover:text-accent/80"
             href="https://github.com/kulterryan/who-to-bother-at-on-x"
             rel="noopener noreferrer"
             target="_blank"
@@ -36,7 +36,7 @@ export function Footer({
           </a>
           . Reach out to{" "}
           <a
-            className="font-medium text-accent underline underline-offset-4 transition-colors hover:text-accent/80"
+            className="font-medium text-accent underline underline-offset-4 transition-colors duration-200 hover:text-accent/80"
             href="https://x.com/thehungrybird_"
             rel="noopener noreferrer"
             target="_blank"
@@ -52,7 +52,7 @@ export function Footer({
         <p className="text-center text-muted-foreground text-xs">
           Created by{" "}
           <a
-            className="font-medium text-foreground transition-colors hover:text-accent"
+            className="font-medium text-foreground transition-colors duration-200 hover:text-accent"
             href="https://x.com/thehungrybird_"
             rel="noopener noreferrer"
             target="_blank"
@@ -62,7 +62,7 @@ export function Footer({
           {" / "}
           Concept by{" "}
           <a
-            className="font-medium text-foreground transition-colors hover:text-accent"
+            className="font-medium text-foreground transition-colors duration-200 hover:text-accent"
             href="https://x.com/strehldev"
             rel="noopener noreferrer"
             target="_blank"

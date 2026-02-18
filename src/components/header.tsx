@@ -29,7 +29,7 @@ export function Header() {
   }, []);
 
   return (
-    <header className="sticky top-0 z-50 w-full border-border/60 border-b bg-background/80 backdrop-blur-xl">
+    <header className="sticky top-0 z-50 w-full bg-background/80 backdrop-blur-xl transition-shadow duration-300" style={{ boxShadow: isScrolled ? '0 1px 0 var(--border)' : 'none' }}>
       <div className="mx-auto flex h-14 max-w-4xl items-center justify-between px-6">
         {/* Left: Nav or Logo */}
         <div className="relative">
@@ -42,21 +42,21 @@ export function Header() {
             }`}
           >
             <Link
-              className="flex items-center gap-1.5 font-medium text-muted-foreground text-sm transition-colors hover:text-foreground"
+              className="flex items-center gap-1.5 font-medium text-muted-foreground text-sm transition-colors duration-200 hover:text-foreground"
               to="/contribute"
             >
               <PlusIcon className="size-3.5" />
               <span>Contribute</span>
             </Link>
             <Link
-              className="flex items-center gap-1.5 font-medium text-muted-foreground text-sm transition-colors hover:text-foreground"
+              className="flex items-center gap-1.5 font-medium text-muted-foreground text-sm transition-colors duration-200 hover:text-foreground"
               to="/sponsors"
             >
               <HeartIcon className="size-3.5" />
               <span>Sponsors</span>
             </Link>
             <Link
-              className="flex items-center gap-1.5 font-medium text-muted-foreground text-sm transition-colors hover:text-foreground"
+              className="flex items-center gap-1.5 font-medium text-muted-foreground text-sm transition-colors duration-200 hover:text-foreground"
               to="/stats"
             >
               <ChartColumnIncreasing className="size-3.5" />
@@ -64,7 +64,7 @@ export function Header() {
             </Link>
             {session ? (
               <button
-                className="flex cursor-pointer items-center gap-1.5 font-medium text-muted-foreground text-sm transition-colors hover:text-foreground"
+                className="flex cursor-pointer items-center gap-1.5 font-medium text-muted-foreground text-sm transition-colors duration-200 hover:text-foreground"
                 onClick={() => signOut()}
                 type="button"
               >
@@ -116,7 +116,7 @@ export function Header() {
         <div className="flex items-center gap-3">
           <a
             aria-label="View the repository on GitHub"
-            className="flex items-center gap-1.5 rounded-lg border border-border bg-secondary px-3 py-1.5 font-medium text-secondary-foreground text-sm transition-colors hover:bg-secondary/80"
+            className="flex items-center gap-1.5 rounded-lg bg-secondary px-3 py-1.5 font-medium text-secondary-foreground text-sm transition-all duration-200 hover:bg-secondary/80 active:scale-95"
             href="https://github.com/kulterryan/who-to-bother-at-on-x"
             rel="noopener noreferrer"
             target="_blank"
@@ -129,28 +129,28 @@ export function Header() {
 
       {/* Sub nav on scroll */}
       <div
-        className={`overflow-hidden border-border/60 border-t transition-all duration-300 ${
+        className={`overflow-hidden transition-all duration-300 ${
           isScrolled ? "max-h-10 opacity-100" : "max-h-0 opacity-0"
         }`}
       >
         <div className="mx-auto flex h-10 max-w-4xl items-center px-6">
           <nav className="flex items-center gap-5">
             <Link
-              className="flex items-center gap-1.5 font-medium text-muted-foreground text-xs transition-colors hover:text-foreground"
+              className="flex items-center gap-1.5 font-medium text-muted-foreground text-xs transition-colors duration-200 hover:text-foreground"
               to="/contribute"
             >
               <PlusIcon className="size-3" />
               <span>Contribute</span>
             </Link>
             <Link
-              className="flex items-center gap-1.5 font-medium text-muted-foreground text-xs transition-colors hover:text-foreground"
+              className="flex items-center gap-1.5 font-medium text-muted-foreground text-xs transition-colors duration-200 hover:text-foreground"
               to="/sponsors"
             >
               <HeartIcon className="size-3" />
               <span>Sponsors</span>
             </Link>
             <Link
-              className="flex items-center gap-1.5 font-medium text-muted-foreground text-xs transition-colors hover:text-foreground"
+              className="flex items-center gap-1.5 font-medium text-muted-foreground text-xs transition-colors duration-200 hover:text-foreground"
               to="/stats"
             >
               <ChartColumnIncreasing className="size-3" />
@@ -158,7 +158,7 @@ export function Header() {
             </Link>
             {session ? (
               <button
-                className="flex cursor-pointer items-center gap-1.5 font-medium text-muted-foreground text-xs transition-colors hover:text-foreground"
+                className="flex cursor-pointer items-center gap-1.5 font-medium text-muted-foreground text-xs transition-colors duration-200 hover:text-foreground"
                 onClick={() => signOut()}
                 type="button"
               >

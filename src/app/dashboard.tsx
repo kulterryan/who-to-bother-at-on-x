@@ -38,16 +38,16 @@ function DashboardPage() {
 
   return (
     <main className="mx-auto max-w-4xl px-6 pt-8 pb-20 md:pt-12 md:pb-28">
-      <div className="mb-8 flex items-center justify-between">
+      <div className="mb-8 flex items-center justify-between animate-fade-in">
         <Link
-          className="inline-flex items-center gap-1.5 text-muted-foreground text-sm transition-colors hover:text-foreground"
+          className="inline-flex items-center gap-1.5 text-muted-foreground text-sm transition-colors duration-200 hover:text-foreground"
           to="/"
         >
           <ArrowLeft className="size-3.5" />
           Back to home
         </Link>
         <button
-          className="rounded-lg border border-border px-3 py-1.5 font-medium text-muted-foreground text-sm transition-colors hover:border-destructive hover:text-destructive"
+          className="rounded-lg bg-secondary px-3 py-1.5 font-medium text-muted-foreground text-sm transition-all duration-200 hover:bg-destructive/10 hover:text-destructive active:scale-95"
           onClick={handleSignOut}
           type="button"
         >
@@ -56,12 +56,12 @@ function DashboardPage() {
       </div>
 
       {/* Welcome Card */}
-      <div className="rounded-xl border border-border bg-card p-6">
+      <div className="rounded-2xl bg-card p-6 animate-scale-in">
         <div className="mb-5 flex items-center gap-4">
           {session?.user?.image ? (
             <img
               alt={session.user.name || "User"}
-              className="h-14 w-14 rounded-full border border-border"
+              className="h-14 w-14 rounded-full"
               height={56}
               src={session.user.image}
               width={56}
@@ -72,7 +72,7 @@ function DashboardPage() {
             </div>
           )}
           <div>
-            <h2 className="font-semibold text-card-foreground text-xl">
+            <h2 className="font-semibold text-foreground text-xl">
               Welcome, {session?.user?.name || "User"}!
             </h2>
             <p className="text-muted-foreground text-sm">
@@ -81,7 +81,7 @@ function DashboardPage() {
           </div>
         </div>
 
-        <div className="rounded-lg border border-green-200 bg-green-50 p-4 dark:border-green-900 dark:bg-green-950/20">
+        <div className="rounded-lg bg-green-50 p-4 dark:bg-green-950/20">
           <p className="font-medium text-green-700 text-sm dark:text-green-400">
             Authentication is working!
           </p>
@@ -92,24 +92,24 @@ function DashboardPage() {
       </div>
 
       {/* Session Info */}
-      <div className="mt-4 rounded-xl border border-border bg-card p-6">
-        <h3 className="mb-3 font-semibold text-card-foreground">Session Details</h3>
+      <div className="mt-4 rounded-2xl bg-card p-6 animate-slide-up" style={{ animationDelay: '0.05s' }}>
+        <h3 className="mb-3 font-semibold text-foreground">Session Details</h3>
         <pre className="overflow-x-auto rounded-lg bg-secondary p-4 font-mono text-secondary-foreground text-xs">
           {JSON.stringify(session, null, 2)}
         </pre>
       </div>
 
       {/* Quick Links */}
-      <div className="mt-4 flex gap-3">
+      <div className="mt-4 flex gap-3 animate-slide-up" style={{ animationDelay: '0.1s' }}>
         <Link
-          className="flex flex-1 items-center justify-center gap-1.5 rounded-xl border border-border bg-card py-3 font-medium text-card-foreground text-sm transition-all hover:border-accent/40"
+          className="flex flex-1 items-center justify-center gap-1.5 rounded-2xl bg-card py-3 font-medium text-foreground text-sm transition-all duration-200 hover:bg-secondary/80 active:scale-[0.98]"
           to="/"
         >
           <ArrowLeft className="size-3.5" />
           Back to Home
         </Link>
         <Link
-          className="flex flex-1 items-center justify-center gap-1.5 rounded-xl bg-accent py-3 font-medium text-accent-foreground text-sm transition-opacity hover:opacity-90"
+          className="flex flex-1 items-center justify-center gap-1.5 rounded-2xl bg-accent py-3 font-medium text-accent-foreground text-sm transition-all duration-200 hover:opacity-90 active:scale-[0.98]"
           to="/search"
         >
           Search Companies

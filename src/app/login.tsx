@@ -46,7 +46,7 @@ function LoginPage() {
 
   if (session) {
     return (
-      <div className="flex min-h-[60vh] items-center justify-center">
+      <div className="flex min-h-[60vh] items-center justify-center animate-fade-in">
         <div className="mx-auto max-w-md text-center">
           <h1 className="font-semibold text-foreground text-xl">
             You're already signed in
@@ -55,7 +55,7 @@ function LoginPage() {
             Welcome back, {session.user?.name || session.user?.email}!
           </p>
           <Link
-            className="mt-5 inline-flex items-center gap-1.5 rounded-lg bg-accent px-5 py-2.5 font-medium text-accent-foreground text-sm transition-opacity hover:opacity-90"
+            className="mt-5 inline-flex items-center gap-1.5 rounded-lg bg-accent px-5 py-2.5 font-medium text-accent-foreground text-sm transition-all duration-200 hover:opacity-90 active:scale-95"
             to="/"
           >
             Go to Home
@@ -68,8 +68,8 @@ function LoginPage() {
 
   return (
     <div className="flex min-h-[60vh] items-center justify-center">
-      <main className="mx-auto w-full max-w-sm px-6">
-        <div className="rounded-xl border border-border bg-card p-8">
+      <main className="mx-auto w-full max-w-sm px-6 animate-scale-in">
+        <div className="rounded-2xl bg-card p-8">
           {/* Header */}
           <div className="mb-6 text-center">
             <Link className="inline-block" to="/">
@@ -91,7 +91,7 @@ function LoginPage() {
 
           {/* GitHub Login */}
           <button
-            className="flex w-full items-center justify-center gap-2 rounded-lg bg-primary px-5 py-2.5 font-medium text-primary-foreground text-sm transition-opacity hover:opacity-90"
+            className="flex w-full items-center justify-center gap-2 rounded-lg bg-primary px-5 py-2.5 font-medium text-primary-foreground text-sm transition-all duration-200 hover:opacity-90 active:scale-95"
             onClick={handleGitHubLogin}
             type="button"
           >
@@ -104,14 +104,14 @@ function LoginPage() {
 
           {/* Divider */}
           <div className="my-5 flex items-center">
-            <div className="flex-1 border-border border-t" />
+            <div className="flex-1 border-border/40 border-t" />
             <span className="px-3 text-muted-foreground text-xs">or</span>
-            <div className="flex-1 border-border border-t" />
+            <div className="flex-1 border-border/40 border-t" />
           </div>
 
           {/* Back to Home */}
           <Link
-            className="flex w-full items-center justify-center gap-1.5 rounded-lg border border-border px-5 py-2.5 font-medium text-foreground text-sm transition-colors hover:bg-secondary"
+            className="flex w-full items-center justify-center gap-1.5 rounded-lg bg-secondary px-5 py-2.5 font-medium text-foreground text-sm transition-all duration-200 hover:bg-secondary/80 active:scale-95"
             to="/"
           >
             <ArrowLeft className="size-3.5" />

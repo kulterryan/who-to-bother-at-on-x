@@ -52,7 +52,7 @@ function SearchResults({
 }) {
   if (!query) {
     return (
-      <div className="flex flex-col items-center gap-3 py-16">
+      <div className="flex flex-col items-center gap-3 py-16 animate-fade-in">
         <svg
           className="h-10 w-10 text-muted-foreground/40"
           fill="none"
@@ -76,7 +76,7 @@ function SearchResults({
 
   if (results.length === 0) {
     return (
-      <div className="flex flex-col items-center gap-3 py-16">
+      <div className="flex flex-col items-center gap-3 py-16 animate-fade-in">
         <svg
           className="h-10 w-10 text-muted-foreground/40"
           fill="none"
@@ -102,15 +102,15 @@ function SearchResults({
   }
 
   return (
-    <div className="flex flex-col gap-4">
+    <div className="flex flex-col gap-4 animate-fade-in">
       <p className="text-muted-foreground text-xs">
         Found {results.length} result{results.length !== 1 ? "s" : ""} for "
         {query}"
       </p>
 
       <ul aria-label="Search results" className="flex flex-col gap-2">
-        {results.map((result) => (
-          <SearchResultCard key={result.id} result={result} />
+        {results.map((result, i) => (
+          <SearchResultCard index={i} key={result.id} result={result} />
         ))}
       </ul>
     </div>
@@ -136,9 +136,9 @@ function SearchPage() {
 
   return (
     <main className="mx-auto flex max-w-4xl flex-col gap-6 px-6 pt-8 pb-20 md:pt-12 md:pb-28">
-      <div className="flex flex-col gap-4">
+      <div className="flex flex-col gap-4 animate-fade-in">
         <Link
-          className="inline-flex w-fit items-center gap-1.5 text-muted-foreground text-sm transition-colors hover:text-foreground"
+          className="inline-flex w-fit items-center gap-1.5 text-muted-foreground text-sm transition-colors duration-200 hover:text-foreground"
           to="/"
         >
           <ArrowLeft className="size-3.5" />
@@ -151,7 +151,7 @@ function SearchPage() {
       </div>
 
       {/* Search Input */}
-      <form className="relative" onSubmit={(e) => e.preventDefault()}>
+      <form className="relative animate-slide-up" onSubmit={(e) => e.preventDefault()} style={{ animationDelay: '0.05s' }}>
         <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-4">
           <svg
             className="h-4 w-4 text-muted-foreground"
@@ -171,7 +171,7 @@ function SearchPage() {
         <input
           aria-label="Search for companies or products"
           autoFocus
-          className="w-full rounded-xl border border-border bg-card py-3 pr-10 pl-10 text-foreground text-sm placeholder-muted-foreground transition-all focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent"
+          className="w-full rounded-xl bg-secondary/70 py-3 pr-10 pl-10 text-foreground text-sm placeholder-muted-foreground transition-all duration-200 focus:bg-secondary focus:outline-none focus:ring-2 focus:ring-accent/30"
           onChange={(e) => setQuery(e.target.value || null)}
           placeholder="Search for companies or products..."
           type="text"
@@ -180,7 +180,7 @@ function SearchPage() {
         {query ? (
           <button
             aria-label="Clear search"
-            className="absolute inset-y-0 right-0 flex items-center pr-4 text-muted-foreground hover:text-foreground"
+            className="absolute inset-y-0 right-0 flex items-center pr-4 text-muted-foreground transition-colors duration-200 hover:text-foreground"
             onClick={() => setQuery(null)}
             type="button"
           >
@@ -210,8 +210,10 @@ function SearchPage() {
 
 const SearchResultCard = memo(function SearchResultCardComponent({
   result,
+  index,
 }: {
   result: SearchResult;
+  index: number;
 }) {
   const logo = companyLogos[result.companyId];
   const isCompany = result.type === "company";
@@ -219,10 +221,11 @@ const SearchResultCard = memo(function SearchResultCardComponent({
 
   return (
     <Link
-      className="group flex items-center gap-4 rounded-xl border border-border bg-card p-4 transition-all hover:border-accent/40 hover:shadow-sm"
+      className="group flex items-center gap-4 rounded-2xl bg-card p-4 transition-all duration-200 hover:bg-secondary/80 active:scale-[0.99] animate-slide-up"
       params={{ company: result.companyId }}
       role="listitem"
       search={resultSearchParams}
+      style={{ animationDelay: `${0.03 * index}s` }}
       to="/$company"
     >
       {logo ? (
@@ -233,7 +236,7 @@ const SearchResultCard = memo(function SearchResultCardComponent({
 
       <div className="min-w-0 flex-1">
         <div className="flex items-center gap-2">
-          <h3 className="font-semibold text-card-foreground text-sm transition-colors group-hover:text-accent">
+          <h3 className="font-semibold text-card-foreground text-sm transition-colors duration-200 group-hover:text-accent">
             {result.name}
           </h3>
           <span
@@ -251,7 +254,7 @@ const SearchResultCard = memo(function SearchResultCardComponent({
         </p>
       </div>
 
-      <ArrowRight className="size-4 shrink-0 text-muted-foreground/40 transition-all group-hover:translate-x-0.5 group-hover:text-accent" />
+      <ArrowRight className="size-4 shrink-0 text-muted-foreground/40 transition-all duration-200 group-hover:translate-x-0.5 group-hover:text-accent" />
     </Link>
   );
 });

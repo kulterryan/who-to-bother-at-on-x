@@ -270,7 +270,7 @@ function CompanyCardPreview({
 }) {
   return (
     <div className="max-w-md">
-      <div className="group flex flex-col rounded-xl border-2 border-zinc-200 bg-white p-6 transition-all hover:border-zinc-900 hover:shadow-lg dark:border-zinc-700 dark:bg-zinc-900 dark:hover:border-orange-600">
+      <div className="group flex flex-col rounded-2xl bg-secondary/60 p-6 transition-all duration-200 hover:bg-secondary">
         {svgLogo ? (
           <div
             className="mb-4 h-8 w-auto [&>svg]:h-8 [&>svg]:w-auto"
@@ -278,13 +278,13 @@ function CompanyCardPreview({
             dangerouslySetInnerHTML={{ __html: svgLogo }}
           />
         ) : null}
-        <h2 className="mb-2 font-semibold text-2xl text-zinc-900 transition-colors group-hover:text-orange-600 dark:text-zinc-100">
+        <h2 className="mb-2 font-semibold text-2xl text-foreground transition-colors duration-200 group-hover:text-accent">
           {companyData.name || "Company Name"}
         </h2>
-        <p className="line-clamp-3 flex-1 text-sm text-zinc-600 dark:text-zinc-400">
+        <p className="line-clamp-3 flex-1 text-muted-foreground text-sm">
           {companyData.description || "Company description..."}
         </p>
-        <div className="mt-4 inline-flex items-center gap-2 font-medium text-orange-600 text-sm">
+        <div className="mt-4 inline-flex items-center gap-2 font-medium text-accent text-sm">
           View contacts
           <svg
             aria-hidden="true"
@@ -317,15 +317,15 @@ function CompanyPagePreview({
 }) {
   return (
     <div className="p-6">
-      <div className="text-zinc-900 dark:text-zinc-100">
+      <div className="text-foreground">
         {/* Back link simulation */}
-        <div className="mb-8 inline-flex items-center gap-2 font-medium text-sm text-zinc-600 dark:text-zinc-400">
+        <div className="mb-8 inline-flex items-center gap-2 font-medium text-muted-foreground text-sm">
           <ArrowLeft className="h-4 w-4" />
           Back to home
         </div>
 
         {/* Company header */}
-        <h1 className="mb-6 flex items-center gap-2 text-balance font-medium text-2xl text-zinc-900 md:text-3xl dark:text-zinc-100">
+        <h1 className="mb-6 flex items-center gap-2 text-balance font-medium text-2xl text-foreground md:text-3xl">
           who to bother at{" "}
           {svgLogo ? (
             <span
@@ -334,7 +334,7 @@ function CompanyPagePreview({
               dangerouslySetInnerHTML={{ __html: svgLogo }}
             />
           ) : (
-            <span className="text-orange-600">
+            <span className="text-accent">
               {companyData.name || "Company"}
             </span>
           )}{" "}
@@ -361,25 +361,25 @@ function CompanyPagePreview({
         companyData.discord ? (
           <div className="mb-8 flex flex-wrap items-center gap-4">
             {companyData.website ? (
-              <span className="inline-flex items-center gap-1.5 text-sm text-zinc-600 dark:text-zinc-400">
+              <span className="inline-flex items-center gap-1.5 text-muted-foreground text-sm">
                 <Globe className="h-4 w-4" />
                 <span>Website</span>
               </span>
             ) : null}
             {companyData.docs ? (
-              <span className="inline-flex items-center gap-1.5 text-sm text-zinc-600 dark:text-zinc-400">
+              <span className="inline-flex items-center gap-1.5 text-muted-foreground text-sm">
                 <BookOpen className="h-4 w-4" />
                 <span>Docs</span>
               </span>
             ) : null}
             {companyData.github ? (
-              <span className="inline-flex items-center gap-1.5 text-sm text-zinc-600 dark:text-zinc-400">
+              <span className="inline-flex items-center gap-1.5 text-muted-foreground text-sm">
                 <GithubIcon className="h-4 w-4" />
                 <span>GitHub</span>
               </span>
             ) : null}
             {companyData.discord ? (
-              <span className="inline-flex items-center gap-1.5 text-sm text-zinc-600 dark:text-zinc-400">
+              <span className="inline-flex items-center gap-1.5 text-muted-foreground text-sm">
                 <MessageCircle className="h-4 w-4" />
                 <span>Discord</span>
               </span>
@@ -388,14 +388,14 @@ function CompanyPagePreview({
         ) : null}
 
         {/* Disclaimer */}
-        <p className="mb-8 text-sm text-zinc-600 dark:text-zinc-500">
+        <p className="mb-8 text-muted-foreground text-sm">
           This is a community-maintained list and not officially affiliated with{" "}
           {companyData.name || "this company"}. For official support, visit the
           official {companyData.name || "company"} website.
         </p>
 
         {/* Copy hint */}
-        <div className="mb-6 flex items-center gap-2 text-sm text-zinc-500 dark:text-zinc-400">
+        <div className="mb-6 flex items-center gap-2 text-muted-foreground/60 text-sm">
           <Copy className="h-4 w-4" />
           <span>Click any topic to copy all contacts</span>
         </div>
@@ -403,7 +403,7 @@ function CompanyPagePreview({
         {/* Search bar simulation */}
         <div className="mb-8">
           <input
-            className="w-full rounded-lg border border-zinc-200 bg-white px-4 py-3 text-sm text-zinc-900 placeholder-zinc-400 dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-100 dark:placeholder-zinc-500"
+            className="w-full rounded-lg bg-secondary px-4 py-3 text-foreground text-sm placeholder-muted-foreground"
             disabled
             placeholder="search products or topics"
             type="text"
@@ -416,7 +416,7 @@ function CompanyPagePreview({
             .filter((cat) => cat.name)
             .map((category) => (
               <div key={category.name}>
-                <h2 className="mb-4 font-medium text-xs text-zinc-500 uppercase tracking-wider dark:text-zinc-400">
+                <h2 className="mb-4 font-medium text-muted-foreground text-xs uppercase tracking-wider">
                   {category.name}
                 </h2>
                 <div className="space-y-px">
@@ -424,11 +424,11 @@ function CompanyPagePreview({
                     .filter((c) => c.product)
                     .map((contact) => (
                       <div
-                        className="flex items-start justify-between border-zinc-200 border-t py-4 first:border-t-0 dark:border-zinc-800"
+                        className="flex items-start justify-between border-border/40 border-t py-4 first:border-t-0"
                         key={contact.product}
                       >
                         <div className="flex-1">
-                          <span className="font-medium text-sm text-zinc-900 md:text-base dark:text-zinc-100">
+                            <span className="font-medium text-foreground text-sm md:text-base">
                             {contact.product}
                           </span>
                         </div>
@@ -437,7 +437,7 @@ function CompanyPagePreview({
                             .filter((h) => h.startsWith("@"))
                             .map((handle) => (
                               <span
-                                className="inline-flex items-center gap-1.5 text-sm text-zinc-600 md:text-base dark:text-zinc-400"
+                                className="inline-flex items-center gap-1.5 text-muted-foreground text-sm md:text-base"
                                 key={handle}
                               >
                                 <Avatar className="h-5 w-5 shrink-0">
@@ -445,7 +445,7 @@ function CompanyPagePreview({
                                     alt={handle}
                                     src={`https://unavatar.io/x/${handle.replace("@", "")}?fallback=https://avatar.vercel.sh/${handle.replace("@", "")}?size=400`}
                                   />
-                                  <AvatarFallback className="bg-zinc-100 text-[10px] text-zinc-600 dark:bg-zinc-800 dark:text-zinc-400">
+                                  <AvatarFallback className="bg-secondary text-[10px] text-muted-foreground">
                                     {handle.slice(1, 3).toUpperCase()}
                                   </AvatarFallback>
                                 </Avatar>
@@ -464,7 +464,7 @@ function CompanyPagePreview({
             (cat) =>
               Boolean(cat.name) && cat.contacts.some((c) => Boolean(c.product))
           ) ? null : (
-            <div className="py-12 text-center text-zinc-500 dark:text-zinc-400">
+            <div className="py-12 text-center text-muted-foreground">
               <p>
                 Add categories and contacts in the Form tab to see them here.
               </p>
@@ -532,7 +532,7 @@ function AddCompanyPage() {
 
   if (isPending) {
     return (
-      <div className="flex min-h-screen items-center justify-center text-zinc-900 dark:text-zinc-100">
+      <div className="flex min-h-screen items-center justify-center">
         <div className="flex items-center gap-2">
           <svg
             className="h-5 w-5 animate-spin"
@@ -567,12 +567,12 @@ function AddCompanyPage() {
   }
 
   return (
-    <div className="min-h-screen text-zinc-900 dark:text-zinc-100">
+    <div className="min-h-screen">
       <main className="mx-auto max-w-3xl px-6 pt-8 pb-16 md:pt-12 md:pb-24">
         {/* Header */}
-        <div className="mb-8">
+        <div className="mb-8 animate-fade-in">
           <Link
-            className="inline-flex items-center gap-2 text-sm text-zinc-600 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100"
+            className="inline-flex items-center gap-2 text-muted-foreground text-sm transition-colors duration-200 hover:text-foreground"
             to="/contribute"
           >
             <ArrowLeft className="h-4 w-4" />
@@ -581,9 +581,9 @@ function AddCompanyPage() {
         </div>
 
         {/* Page Title */}
-        <div className="mb-8">
-          <h2 className="font-bold text-3xl">Add New Company</h2>
-          <p className="mt-2 text-lg text-zinc-600 dark:text-zinc-400">
+        <div className="mb-8 animate-slide-up">
+          <h2 className="font-bold text-3xl text-foreground">Add New Company</h2>
+          <p className="mt-2 text-muted-foreground text-lg">
             Fill out the form below to add a new company. We'll create a pull
             request with your changes.
           </p>
@@ -612,9 +612,9 @@ function AddCompanyPage() {
 
           {/* Form Tab */}
           <TabsContent value="form">
-            <div className="rounded-xl border-2 border-zinc-200 bg-white p-6 md:p-8 dark:border-zinc-700 dark:bg-zinc-900">
+            <div className="rounded-2xl bg-card p-6 md:p-8">
               {/* SVG Uploader */}
-              <div className="mb-8 border-zinc-200 border-b pb-8 dark:border-zinc-700">
+              <div className="mb-8 border-border/40 border-b pb-8">
                 <SVGUploader
                   error={svgError}
                   onChange={setSvgLogo}
@@ -638,11 +638,11 @@ function AddCompanyPage() {
           <TabsContent value="preview">
             <div className="space-y-8">
               {/* Card Preview Section */}
-              <div className="rounded-xl border-2 border-zinc-200 bg-white p-6 dark:border-zinc-700 dark:bg-zinc-900">
-                <h3 className="mb-4 font-semibold text-lg">
+              <div className="rounded-2xl bg-card p-6">
+                <h3 className="mb-4 font-semibold text-foreground text-lg">
                   Homepage Card Preview
                 </h3>
-                <p className="mb-6 text-sm text-zinc-600 dark:text-zinc-400">
+                <p className="mb-6 text-muted-foreground text-sm">
                   This is how your company will appear on the homepage.
                 </p>
 
@@ -654,12 +654,12 @@ function AddCompanyPage() {
               </div>
 
               {/* Full Company Page Preview */}
-              <div className="overflow-hidden rounded-xl border-2 border-zinc-200 bg-white dark:border-zinc-700 dark:bg-zinc-900">
-                <div className="border-zinc-200 border-b bg-zinc-50 px-6 py-4 dark:border-zinc-700 dark:bg-zinc-800">
-                  <h3 className="font-semibold text-lg">
+              <div className="overflow-hidden rounded-2xl bg-card">
+                <div className="bg-secondary/60 px-6 py-4">
+                  <h3 className="font-semibold text-foreground text-lg">
                     Company Page Preview
                   </h3>
-                  <p className="text-sm text-zinc-600 dark:text-zinc-400">
+                  <p className="text-muted-foreground text-sm">
                     This is how your company's contact page will look.
                   </p>
                 </div>
@@ -677,13 +677,13 @@ function AddCompanyPage() {
           <TabsContent value="code">
             <div className="space-y-6">
               {/* SVG Code Editor */}
-              <div className="rounded-xl border-2 border-zinc-200 bg-white p-6 dark:border-zinc-700 dark:bg-zinc-900">
-                <h3 className="mb-2 font-semibold text-lg">SVG Logo</h3>
-                <p className="mb-4 text-sm text-zinc-600 dark:text-zinc-400">
+              <div className="rounded-2xl bg-card p-6">
+                <h3 className="mb-2 font-semibold text-foreground text-lg">SVG Logo</h3>
+                <p className="mb-4 text-muted-foreground text-sm">
                   Paste or edit your SVG logo code directly.
                 </p>
                 <textarea
-                  className="h-48 w-full rounded-lg border-2 border-zinc-200 bg-zinc-50 p-4 font-mono text-sm text-zinc-900 placeholder-zinc-400 focus:border-orange-600 focus:outline-none dark:border-zinc-700 dark:bg-zinc-800 dark:text-zinc-100"
+                  className="h-48 w-full rounded-lg bg-secondary p-4 font-mono text-foreground text-sm placeholder-muted-foreground transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-accent/30"
                   onChange={(e) => setSvgLogo(e.target.value)}
                   placeholder="<svg>...</svg>"
                   spellCheck={false}
@@ -691,11 +691,11 @@ function AddCompanyPage() {
                 />
                 {svgLogo ? (
                   <div className="mt-4">
-                    <p className="mb-2 text-sm text-zinc-600 dark:text-zinc-400">
+                    <p className="mb-2 text-muted-foreground text-sm">
                       Preview:
                     </p>
                     <div
-                      className="inline-block rounded-lg border border-zinc-200 bg-zinc-50 p-4 dark:border-zinc-700 dark:bg-zinc-800 [&>svg]:h-8 [&>svg]:w-auto"
+                      className="inline-block rounded-lg bg-secondary p-4 [&>svg]:h-8 [&>svg]:w-auto"
                       // biome-ignore lint/security/noDangerouslySetInnerHtml: SVG is validated on upload
                       dangerouslySetInnerHTML={{ __html: svgLogo }}
                     />
@@ -704,16 +704,16 @@ function AddCompanyPage() {
               </div>
 
               {/* JSON Code Editor */}
-              <div className="rounded-xl border-2 border-zinc-200 bg-white p-6 dark:border-zinc-700 dark:bg-zinc-900">
-                <h3 className="mb-2 font-semibold text-lg">Company JSON</h3>
-                <p className="mb-4 text-sm text-zinc-600 dark:text-zinc-400">
+              <div className="rounded-2xl bg-card p-6">
+                <h3 className="mb-2 font-semibold text-foreground text-lg">Company JSON</h3>
+                <p className="mb-4 text-muted-foreground text-sm">
                   Edit the company data directly in JSON format.
                 </p>
                 <textarea
-                  className={`h-96 w-full rounded-lg border-2 bg-zinc-50 p-4 font-mono text-sm text-zinc-900 placeholder-zinc-400 focus:outline-none dark:bg-zinc-800 dark:text-zinc-100 ${
+                  className={`h-96 w-full rounded-lg bg-secondary p-4 font-mono text-foreground text-sm placeholder-muted-foreground transition-all duration-200 focus:outline-none focus:ring-2 ${
                     jsonError
-                      ? "border-red-500 focus:border-red-500"
-                      : "border-zinc-200 focus:border-orange-600 dark:border-zinc-700"
+                      ? "ring-2 ring-red-500/50"
+                      : "focus:ring-accent/30"
                   }`}
                   onChange={(e) => handleJsonChange(e.target.value)}
                   placeholder='{"id": "company-id", "name": "Company Name", ...}'
@@ -729,9 +729,9 @@ function AddCompanyPage() {
         </Tabs>
 
         {/* Submit Button - visible on all tabs */}
-        <div className="mt-8 flex flex-col gap-4 border-zinc-200 border-t pt-6 dark:border-zinc-700">
+          <div className="mt-8 flex flex-col gap-4 border-border/40 border-t pt-6">
           {!(canSubmit || isSubmitting) && (
-            <p className="text-right text-sm text-zinc-500 dark:text-zinc-400">
+            <p className="text-right text-muted-foreground text-sm">
               Please fill in all required fields: company name, ID, description,
               logo, at least one category with a contact and valid @handle.
             </p>

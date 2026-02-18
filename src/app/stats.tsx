@@ -65,9 +65,9 @@ export const Route = createFileRoute("/stats")({
 function StatsPage() {
   return (
     <main className="mx-auto flex max-w-4xl flex-col gap-8 px-6 pt-8 pb-20 md:pt-12 md:pb-28">
-      <div className="flex flex-col gap-3">
+      <div className="flex flex-col gap-3 animate-fade-in">
         <Link
-          className="inline-flex w-fit items-center gap-1.5 text-muted-foreground text-sm transition-colors hover:text-foreground"
+          className="inline-flex w-fit items-center gap-1.5 text-muted-foreground text-sm transition-colors duration-200 hover:text-foreground"
           to="/"
         >
           <ArrowLeft className="size-3.5" />
@@ -83,14 +83,14 @@ function StatsPage() {
 
       {/* Stats Grid */}
       <div className="grid gap-3 md:grid-cols-3">
-        <StatCard number={stats.companyCount} label="Companies" description="Tech companies in the database" />
-        <StatCard number={stats.peopleCount} label="People" description="Unique contacts on X (Twitter)" />
-        <StatCard number={stats.totalContacts} label="Contact Entries" description="Total product/role listings" />
+        <StatCard delay={0} description="Tech companies in the database" label="Companies" number={stats.companyCount} />
+        <StatCard delay={1} description="Unique contacts on X (Twitter)" label="People" number={stats.peopleCount} />
+        <StatCard delay={2} description="Total product/role listings" label="Contact Entries" number={stats.totalContacts} />
       </div>
 
       {/* About */}
-      <div className="rounded-xl border border-border bg-card p-6">
-        <h2 className="mb-4 font-semibold text-card-foreground text-lg">
+      <div className="rounded-2xl bg-secondary/60 p-6 animate-slide-up" style={{ animationDelay: '0.15s' }}>
+        <h2 className="mb-4 font-semibold text-foreground text-lg">
           About the Data
         </h2>
         <div className="space-y-3 text-muted-foreground text-sm leading-relaxed">
@@ -107,7 +107,7 @@ function StatsPage() {
           <p>
             Want to contribute? Check out our{" "}
             <a
-              className="font-medium text-accent underline underline-offset-4 hover:text-accent/80"
+              className="font-medium text-accent underline underline-offset-4 transition-colors duration-200 hover:text-accent/80"
               href="https://github.com/kulterryan/cf-who-to-bother-at-on-x"
               rel="noopener noreferrer"
               target="_blank"
@@ -128,17 +128,19 @@ function StatCard({
   number,
   label,
   description,
+  delay,
 }: {
   number: number;
   label: string;
   description: string;
+  delay: number;
 }) {
   return (
-    <div className="flex flex-col rounded-xl border border-border bg-card p-6">
+    <div className="flex flex-col rounded-2xl bg-card p-6 animate-scale-in" style={{ animationDelay: `${0.05 * delay + 0.05}s` }}>
       <div className="font-mono font-bold text-4xl text-accent">
         {number}
       </div>
-      <div className="mt-1 font-semibold text-card-foreground">
+      <div className="mt-1 font-semibold text-foreground">
         {label}
       </div>
       <p className="mt-1.5 text-muted-foreground text-xs leading-relaxed">

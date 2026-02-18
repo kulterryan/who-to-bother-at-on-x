@@ -42,9 +42,9 @@ export const Route = createFileRoute("/sponsors")({
 function SponsorsPage() {
   return (
     <main className="mx-auto flex max-w-4xl flex-col gap-8 px-6 pt-8 pb-20 md:pt-12 md:pb-28">
-      <div className="flex flex-col gap-3">
+      <div className="flex flex-col gap-3 animate-fade-in">
         <Link
-          className="inline-flex w-fit items-center gap-1.5 text-muted-foreground text-sm transition-colors hover:text-foreground"
+          className="inline-flex w-fit items-center gap-1.5 text-muted-foreground text-sm transition-colors duration-200 hover:text-foreground"
           to="/"
         >
           <ArrowLeft className="size-3.5" />
@@ -60,12 +60,13 @@ function SponsorsPage() {
 
       {/* Sponsors Grid */}
       <div className="grid gap-3 sm:grid-cols-2">
-        {sponsors.map((sponsor) => (
+        {sponsors.map((sponsor, i) => (
           <div
-            className="flex items-center gap-4 rounded-xl border border-border bg-card p-5 transition-shadow hover:shadow-sm"
+            className="flex items-center gap-4 rounded-2xl bg-card p-5 transition-all duration-200 hover:bg-secondary/80 animate-scale-in"
             key={sponsor.name}
+            style={{ animationDelay: `${0.05 * i + 0.05}s` }}
           >
-            <Avatar className="size-14 border border-border">
+            <Avatar className="size-14">
               <AvatarImage
                 alt={sponsor.name}
                 src={getAvatarUrl(sponsor.twitterHandle)}
@@ -76,13 +77,13 @@ function SponsorsPage() {
             </Avatar>
 
             <div className="flex min-w-0 flex-1 flex-col gap-1.5">
-              <span className="truncate font-semibold text-card-foreground">
+              <span className="truncate font-semibold text-foreground">
                 {sponsor.name}
               </span>
               <div className="flex flex-col gap-1 text-muted-foreground text-xs">
                 {sponsor.twitterHandle ? (
                   <a
-                    className="flex w-fit items-center gap-1.5 transition-colors hover:text-accent"
+                    className="flex w-fit items-center gap-1.5 transition-colors duration-200 hover:text-accent"
                     href={`https://x.com/${sponsor.twitterHandle}`}
                     rel="noopener noreferrer"
                     target="_blank"
@@ -103,7 +104,7 @@ function SponsorsPage() {
                 ) : null}
                 {sponsor.githubHandle ? (
                   <a
-                    className="flex w-fit items-center gap-1.5 transition-colors hover:text-accent"
+                    className="flex w-fit items-center gap-1.5 transition-colors duration-200 hover:text-accent"
                     href={`https://github.com/${sponsor.githubHandle}`}
                     rel="noopener noreferrer"
                     target="_blank"
@@ -119,16 +120,17 @@ function SponsorsPage() {
 
         {/* Become a Sponsor */}
         <a
-          className="flex items-center gap-4 rounded-xl border border-dashed border-border bg-card/50 p-5 transition-all hover:border-accent/50 hover:bg-card"
+          className="flex items-center gap-4 rounded-2xl border border-dashed border-border/60 bg-card/50 p-5 transition-all duration-200 hover:bg-card hover:border-accent/40 animate-scale-in"
           href="https://github.com/sponsors/kulterryan"
           rel="noopener noreferrer"
+          style={{ animationDelay: '0.1s' }}
           target="_blank"
         >
-          <div className="flex size-14 items-center justify-center rounded-full border border-dashed border-border">
+          <div className="flex size-14 items-center justify-center rounded-full border border-dashed border-border/60">
             <HeartIcon className="size-6 text-accent" />
           </div>
           <div className="flex flex-col gap-0.5">
-            <span className="font-semibold text-card-foreground">
+            <span className="font-semibold text-foreground">
               Become a sponsor
             </span>
             <span className="text-muted-foreground text-xs">
