@@ -15,7 +15,6 @@ export function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const { data: session } = useSession();
 
-  // Get company data if we're on a company page
   const matches = useMatches();
   const companyRoute = matches.find((match) => match.routeId === "/$company");
   const company = companyRoute?.loaderData as Company | undefined;
@@ -24,44 +23,40 @@ export function Header() {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 100);
     };
-
-    // Check initial scroll position
     handleScroll();
-
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   return (
-    <header className="sticky top-0 z-50 w-full border-zinc-200/80 border-b bg-white/80 backdrop-blur-md dark:border-zinc-800/80 dark:bg-zinc-950/80">
-      {/* Main Header */}
-      <div className="mx-auto flex h-16 max-w-3xl items-center justify-between px-6">
-        {/* Left side - Logo or Sub Navigation */}
+    <header className="sticky top-0 z-50 w-full border-border/60 border-b bg-background/80 backdrop-blur-xl">
+      <div className="mx-auto flex h-14 max-w-4xl items-center justify-between px-6">
+        {/* Left: Nav or Logo */}
         <div className="relative">
-          {/* Sub Navigation - Visible when NOT scrolled */}
+          {/* Nav links -- visible when not scrolled */}
           <nav
-            className={`flex items-center gap-4 transition-all duration-300 ${
+            className={`flex items-center gap-5 transition-all duration-300 ${
               isScrolled
-                ? "pointer-events-none -translate-x-4 opacity-0"
+                ? "pointer-events-none -translate-x-3 opacity-0"
                 : "translate-x-0 opacity-100"
             }`}
           >
             <Link
-              className="flex items-center gap-2 font-medium text-sm text-zinc-600 transition-colors hover:text-orange-600 dark:text-zinc-400 dark:hover:text-orange-600"
+              className="flex items-center gap-1.5 font-medium text-muted-foreground text-sm transition-colors hover:text-foreground"
               to="/contribute"
             >
               <PlusIcon className="size-3.5" />
               <span>Contribute</span>
             </Link>
             <Link
-              className="flex items-center gap-2 font-medium text-sm text-zinc-600 transition-colors hover:text-orange-600 dark:text-zinc-400 dark:hover:text-orange-600"
+              className="flex items-center gap-1.5 font-medium text-muted-foreground text-sm transition-colors hover:text-foreground"
               to="/sponsors"
             >
               <HeartIcon className="size-3.5" />
               <span>Sponsors</span>
             </Link>
             <Link
-              className="flex items-center gap-2 font-medium text-sm text-zinc-600 transition-colors hover:text-orange-600 dark:text-zinc-400 dark:hover:text-orange-600"
+              className="flex items-center gap-1.5 font-medium text-muted-foreground text-sm transition-colors hover:text-foreground"
               to="/stats"
             >
               <ChartColumnIncreasing className="size-3.5" />
@@ -69,7 +64,7 @@ export function Header() {
             </Link>
             {session ? (
               <button
-                className="flex cursor-pointer items-center gap-2 font-medium text-sm text-zinc-600 transition-colors hover:text-orange-600 dark:text-zinc-400 dark:hover:text-orange-600"
+                className="flex cursor-pointer items-center gap-1.5 font-medium text-muted-foreground text-sm transition-colors hover:text-foreground"
                 onClick={() => signOut()}
                 type="button"
               >
@@ -79,34 +74,32 @@ export function Header() {
             ) : null}
           </nav>
 
-          {/* Logo / Title - Visible when scrolled */}
+          {/* Logo -- visible on scroll */}
           <Link
-            className={`absolute top-1/2 left-0 flex -translate-y-1/2 items-center gap-2 whitespace-nowrap text-zinc-900 transition-all duration-300 hover:text-orange-600 dark:text-zinc-100 dark:hover:text-orange-600 ${
+            className={`absolute top-1/2 left-0 flex -translate-y-1/2 items-center gap-2 whitespace-nowrap text-foreground transition-all duration-300 hover:text-accent ${
               isScrolled
                 ? "translate-x-0 opacity-100"
-                : "pointer-events-none -translate-x-4 opacity-0"
+                : "pointer-events-none -translate-x-3 opacity-0"
             }`}
             to="/"
           >
             {company ? (
-              // Show "bother at [logo]" for company pages
               <>
-                <span className="font-medium text-lg">who to bother at</span>
-                <div className="flex items-center [&>svg]:h-[18px] [&>svg]:w-auto">
+                <span className="font-medium text-sm">who to bother at</span>
+                <div className="flex items-center [&>svg]:h-[16px] [&>svg]:w-auto">
                   {companyLogos[company.logoType]}
                 </div>
               </>
             ) : (
-              // Show default "who to bother on X" for other pages
               <>
-                <span className="font-medium text-lg">who to bother on</span>
+                <span className="font-medium text-sm">who to bother on</span>
                 <svg
                   aria-hidden="true"
                   className="inline-block"
                   fill="none"
-                  height="18"
+                  height="14"
                   viewBox="0 0 1200 1227"
-                  width="20"
+                  width="16"
                 >
                   <title>X (Twitter) logo</title>
                   <path
@@ -119,58 +112,57 @@ export function Header() {
           </Link>
         </div>
 
-        {/* Navigation */}
-        <nav className="flex items-center gap-2">
-          {/* Contribute Button */}
+        {/* Right side */}
+        <div className="flex items-center gap-3">
           <a
             aria-label="View the repository on GitHub"
-            className="flex items-center gap-1.5 rounded-lg bg-orange-600 p-2 font-medium text-sm text-white transition-colors hover:bg-orange-700 sm:px-3 sm:py-1.5"
+            className="flex items-center gap-1.5 rounded-lg border border-border bg-secondary px-3 py-1.5 font-medium text-secondary-foreground text-sm transition-colors hover:bg-secondary/80"
             href="https://github.com/kulterryan/who-to-bother-at-on-x"
             rel="noopener noreferrer"
             target="_blank"
           >
-            <GithubIcon className="size-4 sm:size-3.5" />
+            <GithubIcon className="size-3.5" />
             <span className="hidden sm:inline">GitHub</span>
           </a>
-        </nav>
+        </div>
       </div>
 
-      {/* Sub Navigation Bar - Appears on scroll */}
+      {/* Sub nav on scroll */}
       <div
-        className={`overflow-hidden border-zinc-200/80 border-t transition-all duration-300 dark:border-zinc-800/80 ${
-          isScrolled ? "max-h-12 opacity-100" : "max-h-0 opacity-0"
+        className={`overflow-hidden border-border/60 border-t transition-all duration-300 ${
+          isScrolled ? "max-h-10 opacity-100" : "max-h-0 opacity-0"
         }`}
       >
-        <div className="mx-auto flex h-12 max-w-3xl items-center justify-start px-6">
-          <nav className="flex items-center gap-4">
+        <div className="mx-auto flex h-10 max-w-4xl items-center px-6">
+          <nav className="flex items-center gap-5">
             <Link
-              className="flex items-center gap-2 font-medium text-sm text-zinc-600 transition-colors hover:text-orange-600 dark:text-zinc-400 dark:hover:text-orange-600"
+              className="flex items-center gap-1.5 font-medium text-muted-foreground text-xs transition-colors hover:text-foreground"
               to="/contribute"
             >
-              <PlusIcon className="size-3.5" />
+              <PlusIcon className="size-3" />
               <span>Contribute</span>
             </Link>
             <Link
-              className="flex items-center gap-2 font-medium text-sm text-zinc-600 transition-colors hover:text-orange-600 dark:text-zinc-400 dark:hover:text-orange-600"
+              className="flex items-center gap-1.5 font-medium text-muted-foreground text-xs transition-colors hover:text-foreground"
               to="/sponsors"
             >
-              <HeartIcon className="size-3.5" />
+              <HeartIcon className="size-3" />
               <span>Sponsors</span>
             </Link>
             <Link
-              className="flex items-center gap-2 font-medium text-sm text-zinc-600 transition-colors hover:text-orange-600 dark:text-zinc-400 dark:hover:text-orange-600"
+              className="flex items-center gap-1.5 font-medium text-muted-foreground text-xs transition-colors hover:text-foreground"
               to="/stats"
             >
-              <ChartColumnIncreasing className="size-3.5" />
+              <ChartColumnIncreasing className="size-3" />
               <span>Stats</span>
             </Link>
             {session ? (
               <button
-                className="flex cursor-pointer items-center gap-2 font-medium text-sm text-zinc-600 transition-colors hover:text-orange-600 dark:text-zinc-400 dark:hover:text-orange-600"
+                className="flex cursor-pointer items-center gap-1.5 font-medium text-muted-foreground text-xs transition-colors hover:text-foreground"
                 onClick={() => signOut()}
                 type="button"
               >
-                <LogOut className="size-3.5" />
+                <LogOut className="size-3" />
                 <span>Sign Out</span>
               </button>
             ) : null}

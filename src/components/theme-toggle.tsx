@@ -36,13 +36,13 @@ export function ModeToggle() {
       value={theme}
     >
       <ToggleGroupItem aria-label="Light mode" value="light">
-        <Sun className="h-4 w-4" />
+        <Sun className="h-3.5 w-3.5" />
       </ToggleGroupItem>
       <ToggleGroupItem aria-label="Dark mode" value="dark">
-        <Moon className="h-4 w-4" />
+        <Moon className="h-3.5 w-3.5" />
       </ToggleGroupItem>
       <ToggleGroupItem aria-label="System theme" value="system">
-        <Monitor className="h-4 w-4" />
+        <Monitor className="h-3.5 w-3.5" />
       </ToggleGroupItem>
     </ToggleGroup>
   );
@@ -63,13 +63,13 @@ export function MobileThemeToggle() {
     <Popover onOpenChange={setOpen} open={open}>
       <PopoverTrigger
         aria-label={`Theme: ${themeLabels[theme]}`}
-        className="rounded-lg p-2 text-zinc-600 transition-colors hover:bg-zinc-100 hover:text-zinc-900 dark:text-zinc-400 dark:hover:bg-zinc-800 dark:hover:text-zinc-100"
+        className="rounded-lg p-2 text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground"
       >
-        <CurrentIcon className="size-4" />
+        <CurrentIcon className="size-3.5" />
       </PopoverTrigger>
       <PopoverContent
         align="end"
-        className="w-auto border-zinc-200 bg-white p-1 shadow-lg dark:border-zinc-700 dark:bg-zinc-900"
+        className="w-auto border-border bg-popover p-1 shadow-lg"
         sideOffset={8}
       >
         <div className="flex flex-col gap-0.5">
@@ -81,14 +81,14 @@ export function MobileThemeToggle() {
                 aria-label={themeLabels[themeOption]}
                 className={`rounded-md p-2 transition-colors ${
                   isActive
-                    ? "bg-zinc-100 text-zinc-900 dark:bg-zinc-800 dark:text-zinc-100"
-                    : "text-zinc-600 hover:bg-zinc-50 hover:text-zinc-900 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-100"
+                    ? "bg-secondary text-foreground"
+                    : "text-muted-foreground hover:bg-secondary/50 hover:text-foreground"
                 }`}
                 key={themeOption}
                 onClick={() => handleSelect(themeOption)}
                 type="button"
               >
-                <Icon className="size-4" />
+                <Icon className="size-3.5" />
               </button>
             );
           })}

@@ -11,22 +11,23 @@ export function Footer({
   contributionMessage = "This is a community-maintained directory. Have more contacts or companies to add?",
 }: FooterProps) {
   return (
-    <footer className="mt-16">
-      <div className="rounded-lg bg-zinc-50 p-6 dark:bg-zinc-900/50">
-        <h3 className="mb-2 font-medium text-lg text-zinc-900 dark:text-zinc-100">
+    <footer className="mt-16 space-y-8">
+      {/* CTA Card */}
+      <div className="rounded-xl border border-border bg-card p-6">
+        <h3 className="mb-2 font-semibold text-card-foreground text-base">
           {contributionTitle}
         </h3>
-        <p className="text-sm text-zinc-600 dark:text-zinc-400">
+        <p className="text-muted-foreground text-sm leading-relaxed">
           {contributionMessage}{" "}
           <Link
-            className="text-orange-600 underline decoration-orange-300 underline-offset-4 transition-colors hover:text-orange-700 hover:decoration-orange-400"
+            className="font-medium text-accent underline underline-offset-4 transition-colors hover:text-accent/80"
             to="/contribute"
           >
             Contribute directly from the website
           </Link>{" "}
           or{" "}
           <a
-            className="text-orange-600 underline decoration-orange-300 underline-offset-4 transition-colors hover:text-orange-700 hover:decoration-orange-400"
+            className="font-medium text-accent underline underline-offset-4 transition-colors hover:text-accent/80"
             href="https://github.com/kulterryan/who-to-bother-at-on-x"
             rel="noopener noreferrer"
             target="_blank"
@@ -35,7 +36,7 @@ export function Footer({
           </a>
           . Reach out to{" "}
           <a
-            className="text-orange-600 underline decoration-orange-300 underline-offset-4 transition-colors hover:text-orange-700 hover:decoration-orange-400"
+            className="font-medium text-accent underline underline-offset-4 transition-colors hover:text-accent/80"
             href="https://x.com/thehungrybird_"
             rel="noopener noreferrer"
             target="_blank"
@@ -46,35 +47,32 @@ export function Footer({
         </p>
       </div>
 
-      <p className="mt-8 text-center text-sm text-zinc-500 dark:text-zinc-400">
-        Created by:{" "}
-        <a
-          className="text-orange-600 underline decoration-orange-300 underline-offset-4 transition-colors hover:text-orange-700 hover:decoration-orange-400"
-          href="https://x.com/thehungrybird_"
-          rel="noopener noreferrer"
-          target="_blank"
-        >
-          @thehungrybird_
-        </a>
-        {" · "}
-        Concept by:{" "}
-        <a
-          className="text-orange-600 underline decoration-orange-300 underline-offset-4 transition-colors hover:text-orange-700 hover:decoration-orange-400"
-          href="https://x.com/strehldev"
-          rel="noopener noreferrer"
-          target="_blank"
-        >
-          @strehldev
-        </a>
-      </p>
-
-      {/* Theme Switcher */}
-      <div className="mt-6 flex justify-center">
-        {/* Desktop theme toggle */}
+      {/* Credits + Theme */}
+      <div className="flex flex-col items-center gap-4">
+        <p className="text-center text-muted-foreground text-xs">
+          Created by{" "}
+          <a
+            className="font-medium text-foreground transition-colors hover:text-accent"
+            href="https://x.com/thehungrybird_"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            @thehungrybird_
+          </a>
+          {" / "}
+          Concept by{" "}
+          <a
+            className="font-medium text-foreground transition-colors hover:text-accent"
+            href="https://x.com/strehldev"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            @strehldev
+          </a>
+        </p>
         <div className="hidden sm:block">
           <ModeToggle />
         </div>
-        {/* Mobile theme toggle */}
         <div className="sm:hidden">
           <MobileThemeToggle />
         </div>
