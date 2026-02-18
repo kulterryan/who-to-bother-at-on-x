@@ -320,7 +320,7 @@ export function CompanyForm({
                   {getFirstError(field.state.meta.errors)}
                 </p>
               )}
-              <p className="text-xs text-zinc-500">
+              <p className="text-muted-foreground text-xs">
                 This should match your company ID
               </p>
             </div>
@@ -584,7 +584,7 @@ export function CompanyForm({
                                   </div>
                                   {contactsField.state.value.length > 1 && (
                                     <Button
-                                      className="text-zinc-500 hover:text-red-600"
+                                      className="text-muted-foreground hover:text-red-600"
                                       onClick={() =>
                                         contactsField.removeValue(contactIndex)
                                       }
@@ -652,7 +652,7 @@ export function CompanyForm({
                                                   {handlesField.state.value
                                                     .length > 1 && (
                                                     <Button
-                                                      className="h-8 w-8 text-zinc-500 hover:text-red-600"
+                                                      className="h-8 w-8 text-muted-foreground hover:text-red-600"
                                                       onClick={() =>
                                                         handlesField.removeValue(
                                                           handleIndex
@@ -690,7 +690,7 @@ export function CompanyForm({
 
       {/* Submit */}
       {!hideSubmitButton && (
-        <div className="flex justify-end gap-4 border-zinc-200 border-t pt-4 dark:border-zinc-700">
+        <div className="flex justify-end gap-4 border-border/40 border-t pt-4">
           <form.Subscribe selector={(state) => state.canSubmit}>
             {(canSubmit) => {
               let buttonText: string | React.ReactNode;

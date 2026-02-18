@@ -65,11 +65,11 @@ export const Route = createFileRoute("/contribute/edit/$company")({
 
 function EditCompanyError({ error }: { error: Error }) {
   return (
-    <div className="min-h-screen text-zinc-900 dark:text-zinc-100">
+    <div className="min-h-screen">
       <main className="mx-auto max-w-3xl px-6 pt-8 pb-16 md:pt-12 md:pb-24">
-        <div className="mb-8">
+        <div className="mb-8 animate-fade-in">
           <Link
-            className="inline-flex items-center gap-2 text-sm text-zinc-600 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100"
+            className="inline-flex items-center gap-2 text-muted-foreground text-sm transition-colors duration-200 hover:text-foreground"
             to="/contribute/edit"
           >
             <ArrowLeft className="h-4 w-4" />
@@ -77,7 +77,7 @@ function EditCompanyError({ error }: { error: Error }) {
           </Link>
         </div>
 
-        <div className="rounded-xl border-2 border-red-200 bg-red-50 p-8 text-center dark:border-red-800 dark:bg-red-950/30">
+        <div className="rounded-2xl bg-red-50 p-8 text-center dark:bg-red-950/30">
           <h2 className="font-semibold text-red-700 text-xl dark:text-red-400">
             Company Not Found
           </h2>
@@ -85,7 +85,7 @@ function EditCompanyError({ error }: { error: Error }) {
             {error.message || "The company you're looking for doesn't exist."}
           </p>
           <Link
-            className="mt-6 inline-flex items-center gap-2 rounded-lg bg-red-600 px-4 py-2 font-medium text-white hover:bg-red-700"
+            className="mt-6 inline-flex items-center gap-2 rounded-xl bg-red-600 px-4 py-2 font-medium text-white transition-opacity duration-200 hover:opacity-90"
             to="/contribute/edit"
           >
             Browse Companies
@@ -237,8 +237,8 @@ function EditCompanyPage() {
 
   if (isPending) {
     return (
-      <div className="flex min-h-screen items-center justify-center text-zinc-900 dark:text-zinc-100">
-        <div className="flex items-center gap-2">
+      <div className="flex min-h-screen items-center justify-center">
+        <div className="flex items-center gap-2 text-muted-foreground">
           <svg
             className="h-5 w-5 animate-spin"
             fill="none"
@@ -272,12 +272,12 @@ function EditCompanyPage() {
   }
 
   return (
-    <div className="min-h-screen text-zinc-900 dark:text-zinc-100">
+    <div className="min-h-screen">
       <main className="mx-auto max-w-3xl px-6 pt-8 pb-16 md:pt-12 md:pb-24">
         {/* Header */}
-        <div className="mb-8">
+        <div className="mb-8 animate-fade-in">
           <Link
-            className="inline-flex items-center gap-2 text-sm text-zinc-600 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100"
+            className="inline-flex items-center gap-2 text-muted-foreground text-sm transition-colors duration-200 hover:text-foreground"
             to="/contribute/edit"
           >
             <ArrowLeft className="h-4 w-4" />
@@ -286,16 +286,16 @@ function EditCompanyPage() {
         </div>
 
         {/* Page Title */}
-        <div className="mb-8">
-          <h2 className="font-bold text-3xl">Edit {initialCompany.name}</h2>
-          <p className="mt-2 text-lg text-zinc-600 dark:text-zinc-400">
+        <div className="mb-8 animate-slide-up">
+          <h2 className="font-bold text-3xl text-foreground">Edit {initialCompany.name}</h2>
+          <p className="mt-2 text-muted-foreground text-lg">
             Update the company information below. We'll create a pull request
             with your changes.
           </p>
         </div>
 
         {/* Info Banner */}
-        <div className="mb-8 rounded-lg border-2 border-blue-200 bg-blue-50 p-4 dark:border-blue-800 dark:bg-blue-950/30">
+        <div className="mb-8 rounded-xl bg-blue-50 p-4 dark:bg-blue-950/30 animate-slide-up">
           <p className="text-blue-700 text-sm dark:text-blue-400">
             <strong>Note:</strong> You'll need to upload the company logo again,
             even if you're not changing it. This ensures the logo is properly
@@ -304,9 +304,9 @@ function EditCompanyPage() {
         </div>
 
         {/* Form Container */}
-        <div className="rounded-xl border-2 border-zinc-200 bg-white p-6 md:p-8 dark:border-zinc-700 dark:bg-zinc-900">
+        <div className="rounded-2xl bg-card p-6 md:p-8 animate-slide-up">
           {/* SVG Uploader */}
-          <div className="mb-8 border-zinc-200 border-b pb-8 dark:border-zinc-700">
+          <div className="mb-8 border-border/40 border-b pb-8">
             <SVGUploader
               companyName={initialCompany.name}
               error={svgError}
