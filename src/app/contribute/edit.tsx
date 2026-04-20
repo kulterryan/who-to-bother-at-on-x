@@ -78,7 +78,7 @@ function EditCompanySelectPage() {
 
   if (sessionPending) {
     return (
-      <div className="flex min-h-screen items-center justify-center text-zinc-900 dark:text-zinc-100">
+      <div className="flex min-h-screen items-center justify-center">
         <div className="flex items-center gap-2">
           <svg
             className="h-5 w-5 animate-spin"
@@ -113,12 +113,12 @@ function EditCompanySelectPage() {
   }
 
   return (
-    <div className="min-h-screen text-zinc-900 dark:text-zinc-100">
+    <div className="min-h-screen">
       <main className="mx-auto max-w-3xl px-6 pt-8 pb-16 md:pt-12 md:pb-24">
         {/* Header */}
-        <div className="mb-8">
+        <div className="mb-8 animate-fade-in">
           <Link
-            className="inline-flex items-center gap-2 text-sm text-zinc-600 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100"
+            className="inline-flex items-center gap-2 text-muted-foreground text-sm transition-colors duration-200 hover:text-foreground"
             to="/contribute"
           >
             <ArrowLeft className="h-4 w-4" />
@@ -127,9 +127,9 @@ function EditCompanySelectPage() {
         </div>
 
         {/* Page Title */}
-        <div className="mb-8">
-          <h2 className="font-bold text-3xl">Edit Company</h2>
-          <p className="mt-2 text-lg text-zinc-600 dark:text-zinc-400">
+        <div className="mb-8 animate-slide-up">
+          <h2 className="font-bold text-3xl text-foreground">Edit Company</h2>
+          <p className="mt-2 text-muted-foreground text-lg">
             Select a company to edit. You can update information, contacts, and
             logos.
           </p>
@@ -137,7 +137,7 @@ function EditCompanySelectPage() {
 
         {/* Search */}
         <div className="relative mb-6">
-          <Search className="absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2 text-zinc-500" />
+          <Search className="absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
           <Input
             className="pl-10"
             onChange={(e) => setSearchQuery(e.target.value)}
@@ -149,9 +149,9 @@ function EditCompanySelectPage() {
         {/* Company List */}
         <div className="space-y-3">
           {filteredCompanies.length === 0 && (
-            <div className="rounded-lg border-2 border-zinc-200 bg-zinc-50 p-8 text-center dark:border-zinc-700 dark:bg-zinc-800/50">
-              <Building2 className="mx-auto h-12 w-12 text-zinc-400" />
-              <p className="mt-4 text-zinc-600 dark:text-zinc-400">
+            <div className="rounded-2xl bg-secondary/60 p-8 text-center">
+              <Building2 className="mx-auto h-12 w-12 text-muted-foreground" />
+              <p className="mt-4 text-muted-foreground">
                 {searchQuery
                   ? "No companies found matching your search"
                   : "No companies available"}
@@ -164,22 +164,22 @@ function EditCompanySelectPage() {
 
             return (
               <Link
-                className="flex items-center gap-4 rounded-lg border-2 border-zinc-200 bg-white p-4 transition-all hover:border-orange-600 hover:shadow-md dark:border-zinc-700 dark:bg-zinc-900 dark:hover:border-orange-600"
+                className="flex items-center gap-4 rounded-2xl bg-card p-4 transition-all duration-200 hover:bg-secondary/80 active:scale-[0.99] animate-slide-up"
                 key={company.id}
                 params={{ company: company.id }}
                 to="/contribute/edit/$company"
               >
-                <div className="flex h-12 w-12 items-center justify-center rounded-lg border border-zinc-200 bg-zinc-50 p-2 dark:border-zinc-700 dark:bg-zinc-800">
-                  {Logo || <Building2 className="h-6 w-6 text-zinc-400" />}
+                <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-secondary p-2">
+                  {Logo || <Building2 className="h-6 w-6 text-muted-foreground" />}
                 </div>
                 <div className="min-w-0 flex-1">
-                  <h3 className="truncate font-semibold">{company.name}</h3>
-                  <p className="truncate text-sm text-zinc-600 dark:text-zinc-400">
+                  <h3 className="truncate font-semibold text-foreground">{company.name}</h3>
+                  <p className="truncate text-muted-foreground text-sm">
                     {company.description}
                   </p>
                 </div>
                 <svg
-                  className="text-zinc-400"
+                  className="text-muted-foreground"
                   fill="none"
                   height="20"
                   stroke="currentColor"

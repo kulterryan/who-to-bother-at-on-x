@@ -200,7 +200,7 @@ export function CompanyForm({
     >
       {/* Basic Information */}
       <div className="space-y-6">
-        <h3 className="font-semibold text-lg text-zinc-900 dark:text-zinc-100">
+        <h3 className="font-semibold text-lg text-foreground">
           Basic Information
         </h3>
 
@@ -264,7 +264,7 @@ export function CompanyForm({
                     {getFirstError(field.state.meta.errors)}
                   </p>
                 )}
-                <p className="text-xs text-zinc-500">
+                <p className="text-xs text-muted-foreground">
                   Lowercase, letters, numbers, and hyphens only
                 </p>
               </div>
@@ -320,7 +320,7 @@ export function CompanyForm({
                   {getFirstError(field.state.meta.errors)}
                 </p>
               )}
-              <p className="text-xs text-zinc-500">
+              <p className="text-muted-foreground text-xs">
                 This should match your company ID
               </p>
             </div>
@@ -330,7 +330,7 @@ export function CompanyForm({
 
       {/* Links */}
       <div className="space-y-6">
-        <h3 className="font-semibold text-lg text-zinc-900 dark:text-zinc-100">
+        <h3 className="font-semibold text-lg text-foreground">
           Links (Optional)
         </h3>
 
@@ -407,7 +407,7 @@ export function CompanyForm({
           {(categoriesField) => (
             <>
               <div className="flex items-center justify-between">
-                <h3 className="font-semibold text-lg text-zinc-900 dark:text-zinc-100">
+                <h3 className="font-semibold text-lg text-foreground">
                   Categories & Contacts
                 </h3>
                 <Button
@@ -437,7 +437,7 @@ export function CompanyForm({
               <div className="space-y-6">
                 {categoriesField.state.value.map((category, categoryIndex) => (
                   <div
-                    className="rounded-lg border-2 border-zinc-200 bg-zinc-50/50 p-4 dark:border-zinc-700 dark:bg-zinc-800/50"
+                    className="rounded-2xl bg-secondary/50 p-4"
                     key={`category-${categoryIndex}-${category.name || ""}`}
                   >
                     <div className="mb-4 flex items-start justify-between gap-4">
@@ -492,7 +492,7 @@ export function CompanyForm({
                       {(contactsField) => (
                         <div className="space-y-4">
                           <div className="flex items-center justify-between">
-                            <Label className="text-sm text-zinc-600 dark:text-zinc-400">
+                            <Label className="text-muted-foreground text-sm">
                               Contacts
                             </Label>
                             <Button
@@ -522,7 +522,7 @@ export function CompanyForm({
                           {contactsField.state.value.map(
                             (contact, contactIndex) => (
                               <div
-                                className="rounded-lg border border-zinc-200 bg-white p-4 dark:border-zinc-700 dark:bg-zinc-900"
+                                className="rounded-xl bg-card p-4"
                                 key={`contact-${categoryIndex}-${contactIndex}-${contact.product || ""}`}
                               >
                                 <div className="mb-4 flex items-start justify-between gap-4">
@@ -584,7 +584,7 @@ export function CompanyForm({
                                   </div>
                                   {contactsField.state.value.length > 1 && (
                                     <Button
-                                      className="text-zinc-500 hover:text-red-600"
+                                      className="text-muted-foreground hover:text-red-600"
                                       onClick={() =>
                                         contactsField.removeValue(contactIndex)
                                       }
@@ -652,7 +652,7 @@ export function CompanyForm({
                                                   {handlesField.state.value
                                                     .length > 1 && (
                                                     <Button
-                                                      className="h-8 w-8 text-zinc-500 hover:text-red-600"
+                                                      className="h-8 w-8 text-muted-foreground hover:text-red-600"
                                                       onClick={() =>
                                                         handlesField.removeValue(
                                                           handleIndex
@@ -690,7 +690,7 @@ export function CompanyForm({
 
       {/* Submit */}
       {!hideSubmitButton && (
-        <div className="flex justify-end gap-4 border-zinc-200 border-t pt-4 dark:border-zinc-700">
+        <div className="flex justify-end gap-4 border-border/40 border-t pt-4">
           <form.Subscribe selector={(state) => state.canSubmit}>
             {(canSubmit) => {
               let buttonText: string | React.ReactNode;

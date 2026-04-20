@@ -87,7 +87,7 @@ function RootLayout() {
         />
         {HeadContent()}
       </head>
-      <body className="min-h-screen bg-white dark:bg-zinc-950">
+      <body className="min-h-screen bg-background text-foreground">
         <ThemeProvider>
           <NuqsAdapter>
             <Header />
@@ -102,31 +102,15 @@ function RootLayout() {
 
 function NotFound() {
   return (
-    <div
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        justifyContent: "center",
-        minHeight: "100vh",
-        padding: "2rem",
-        textAlign: "center",
-      }}
-    >
-      <h1 style={{ fontSize: "4rem", margin: 0 }}>404</h1>
-      <h2 style={{ fontSize: "1.5rem", margin: "1rem 0" }}>Page Not Found</h2>
-      <p style={{ color: "#666", marginBottom: "2rem" }}>
+    <div className="flex min-h-[60vh] flex-col items-center justify-center px-6 text-center">
+      <p className="font-mono text-sm text-muted-foreground">404</p>
+      <h1 className="mt-2 font-semibold text-3xl text-foreground">Page Not Found</h1>
+      <p className="mt-2 text-muted-foreground">
         The page you're looking for doesn't exist.
       </p>
       <a
         href="/"
-        style={{
-          padding: "0.75rem 1.5rem",
-          backgroundColor: "#000",
-          color: "#fff",
-          textDecoration: "none",
-          borderRadius: "0.5rem",
-        }}
+        className="mt-6 rounded-lg bg-primary px-5 py-2.5 font-medium text-sm text-primary-foreground transition-opacity hover:opacity-90"
       >
         Go Home
       </a>

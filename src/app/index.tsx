@@ -4,6 +4,7 @@ import {
   useNavigate,
   useRouter,
 } from "@tanstack/react-router";
+import { ArrowRight } from "lucide-react";
 import { parseAsString, useQueryState } from "nuqs";
 import { useEffect } from "react";
 import { companyLogos } from "@/components/company-logos";
@@ -11,7 +12,6 @@ import { Footer } from "@/components/footer";
 import { seo } from "@/lib/seo";
 import type { Company, CompanyListItem } from "@/types/company";
 
-// Auto-discover all company JSON files (excluding templates)
 const companyModules = import.meta.glob<{ default: Company }>(
   "../data/companies/*.json",
   {
@@ -19,7 +19,6 @@ const companyModules = import.meta.glob<{ default: Company }>(
   }
 );
 
-// Extract company list items from the loaded modules
 const companies: CompanyListItem[] = Object.entries(companyModules)
   .filter(([path]) => !(path.includes("template") || path.includes("schema")))
   .map(([_, module]) => {
@@ -64,11 +63,8 @@ function HomePage() {
     parseAsString.withDefault("")
   );
 
-  // Preload search page once homepage is mounted
   useEffect(() => {
-    router.preloadRoute({ to: "/search" }).catch(() => {
-      // Silently fail if preload doesn't work
-    });
+    router.preloadRoute({ to: "/search" }).catch(() => {});
   }, [router]);
 
   useEffect(() => {
@@ -86,16 +82,17 @@ function HomePage() {
   };
 
   return (
-    <div className="text-zinc-900 dark:text-zinc-100">
-      <main className="mx-auto flex max-w-3xl flex-col gap-4 px-6 pt-8 pb-16 md:pt-12 md:pb-24">
-        <h1 className="m-0 font-medium text-4xl text-zinc-900 md:text-5xl dark:text-zinc-100">
-          who to bother on{" "}
+    <main className="mx-auto flex max-w-4xl flex-col gap-8 px-6 pt-10 pb-20 md:pt-16 md:pb-28">
+      {/* Hero */}
+      <div className="flex flex-col gap-3 animate-fade-in">
+        <h1 className="flex items-center gap-2 font-semibold text-3xl text-foreground tracking-tight md:text-4xl">
+          <span className="text-balance">who to bother on</span>
           <svg
-            className="inline-block"
+            className="inline-block shrink-0"
             fill="none"
-            height="36"
+            height="30"
             viewBox="0 0 1200 1227"
-            width="40"
+            width="34"
           >
             <title>X (Twitter) logo</title>
             <path
@@ -104,143 +101,135 @@ function HomePage() {
             />
           </svg>
         </h1>
-
-        <p className="m-0 text-lg text-zinc-600 dark:text-zinc-400">
+        <p className="max-w-lg text-muted-foreground text-base leading-relaxed">
           Find the right people to reach out to at your favorite tech companies
         </p>
+      </div>
 
-        {/* Search Input */}
-        <form className="relative" onSubmit={handleSearch}>
-          <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-4">
+      {/* Search */}
+      <form className="relative animate-slide-up" onSubmit={handleSearch} style={{ animationDelay: '0.05s' }}>
+        <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-4">
+          <svg
+            className="h-4 w-4 text-muted-foreground"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <title>Search icon</title>
+            <path
+              d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+            />
+          </svg>
+        </div>
+        <input
+          aria-label="Search companies and products"
+          className="w-full rounded-xl bg-secondary/70 py-3 pr-10 pl-10 text-foreground text-sm placeholder-muted-foreground transition-all duration-200 focus:bg-secondary focus:outline-none focus:ring-2 focus:ring-accent/30"
+          onChange={(e) => setSearchTerm(e.target.value || null)}
+          placeholder="Search companies and products..."
+          type="text"
+          value={searchTerm}
+        />
+        {searchTerm ? (
+          <button
+            aria-label="Clear search"
+            className="absolute inset-y-0 right-0 flex items-center pr-4 text-muted-foreground transition-colors duration-200 hover:text-foreground"
+            onClick={() => setSearchTerm(null)}
+            type="button"
+          >
             <svg
-              className="h-5 w-5 text-zinc-400"
+              className="h-4 w-4"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
             >
-              <title>Search icon</title>
+              <title>Clear icon</title>
               <path
-                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                d="M6 18L18 6M6 6l12 12"
                 strokeLinecap="round"
                 strokeLinejoin="round"
                 strokeWidth={2}
               />
             </svg>
-          </div>
-          <input
-            aria-label="Search companies and products"
-            className="w-full rounded-lg border-2 border-zinc-200 bg-white py-3 pr-4 pl-11 text-zinc-900 placeholder-zinc-400 transition-colors focus:border-orange-600 focus:outline-none dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-100 dark:placeholder-zinc-500 dark:focus:border-orange-600"
-            onChange={(e) => setSearchTerm(e.target.value || null)}
-            placeholder="Search companies and products..."
-            type="text"
-            value={searchTerm}
-          />
-          {searchTerm ? (
-            <button
-              aria-label="Clear search"
-              className="absolute inset-y-0 right-0 flex items-center pr-4 text-zinc-400 hover:text-zinc-600 dark:hover:text-zinc-300"
-              onClick={() => setSearchTerm(null)}
-              type="button"
-            >
-              <svg
-                className="h-5 w-5"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <title>Clear icon</title>
-                <path
-                  d="M6 18L18 6M6 6l12 12"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                />
-              </svg>
-            </button>
-          ) : null}
-        </form>
+          </button>
+        ) : null}
+      </form>
 
-        <div className="grid gap-6 md:grid-cols-2">
-          {companies.map((company) => {
-            const logo = companyLogos[company.id];
+      {/* Company Grid */}
+      <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+        {companies.map((company, i) => {
+          const logo = companyLogos[company.id];
 
-            // Use regular anchor tag for Vercel to trigger server redirect
-            if (company.id === "vercel" || company.id === "laravel") {
-              return (
-                <a
-                  className="group flex flex-col rounded-xl border-2 border-zinc-200 bg-white p-6 transition-all hover:border-zinc-900 hover:shadow-lg dark:border-zinc-700 dark:bg-zinc-900 dark:hover:border-orange-600"
-                  href={`/${company.id}`}
-                  key={company.id}
-                  target="_blank"
-                >
-                  {logo ? <div className="mb-4">{logo}</div> : null}
-                  <h2 className="mb-2 font-semibold text-2xl text-zinc-900 transition-colors group-hover:text-orange-600 dark:text-zinc-100">
-                    {company.name}
-                  </h2>
-                  <p className="line-clamp-3 flex-1 text-sm text-zinc-600 dark:text-zinc-400">
-                    {company.description}
-                  </p>
-                  <div className="mt-4 inline-flex items-center gap-2 font-medium text-orange-600 text-sm">
-                    View contacts
-                    <svg
-                      fill="none"
-                      height="16"
-                      stroke="currentColor"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      viewBox="0 0 24 24"
-                      width="16"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <title>Arrow right</title>
-                      <path d="M5 12h14" />
-                      <path d="m12 5 7 7-7 7" />
-                    </svg>
-                  </div>
-                </a>
-              );
-            }
+          const cardClasses =
+            "group flex flex-col rounded-2xl bg-card p-5 transition-all duration-200 hover:bg-secondary/80 hover:shadow-sm active:scale-[0.98] animate-slide-up";
 
+          const cardStyle = { animationDelay: `${0.03 * Math.min(i, 12)}s` };
+
+          if (company.id === "vercel" || company.id === "laravel") {
             return (
-              <Link
-                className="group flex flex-col rounded-xl border-2 border-zinc-200 bg-white p-6 transition-all hover:border-zinc-900 hover:shadow-lg dark:border-zinc-700 dark:bg-zinc-900 dark:hover:border-orange-600"
+              <a
+                className={cardClasses}
+                href={`/${company.id}`}
                 key={company.id}
-                params={{ company: company.id }}
-                to="/$company"
+                style={cardStyle}
+                target="_blank"
               >
-                {logo ? <div className="mb-4">{logo}</div> : null}
-                <h2 className="mb-2 font-semibold text-2xl text-zinc-900 transition-colors group-hover:text-orange-600 dark:text-zinc-100">
-                  {company.name}
-                </h2>
-                <p className="line-clamp-3 flex-1 text-sm text-zinc-600 dark:text-zinc-400">
-                  {company.description}
-                </p>
-                <div className="mt-4 inline-flex items-center gap-2 font-medium text-orange-600 text-sm">
-                  View contacts
-                  <svg
-                    fill="none"
-                    height="16"
-                    stroke="currentColor"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    viewBox="0 0 24 24"
-                    width="16"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <title>Arrow right</title>
-                    <path d="M5 12h14" />
-                    <path d="m12 5 7 7-7 7" />
-                  </svg>
-                </div>
-              </Link>
+                <CompanyCardContent
+                  company={company}
+                  logo={logo}
+                />
+              </a>
             );
-          })}
-        </div>
+          }
 
-        <Footer />
-      </main>
-    </div>
+          return (
+            <Link
+              className={cardClasses}
+              key={company.id}
+              params={{ company: company.id }}
+              style={cardStyle}
+              to="/$company"
+            >
+              <CompanyCardContent
+                company={company}
+                logo={logo}
+              />
+            </Link>
+          );
+        })}
+      </div>
+
+      <Footer />
+    </main>
+  );
+}
+
+function CompanyCardContent({
+  company,
+  logo,
+}: {
+  company: CompanyListItem;
+  logo: React.ReactNode;
+}) {
+  return (
+    <>
+      {logo ? (
+        <div className="mb-3 flex h-8 items-center [&>svg]:h-6 [&>svg]:w-auto">
+          {logo}
+        </div>
+      ) : null}
+      <h2 className="font-semibold text-card-foreground text-lg leading-tight transition-colors duration-200 group-hover:text-accent">
+        {company.name}
+      </h2>
+      <p className="mt-1.5 line-clamp-2 flex-1 text-muted-foreground text-sm leading-relaxed">
+        {company.description}
+      </p>
+      <div className="mt-4 inline-flex items-center gap-1.5 font-medium text-accent text-xs">
+        View contacts
+        <ArrowRight className="size-3 transition-transform duration-200 group-hover:translate-x-0.5" />
+      </div>
+    </>
   );
 }

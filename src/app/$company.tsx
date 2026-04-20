@@ -96,11 +96,11 @@ export const Route = createFileRoute("/$company")({
   },
   component: CompanyPage,
   errorComponent: ({ error }) => (
-    <div className="flex min-h-screen items-center justify-center bg-white text-zinc-900 dark:bg-zinc-950 dark:text-zinc-100">
+    <div className="flex min-h-[60vh] items-center justify-center">
       <div className="text-center">
-        <h1 className="mb-4 font-medium text-2xl">Company Not Found</h1>
-        <p className="mb-6 text-zinc-600 dark:text-zinc-400">{error.message}</p>
-        <Link className="text-orange-600 underline" to="/">
+        <h1 className="mb-3 font-semibold text-foreground text-xl">Company Not Found</h1>
+        <p className="mb-4 text-muted-foreground text-sm">{error.message}</p>
+        <Link className="font-medium text-accent text-sm underline underline-offset-4" to="/">
           Back to home
         </Link>
       </div>

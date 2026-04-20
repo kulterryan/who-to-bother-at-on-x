@@ -78,17 +78,17 @@ export function PRStatus({ status, onRetry, onReset }: PRStatusProps) {
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm">
-      <div className="mx-4 w-full max-w-md rounded-xl border-2 border-zinc-200 bg-white p-8 shadow-2xl dark:border-zinc-700 dark:bg-zinc-900">
+      <div className="mx-4 w-full max-w-md rounded-2xl bg-card p-8 shadow-2xl animate-scale-in">
         {/* Loading States */}
         {isLoadingStatus(status) && (
           <div className="text-center">
-            <div className="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-full bg-orange-100 dark:bg-orange-900/30">
-              <Loader2 className="h-8 w-8 animate-spin text-orange-600" />
+            <div className="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-full bg-accent/10">
+              <Loader2 className="h-8 w-8 animate-spin text-accent" />
             </div>
-            <h3 className="font-semibold text-lg text-zinc-900 dark:text-zinc-100">
+            <h3 className="font-semibold text-foreground text-lg">
               {getLoadingTitle(status)}
             </h3>
-            <p className="mt-2 text-sm text-zinc-600 dark:text-zinc-400">
+            <p className="mt-2 text-muted-foreground text-sm">
               {getLoadingDescription(status)}
             </p>
 
@@ -130,15 +130,15 @@ export function PRStatus({ status, onRetry, onReset }: PRStatusProps) {
             <div className="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-full bg-green-100 dark:bg-green-900/30">
               <CheckCircle className="h-8 w-8 text-green-600" />
             </div>
-            <h3 className="font-semibold text-lg text-zinc-900 dark:text-zinc-100">
+            <h3 className="font-semibold text-foreground text-lg">
               Pull Request Created!
             </h3>
-            <p className="mt-2 text-sm text-zinc-600 dark:text-zinc-400">
+            <p className="mt-2 text-muted-foreground text-sm">
               Your contribution has been submitted successfully. A maintainer
               will review your PR shortly.
             </p>
 
-            <div className="mt-6 rounded-lg border-2 border-green-200 bg-green-50 p-4 dark:border-green-800 dark:bg-green-950/30">
+            <div className="mt-6 rounded-xl bg-green-50 p-4 dark:bg-green-950/30">
               <div className="flex items-center justify-center gap-2 text-green-700 dark:text-green-400">
                 <GitPullRequest className="h-5 w-5" />
                 <span className="font-medium">PR #{status.prNumber}</span>
@@ -147,7 +147,7 @@ export function PRStatus({ status, onRetry, onReset }: PRStatusProps) {
 
             <div className="mt-6 flex flex-col gap-3">
               <a
-                className="inline-flex items-center justify-center gap-2 rounded-lg bg-zinc-900 px-4 py-3 font-medium text-white transition-colors hover:bg-zinc-800 dark:bg-zinc-100 dark:text-zinc-900 dark:hover:bg-zinc-200"
+                className="inline-flex items-center justify-center gap-2 rounded-xl bg-primary px-4 py-3 font-medium text-primary-foreground transition-opacity duration-200 hover:opacity-90"
                 href={status.prUrl}
                 rel="noopener noreferrer"
                 target="_blank"
@@ -156,7 +156,7 @@ export function PRStatus({ status, onRetry, onReset }: PRStatusProps) {
                 View Pull Request on GitHub
               </a>
               <Link
-                className="inline-flex items-center justify-center gap-2 rounded-lg border-2 border-zinc-200 px-4 py-3 font-medium text-zinc-900 transition-colors hover:bg-zinc-50 dark:border-zinc-700 dark:text-zinc-100 dark:hover:bg-zinc-800"
+                className="inline-flex items-center justify-center gap-2 rounded-xl bg-secondary px-4 py-3 font-medium text-secondary-foreground transition-colors duration-200 hover:bg-secondary/80"
                 to="/contribute"
               >
                 Back to Contribute
@@ -171,14 +171,14 @@ export function PRStatus({ status, onRetry, onReset }: PRStatusProps) {
             <div className="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-full bg-green-100 dark:bg-green-900/30">
               <CheckCircle className="h-8 w-8 text-green-600" />
             </div>
-            <h3 className="font-semibold text-lg text-zinc-900 dark:text-zinc-100">
+            <h3 className="font-semibold text-foreground text-lg">
               Changes Committed!
             </h3>
-            <p className="mt-2 text-sm text-zinc-600 dark:text-zinc-400">
+            <p className="mt-2 text-muted-foreground text-sm">
               Your changes have been committed directly to the repository.
             </p>
 
-            <div className="mt-6 rounded-lg border-2 border-green-200 bg-green-50 p-4 dark:border-green-800 dark:bg-green-950/30">
+            <div className="mt-6 rounded-xl bg-green-50 p-4 dark:bg-green-950/30">
               <div className="flex items-center justify-center gap-2 text-green-700 dark:text-green-400">
                 <GitBranch className="h-5 w-5" />
                 <span className="font-medium font-mono text-sm">
@@ -189,7 +189,7 @@ export function PRStatus({ status, onRetry, onReset }: PRStatusProps) {
 
             <div className="mt-6 flex flex-col gap-3">
               <a
-                className="inline-flex items-center justify-center gap-2 rounded-lg bg-zinc-900 px-4 py-3 font-medium text-white transition-colors hover:bg-zinc-800 dark:bg-zinc-100 dark:text-zinc-900 dark:hover:bg-zinc-200"
+                className="inline-flex items-center justify-center gap-2 rounded-xl bg-primary px-4 py-3 font-medium text-primary-foreground transition-opacity duration-200 hover:opacity-90"
                 href={`https://github.com/kulterryan/cf-who-to-bother-at-on-x/tree/${status.branch}`}
                 rel="noopener noreferrer"
                 target="_blank"
@@ -198,7 +198,7 @@ export function PRStatus({ status, onRetry, onReset }: PRStatusProps) {
                 View Branch on GitHub
               </a>
               <Link
-                className="inline-flex items-center justify-center gap-2 rounded-lg border-2 border-zinc-200 px-4 py-3 font-medium text-zinc-900 transition-colors hover:bg-zinc-50 dark:border-zinc-700 dark:text-zinc-100 dark:hover:bg-zinc-800"
+                className="inline-flex items-center justify-center gap-2 rounded-xl bg-secondary px-4 py-3 font-medium text-secondary-foreground transition-colors duration-200 hover:bg-secondary/80"
                 to="/contribute"
               >
                 Back to Contribute
@@ -213,10 +213,10 @@ export function PRStatus({ status, onRetry, onReset }: PRStatusProps) {
             <div className="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-full bg-red-100 dark:bg-red-900/30">
               <XCircle className="h-8 w-8 text-red-600" />
             </div>
-            <h3 className="font-semibold text-lg text-zinc-900 dark:text-zinc-100">
+            <h3 className="font-semibold text-foreground text-lg">
               Something Went Wrong
             </h3>
-            <p className="mt-2 text-sm text-zinc-600 dark:text-zinc-400">
+            <p className="mt-2 text-muted-foreground text-sm">
               {status.message}
             </p>
 
@@ -254,9 +254,9 @@ function ProgressStep({
       return "bg-green-500 text-white";
     }
     if (active) {
-      return "bg-orange-500 text-white";
+      return "bg-accent text-accent-foreground";
     }
-    return "bg-zinc-200 text-zinc-500 dark:bg-zinc-700";
+    return "bg-secondary text-muted-foreground";
   };
 
   // Helper function to get step label className
@@ -265,21 +265,21 @@ function ProgressStep({
       return "text-green-600 dark:text-green-400";
     }
     if (active) {
-      return "font-medium text-zinc-900 dark:text-zinc-100";
+      return "font-medium text-foreground";
     }
-    return "text-zinc-500";
+    return "text-muted-foreground";
   };
 
   return (
     <div className="flex items-center gap-3">
       <div
-        className={`flex h-6 w-6 items-center justify-center rounded-full ${getCircleClassName()}`}
+        className={`flex h-6 w-6 items-center justify-center rounded-full transition-colors duration-200 ${getCircleClassName()}`}
       >
         {completed ? <CheckCircle className="h-4 w-4" /> : null}
         {!completed && active ? (
           <Loader2 className="h-4 w-4 animate-spin" />
         ) : null}
-        {completed || active ? null : <span className="text-xs">•</span>}
+        {completed || active ? null : <span className="text-xs">{"."}</span>}
       </div>
       <span className={`text-sm ${getLabelClassName()}`}>{label}</span>
     </div>

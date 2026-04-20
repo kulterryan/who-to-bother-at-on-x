@@ -46,7 +46,7 @@ export function SVGUploader({
       errors.push("SVG contains script tags which are not allowed");
     }
     if (content.includes("javascript:")) {
-      errors.push("SVG contains JavaScript which is not allowed");
+      errors.push("SVG contains JavaScript which are not allowed");
     }
     if (content.includes("onclick") || content.includes("onerror")) {
       errors.push("SVG contains event handlers which are not allowed");
@@ -184,9 +184,9 @@ export function SVGUploader({
 
       {/* Preview */}
       {Boolean(value) && validation?.isValid ? (
-        <div className="relative rounded-lg border-2 border-green-200 bg-green-50 p-4 dark:border-green-800 dark:bg-green-950/30">
+        <div className="relative rounded-xl bg-green-50 p-4 dark:bg-green-950/30">
           <div className="flex items-center gap-4">
-            <div className="flex h-16 w-16 items-center justify-center rounded-lg border border-zinc-200 bg-white p-2 dark:border-zinc-700 dark:bg-zinc-900">
+            <div className="flex h-16 w-16 items-center justify-center rounded-lg bg-secondary p-2">
               <div
                 className="h-12 w-12 [&>svg]:h-full [&>svg]:w-full"
                 // biome-ignore lint/security/noDangerouslySetInnerHtml: SVG is validated before rendering
@@ -202,7 +202,7 @@ export function SVGUploader({
               </p>
             </div>
             <Button
-              className="text-zinc-500 hover:text-red-600"
+              className="text-muted-foreground hover:text-red-600"
               onClick={handleClear}
               size="icon"
               type="button"
@@ -214,14 +214,14 @@ export function SVGUploader({
 
           {/* Dark mode preview */}
           <div className="mt-4 flex items-center gap-4">
-            <div className="flex h-12 w-12 items-center justify-center rounded-lg border border-zinc-700 bg-zinc-900 p-2">
+            <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-neutral-900 p-2">
               <div
-                className="h-8 w-8 text-zinc-100 [&>svg]:h-full [&>svg]:w-full [&>svg]:fill-current"
+                className="h-8 w-8 text-neutral-100 [&>svg]:h-full [&>svg]:w-full [&>svg]:fill-current"
                 // biome-ignore lint/security/noDangerouslySetInnerHtml: SVG is validated before rendering
                 dangerouslySetInnerHTML={{ __html: value }}
               />
             </div>
-            <span className="text-sm text-zinc-600 dark:text-zinc-400">
+            <span className="text-muted-foreground text-sm">
               Dark mode preview
             </span>
           </div>
@@ -232,10 +232,10 @@ export function SVGUploader({
       {Boolean(value) && validation?.isValid ? null : (
         // biome-ignore lint/a11y/useSemanticElements: Drag-and-drop requires handlers on container element, button inside handles clicks
         <div
-          className={`relative rounded-lg border-2 border-dashed p-8 text-center transition-colors ${
+          className={`relative rounded-xl border-2 border-dashed p-8 text-center transition-all duration-200 ${
             dragActive
-              ? "border-orange-500 bg-orange-50 dark:bg-orange-950/20"
-              : "border-zinc-300 hover:border-zinc-400 dark:border-zinc-600 dark:hover:border-zinc-500"
+              ? "border-accent bg-accent/5"
+              : "border-border hover:border-muted-foreground/40"
           }`}
           onDragEnter={handleDrag}
           onDragLeave={handleDrag}
@@ -257,18 +257,18 @@ export function SVGUploader({
             type="file"
           />
 
-          <Upload className="mx-auto h-12 w-12 text-zinc-400" />
-          <p className="mt-4 font-medium text-sm text-zinc-900 dark:text-zinc-100">
+          <Upload className="mx-auto h-12 w-12 text-muted-foreground" />
+          <p className="mt-4 font-medium text-foreground text-sm">
             Drag and drop your SVG logo here
           </p>
-          <p className="mt-1 text-xs text-zinc-500">
+          <p className="mt-1 text-muted-foreground text-xs">
             or click to browse your files
           </p>
 
           <div className="mt-4 flex items-center justify-center gap-4">
-            <div className="h-px flex-1 bg-zinc-200 dark:bg-zinc-700" />
-            <span className="text-xs text-zinc-500">or</span>
-            <div className="h-px flex-1 bg-zinc-200 dark:bg-zinc-700" />
+            <div className="h-px flex-1 bg-border" />
+            <span className="text-muted-foreground text-xs">or</span>
+            <div className="h-px flex-1 bg-border" />
           </div>
 
           <Button
@@ -319,7 +319,7 @@ export function SVGUploader({
 
       {/* Validation Messages */}
       {validation && !validation.isValid ? (
-        <div className="rounded-lg border-2 border-red-200 bg-red-50 p-4 dark:border-red-800 dark:bg-red-950/30">
+        <div className="rounded-xl bg-red-50 p-4 dark:bg-red-950/30">
           <div className="flex items-start gap-2">
             <AlertCircle className="mt-0.5 h-4 w-4 text-red-600" />
             <div>
@@ -338,7 +338,7 @@ export function SVGUploader({
 
       {Boolean(validation?.isValid) &&
       (validation?.warnings.length ?? 0) > 0 ? (
-        <div className="rounded-lg border-2 border-yellow-200 bg-yellow-50 p-4 dark:border-yellow-800 dark:bg-yellow-950/30">
+        <div className="rounded-xl bg-yellow-50 p-4 dark:bg-yellow-950/30">
           <div className="flex items-start gap-2">
             <AlertCircle className="mt-0.5 h-4 w-4 text-yellow-600" />
             <div>
@@ -359,11 +359,11 @@ export function SVGUploader({
       {error ? <p className="text-red-600 text-sm">{error}</p> : null}
 
       {/* Guidelines */}
-      <div className="rounded-lg bg-zinc-100 p-4 dark:bg-zinc-800">
-        <p className="font-medium text-sm text-zinc-900 dark:text-zinc-100">
+      <div className="rounded-xl bg-secondary/60 p-4">
+        <p className="font-medium text-foreground text-sm">
           Logo Guidelines
         </p>
-        <ul className="mt-2 list-disc pl-4 text-xs text-zinc-600 dark:text-zinc-400">
+        <ul className="mt-2 list-disc pl-4 text-muted-foreground text-xs">
           <li>Use SVG format for best quality</li>
           <li>Keep file size reasonable (under 50KB preferred)</li>
           <li>Logo should have a viewBox attribute for proper scaling</li>

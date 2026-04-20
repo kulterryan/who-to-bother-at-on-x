@@ -3,7 +3,7 @@ import type React from "react";
 export const companyLogos: Record<string, React.ReactNode> = {
   cloudflare: (
     <svg
-      className="shrink-0 text-accent-100 transition-colors duration-200 ease-out"
+      className="shrink-0 text-foreground transition-colors duration-200 ease-out"
       fill="none"
       height="30"
       id="nav-logo-icon"
@@ -21,7 +21,7 @@ export const companyLogos: Record<string, React.ReactNode> = {
   ),
   vercel: (
     <svg
-      className="text-zinc-900 dark:text-zinc-100"
+      className="text-foreground"
       height="30"
       preserveAspectRatio="xMidYMid"
       viewBox="0 0 256 222"
@@ -34,7 +34,7 @@ export const companyLogos: Record<string, React.ReactNode> = {
   ),
   planetscale: (
     <svg
-      className="text-zinc-900 dark:text-zinc-100"
+      className="text-foreground"
       height="30"
       preserveAspectRatio="xMidYMid"
       viewBox="0 0 256 256"
@@ -50,7 +50,7 @@ export const companyLogos: Record<string, React.ReactNode> = {
   ),
   tanstack: (
     <svg
-      className="text-zinc-900 dark:text-zinc-100"
+      className="text-foreground"
       height="36"
       viewBox="0 0 663 660"
       width="36"
@@ -66,7 +66,7 @@ export const companyLogos: Record<string, React.ReactNode> = {
   ),
   mintlify: (
     <svg
-      className="text-zinc-600 dark:text-zinc-400"
+      className="text-muted-foreground"
       fill="none"
       height="30"
       viewBox="0 0 19 19"
@@ -91,7 +91,7 @@ export const companyLogos: Record<string, React.ReactNode> = {
   ),
   webflow: (
     <svg
-      className="text-zinc-900 dark:text-zinc-100"
+      className="text-foreground"
       fill="none"
       height="30"
       viewBox="0 0 1080 674"
@@ -109,7 +109,7 @@ export const companyLogos: Record<string, React.ReactNode> = {
   ),
   upstash: (
     <svg
-      className="text-zinc-700 dark:text-zinc-300"
+      className="text-foreground"
       fill="none"
       height="30"
       viewBox="0 0 118 118"
@@ -146,7 +146,7 @@ export const companyLogos: Record<string, React.ReactNode> = {
   ),
   github: (
     <svg
-      className="text-zinc-900 dark:text-zinc-100"
+      className="text-foreground"
       height="30"
       viewBox="0 0 98 96"
       width="30"
@@ -239,7 +239,7 @@ export const companyLogos: Record<string, React.ReactNode> = {
   ),
   railway: (
     <svg
-      className="text-zinc-900 dark:text-zinc-100"
+      className="text-foreground"
       fill="none"
       height="30"
       viewBox="0 0 1024 1024"
@@ -259,7 +259,7 @@ export const companyLogos: Record<string, React.ReactNode> = {
   ),
   redwoodjs: (
     <svg
-      className="text-zinc-900 dark:text-zinc-100"
+      className="text-foreground"
       height="30"
       preserveAspectRatio="xMidYMid"
       viewBox="0 0 256 277"
@@ -268,7 +268,7 @@ export const companyLogos: Record<string, React.ReactNode> = {
     >
       <title>RedwoodJS</title>
       <path
-        className="fill-zinc-200 dark:fill-zinc-700"
+        className="fill-secondary"
         d="M112.4 4C102 9.1 80 19.3 68.2 27.4c-12 8.1-10.4 15.7-15.6 21a409.5 409.5 0 0 1-31.3 26.1C11 82.5 13.5 103.4 11 111.3c-2.6 7.8-7.8 26.2-10.4 34-2.6 7.9 5.2 18.4 10.4 28.8 5.2 10.5 18.2 39.3 23.4 49.8 5.2 10.4 20.9 5.2 33.9 15.7s31.2 23.6 44.2 31.4c13 7.9 18.2 7.9 31.2 0 13-7.8 31.2-21 44.2-31.4 13-10.5 28.7-5.3 33.9-15.7 5.2-10.5 18.2-39.3 23.4-49.8 5.2-10.4 13-21 10.4-28.8-2.6-7.8-7.8-26.2-10.4-34-2.6-7.9 0-28.8-10.4-36.7a385.3 385.3 0 0 1-31.3-26.2c-8.7-8.3-5.2-13-15.6-21C177.4 19.7 154 9.3 143.6 4a33 33 0 0 0-31.2 0Z"
         opacity="0.4"
       />
@@ -280,7 +280,7 @@ export const companyLogos: Record<string, React.ReactNode> = {
   ),
   groq: (
     <svg
-      className="text-zinc-900 dark:text-zinc-100"
+      className="text-foreground"
       fill="none"
       height="30"
       viewBox="0 0 370 563"
@@ -296,7 +296,7 @@ export const companyLogos: Record<string, React.ReactNode> = {
   ),
   supabase: (
     <svg
-      className="text-zinc-900 dark:text-zinc-100"
+      className="text-foreground"
       fill="none"
       height="32"
       viewBox="0 0 31 32"
@@ -328,7 +328,7 @@ export const companyLogos: Record<string, React.ReactNode> = {
   ),
   telebugs: (
     <svg
-      className="text-zinc-900 dark:text-zinc-100"
+      className="text-foreground"
       fill="none"
       height="30"
       viewBox="0 0 350 350"
@@ -346,7 +346,7 @@ export const companyLogos: Record<string, React.ReactNode> = {
   coolify: (
     <svg
       aria-labelledby="coolify"
-      className="text-zinc-900 dark:text-zinc-100"
+      className="text-foreground"
       height="40"
       viewBox="0 0 352 352"
       width="40"
@@ -366,7 +366,7 @@ export const companyLogos: Record<string, React.ReactNode> = {
   depot: (
     <svg
       aria-labelledby="depot-logo-title"
-      className="text-zinc-900 dark:text-zinc-100"
+      className="text-foreground"
       fill="none"
       height="30"
       viewBox="0 0 64 64"
@@ -401,7 +401,7 @@ export const companyLogos: Record<string, React.ReactNode> = {
   appwrite: (
     <svg
       aria-labelledby="appwrite-logo-title"
-      className="text-zinc-900 dark:text-zinc-100"
+      className="text-foreground"
       fill="none"
       height="30"
       viewBox="0 0 112 98"
@@ -421,7 +421,7 @@ export const companyLogos: Record<string, React.ReactNode> = {
   ),
   "google-ai-studio": (
     <svg
-      className="text-zinc-900 dark:text-zinc-100"
+      className="text-foreground"
       fill="none"
       height="30"
       viewBox="0 0 299 310"
@@ -442,7 +442,7 @@ export const companyLogos: Record<string, React.ReactNode> = {
   axiom: (
     <svg
       aria-hidden="true"
-      className="text-zinc-900 dark:text-zinc-100"
+      className="text-foreground"
       height="30"
       role="img"
       viewBox="0 0 358 309"
@@ -510,7 +510,7 @@ export const companyLogos: Record<string, React.ReactNode> = {
   ),
   netlify: (
     <svg
-      className="text-zinc-900 dark:text-zinc-100"
+      className="text-foreground"
       height="30"
       preserveAspectRatio="xMidYMid"
       viewBox="0 0 256 226"
@@ -534,7 +534,7 @@ export const companyLogos: Record<string, React.ReactNode> = {
   ),
   cursor: (
     <svg
-      className="text-zinc-900 dark:text-zinc-100"
+      className="text-foreground"
       height="30"
       viewBox="0 0 466.73 532.09"
       width="30"
@@ -550,7 +550,7 @@ export const companyLogos: Record<string, React.ReactNode> = {
   hackernoon: (
     <svg
       aria-labelledby="hackernoon-logo-title"
-      className="text-zinc-900 dark:text-zinc-100"
+      className="text-foreground"
       fill="none"
       height="30"
       viewBox="0 0 240 241"
@@ -598,7 +598,7 @@ export const companyLogos: Record<string, React.ReactNode> = {
   ),
   openrouter: (
     <svg
-      className="text-zinc-900 dark:text-zinc-100"
+      className="text-foreground"
       height="30"
       viewBox="0 0 512 512"
       width="30"
@@ -648,7 +648,7 @@ export const companyLogos: Record<string, React.ReactNode> = {
   ),
   "dodo-payments": (
     <svg
-      className="text-zinc-900 dark:text-zinc-100"
+      className="text-foreground"
       fill="none"
       height="30"
       viewBox="0 0 121 121"
@@ -657,7 +657,7 @@ export const companyLogos: Record<string, React.ReactNode> = {
     >
       <title>Dodo Payments</title>
       <circle cx="60.5" cy="60.5" fill="currentColor" r="60" />
-      <g className="dark:fill-zinc-900" fill="white">
+      <g className="fill-background" fill="currentColor">
         <path d="M53.341 44.804h-.04c-2.48-.712-5.104.712-5.944 3.064-.928 2.528.544 5.424 3.144 6.224 6.368 1.808 9.104-7.32 2.84-9.288" />
         <path d="M107.614 57.708c-8.2-17.96-34.36-10.528-36.776-15.232-7.08-11.112-20.296-17.352-34.584-14.136-2.2-.88-9.776-1.12-14.672 1.96l2.952 1.304c.224.096.16.072.488.192 1.336.504 1.104.36.144.888-2.2 1.288-4.944 2.784-6.656 5.032.072.104 3.768.992 3.768.992.064.016.752.088.6.392-12.088 19.088 8.296 47.896 18.192 63.4h28.648c-4.424-7.92-9.48-18.728-7.752-26.064.312-1.328.712-3.016 2.344-3.24 3.944-.632 9.224-.576 12.984-1h.056c.8-.04 20.384-2.528 25.072 9.68.4 1.12 1.32.392 1.688-.344 3.496-6.952 5.752-17.896 3.52-23.816zm-31.616-5.896c-1.376 2.456-2.312 5.648-2.552 8.432-.128 1.768.056 3.512.232 5.28.096.976.104 2.208-.68 2.848-.68.576-1.808.632-2.944.712-5.576-.024-19.176 0-24.416-3.568l-.032-.024c-7.624-4.648-11.704-15.144-7.176-23.296 1.464-2.768 4.16-4.568 7.232-5.248 3.952-.904 8.304-.232 11.832 1.616 1.44.728 3.16 1.688 4.472 2.792 2.6 2.272 4.824 4.632 8.232 5.36 1.568.448 3.2.384 4.768.704 2.936.704 2.2 2.376 1.024 4.376z" />
       </g>
@@ -665,7 +665,7 @@ export const companyLogos: Record<string, React.ReactNode> = {
   ),
   prisma: (
     <svg
-      className="text-zinc-900 dark:text-zinc-100"
+      className="text-foreground"
       fill="currentColor"
       height="30"
       preserveAspectRatio="xMidYMid"
@@ -679,7 +679,7 @@ export const companyLogos: Record<string, React.ReactNode> = {
   ),
   reactnative: (
     <svg
-      className="text-zinc-900 dark:text-zinc-100"
+      className="text-foreground"
       fill="currentColor"
       height="30"
       viewBox="0 0 569 512"
@@ -703,7 +703,7 @@ export const companyLogos: Record<string, React.ReactNode> = {
   ),
   llmgateway: (
     <svg
-      className="text-zinc-900 dark:text-zinc-100"
+      className="text-foreground"
       fill="currentColor"
       height="30"
       viewBox="0 0 218 232"
@@ -724,7 +724,7 @@ export const companyLogos: Record<string, React.ReactNode> = {
   tembo: (
     <svg
       aria-labelledby="tembo-logo-title"
-      className="text-zinc-900 dark:text-zinc-100"
+      className="text-foreground"
       height="30"
       viewBox="9.5 5 14.5 15"
       width="30"
@@ -753,7 +753,7 @@ export const companyLogos: Record<string, React.ReactNode> = {
   ),
   drizzle: (
     <svg
-      className="text-zinc-900 dark:text-zinc-100"
+      className="text-foreground"
       fill="none"
       height="42"
       viewBox="0 0 160 160"
@@ -809,7 +809,7 @@ export const companyLogos: Record<string, React.ReactNode> = {
   ),
   dub: (
     <svg
-      className="text-zinc-900 dark:text-zinc-100"
+      className="text-foreground"
       height="30"
       viewBox="0 0 64 64"
       width="30"
@@ -826,7 +826,7 @@ export const companyLogos: Record<string, React.ReactNode> = {
   ),
   autumn: (
     <svg
-      className="text-zinc-900 dark:text-zinc-100"
+      className="text-foreground"
       height="32"
       viewBox="0 0 64 64"
       width="32"
