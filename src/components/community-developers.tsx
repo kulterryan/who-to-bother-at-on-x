@@ -100,10 +100,12 @@ function isDeveloperHighlighted(
     developer.name.toLowerCase().includes(query) ||
     developer.handle.toLowerCase().includes(query) ||
     developer.specialty.toLowerCase().includes(query) ||
-    developer.focusAreas?.some((area) => area.toLowerCase().includes(query)) ||
-    developer.projects?.some((project) =>
+    (developer.focusAreas?.some((area) => area.toLowerCase().includes(query)) ??
+      false) ||
+    (developer.projects?.some((project) =>
       project.name.toLowerCase().includes(query)
-    )
+    ) ??
+      false)
   );
 }
 
