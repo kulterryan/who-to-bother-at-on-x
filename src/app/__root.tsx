@@ -12,6 +12,7 @@ import { ThemeProvider } from "@/components/theme-provider";
 import { seo } from "@/lib/seo";
 import { THEME_STORAGE_KEY } from "@/lib/theme";
 import appCss from "./globals.css?url";
+import { useEffect } from "react";
 
 const faviconUrl = "/favicon.svg";
 
@@ -76,6 +77,12 @@ export const Route = createRootRoute({
 });
 
 function RootLayout() {
+  useEffect(() => {
+    if (import.meta.env.DEV) {
+      void import("react-grab");
+    }
+  }, []);
+  
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
