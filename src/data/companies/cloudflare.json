@@ -146,26 +146,26 @@
       "github": "https://github.com/yusukebe"
     },
     {
-      "name": "Gabriel Villares",
-      "handle": "@G4brym",
-      "role": "oss-maintainer",
-      "specialty": "Workers database tooling and query builders",
-      "focusAreas": ["D1", "Workers", "ORM"],
-      "projects": [
-        { "name": "workers-qb", "url": "https://github.com/G4brym/workers-qb" }
-      ],
-      "github": "https://github.com/G4brym"
-    },
-    {
       "name": "Dhruvil",
       "handle": "@mdhruvill",
       "role": "oss-maintainer",
       "specialty": "Building Gitflare - an open-source GitHub alternative on Cloudflare",
       "focusAreas": ["Workers", "Git", "Open Source"],
       "projects": [
-        { "name": "Gitflare", "url": "https://github.com/nicepkg/gitflare" }
+        { "name": "Gitflare", "url": "https://github.com/mdhruvil/gitflare" }
       ],
       "github": "https://github.com/mdhruvil"
+    },
+    {
+      "name" : "Rohan Prasad",
+      "handle": "@rohanpdofficial",
+      "role": "oss-maintainer",
+      "focusAreas": ["Workers", "Local Development", "Open Source"],
+      "specialty" : "Built localflare, a local development dashboard for Cloudflare Workers",
+      "projects": [
+        { "name": "localflare", "url": "https://github.com/rohanprasadofficial/localflare" }
+      ],
+      "github": "https://github.com/rohanprasadofficial"
     }
   ]
 }
