@@ -109,5 +109,59 @@
         { "product": "Terraform Support", "handles": ["@dglsparsons"] }
       ]
     }
+  ],
+  "communityDevelopers": [
+    {
+      "name": "Theo Browne",
+      "handle": "@t3dotgg",
+      "role": "content-creator",
+      "specialty": "Full-stack TypeScript tutorials and Next.js content",
+      "focusAreas": ["Next.js", "TypeScript", "T3 Stack"],
+      "projects": [
+        {
+          "name": "create-t3-app",
+          "url": "https://github.com/t3-oss/create-t3-app"
+        }
+      ],
+      "github": "https://github.com/t3dotgg",
+      "website": "https://t3.gg"
+    },
+    {
+      "name": "Matt Pocock",
+      "handle": "@maaborotori",
+      "role": "content-creator",
+      "specialty": "TypeScript educator and content creator",
+      "focusAreas": ["TypeScript", "React", "Next.js"],
+      "projects": [
+        { "name": "Total TypeScript", "url": "https://totaltypescript.com" }
+      ],
+      "website": "https://mattpocock.com"
+    },
+    {
+      "name": "Josh Comeau",
+      "handle": "@joshwcomeau",
+      "role": "content-creator",
+      "specialty": "Interactive React and CSS tutorials",
+      "focusAreas": ["React", "CSS", "Next.js"],
+      "website": "https://joshwcomeau.com"
+    },
+    {
+      "name": "Sam Selikoff",
+      "handle": "@samselikoff",
+      "role": "content-creator",
+      "specialty": "Frontend development tutorials and Framer Motion",
+      "focusAreas": ["React", "Framer Motion", "Next.js"],
+      "projects": [{ "name": "Build UI", "url": "https://buildui.com" }],
+      "website": "https://samselikoff.com"
+    },
+    {
+      "name": "Steven Tey",
+      "handle": "@steventey",
+      "role": "oss-maintainer",
+      "specialty": "Building open-source tools for the Next.js ecosystem",
+      "focusAreas": ["Next.js", "Open Source", "Developer Tools"],
+      "projects": [{ "name": "Dub", "url": "https://github.com/dubinc/dub" }],
+      "github": "https://github.com/steven-tey"
+    }
   ]
 }

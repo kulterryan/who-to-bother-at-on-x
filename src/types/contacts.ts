@@ -1,5 +1,10 @@
 // Re-export valibot-inferred types from schema
-export type { Category, Contact } from "../data/companies/schema";
+export type {
+  Category,
+  CommunityDeveloper,
+  CommunityRole,
+  Contact,
+} from "../data/companies/schema";
 
 export type Company = {
   name: string;
