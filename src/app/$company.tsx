@@ -121,6 +121,7 @@ function CompanyPage() {
   return (
     <ContactsList
       categories={company.categories}
+      communityDevelopers={company.communityDevelopers}
       companyName={company.name}
       discord={company.discord}
       docs={company.docs}

@@ -67,6 +67,7 @@
     "react": "19.1.0",
     "react-day-picker": "9.8.0",
     "react-dom": "19.1.0",
+    "react-grab": "^0.1.28",
     "react-resizable-panels": "^2.1.7",
     "recharts": "2.15.4",
     "sonner": "^1.7.4",

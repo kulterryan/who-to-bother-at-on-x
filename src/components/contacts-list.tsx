@@ -17,7 +17,8 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import type { Category, Contact } from "@/types/contacts";
+import type { Category, CommunityDeveloper, Contact } from "@/types/contacts";
+import { CommunityDevelopersSection } from "./community-developers";
 
 type ContactsListProps = {
   categories: Category[];
@@ -29,6 +30,7 @@ type ContactsListProps = {
   docs?: string;
   github?: string;
   discord?: string;
+  communityDevelopers?: CommunityDeveloper[];
 };
 
 // Helper function to filter contacts by search query
@@ -282,6 +284,7 @@ export function ContactsList({
   docs,
   github,
   discord,
+  communityDevelopers,
 }: ContactsListProps) {
   const [copiedProduct, setCopiedProduct] = useState<string | null>(null);
   const firstMatchRef = useRef<HTMLDivElement | null>(null);
@@ -437,6 +440,13 @@ export function ContactsList({
             </div>
           ))}
         </div>
+
+        {communityDevelopers && communityDevelopers.length > 0 && (
+          <CommunityDevelopersSection
+            developers={communityDevelopers}
+            searchQuery={searchQuery}
+          />
+        )}
 
         <Footer
           contributionMessage="This is a community-maintained directory. Have more contacts to add?"

@@ -70,7 +70,10 @@
         { "product": "API & Terraform", "handles": ["@korinne_dev"] },
         { "product": "Browser Rendering", "handles": ["@kathyyliao"] },
         { "product": "Sandboxes", "handles": ["@whoiskatrin"] },
-        { "product": "Realtime & WebRTC", "handles": ["@rrnn", "@roerohan", "@nilsohlmeier"] },
+        {
+          "product": "Realtime & WebRTC",
+          "handles": ["@rrnn", "@roerohan", "@nilsohlmeier"]
+        },
         {
           "product": "Workers AI",
           "handles": ["@_mchenco", "@minglu", "@bfirsh", "@corywilkerson"]
@@ -110,7 +113,15 @@
         },
         {
           "product": "Developer Advocate",
-          "handles": ["@lauragift_", "@fayazara", "@craigsdennis", "@Jilles", "@harshil1712", "@megaconfidence", "@yusukebe"]
+          "handles": [
+            "@lauragift_",
+            "@fayazara",
+            "@craigsdennis",
+            "@Jilles",
+            "@harshil1712",
+            "@megaconfidence",
+            "@yusukebe"
+          ]
         }
       ]
     },
@@ -122,6 +133,39 @@
           "handles": ["@dalexeenko"]
         }
       ]
+    }
+  ],
+  "communityDevelopers": [
+    {
+      "name": "Yusuke Wada",
+      "handle": "@yusukebe",
+      "role": "oss-maintainer",
+      "specialty": "Creator of Hono - ultrafast web framework for Cloudflare Workers",
+      "focusAreas": ["Workers", "Hono", "Edge Computing"],
+      "projects": [{ "name": "Hono", "url": "https://github.com/honojs/hono" }],
+      "github": "https://github.com/yusukebe"
+    },
+    {
+      "name": "Gabriel Villares",
+      "handle": "@G4brym",
+      "role": "oss-maintainer",
+      "specialty": "Workers database tooling and query builders",
+      "focusAreas": ["D1", "Workers", "ORM"],
+      "projects": [
+        { "name": "workers-qb", "url": "https://github.com/G4brym/workers-qb" }
+      ],
+      "github": "https://github.com/G4brym"
+    },
+    {
+      "name": "Dhruvil",
+      "handle": "@mdhruvill",
+      "role": "oss-maintainer",
+      "specialty": "Building Gitflare - an open-source GitHub alternative on Cloudflare",
+      "focusAreas": ["Workers", "Git", "Open Source"],
+      "projects": [
+        { "name": "Gitflare", "url": "https://github.com/nicepkg/gitflare" }
+      ],
+      "github": "https://github.com/mdhruvil"
     }
   ]
 }
