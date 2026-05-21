@@ -1,0 +1,13 @@
+User-agent: *
+Allow: /
+Allow: /search
+Allow: /stats
+Allow: /sponsors
+Allow: /llms.txt
+Allow: /sitemap.xml
+Disallow: /api/
+Disallow: /dashboard
+Disallow: /login
+Disallow: /contribute
+
+Sitemap: https://who-to-bother-at.com/sitemap.xml
