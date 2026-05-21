@@ -17,6 +17,7 @@
   },
   "type": "module",
   "dependencies": {
+    "@dualmark/cloudflare": "^0.7.0",
     "@dualmark/core": "^0.7.0",
     "@fontsource/geist-mono": "^5.2.7",
     "@fontsource/geist-sans": "^5.2.5",

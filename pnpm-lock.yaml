@@ -8,6 +8,9 @@ importers:
 
   .:
     dependencies:
+      '@dualmark/cloudflare':
+        specifier: ^0.7.0
+        version: 0.7.0
       '@dualmark/core':
         specifier: ^0.7.0
         version: 0.7.0
@@ -537,6 +540,10 @@ packages:
 
   '@date-fns/tz@1.2.0':
     resolution: {integrity: sha512-LBrd7MiJZ9McsOgxqWX7AaxrDjcFVjWH/tIKJd7pnR7McaslGYOP1QmmiBXdJH/H/yLCT+rcQ7FaPBUxRGUtrg==}
+
+  '@dualmark/cloudflare@0.7.0':
+    resolution: {integrity: sha512-tjmox/u78riQHAH6oNYwWHXLIcsIJmZ7XztbOHUgVNssIHYQZ/+i1OTp9eu7l/e1MROXYxEhx555bL4OfDmPNg==}
+    engines: {node: '>=22.12.0'}
 
   '@dualmark/core@0.7.0':
     resolution: {integrity: sha512-1mm6fXlfB8aUPhNqT55NyMH7IDeQhkW/nD2cCfP2urMpkV+hQCVl9f8vOVDBJefvaNwT05TmVJXTv5jMGSLnBw==}
@@ -4023,6 +4030,10 @@ snapshots:
       '@jridgewell/trace-mapping': 0.3.9
 
   '@date-fns/tz@1.2.0': {}
+
+  '@dualmark/cloudflare@0.7.0':
+    dependencies:
+      '@dualmark/core': 0.7.0
 
   '@dualmark/core@0.7.0': {}
 
