@@ -1,5 +1,9 @@
 import { redirect } from "@tanstack/react-router";
 import { createMiddleware, createStart } from "@tanstack/react-start";
+import {
+  getDualmarkResponse,
+  withDualmarkAlternateLink,
+} from "@/lib/dualmark";
 
 // Middleware to redirect to the official site
 const redirectMiddleware = createMiddleware().server(({ next, request }) => {
@@ -35,6 +39,28 @@ const redirectMiddleware = createMiddleware().server(({ next, request }) => {
   return next();
 });
 
+const dualmarkMiddleware = createMiddleware().server(
+  async ({ context, next, pathname, request }) => {
+    const dualmarkResponse = getDualmarkResponse(request);
+
+    if (dualmarkResponse) {
+      return {
+        context,
+        pathname,
+        request,
+        response: dualmarkResponse,
+      };
+    }
+
+    const result = await next();
+
+    return {
+      ...result,
+      response: withDualmarkAlternateLink(request, result.response),
+    };
+  }
+);
+
 export const startInstance = createStart(() => ({
-  requestMiddleware: [redirectMiddleware],
+  requestMiddleware: [dualmarkMiddleware, redirectMiddleware],
 }));
