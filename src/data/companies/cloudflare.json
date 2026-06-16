@@ -80,7 +80,8 @@
         },
         { "product": "Workers Builds", "handles": ["@yomnashousha"] },
         { "product": "Workers for Platforms", "handles": ["@dinasaur_404"] },
-        { "product": "Wrangler CLI", "handles": ["@MattieTK"] }
+        { "product": "Wrangler CLI", "handles": ["@MattieTK"] },
+        { "product": "Flagship", "handles": ["@roerohan"] }
       ]
     },
     {
