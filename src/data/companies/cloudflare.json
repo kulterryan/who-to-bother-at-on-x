@@ -23,7 +23,6 @@
       "name": "Developer Platform",
       "contacts": [
         { "product": "VP of Developers & AI", "handles": ["@ritakozlov_"] },
-        { "product": "VP of Storage & Databases", "handles": ["@elithrar"] },
         {
           "product": "Dashboard",
           "handles": [
